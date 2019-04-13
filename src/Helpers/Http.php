@@ -5,6 +5,18 @@ namespace Helldar\Support\Helpers;
 class Http
 {
     /**
+     * Checks whether the string is URL address
+     *
+     * @param string $path
+     *
+     * @return bool
+     */
+    public static function isUrl(string $path): bool
+    {
+        return filter_var($path, FILTER_VALIDATE_URL) !== false;
+    }
+
+    /**
      * Checks whether a file or directory exists on URL.
      *
      * @param string $url
