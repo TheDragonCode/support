@@ -25,12 +25,16 @@ class Http
     /**
      * Get the domain name from the URL.
      *
-     * @param string $url
+     * @param string|null $url
      *
      * @return string
      */
-    public static function baseUrl(string $url): string
+    public static function baseUrl(string $url = null): string
     {
+        if (\is_null($url)) {
+            $url = $_SERVER['HTTP_HOST'];
+        }
+
         return \parse_url($url, PHP_URL_HOST);
     }
 
