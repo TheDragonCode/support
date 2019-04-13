@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests;
+namespace Tests\Helpers;
 
 use Helldar\Support\Helpers\OS;
-use PHPUnit\Framework\TestCase;
+use Tests\TestCase;
 
 class OSTest extends TestCase
 {

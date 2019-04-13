@@ -9,7 +9,7 @@ class OS
 {
     public static function isWindows()
     {
-        return mb_strtolower(PHP_OS_FAMILY) == 'windows';
+        return \mb_strtolower(PHP_OS_FAMILY) == 'windows';
     }
 
     public static function isUnix()
@@ -19,26 +19,26 @@ class OS
 
     public static function isBSD()
     {
-        return mb_strtolower(PHP_OS_FAMILY) == 'bsd';
+        return \mb_strtolower(PHP_OS_FAMILY) == 'bsd';
     }
 
     public static function isDarwin()
     {
-        return mb_strtolower(PHP_OS_FAMILY) == 'darwin';
+        return \mb_strtolower(PHP_OS_FAMILY) == 'darwin';
     }
 
     public static function isSolaris()
     {
-        return mb_strtolower(PHP_OS_FAMILY) == 'solaris';
+        return \mb_strtolower(PHP_OS_FAMILY) == 'solaris';
     }
 
     public static function isLinux()
     {
-        return mb_strtolower(PHP_OS_FAMILY) == 'linux';
+        return \mb_strtolower(PHP_OS_FAMILY) == 'linux';
     }
 
     public static function isUnknown()
     {
-        return mb_strtolower(PHP_OS_FAMILY) == 'unknown';
+        return \mb_strtolower(PHP_OS_FAMILY) == 'unknown';
     }
 }

@@ -1,22 +1,22 @@
 <?php
 
-namespace Tests;
+namespace Tests\Helpers;
 
 use Helldar\Support\Helpers\Digits;
-use PHPUnit\Framework\TestCase;
+use Tests\TestCase;
 
 class DigitsTest extends TestCase
 {
     public function testRoundedBcPow()
     {
-        $this->assertEquals(41000.0, Digits::roundedBcPow(4100, 2));
-        $this->assertEquals(49900.0, Digits::roundedBcPow(4990, 2));
-        $this->assertEquals(98900.0, Digits::roundedBcPow(989, 2));
+        $this->assertEquals(410000, Digits::roundedBcPow(4100, 2));
+        $this->assertEquals(499000, Digits::roundedBcPow(4990, 2));
+        $this->assertEquals(98900, Digits::roundedBcPow(989, 2));
         $this->assertEquals(98900, Digits::roundedBcPow(989, 2));
 
-        $this->assertEquals(61000.0, Digits::roundedBcPow(6100));
-        $this->assertEquals(79900.0, Digits::roundedBcPow(7990));
-        $this->assertEquals(2890.0, Digits::roundedBcPow(289));
+        $this->assertEquals(6100, Digits::roundedBcPow(6100));
+        $this->assertEquals(7990, Digits::roundedBcPow(7990));
+        $this->assertEquals(289, Digits::roundedBcPow(289));
     }
 
     public function testFactorial()

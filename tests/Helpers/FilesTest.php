@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests;
+namespace Tests\Helpers;
 
 use Helldar\Support\Helpers\Files;
-use PHPUnit\Framework\TestCase;
+use Tests\TestCase;
 
 class FilesTest extends TestCase
 {
