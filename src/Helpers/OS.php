@@ -1,6 +1,6 @@
 <?php
 
-namespace Helldar\Support\System;
+namespace Helldar\Support\Helpers;
 
 /**
  * @see https://www.php.net/manual/ru/reserved.constants.php
@@ -17,27 +17,27 @@ class OS
         return !self::isWindows();
     }
 
-    public function isBSD()
+    public static function isBSD()
     {
         return mb_strtolower(PHP_OS_FAMILY) == 'bsd';
     }
 
-    public function isDarwin()
+    public static function isDarwin()
     {
         return mb_strtolower(PHP_OS_FAMILY) == 'darwin';
     }
 
-    public function isSolaris()
+    public static function isSolaris()
     {
         return mb_strtolower(PHP_OS_FAMILY) == 'solaris';
     }
 
-    public function isLinux()
+    public static function isLinux()
     {
         return mb_strtolower(PHP_OS_FAMILY) == 'linux';
     }
 
-    public function isUnknown()
+    public static function isUnknown()
     {
         return mb_strtolower(PHP_OS_FAMILY) == 'unknown';
     }
