@@ -62,6 +62,23 @@ class Arr
     /**
      * Sort an associative array in the order specified by an array of keys.
      *
+     * Example:
+     *
+     *  $arr = ['q' => 1, 'r' => 2, 's' => 5, 'w' => 123];
+     *
+     *  Arr::sortByKeysArray($arr, ['q', 'w', 'e']);
+     *
+     * print_r($arr);
+     *
+     * /*
+     *   Array
+     *   (
+     *     [q] => 1
+     *     [w] => 123
+     *     [r] => 2
+     *     [s] => 5
+     *   )
+     *
      * @see https://gist.github.com/Ellrion/a3145621f936aa9416f4c04987533d8d#file-helper-php Original Source
      *
      * @param array $array
