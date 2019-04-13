@@ -9,9 +9,10 @@ class DigitsTest extends TestCase
 {
     public function testRoundedBcPow()
     {
-        $this->assertEquals(410000, Digits::roundedBcPow(4100, 2));
-        $this->assertEquals(499000, Digits::roundedBcPow(4990, 2));
-        $this->assertEquals(989000, Digits::roundedBcPow(989, 2));
+        $this->assertEquals(41000.0, Digits::roundedBcPow(4100, 2));
+        $this->assertEquals(49900.0, Digits::roundedBcPow(4990, 2));
+        $this->assertEquals(98900.0, Digits::roundedBcPow(989, 2));
+        $this->assertEquals(98900, Digits::roundedBcPow(989, 2));
 
         $this->assertEquals(4100, Digits::roundedBcPow(4100));
         $this->assertEquals(4990, Digits::roundedBcPow(4990));
