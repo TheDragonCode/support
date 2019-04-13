@@ -24,7 +24,7 @@ class Str
      *
      * @return string
      */
-    public function de(string $value)
+    public static function de(string $value)
     {
         return \htmlspecialchars_decode($value, ENT_QUOTES);
     }
@@ -36,7 +36,7 @@ class Str
      *
      * @return string|null
      */
-    public function replaceSpaces(string $value): ?string
+    public static function replaceSpaces(string $value): ?string
     {
         return \preg_replace('!\s+!', ' ', $value);
     }
@@ -50,7 +50,7 @@ class Str
      *
      * @return string
      */
-    public function choice(string $value, array $choice = [], string $additional = '')
+    public static function choice(string $value, array $choice = [], string $additional = '')
     {
         $result = $choice[0] ?? '';
         $num    = (int) $value;
