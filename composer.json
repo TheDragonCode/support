@@ -16,6 +16,7 @@
     ],
     "require": {
         "php": "^7.2",
+        "ext-bcmath": "*",
         "ext-dom": "*",
         "ext-json": "*",
         "ext-mbstring": "*"
