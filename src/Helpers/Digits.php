@@ -41,7 +41,7 @@ class Digits
         $length = \ceil($length / 3) * 3 + 1;
 
         $suffix = self::suffix($length);
-        $value  = self::numberFormat($digit, $length, $precision);
+        $value  = self::roundedBcPow($digit, $length, $precision);
 
         return $value . $suffix;
     }
@@ -55,7 +55,7 @@ class Digits
      *
      * @return float
      */
-    public static function numberFormat(float $digit, int $length = 4, int $precision = 1): float
+    public static function roundedBcPow(float $digit, int $length = 4, int $precision = 1): float
     {
         $divider = (double) \bcpow(10, ($length - 4), 2);
 

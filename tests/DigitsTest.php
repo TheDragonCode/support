@@ -7,15 +7,15 @@ use PHPUnit\Framework\TestCase;
 
 class DigitsTest extends TestCase
 {
-    public function testNumberFormat()
+    public function testRoundedBcPow()
     {
-        $this->assertEquals(4.1, Digits::numberFormat(4100, 2));
-        $this->assertEquals(5.0, Digits::numberFormat(4990, 2));
-        $this->assertEquals(9.9, Digits::numberFormat(989, 2));
+        $this->assertEquals(410000, Digits::roundedBcPow(4100, 2));
+        $this->assertEquals(499000, Digits::roundedBcPow(4990, 2));
+        $this->assertEquals(989000, Digits::roundedBcPow(989, 2));
 
-        $this->assertEquals(4100, Digits::numberFormat(4100));
-        $this->assertEquals(4990, Digits::numberFormat(4990));
-        $this->assertEquals(989, Digits::numberFormat(989));
+        $this->assertEquals(4100, Digits::roundedBcPow(4100));
+        $this->assertEquals(4990, Digits::roundedBcPow(4990));
+        $this->assertEquals(989, Digits::roundedBcPow(989));
     }
 
     public function testFactorial()
