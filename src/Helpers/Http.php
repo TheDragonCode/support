@@ -63,4 +63,22 @@ class Http
 
         return implode('', [$scheme, $user, $pass, $host, $port, $path, $query, $fragment]);
     }
+
+    /**
+     * Retrieving the current subdomain name.
+     *
+     * @param string|null $url
+     *
+     * @return string|null
+     */
+    public static function getSubdomain(string $url = null): ?string
+    {
+        $host = explode('.', self::baseUrl($url));
+
+        if (\sizeof($host) >= 2) {
+            return \reset($host);
+        }
+
+        return null;
+    }
 }
