@@ -2,4 +2,3 @@
 vendor/
 *.cache
 .gitignore
-build/
