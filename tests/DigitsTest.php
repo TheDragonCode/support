@@ -14,9 +14,9 @@ class DigitsTest extends TestCase
         $this->assertEquals(98900.0, Digits::roundedBcPow(989, 2));
         $this->assertEquals(98900, Digits::roundedBcPow(989, 2));
 
-        $this->assertEquals(4100, Digits::roundedBcPow(4100));
-        $this->assertEquals(4990, Digits::roundedBcPow(4990));
-        $this->assertEquals(989, Digits::roundedBcPow(989));
+        $this->assertEquals(61000.0, Digits::roundedBcPow(6100));
+        $this->assertEquals(79900.0, Digits::roundedBcPow(7990));
+        $this->assertEquals(2890.0, Digits::roundedBcPow(289));
     }
 
     public function testFactorial()
