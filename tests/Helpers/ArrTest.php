@@ -1,8 +1,9 @@
 <?php
 
-namespace Tests;
+namespace Tests\Helpers;
 
 use Helldar\Support\Helpers\Arr;
+use Tests\TestCase;
 
 class ArrTest extends TestCase
 {
