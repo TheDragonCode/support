@@ -48,8 +48,8 @@ class HttpTest extends TestCase
 
         $default = 'http://example.com/foo';
 
-        $this->assertEquals($default, Images::imageOrDefault($url_1, $default));
-        $this->assertEquals($default, Images::imageOrDefault($url_2, $default));
-        $this->assertEquals(null, Images::imageOrDefault($url_2));
+        $this->assertEquals($default, Http::imageOrDefault($url_1, $default));
+        $this->assertEquals($default, Http::imageOrDefault($url_2, $default));
+        $this->assertEquals(null, Http::imageOrDefault($url_2));
     }
 }
