@@ -16,21 +16,28 @@ class HttpTest extends TestCase
 
     public function testExists()
     {
-
+        $this->assertFalse(Http::exists('http://foo.bar'));
+        $this->assertTrue(Http::exists('https://www.google.com'));
     }
 
     public function testIsUrl()
     {
-
+        $this->assertTrue(Http::isUrl('http://example.com'));
+        $this->assertFalse(Http::isUrl('example.com'));
     }
 
     public function testBuildUrl()
     {
+        $url = 'https://example.com:username@password/foo/bar/baz?qwe=rty';
 
+        $parsed = \parse_url($url);
+
+        $this->assertEquals($url, Http::buildUrl($parsed));
     }
 
     public function testBaseUrl()
     {
-
+        $this->assertEquals('example.com', Http::baseUrl('http://example.com'));
+        $this->assertEquals('foo.example.com', Http::baseUrl('http://foo.example.com'));
     }
 }
