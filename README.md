@@ -16,7 +16,7 @@ Support package is a collection of helpers and tools for projects.
 
 ## Contribution
 
-Any ideas are welcome. Feel free to submit any issues or pull requests, please check the contribution guidelines.
+Any ideas are welcome. Feel free to submit any issues or pull requests, please check the [contribution guidelines](CONTRIBUTING.md).
 
 
 ## License
