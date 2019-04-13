@@ -40,4 +40,16 @@ class HttpTest extends TestCase
         $this->assertEquals('example.com', Http::baseUrl('http://example.com'));
         $this->assertEquals('foo.example.com', Http::baseUrl('http://foo.example.com'));
     }
+
+    public function testImageOrDefault()
+    {
+        $url_1 = 'http://example.com/foo/bar';
+        $url_2 = 'http://example.com/foo/bar';
+
+        $default = 'http://example.com/foo';
+
+        $this->assertEquals($default, Images::imageOrDefault($url_1, $default));
+        $this->assertEquals($default, Images::imageOrDefault($url_2, $default));
+        $this->assertEquals(null, Images::imageOrDefault($url_2));
+    }
 }
