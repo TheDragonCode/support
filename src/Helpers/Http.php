@@ -28,7 +28,10 @@ class Http
         try {
             $headers = \get_headers($url);
 
-            return \stripos(\reset($headers), '200 OK') !== false;
+            $key   = \array_search('HTTP/', $headers);
+            $value = $headers[$key] ?? null;
+
+            return \stripos($value, '200 OK') !== false;
         } catch (\Exception $exception) {
             return false;
         }
