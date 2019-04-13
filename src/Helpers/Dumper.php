@@ -13,6 +13,7 @@ class Dumper
      *
      * @param $query
      * @param bool $is_short
+     * @param bool $is_return
      *
      * @return array|string
      */
