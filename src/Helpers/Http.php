@@ -91,7 +91,7 @@ class Http
     {
         $host = explode('.', self::baseUrl($url));
 
-        if (\sizeof($host) >= 2) {
+        if (\sizeof($host) > 2) {
             return \reset($host);
         }
 
