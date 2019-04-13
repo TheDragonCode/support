@@ -21,4 +21,16 @@ class Http
             return false;
         }
     }
+
+    /**
+     * Get the domain name from the URL.
+     *
+     * @param string $url
+     *
+     * @return string
+     */
+    public static function baseUrl(string $url): string
+    {
+        return \parse_url($url, PHP_URL_HOST);
+    }
 }
