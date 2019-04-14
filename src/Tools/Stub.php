@@ -2,7 +2,7 @@
 
 namespace Helldar\Support\Tools;
 
-use Helldar\Support\Exceptions\StubNotExists;
+use Helldar\Support\Exceptions\UnknownStubFileException;
 
 class Stub
 {
@@ -14,7 +14,7 @@ class Stub
             return \file_get_contents($path);
         }
 
-        throw new StubNotExists($filename);
+        throw new UnknownStubFileException($filename);
     }
 
     public static function replace(string $filename, array $replace): string
