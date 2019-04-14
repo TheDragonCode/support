@@ -6,7 +6,7 @@ class StubNotExists extends \InvalidArgumentException
 {
     public function __construct($message = '')
     {
-        $message = \sprintf('The stub "%s" is not exists!', $message);
+        $message = \sprintf('Unknown stub file: "%s"', $message);
 
         parent::__construct($message, 400);
     }
