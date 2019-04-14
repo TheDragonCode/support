@@ -6,7 +6,7 @@ use Helldar\Support\Exceptions\StubNotExists;
 
 class Stub
 {
-    const ARRAY_STUB = 'array.stub';
+    const CONFIG_FILE = 'config.stub';
 
     public static function get(string $filename): string
     {

@@ -104,7 +104,7 @@ class Arr
             '{{slot}}' => $value,
         ];
 
-        $content = Stub::replace(Stub::ARRAY_STUB, $replace);
+        $content = Stub::replace(Stub::CONFIG_FILE, $replace);
 
         Files::store($path, $content);
     }
