@@ -96,7 +96,7 @@ class Arr
 
     public static function store(array $array, string $path)
     {
-        $stub  = \file_get_contents(__DIR__ . '/../stubs/array');
+        $stub  = \file_get_contents(__DIR__ . '/../stubs/array.stub');
         $value = \var_export($array, true);
 
         $content = \str_replace('{{slot}}', $value, $stub);
