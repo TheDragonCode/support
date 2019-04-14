@@ -4,7 +4,7 @@ namespace Helldar\Support\Helpers;
 
 use Helldar\Support\Exceptions\InvalidNumberException;
 
-class Digits
+class Digit
 {
     /**
      * Calculating the factorial of a number.

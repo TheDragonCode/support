@@ -2,7 +2,7 @@
 
 namespace Tests\Helpers;
 
-use Helldar\Support\Helpers\Files;
+use Helldar\Support\Helpers\File;
 use Tests\TestCase;
 
 class FilesTest extends TestCase
@@ -12,7 +12,7 @@ class FilesTest extends TestCase
         $path    = './build/foo/bar/baz/qwe.json';
         $content = \json_encode(['foo', 'bar', 'baz']);
 
-        Files::store($path, $content);
+        File::store($path, $content);
 
         $this->assertTrue(\file_exists($path));
         $this->assertJsonStringEqualsJsonFile($path, $content);
@@ -22,7 +22,7 @@ class FilesTest extends TestCase
     {
         $path = './build/foo/bar/baz';
 
-        $result = Files::makeDirectory($path);
+        $result = File::makeDirectory($path);
 
         $this->assertTrue($result);
         $this->assertTrue(\is_dir($path));

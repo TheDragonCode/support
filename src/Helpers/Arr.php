@@ -106,6 +106,6 @@ class Arr
 
         $content = Stub::replace(Stub::CONFIG_FILE, $replace);
 
-        Files::store($path, $content);
+        File::store($path, $content);
     }
 }

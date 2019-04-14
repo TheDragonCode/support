@@ -2,7 +2,7 @@
 
 namespace Helldar\Support\Helpers;
 
-class Files
+class File
 {
     public static function store(string $path, string $content)
     {
