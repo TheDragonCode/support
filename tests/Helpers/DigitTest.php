@@ -5,7 +5,7 @@ namespace Tests\Helpers;
 use Helldar\Support\Helpers\Digit;
 use Tests\TestCase;
 
-class DigitsTest extends TestCase
+class DigitTest extends TestCase
 {
     public function testRoundedBcPow()
     {

@@ -5,7 +5,7 @@ namespace Tests\Helpers;
 use Helldar\Support\Helpers\File;
 use Tests\TestCase;
 
-class FilesTest extends TestCase
+class FileTest extends TestCase
 {
     public function testStore()
     {
