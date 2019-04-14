@@ -2,6 +2,8 @@
 
 namespace Helldar\Support\Helpers;
 
+use Helldar\Support\Tools\Stub;
+
 class Arr
 {
     /**
@@ -96,10 +98,13 @@ class Arr
 
     public static function store(array $array, string $path)
     {
-        $stub  = \file_get_contents(__DIR__ . '/../stubs/array.stub');
         $value = \var_export($array, true);
 
-        $content = \str_replace('{{slot}}', $value, $stub);
+        $replace = [
+            '{{slot}}' => $value,
+        ];
+
+        $content = Stub::replace(Stub::ARRAY_STUB, $replace);
 
         Files::store($path, $content);
     }
