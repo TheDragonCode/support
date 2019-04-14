@@ -3,7 +3,7 @@
     "description": "Support package is a collection of helpers and tools for projects.",
     "type": "library",
     "license": "MIT",
-    "keywords": ["support", "laravel"],
+    "keywords": ["support", "laravel", "symfony", "yii", "yii2", "framework"],
     "support": {
         "issues": "https://github.com/andrey-helldar/support/issues",
         "source": "https://github.com/andrey-helldar/support"
