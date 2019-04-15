@@ -49,7 +49,7 @@ class Http
     public static function baseUrl(string $url = null): string
     {
         if (\is_null($url)) {
-            return $_SERVER['HTTP_HOST'];
+            return $_SERVER['HTTP_HOST'] ?? 'localhost';
         }
 
         if (!self::isUrl($url)) {
