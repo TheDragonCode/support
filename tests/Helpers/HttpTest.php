@@ -9,9 +9,9 @@ class HttpTest extends TestCase
 {
     public function testGetSubdomain()
     {
-        $this->assertEquals('foo', Http::getSubdomain('https://foo.bar.example.com/foo/bar'));
-        $this->assertEquals('foo', Http::getSubdomain('https://foo.example.com/foo/bar'));
-        $this->assertEquals('', Http::getSubdomain('https://example.com/foo/bar'));
+        $this->assertEquals('foo', Http::subdomain('https://foo.bar.example.com/foo/bar'));
+        $this->assertEquals('foo', Http::subdomain('https://foo.example.com/foo/bar'));
+        $this->assertEquals('', Http::subdomain('https://example.com/foo/bar'));
     }
 
     public function testExists()
