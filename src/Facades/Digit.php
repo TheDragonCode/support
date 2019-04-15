@@ -26,22 +26,22 @@ class Digit
      * Converts a number into a short version.
      * eg: 1000 >> 1K
      *
-     * @param float $digit
+     * @param float $number
      * @param int $precision
      *
      * @return string
      */
-    public static function shortNumber(float $digit, int $precision = 1): string
+    public static function shortNumber(float $number, int $precision = 1): string
     {
-        if (!\is_numeric($digit)) {
-            throw new InvalidNumberException($digit);
+        if (!\is_numeric($number)) {
+            throw new InvalidNumberException($number);
         }
 
-        $length = \strlen((string) ((int) $digit));
+        $length = \strlen((string) ((int) $number));
         $length = \ceil($length / 3) * 3 + 1;
 
         $suffix = self::suffix($length);
-        $value  = self::roundedBcPow($digit, $length, $precision);
+        $value  = self::roundedBcPow($number, $length, $precision);
 
         return $value . $suffix;
     }
