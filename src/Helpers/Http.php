@@ -2,6 +2,8 @@
 
 namespace Helldar\Support\Helpers;
 
+use Helldar\Support\Exceptions\NotValidUrlException;
+
 class Http
 {
     /**
@@ -47,7 +49,11 @@ class Http
     public static function baseUrl(string $url = null): string
     {
         if (\is_null($url)) {
-            $url = $_SERVER['HTTP_HOST'];
+            return $_SERVER['HTTP_HOST'];
+        }
+
+        if (!self::isUrl($url)) {
+            throw new NotValidUrlException($url);
         }
 
         return \parse_url($url, PHP_URL_HOST);
