@@ -1,6 +1,6 @@
 <?php
 
-namespace Helldar\Support\Helpers;
+namespace Helldar\Support\Facades;
 
 use Illuminate\Database\Eloquent\Builder;
 

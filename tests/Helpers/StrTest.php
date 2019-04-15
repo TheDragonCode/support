@@ -2,7 +2,7 @@
 
 namespace Tests\Helpers;
 
-use Helldar\Support\Helpers\Str;
+use Helldar\Support\Facades\Str;
 use Tests\TestCase;
 
 class StrTest extends TestCase

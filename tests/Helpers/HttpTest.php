@@ -2,7 +2,7 @@
 
 namespace Tests\Helpers;
 
-use Helldar\Support\Helpers\Http;
+use Helldar\Support\Facades\Http;
 use Tests\TestCase;
 
 class HttpTest extends TestCase

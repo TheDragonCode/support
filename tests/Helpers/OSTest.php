@@ -2,7 +2,7 @@
 
 namespace Tests\Helpers;
 
-use Helldar\Support\Helpers\OS;
+use Helldar\Support\Facades\OS;
 use Tests\TestCase;
 
 class OSTest extends TestCase

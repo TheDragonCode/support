@@ -2,7 +2,7 @@
 
 namespace Tests\Helpers;
 
-use Helldar\Support\Helpers\Arr;
+use Helldar\Support\Facades\Arr;
 use Tests\TestCase;
 
 class ArrTest extends TestCase

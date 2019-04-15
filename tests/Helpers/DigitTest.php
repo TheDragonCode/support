@@ -2,7 +2,7 @@
 
 namespace Tests\Helpers;
 
-use Helldar\Support\Helpers\Digit;
+use Helldar\Support\Facades\Digit;
 use Tests\TestCase;
 
 class DigitTest extends TestCase

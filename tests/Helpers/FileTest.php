@@ -2,7 +2,7 @@
 
 namespace Tests\Helpers;
 
-use Helldar\Support\Helpers\File;
+use Helldar\Support\Facades\File;
 use Tests\TestCase;
 
 class FileTest extends TestCase

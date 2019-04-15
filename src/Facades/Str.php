@@ -1,6 +1,6 @@
 <?php
 
-namespace Helldar\Support\Helpers;
+namespace Helldar\Support\Facades;
 
 class Str
 {
