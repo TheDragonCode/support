@@ -20,12 +20,16 @@ class Str
     /**
      * Convert special HTML entities back to characters.
      *
-     * @param string $value
+     * @param string|null $value
      *
-     * @return string
+     * @return string|null
      */
-    public static function de(string $value)
+    public static function de(string $value = null): ?string
     {
+        if (\is_null($value)) {
+            return null;
+        }
+
         return \htmlspecialchars_decode($value, ENT_QUOTES);
     }
 
