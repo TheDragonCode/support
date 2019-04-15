@@ -96,7 +96,7 @@ class Http
      *
      * @return string|null
      */
-    public static function getSubdomain(string $url = null): ?string
+    public static function subdomain(string $url = null): ?string
     {
         $host = explode('.', self::baseUrl($url));
 
