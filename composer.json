@@ -31,7 +31,13 @@
     "autoload": {
         "psr-4": {
             "Helldar\\Support\\": "src/"
-        }
+        },
+        "files": [
+            "src/helpers/digit.php",
+            "src/helpers/dumper.php",
+            "src/helpers/http.php",
+            "src/helpers/strings.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
