@@ -3,14 +3,13 @@ language: php
 sudo: false
 
 php:
-    - 7.0
     - 7.1
     - 7.2
     - 7.3
 
 before_script:
     - travis_retry composer self-update
-    - travis_retry composer install --prefer-source --no-interaction
+    - travis_retry composer update --prefer-source --no-interaction --no-suggest
 
 script:
     - mkdir -p build/logs
