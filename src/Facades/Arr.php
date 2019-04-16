@@ -58,7 +58,7 @@ class Arr
             \array_push($array, $values);
         }
 
-        return \array_unique($array);
+        return \array_unique(\array_values($array));
     }
 
     /**
