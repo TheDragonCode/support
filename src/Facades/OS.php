@@ -7,38 +7,45 @@ namespace Helldar\Support\Facades;
  */
 class OS
 {
-    public static function isWindows()
+    public static function isWindows(): bool
     {
-        return \mb_strtolower(PHP_OS_FAMILY) == 'windows';
+        return self::family() == 'windows';
     }
 
-    public static function isUnix()
+    public static function isUnix(): bool
     {
         return !self::isWindows();
     }
 
-    public static function isBSD()
+    public static function isBSD(): bool
     {
-        return \mb_strtolower(PHP_OS_FAMILY) == 'bsd';
+        return self::family() == 'bsd';
     }
 
-    public static function isDarwin()
+    public static function isDarwin(): bool
     {
-        return \mb_strtolower(PHP_OS_FAMILY) == 'darwin';
+        return self::family() == 'darwin';
     }
 
-    public static function isSolaris()
+    public static function isSolaris(): bool
     {
-        return \mb_strtolower(PHP_OS_FAMILY) == 'solaris';
+        return self::family() == 'solaris';
     }
 
-    public static function isLinux()
+    public static function isLinux(): bool
     {
-        return \mb_strtolower(PHP_OS_FAMILY) == 'linux';
+        return self::family() == 'linux';
     }
 
-    public static function isUnknown()
+    public static function isUnknown(): bool
     {
-        return \mb_strtolower(PHP_OS_FAMILY) == 'unknown';
+        return self::family() == 'unknown';
+    }
+
+    public static function family(bool $is_lower = true): string
+    {
+        $family = PHP_MINOR_VERSION >= 2 ? PHP_OS_FAMILY : PHP_OS;
+
+        return $is_lower ? \mb_strtolower($family) : $family;
     }
 }
