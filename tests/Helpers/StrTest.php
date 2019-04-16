@@ -60,4 +60,12 @@ class StrTest extends TestCase
 
         $this->assertEquals('foobar', Str::finish('foo', 'bar'));
     }
+
+    public function testEndsWith()
+    {
+        $this->assertTrue(Str::endsWith('foo bar', 'bar'));
+        $this->assertTrue(Str::endsWith('foo bar', ['bar', 'baz']));
+
+        $this->assertFalse(Str::endsWith('foo bar', 'foo'));
+    }
 }

@@ -75,3 +75,18 @@ if (!function_exists('str_finish')) {
         return Str::finish($value, $cap);
     }
 }
+
+if (!function_exists('str_ends_with')) {
+    /**
+     * Determine if a given string ends with a given substring.
+     *
+     * @param string $haystack
+     * @param string|array $needles
+     *
+     * @return bool
+     */
+    function str_ends_with($haystack, $needles): bool
+    {
+        return Str::endsWith($haystack, $needles);
+    }
+}
