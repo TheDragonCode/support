@@ -72,4 +72,19 @@ class Str
 
         return \implode(' ', [\trim($result), \trim($additional)]);
     }
+
+    /**
+     * Cap a string with a single instance of a given value.
+     *
+     * @param string $value
+     * @param string $cap
+     *
+     * @return string
+     */
+    public static function finish(string $value, string $cap = '/'): string
+    {
+        $quoted = \preg_quote($cap, '/');
+
+        return \preg_replace('/(?:' . $quoted . ')+$/u', '', $value) . $cap;
+    }
 }

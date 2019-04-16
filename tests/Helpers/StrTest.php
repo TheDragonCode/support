@@ -7,17 +7,6 @@ use Tests\TestCase;
 
 class StrTest extends TestCase
 {
-    public function testChoice()
-    {
-        $this->assertEquals('user', Str::choice(1, ['user', 'users', 'users']));
-        $this->assertEquals('users', Str::choice(5, ['user', 'users', 'users']));
-        $this->assertEquals('users', Str::choice(20, ['user', 'users', 'users']));
-
-        $this->assertEquals('user of this', Str::choice(1, ['user', 'users', 'users'], 'of this'));
-        $this->assertEquals('users of this', Str::choice(5, ['user', 'users', 'users'], 'of this'));
-        $this->assertEquals('users of this', Str::choice(20, ['user', 'users', 'users'], 'of this'));
-    }
-
     public function testE()
     {
         $this->assertEquals('foo&quot;bar', Str::e('foo"bar'));
@@ -42,6 +31,17 @@ class StrTest extends TestCase
         $this->assertEquals('A#symbol^and%a$few@special!chars~`', Str::de('A#symbol^and%a$few@special!chars~`'));
     }
 
+    public function testChoice()
+    {
+        $this->assertEquals('user', Str::choice(1, ['user', 'users', 'users']));
+        $this->assertEquals('users', Str::choice(5, ['user', 'users', 'users']));
+        $this->assertEquals('users', Str::choice(20, ['user', 'users', 'users']));
+
+        $this->assertEquals('user of this', Str::choice(1, ['user', 'users', 'users'], 'of this'));
+        $this->assertEquals('users of this', Str::choice(5, ['user', 'users', 'users'], 'of this'));
+        $this->assertEquals('users of this', Str::choice(20, ['user', 'users', 'users'], 'of this'));
+    }
+
     public function testReplaceSpaces()
     {
         $this->assertEquals('foo bar', Str::replaceSpaces('foo bar'));
@@ -51,5 +51,13 @@ class StrTest extends TestCase
         $this->assertEquals('foo bar baz', Str::replaceSpaces('foo bar  baz'));
         $this->assertEquals('foo bar baz', Str::replaceSpaces('foo  bar     baz'));
         $this->assertEquals('foo bar baz', Str::replaceSpaces('foo    bar baz'));
+    }
+
+    public function testFinish()
+    {
+        $this->assertEquals('foo/', Str::finish('foo', '/'));
+        $this->assertEquals('foo/', Str::finish('foo'));
+
+        $this->assertEquals('foobar', Str::finish('foo', 'bar'));
     }
 }
