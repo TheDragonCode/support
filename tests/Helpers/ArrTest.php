@@ -34,6 +34,16 @@ class ArrTest extends TestCase
         $this->assertEquals($array, $loaded);
     }
 
+    public function testStoreAsJson()
+    {
+        $array = ['q' => 1, 'r' => 2, 's' => 5, 'w' => 123];
+        $path  = './build/arr.json';
+
+        Arr::store($array, $path, true);
+
+        $this->assertJsonStringEqualsJsonFile($path, \json_encode($array));
+    }
+
     public function testSizeOfMaxValue()
     {
         $array = ['foo', 'bar', 'foobar', 'baz'];

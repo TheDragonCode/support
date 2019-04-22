@@ -99,9 +99,9 @@ class Arr
     public static function store(array $array, string $path, bool $is_json = false)
     {
         if ($is_json) {
-            self::storeAsArray($array, $path);
-        } else {
             self::storeAsJson($array, $path);
+        } else {
+            self::storeAsArray($array, $path);
         }
     }
 
