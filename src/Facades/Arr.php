@@ -96,7 +96,16 @@ class Arr
         return $array;
     }
 
-    public static function store(array $array, string $path)
+    public static function store(array $array, string $path, bool $is_json = false)
+    {
+        if ($is_json) {
+            self::storeAsArray($array, $path);
+        } else {
+            self::storeAsJson($array, $path);
+        }
+    }
+
+    public static function storeAsArray(array $array, string $path)
     {
         $value = \var_export($array, true);
 
@@ -105,6 +114,17 @@ class Arr
         ];
 
         $content = Stub::replace(Stub::CONFIG_FILE, $replace);
+
+        File::store($path, $content);
+    }
+
+    public static function storeAsJson(array $array, string $path)
+    {
+        $replace = $replace = [
+            '{{slot}}' => \json_encode($array),
+        ];
+
+        $content = Stub::replace(Stub::LANG_JSON, $replace);
 
         File::store($path, $content);
     }
