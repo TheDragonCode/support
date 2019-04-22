@@ -96,17 +96,21 @@ class Arr
         return $array;
     }
 
-    public static function store(array $array, string $path, bool $is_json = false)
+    public static function store(array $array, string $path, bool $is_json = false, bool $sort_array_keys = false)
     {
         if ($is_json) {
-            self::storeAsJson($array, $path);
+            self::storeAsJson($array, $path, $sort_array_keys);
         } else {
-            self::storeAsArray($array, $path);
+            self::storeAsArray($array, $path, $sort_array_keys);
         }
     }
 
-    public static function storeAsArray(array $array, string $path)
+    public static function storeAsArray(array $array, string $path, bool $sort_array_keys = false)
     {
+        if ($sort_array_keys) {
+            \ksort($array);
+        }
+
         $value = \var_export($array, true);
 
         $replace = [
@@ -118,8 +122,12 @@ class Arr
         File::store($path, $content);
     }
 
-    public static function storeAsJson(array $array, string $path)
+    public static function storeAsJson(array $array, string $path, bool $sort_array_keys = false)
     {
+        if ($sort_array_keys) {
+            \ksort($array);
+        }
+
         $replace = $replace = [
             '{{slot}}' => \json_encode($array),
         ];

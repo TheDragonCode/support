@@ -21,7 +21,7 @@ class ArrTest extends TestCase
         $this->assertEquals($expected, $array);
     }
 
-    public function testStore()
+    public function testStoreAsArray()
     {
         $array = ['q' => 1, 'r' => 2, 's' => 5, 'w' => 123];
         $path  = './build/arr.php';
@@ -40,6 +40,29 @@ class ArrTest extends TestCase
         $path  = './build/arr.json';
 
         Arr::store($array, $path, true);
+
+        $this->assertJsonStringEqualsJsonFile($path, \json_encode($array));
+    }
+
+    public function testStoreAsSortedArray()
+    {
+        $array = ['w' => 123, 'q' => 1, 's' => 5, 'r' => 2];
+        $path  = './build/arr_sorted.php';
+
+        Arr::storeAsArray($array, $path, true);
+
+        $loaded = require $path;
+
+        $this->assertIsArray($loaded);
+        $this->assertEquals($array, $loaded);
+    }
+
+    public function testStoreAsSortedJson()
+    {
+        $array = ['w' => 123, 'q' => 1, 's' => 5, 'r' => 2];
+        $path  = './build/arr_sorted.json';
+
+        Arr::storeAsJson($array, $path, true);
 
         $this->assertJsonStringEqualsJsonFile($path, \json_encode($array));
     }
