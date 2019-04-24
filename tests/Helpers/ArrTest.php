@@ -106,4 +106,36 @@ class ArrTest extends TestCase
 
         $this->assertEquals($expected, $renamed);
     }
+
+    public function testMerge()
+    {
+        $arr1 = [
+            'foo' => 'Bar',
+            '0'   => 'Foo',
+            '2'   => 'Bar',
+            '400' => 'Baz',
+            600   => ['foo' => 'Foo', 'bar' => 'Bar'],
+        ];
+
+        $arr2 = [
+            '2'   => 'Bar bar',
+            '500' => 'Foo bar',
+            '600' => ['baz' => 'Baz'],
+            '700' => ['aaa' => 'AAA'],
+        ];
+
+        $expected = [
+            'foo' => 'Bar',
+            0     => 'Foo',
+            2     => 'Bar bar',
+            400   => 'Baz',
+            500   => 'Foo bar',
+            600   => ['foo' => 'Foo', 'bar' => 'Bar', 'baz' => 'Baz'],
+            700   => ['aaa' => 'AAA'],
+        ];
+
+        $result = Arr::merge($arr1, $arr2);
+
+        $this->assertEquals($expected, $result);
+    }
 }

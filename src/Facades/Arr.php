@@ -96,6 +96,32 @@ class Arr
         return $array;
     }
 
+    /**
+     * Merge one or more arrays recursively.
+     *
+     * Don't forget that numeric keys NOT will be renumbered!
+     *
+     * @param mixed ...$arrays
+     *
+     * @return array
+     */
+    public static function merge(...$arrays): array
+    {
+        $result = [];
+
+        \array_map(function ($array) use (&$result) {
+            \array_map(function ($key, $value) use (&$result) {
+                if (\is_array($value)) {
+                    $value = self::merge($result[$key] ?? [], $value);
+                }
+
+                $result[$key] = $value;
+            }, \array_keys($array), \array_values($array));
+        }, $arrays);
+
+        return $result;
+    }
+
     public static function store(array $array, string $path, bool $is_json = false, bool $sort_array_keys = false)
     {
         if ($is_json) {
