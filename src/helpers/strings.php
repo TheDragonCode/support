@@ -2,21 +2,6 @@
 
 use Helldar\Support\Facades\Str;
 
-if (!function_exists('e')) {
-    /**
-     * Escape HTML special characters in a string.
-     *
-     * @param string $value
-     * @param bool $double_encode
-     *
-     * @return string
-     */
-    function e(string $value, bool $double_encode = true): string
-    {
-        return Str::e($value, $double_encode);
-    }
-}
-
 if (!function_exists('de')) {
     /**
      * Convert special HTML entities back to characters.
