@@ -43,13 +43,14 @@ class Http
      * Get the domain name from the URL.
      *
      * @param string|null $url
+     * @param string|null $default
      *
      * @return string
      */
-    public static function baseUrl(string $url = null): string
+    public static function baseUrl(string $url = null, string $default = null): string
     {
         if (\is_null($url)) {
-            return $_SERVER['HTTP_HOST'] ?? 'localhost';
+            return $default ?: $_SERVER['HTTP_HOST'] ?? 'localhost';
         }
 
         if (!self::isUrl($url)) {
@@ -93,12 +94,13 @@ class Http
      * Retrieving the current subdomain name.
      *
      * @param string|null $url
+     * @param string|null $default
      *
      * @return string|null
      */
-    public static function subdomain(string $url = null): ?string
+    public static function subdomain(string $url = null, string $default = null): ?string
     {
-        $host = explode('.', self::baseUrl($url));
+        $host = explode('.', self::baseUrl($url, $default));
 
         if (\sizeof($host) > 2) {
             return \reset($host);
