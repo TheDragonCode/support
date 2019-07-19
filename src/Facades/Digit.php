@@ -63,6 +63,35 @@ class Digit
     }
 
     /**
+     * Create short unique identifier from number.
+     * Actually using in short URL.
+     *
+     * @param int $number
+     * @param string $chars
+     *
+     * @return string
+     */
+    public static function shortString(int $number, string $chars = 'abcdefghijklmnopqrstuvwxyz'): string
+    {
+        $length = strlen($chars);
+        $mod    = $number % $length;
+
+        if ($number - $mod == 0) {
+            return \substr($chars, $number, 1);
+        }
+
+        $result = '';
+
+        while ($mod > 0 || $number > 0) {
+            $result = \substr($chars, $mod, 1) . $result;
+            $number = ($number - $mod) / $length;
+            $mod    = $number % $length;
+        }
+
+        return $result;
+    }
+
+    /**
      * Getting the suffix for abbreviated numbers.
      *
      * @param int $length
