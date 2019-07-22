@@ -13,6 +13,7 @@ class ModelHelper
      * @param $model
      *
      * @throws \Helldar\Support\Exceptions\Laravel\IncorrectModelException
+     *
      * @return string
      */
     public function table($model): string
@@ -26,6 +27,7 @@ class ModelHelper
      * @param $model
      *
      * @throws \Helldar\Support\Exceptions\Laravel\IncorrectModelException
+     *
      * @return string
      */
     public function primaryKey($model): string
@@ -48,6 +50,7 @@ class ModelHelper
      * @param $model
      *
      * @throws \Helldar\Support\Exceptions\Laravel\IncorrectModelException
+     *
      * @return array
      */
     public function fillable($model): array
@@ -62,6 +65,7 @@ class ModelHelper
      * @param \Illuminate\Http\Request $request
      *
      * @throws \Helldar\Support\Exceptions\Laravel\IncorrectModelException
+     *
      * @return array
      */
     public function onlyFillable($model, $request): array
@@ -76,6 +80,7 @@ class ModelHelper
      * @param mixed ...$except
      *
      * @throws \Helldar\Support\Exceptions\Laravel\IncorrectModelException
+     *
      * @return array
      */
     public function exceptFillable($model, ...$except): array
@@ -87,6 +92,7 @@ class ModelHelper
      * @param string|\Illuminate\Database\Eloquent\Model $model
      *
      * @throws \Helldar\Support\Exceptions\Laravel\IncorrectModelException
+     *
      * @return \Illuminate\Database\Eloquent\Model
      */
     public function model($model)
