@@ -4,7 +4,7 @@ namespace Helldar\Support\Exceptions;
 
 use Helldar\Support\Facades\Str;
 
-class UnknownStubFileException extends \InvalidArgumentException
+class UnknownStubFileException extends \Exception
 {
     public function __construct($filename = '')
     {

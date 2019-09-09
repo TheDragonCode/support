@@ -4,7 +4,7 @@ namespace Helldar\Support\Exceptions;
 
 use Helldar\Support\Facades\Str;
 
-class NotValidUrlException extends \InvalidArgumentException
+class NotValidUrlException extends \Exception
 {
     public function __construct($url = '')
     {

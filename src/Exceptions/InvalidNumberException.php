@@ -4,7 +4,7 @@ namespace Helldar\Support\Exceptions;
 
 use Helldar\Support\Facades\Str;
 
-class InvalidNumberException extends \InvalidArgumentException
+class InvalidNumberException extends \Exception
 {
     public function __construct($message = '')
     {
