@@ -14,7 +14,7 @@ class Str
      *
      * @return string
      */
-    public static function e($value = null, bool $double_encode = true): string
+    public static function e($value = null, bool $double_encode = true): ?string
     {
         if (\is_null($value)) {
             return null;
