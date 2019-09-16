@@ -9,12 +9,12 @@ class Str
     /**
      * Escape HTML special characters in a string.
      *
-     * @param string $value
+     * @param \Illuminate\Contracts\Support\Htmlable|string $value
      * @param bool $double_encode
      *
      * @return string
      */
-    public static function e(string $value = null, bool $double_encode = true): string
+    public static function e($value = null, bool $double_encode = true): string
     {
         if (\is_null($value)) {
             return null;
