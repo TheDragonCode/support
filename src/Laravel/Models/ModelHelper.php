@@ -44,6 +44,23 @@ class ModelHelper
      *
      * @return string
      */
+    public function tableWithConnection($model): string
+    {
+        $connection = $this->connection($model);
+        $table      = $this->table($model);
+
+        return $connection
+            ? $connection . '.' . $table
+            : $table;
+    }
+
+    /**
+     * @param $model
+     *
+     * @throws IncorrectModelException
+     *
+     * @return string
+     */
     public function primaryKey($model): string
     {
         return $this
