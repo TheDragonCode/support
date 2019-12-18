@@ -12,7 +12,21 @@ class ModelHelper
     /**
      * @param $model
      *
-     * @throws \Helldar\Support\Exceptions\Laravel\IncorrectModelException
+     * @throws IncorrectModelException
+     *
+     * @return string
+     */
+    public function connection($model): string
+    {
+        return $this
+            ->model($model)
+            ->getConnectionName();
+    }
+
+    /**
+     * @param $model
+     *
+     * @throws IncorrectModelException
      *
      * @return string
      */
@@ -26,7 +40,7 @@ class ModelHelper
     /**
      * @param $model
      *
-     * @throws \Helldar\Support\Exceptions\Laravel\IncorrectModelException
+     * @throws IncorrectModelException
      *
      * @return string
      */
@@ -39,17 +53,17 @@ class ModelHelper
 
     public function className($model): string
     {
-        if (\is_string($model)) {
+        if (is_string($model)) {
             return $model;
         }
 
-        return \get_class($model);
+        return get_class($model);
     }
 
     /**
      * @param $model
      *
-     * @throws \Helldar\Support\Exceptions\Laravel\IncorrectModelException
+     * @throws IncorrectModelException
      *
      * @return array
      */
@@ -64,7 +78,7 @@ class ModelHelper
      * @param \Illuminate\Database\Eloquent\Model|mixed $model
      * @param \Illuminate\Http\Request $request
      *
-     * @throws \Helldar\Support\Exceptions\Laravel\IncorrectModelException
+     * @throws IncorrectModelException
      *
      * @return array
      */
@@ -79,31 +93,31 @@ class ModelHelper
      * @param $model
      * @param mixed ...$except
      *
-     * @throws \Helldar\Support\Exceptions\Laravel\IncorrectModelException
+     * @throws IncorrectModelException
      *
      * @return array
      */
     public function exceptFillable($model, ...$except): array
     {
-        return \array_diff($this->fillable($model), (array) $except);
+        return array_diff($this->fillable($model), (array) $except);
     }
 
     /**
      * @param string|\Illuminate\Database\Eloquent\Model $model
      *
-     * @throws \Helldar\Support\Exceptions\Laravel\IncorrectModelException
+     * @throws IncorrectModelException
      *
      * @return \Illuminate\Database\Eloquent\Model
      */
     public function model($model)
     {
         if ($model instanceof Model) {
-            $name = \get_class($model);
+            $name = get_class($model);
 
             return $this->models[$name] = $model;
         }
 
-        if (\is_string($model)) {
+        if (is_string($model)) {
             return $this->models[$model] = new $model;
         }
 
