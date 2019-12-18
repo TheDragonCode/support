@@ -16,7 +16,7 @@ class ModelHelper
      *
      * @return string
      */
-    public function connection($model): string
+    public function connection($model): ?string
     {
         return $this
             ->model($model)
