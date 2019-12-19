@@ -18,7 +18,7 @@ abstract class UuidModel extends Model
         parent::boot();
 
         static::creating(function ($model) {
-            if (! ($model->{$model->primaryKey} ?? false)) {
+            if (!($model->{$model->primaryKey} ?? false)) {
                 $model->{$model->primaryKey} = (string) Uuid::generate(4);
             }
         });

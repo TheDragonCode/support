@@ -20,7 +20,7 @@ class File
 
     public static function makeDirectory(string $path): bool
     {
-        if (! file_exists($path)) {
+        if (!file_exists($path)) {
             return mkdir($path, 755, true);
         }
 
