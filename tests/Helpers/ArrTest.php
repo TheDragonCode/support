@@ -5,6 +5,8 @@ namespace Tests\Helpers;
 use Helldar\Support\Facades\Arr;
 use Tests\TestCase;
 
+use function json_encode;
+
 class ArrTest extends TestCase
 {
     public function testAddUnique()
@@ -41,7 +43,7 @@ class ArrTest extends TestCase
 
         Arr::store($array, $path, true);
 
-        $this->assertJsonStringEqualsJsonFile($path, \json_encode($array));
+        $this->assertJsonStringEqualsJsonFile($path, json_encode($array));
     }
 
     public function testStoreAsSortedArray()
@@ -64,7 +66,7 @@ class ArrTest extends TestCase
 
         Arr::storeAsJson($array, $path, true);
 
-        $this->assertJsonStringEqualsJsonFile($path, \json_encode($array));
+        $this->assertJsonStringEqualsJsonFile($path, json_encode($array));
     }
 
     public function testSizeOfMaxValue()
@@ -137,5 +139,43 @@ class ArrTest extends TestCase
         $result = Arr::merge($arr1, $arr2);
 
         $this->assertEquals($expected, $result);
+    }
+
+    public function testWrap()
+    {
+        $this->assertEquals(['data'], Arr::wrap('data'));
+        $this->assertEquals(['data'], Arr::wrap(['data']));
+        $this->assertEquals([1], Arr::wrap(1));
+    }
+
+    public function testToArray()
+    {
+        $this->assertEquals(['foo', 'bar'], Arr::toArray(['foo', 'bar']));
+        $this->assertEquals(['foo' => 'foo', 'bar' => 'bar'], Arr::toArray(['foo' => 'foo', 'bar' => 'bar']));
+        $this->assertEquals(['foo' => 'foo', 'bar' => 'bar'], Arr::toArray((object) ['foo' => 'foo', 'bar' => 'bar']));
+        $this->assertEquals(['foo'], Arr::toArray('foo'));
+    }
+
+    public function testExists()
+    {
+        $this->assertTrue(Arr::exists(['foo' => 'bar'], 'foo'));
+        $this->assertFalse(Arr::exists(['foo' => 'bar'], 'bar'));
+    }
+
+    public function testGet()
+    {
+        $this->assertEquals('bar', Arr::get(['foo' => 'bar'], 'foo'));
+        $this->assertEquals('bar', Arr::get(['foo' => 'bar'], 'foo', 'bar'));
+        $this->assertEquals('baz', Arr::get(['foo' => 'bar'], 'bar', 'baz'));
+        $this->assertEquals(null, Arr::get(['foo' => 'bar'], 'bar'));
+    }
+
+    public function testExcept()
+    {
+        $this->assertEquals(['bar' => 'bar', 'baz' => 'baz'], Arr::except(['foo' => 'foo', 'bar' => 'bar', 'baz' => 'baz'], 'foo'));
+        $this->assertEquals(['baz' => 'baz'], Arr::except(['foo' => 'foo', 'bar' => 'bar', 'baz' => 'baz'], ['foo', 'bar']));
+        $this->assertEquals(['baz' => 'baz'], Arr::except(['baz' => 'baz'], []));
+        $this->assertEquals([], Arr::except([], ['foo', 'bar']));
+        $this->assertEquals([], Arr::except([], []));
     }
 }
