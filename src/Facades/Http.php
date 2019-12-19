@@ -2,6 +2,7 @@
 
 namespace Helldar\Support\Facades;
 
+use Exception;
 use Helldar\Support\Exceptions\NotValidUrlException;
 
 class Http
@@ -28,13 +29,14 @@ class Http
     public static function exists(string $url): bool
     {
         try {
-            $headers = \get_headers($url);
+            $headers = get_headers($url);
 
-            $key   = \array_search('HTTP/', $headers);
+            $key   = array_search('HTTP/', $headers);
             $value = $headers[$key] ?? null;
 
-            return \stripos($value, '200 OK') !== false;
-        } catch (\Exception $exception) {
+            return stripos($value, '200 OK') !== false;
+        }
+        catch (Exception $exception) {
             return false;
         }
     }
@@ -45,19 +47,21 @@ class Http
      * @param string|null $url
      * @param string|null $default
      *
+     * @throws NotValidUrlException
+     *
      * @return string
      */
     public static function baseUrl(string $url = null, string $default = null): string
     {
-        if (\is_null($url)) {
+        if (is_null($url)) {
             return $default ?: $_SERVER['HTTP_HOST'] ?? 'localhost';
         }
 
-        if (!self::isUrl($url)) {
+        if (! static::isUrl($url)) {
             throw new NotValidUrlException($url);
         }
 
-        return \parse_url($url, PHP_URL_HOST);
+        return parse_url($url, PHP_URL_HOST);
     }
 
     /**
@@ -96,14 +100,16 @@ class Http
      * @param string|null $url
      * @param string|null $default
      *
+     * @throws NotValidUrlException
+     *
      * @return string|null
      */
     public static function subdomain(string $url = null, string $default = null): ?string
     {
-        $host = explode('.', self::baseUrl($url, $default));
+        $host = explode('.', static::baseUrl($url, $default));
 
-        if (\sizeof($host) > 2) {
-            return \reset($host);
+        if (sizeof($host) > 2) {
+            return reset($host);
         }
 
         return null;
@@ -119,10 +125,8 @@ class Http
      */
     public static function imageOrDefault(string $url, string $default = null): ?string
     {
-        if (self::isUrl($url)) {
-            return self::exists($url) ? $url : $default;
-        }
-
-        return \file_exists($url) ? $url : $default;
+        return static::isUrl($url)
+            ? (static::exists($url) ? $url : $default)
+            : file_exists($url) ? $url : $default;
     }
 }

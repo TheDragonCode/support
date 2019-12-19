@@ -5,6 +5,8 @@ namespace Helldar\Support\Laravel\Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
+use function is_array;
+
 abstract class CompositeKeysModel extends Model
 {
     public $incrementing = false;
@@ -20,7 +22,7 @@ abstract class CompositeKeysModel extends Model
     {
         $keys = $this->primaryKey;
 
-        if (!\is_array($keys)) {
+        if (! is_array($keys)) {
             return $query->where($keys, $this->getAttribute($keys));
         }
 

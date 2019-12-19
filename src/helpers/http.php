@@ -2,7 +2,7 @@
 
 use Helldar\Support\Facades\Http;
 
-if (!function_exists('url_exists')) {
+if (! function_exists('url_exists')) {
     /**
      * Checks whether a file or directory exists on URL.
      *
@@ -16,7 +16,7 @@ if (!function_exists('url_exists')) {
     }
 }
 
-if (!function_exists('base_url')) {
+if (! function_exists('base_url')) {
     /**
      * Get the domain name from the URL.
      *
@@ -30,7 +30,7 @@ if (!function_exists('base_url')) {
     }
 }
 
-if (!function_exists('subdomain_name')) {
+if (! function_exists('subdomain_name')) {
     /**
      * Retrieving the current subdomain name.
      *

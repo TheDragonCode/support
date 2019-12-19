@@ -19,7 +19,7 @@ class Digit
             return 1;
         }
 
-        return $n * self::factorial($n - 1);
+        return $n * static::factorial($n - 1);
     }
 
     /**
@@ -29,19 +29,21 @@ class Digit
      * @param float $number
      * @param int $precision
      *
+     * @throws InvalidNumberException
+     *
      * @return string
      */
     public static function shortNumber(float $number, int $precision = 1): string
     {
-        if (!\is_numeric($number)) {
+        if (! is_numeric($number)) {
             throw new InvalidNumberException($number);
         }
 
-        $length = \strlen((string) ((int) $number));
-        $length = \ceil($length / 3) * 3 + 1;
+        $length = strlen((string) ((int) $number));
+        $length = ceil($length / 3) * 3 + 1;
 
-        $suffix = self::suffix($length);
-        $value  = self::roundedBcPow($number, $length, $precision);
+        $suffix = static::suffix($length);
+        $value  = static::roundedBcPow($number, $length, $precision);
 
         return $value . $suffix;
     }
@@ -57,9 +59,9 @@ class Digit
      */
     public static function roundedBcPow(float $digit, int $length = 4, int $precision = 1): float
     {
-        $divider = (double) \bcpow(10, ($length - 4), 2);
+        $divider = (double) bcpow(10, ($length - 4), 2);
 
-        return \round($digit / $divider, $precision);
+        return round($digit / $divider, $precision);
     }
 
     /**
@@ -77,13 +79,13 @@ class Digit
         $mod    = $number % $length;
 
         if ($number - $mod == 0) {
-            return \substr($chars, $number, 1);
+            return substr($chars, $number, 1);
         }
 
         $result = '';
 
         while ($mod > 0 || $number > 0) {
-            $result = \substr($chars, $mod, 1) . $result;
+            $result = substr($chars, $mod, 1) . $result;
             $number = ($number - $mod) / $length;
             $mod    = $number % $length;
         }
@@ -108,8 +110,8 @@ class Digit
             16 => 'T+',
         ];
 
-        \ksort($suffixes);
+        ksort($suffixes);
 
-        return $suffixes[$length] ?? \end($suffixes);
+        return $suffixes[$length] ?? end($suffixes);
     }
 }

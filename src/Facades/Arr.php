@@ -20,10 +20,10 @@ class Arr
     {
         $result = [];
 
-        \array_map(function ($value, $key) use (&$result, $callback) {
+        array_map(function ($value, $key) use (&$result, $callback) {
             $new          = $callback($key);
             $result[$new] = $value;
-        }, \array_values($array), \array_keys($array));
+        }, array_values($array), array_keys($array));
 
         return $result;
     }
@@ -37,7 +37,7 @@ class Arr
      */
     public static function sizeOfMaxValue(array $array): int
     {
-        return \mb_strlen(\max($array), 'UTF-8');
+        return mb_strlen(max($array), 'UTF-8');
     }
 
     /**
@@ -50,15 +50,15 @@ class Arr
      */
     public static function addUnique(array $array, $values): array
     {
-        if (\is_array($values) || \is_object($values)) {
-            \array_map(function ($value) use (&$array) {
-                $array = self::addUnique($array, $value);
+        if (is_array($values) || is_object($values)) {
+            array_map(function ($value) use (&$array) {
+                $array = static::addUnique($array, $value);
             }, $values);
         } else {
-            \array_push($array, $values);
+            array_push($array, $values);
         }
 
-        return \array_unique(\array_values($array));
+        return array_unique(array_values($array));
     }
 
     /**
@@ -90,8 +90,8 @@ class Arr
      */
     public static function sortByKeysArray(array $array, array $sorter)
     {
-        $sorter = \array_intersect($sorter, \array_keys($array));
-        $array  = \array_merge(\array_flip($sorter), $array);
+        $sorter = array_intersect($sorter, array_keys($array));
+        $array  = array_merge(array_flip($sorter), $array);
 
         return $array;
     }
@@ -109,14 +109,14 @@ class Arr
     {
         $result = [];
 
-        \array_map(function ($array) use (&$result) {
-            \array_map(function ($key, $value) use (&$result) {
-                if (\is_array($value)) {
-                    $value = self::merge($result[$key] ?? [], $value);
+        array_map(function ($array) use (&$result) {
+            array_map(function ($key, $value) use (&$result) {
+                if (is_array($value)) {
+                    $value = static::merge($result[$key] ?? [], $value);
                 }
 
                 $result[$key] = $value;
-            }, \array_keys($array), \array_values($array));
+            }, array_keys($array), array_values($array));
         }, $arrays);
 
         return $result;
@@ -125,19 +125,19 @@ class Arr
     public static function store(array $array, string $path, bool $is_json = false, bool $sort_array_keys = false)
     {
         if ($is_json) {
-            self::storeAsJson($array, $path, $sort_array_keys);
+            static::storeAsJson($array, $path, $sort_array_keys);
         } else {
-            self::storeAsArray($array, $path, $sort_array_keys);
+            static::storeAsArray($array, $path, $sort_array_keys);
         }
     }
 
     public static function storeAsArray(array $array, string $path, bool $sort_array_keys = false)
     {
         if ($sort_array_keys) {
-            \ksort($array);
+            ksort($array);
         }
 
-        $value = \var_export($array, true);
+        $value = var_export($array, true);
 
         $replace = [
             '{{slot}}' => $value,
@@ -151,11 +151,11 @@ class Arr
     public static function storeAsJson(array $array, string $path, bool $sort_array_keys = false)
     {
         if ($sort_array_keys) {
-            \ksort($array);
+            ksort($array);
         }
 
         $replace = $replace = [
-            '{{slot}}' => \json_encode($array),
+            '{{slot}}' => json_encode($array),
         ];
 
         $content = Stub::replace(Stub::LANG_JSON, $replace);

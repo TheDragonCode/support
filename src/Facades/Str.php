@@ -9,14 +9,14 @@ class Str
     /**
      * Escape HTML special characters in a string.
      *
-     * @param \Illuminate\Contracts\Support\Htmlable|string $value
+     * @param Htmlable|string $value
      * @param bool $double_encode
      *
      * @return string
      */
     public static function e($value = null, bool $double_encode = true): ?string
     {
-        if (\is_null($value)) {
+        if (is_null($value)) {
             return null;
         }
 
@@ -24,7 +24,7 @@ class Str
             return $value->toHtml();
         }
 
-        return \htmlspecialchars($value, ENT_QUOTES, 'UTF-8', $double_encode);
+        return htmlspecialchars($value, ENT_QUOTES, 'UTF-8', $double_encode);
     }
 
     /**
@@ -36,11 +36,11 @@ class Str
      */
     public static function de(string $value = null): ?string
     {
-        if (\is_null($value)) {
+        if (is_null($value)) {
             return null;
         }
 
-        return \htmlspecialchars_decode($value, ENT_QUOTES);
+        return htmlspecialchars_decode($value, ENT_QUOTES);
     }
 
     /**
@@ -52,7 +52,7 @@ class Str
      */
     public static function replaceSpaces(string $value): ?string
     {
-        return \preg_replace('!\s+!', ' ', $value);
+        return preg_replace('!\s+!', ' ', $value);
     }
 
     /**
@@ -76,11 +76,11 @@ class Str
             $result = $choice[1] ?? '';
         }
 
-        if (empty(\trim($additional))) {
-            return \trim($result);
+        if (empty(trim($additional))) {
+            return trim($result);
         }
 
-        return \implode(' ', [\trim($result), \trim($additional)]);
+        return implode(' ', [trim($result), trim($additional)]);
     }
 
     /**
@@ -93,9 +93,9 @@ class Str
      */
     public static function finish(string $value, string $cap = '/'): string
     {
-        $quoted = \preg_quote($cap, '/');
+        $quoted = preg_quote($cap, '/');
 
-        return \preg_replace('/(?:' . $quoted . ')+$/u', '', $value) . $cap;
+        return preg_replace('/(?:' . $quoted . ')+$/u', '', $value) . $cap;
     }
 
     /**
@@ -109,7 +109,7 @@ class Str
     public static function endsWith($haystack, $needles): bool
     {
         foreach ((array) $needles as $needle) {
-            if (\substr($haystack, -\strlen($needle)) === (string) $needle) {
+            if (substr($haystack, -strlen($needle)) === (string) $needle) {
                 return true;
             }
         }

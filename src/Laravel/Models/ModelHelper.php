@@ -4,6 +4,7 @@ namespace Helldar\Support\Laravel\Models;
 
 use Helldar\Support\Exceptions\Laravel\IncorrectModelException;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 class ModelHelper
 {
@@ -92,8 +93,8 @@ class ModelHelper
     }
 
     /**
-     * @param \Illuminate\Database\Eloquent\Model|mixed $model
-     * @param \Illuminate\Http\Request $request
+     * @param Model|mixed $model
+     * @param Request $request
      *
      * @throws IncorrectModelException
      *
@@ -120,11 +121,11 @@ class ModelHelper
     }
 
     /**
-     * @param string|\Illuminate\Database\Eloquent\Model $model
+     * @param string|Model $model
      *
      * @throws IncorrectModelException
      *
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return Model
      */
     public function model($model)
     {
