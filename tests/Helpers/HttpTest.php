@@ -2,11 +2,15 @@
 
 namespace Tests\Helpers;
 
+use Helldar\Support\Exceptions\NotValidUrlException;
 use Helldar\Support\Facades\Http;
 use Tests\TestCase;
 
 class HttpTest extends TestCase
 {
+    /**
+     * @throws NotValidUrlException
+     */
     public function testGetSubdomain()
     {
         $this->assertEquals('foo', Http::subdomain('https://foo.bar.example.com/foo/bar'));
@@ -30,7 +34,7 @@ class HttpTest extends TestCase
     {
         $url = 'https://example.com:username@password/foo/bar/baz?qwe=rty';
 
-        $parsed = \parse_url($url);
+        $parsed = parse_url($url);
 
         $this->assertEquals($url, Http::buildUrl($parsed));
     }
