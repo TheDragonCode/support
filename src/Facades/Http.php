@@ -127,6 +127,6 @@ class Http
     {
         return static::isUrl($url)
             ? (static::exists($url) ? $url : $default)
-            : file_exists($url) ? $url : $default;
+            : (file_exists($url) ? $url : $default);
     }
 }
