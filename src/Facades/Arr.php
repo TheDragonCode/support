@@ -2,6 +2,7 @@
 
 namespace Helldar\Support\Facades;
 
+use ArrayAccess;
 use Helldar\Support\Tools\Stub;
 
 class Arr
@@ -161,5 +162,50 @@ class Arr
         $content = Stub::replace(Stub::LANG_JSON, $replace);
 
         File::store($path, $content);
+    }
+
+    public static function wrap($array = null): array
+    {
+        return is_array($array) ? $array : [$array];
+    }
+
+    public static function toArray($array = null): array
+    {
+        return is_object($array)
+            ? get_object_vars($array)
+            : static::wrap($array);
+    }
+
+    /**
+     * @param ArrayAccess|array $array
+     * @param string|int $key
+     *
+     * @return bool
+     */
+    public static function exists(array $array, $key): bool
+    {
+        return $array instanceof ArrayAccess
+            ? $array->offsetExists($key)
+            : array_key_exists($key, $array);
+    }
+
+    public static function get(array $array, $key, $default = null)
+    {
+        return static::exists($array, $key)
+            ? $array[$key]
+            : $default;
+    }
+
+    public static function except(array $array, $keys): array
+    {
+        $keys = (array) $keys;
+
+        if (count($keys) === 0) {
+            return $array;
+        }
+
+        return array_filter($array, function ($key) use ($keys) {
+            return ! in_array($key, $keys);
+        }, ARRAY_FILTER_USE_KEY);
     }
 }
