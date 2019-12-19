@@ -2,12 +2,14 @@
 
 namespace Helldar\Support\Exceptions;
 
-class NotValidUrlException extends \InvalidArgumentException
+use Helldar\Support\Facades\Str;
+
+class NotValidUrlException extends \Exception
 {
     public function __construct($url = '')
     {
-        $message = \sprintf('The "%s" is not a valid URL.', $url);
+        $message = \sprintf('The "%s" is not a valid URL.', Str::e($url));
 
-        parent::__construct($message, 400);
+        parent::__construct($message, 412);
     }
 }

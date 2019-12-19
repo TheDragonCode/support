@@ -26,7 +26,8 @@
     },
     "suggest": {
         "symfony/thanks": "Give thanks (in the form of a GitHub) to your fellow PHP package maintainers",
-        "illuminate/database": "For using methods from the Dumper class in Laravel framework"
+        "illuminate/database": "For using methods from the Dumper class and Eloquent helpers in Laravel framework",
+        "webpatser/laravel-uuid": "For using Laravel Eloquent abstract classes."
     },
     "autoload": {
         "psr-4": {

@@ -63,4 +63,22 @@ class DigitTest extends TestCase
         $this->assertEquals('4.5T+', Digit::shortNumber(4501900000000));
         $this->assertEquals('4.5T+', Digit::shortNumber(4501900000000));
     }
+
+    public function testShortString()
+    {
+        $this->assertEquals('a', Digit::shortString(0));
+        $this->assertEquals('d', Digit::shortString(3));
+        $this->assertEquals('f', Digit::shortString(5));
+        $this->assertEquals('h', Digit::shortString(7));
+        $this->assertEquals('k', Digit::shortString(10));
+        $this->assertEquals('l', Digit::shortString(11));
+        $this->assertEquals('m', Digit::shortString(12));
+        $this->assertEquals('n', Digit::shortString(13));
+        $this->assertEquals('q', Digit::shortString(16));
+        $this->assertEquals('u', Digit::shortString(20));
+        $this->assertEquals('dw', Digit::shortString(100));
+        $this->assertEquals('hs', Digit::shortString(200));
+        $this->assertEquals('bmm', Digit::shortString(1000));
+        $this->assertEquals('hki', Digit::shortString(5000));
+    }
 }

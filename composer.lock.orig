@@ -430,6 +430,18 @@
         },
         {
             "name": "phpunit/php-code-coverage",
+<<<<<<< HEAD
+            "version": "7.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
+                "reference": "aed67b57d459dcab93e84a5c9703d3deb5025dff"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/aed67b57d459dcab93e84a5c9703d3deb5025dff",
+                "reference": "aed67b57d459dcab93e84a5c9703d3deb5025dff",
+=======
             "version": "7.0.7",
             "source": {
                 "type": "git",
@@ -440,6 +452,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/7743bbcfff2a907e9ee4a25be13d0f8ec5e73800",
                 "reference": "7743bbcfff2a907e9ee4a25be13d0f8ec5e73800",
+>>>>>>> origin/master
                 "shasum": ""
             },
             "require": {
@@ -489,7 +502,11 @@
                 "testing",
                 "xunit"
             ],
+<<<<<<< HEAD
+            "time": "2019-06-06T12:28:18+00:00"
+=======
             "time": "2019-07-25T05:31:54+00:00"
+>>>>>>> origin/master
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -682,6 +699,18 @@
         },
         {
             "name": "phpunit/phpunit",
+<<<<<<< HEAD
+            "version": "8.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sebastianbergmann/phpunit.git",
+                "reference": "047f771e34dccacb6c432a1a70e9980e087eac92"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/047f771e34dccacb6c432a1a70e9980e087eac92",
+                "reference": "047f771e34dccacb6c432a1a70e9980e087eac92",
+=======
             "version": "8.3.4",
             "source": {
                 "type": "git",
@@ -692,6 +721,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/e31cce0cf4499c0ccdbbb211a3280d36ab341e36",
                 "reference": "e31cce0cf4499c0ccdbbb211a3280d36ab341e36",
+>>>>>>> origin/master
                 "shasum": ""
             },
             "require": {
@@ -706,8 +736,13 @@
                 "phar-io/manifest": "^1.0.3",
                 "phar-io/version": "^2.0.1",
                 "php": "^7.2",
+<<<<<<< HEAD
+                "phpspec/prophecy": "^1.8.0",
+                "phpunit/php-code-coverage": "^7.0.5",
+=======
                 "phpspec/prophecy": "^1.8.1",
                 "phpunit/php-code-coverage": "^7.0.7",
+>>>>>>> origin/master
                 "phpunit/php-file-iterator": "^2.0.2",
                 "phpunit/php-text-template": "^1.2.1",
                 "phpunit/php-timer": "^2.1.2",
@@ -718,7 +753,11 @@
                 "sebastian/global-state": "^3.0.0",
                 "sebastian/object-enumerator": "^3.0.3",
                 "sebastian/resource-operations": "^2.0.1",
+<<<<<<< HEAD
+                "sebastian/type": "^1.1.0",
+=======
                 "sebastian/type": "^1.1.3",
+>>>>>>> origin/master
                 "sebastian/version": "^2.0.1"
             },
             "require-dev": {
@@ -735,7 +774,11 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
+<<<<<<< HEAD
+                    "dev-master": "8.2-dev"
+=======
                     "dev-master": "8.3-dev"
+>>>>>>> origin/master
                 }
             },
             "autoload": {
@@ -761,7 +804,11 @@
                 "testing",
                 "xunit"
             ],
+<<<<<<< HEAD
+            "time": "2019-06-07T14:04:13+00:00"
+=======
             "time": "2019-08-11T06:56:55+00:00"
+>>>>>>> origin/master
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
@@ -1291,6 +1338,18 @@
         },
         {
             "name": "sebastian/type",
+<<<<<<< HEAD
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sebastianbergmann/type.git",
+                "reference": "79fd7f2f8acff994d4a330bb434b09b813479068"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sebastianbergmann/type/zipball/79fd7f2f8acff994d4a330bb434b09b813479068",
+                "reference": "79fd7f2f8acff994d4a330bb434b09b813479068",
+=======
             "version": "1.1.3",
             "source": {
                 "type": "git",
@@ -1301,6 +1360,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/sebastianbergmann/type/zipball/3aaaa15fa71d27650d62a948be022fe3b48541a3",
                 "reference": "3aaaa15fa71d27650d62a948be022fe3b48541a3",
+>>>>>>> origin/master
                 "shasum": ""
             },
             "require": {
@@ -1318,6 +1378,12 @@
             "autoload": {
                 "classmap": [
                     "src/"
+<<<<<<< HEAD
+                ],
+                "files": [
+                    "tests/_fixture/callback_function.php"
+=======
+>>>>>>> origin/master
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1333,7 +1399,11 @@
             ],
             "description": "Collection of value objects that represent the types of the PHP type system",
             "homepage": "https://github.com/sebastianbergmann/type",
+<<<<<<< HEAD
+            "time": "2019-06-07T09:58:20+00:00"
+=======
             "time": "2019-07-02T08:10:15+00:00"
+>>>>>>> origin/master
         },
         {
             "name": "sebastian/version",

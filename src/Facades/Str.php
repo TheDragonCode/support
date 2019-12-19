@@ -2,18 +2,28 @@
 
 namespace Helldar\Support\Facades;
 
+use Illuminate\Contracts\Support\Htmlable;
+
 class Str
 {
     /**
      * Escape HTML special characters in a string.
      *
-     * @param string $value
+     * @param \Illuminate\Contracts\Support\Htmlable|string $value
      * @param bool $double_encode
      *
      * @return string
      */
-    public static function e(string $value, bool $double_encode = true): string
+    public static function e($value = null, bool $double_encode = true): ?string
     {
+        if (\is_null($value)) {
+            return null;
+        }
+
+        if ($value instanceof Htmlable) {
+            return $value->toHtml();
+        }
+
         return \htmlspecialchars($value, ENT_QUOTES, 'UTF-8', $double_encode);
     }
 
