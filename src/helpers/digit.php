@@ -2,7 +2,7 @@
 
 use Helldar\Support\Facades\Digit;
 
-if (! function_exists('factorial')) {
+if (!function_exists('factorial')) {
     /**
      * Calculating the factorial of a number.
      *
@@ -16,7 +16,7 @@ if (! function_exists('factorial')) {
     }
 }
 
-if (! function_exists('short_number')) {
+if (!function_exists('short_number')) {
     /**
      * Converts a number into a short version.
      * eg: 1000 >> 1K

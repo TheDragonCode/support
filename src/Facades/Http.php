@@ -35,8 +35,7 @@ class Http
             $value = $headers[$key] ?? null;
 
             return stripos($value, '200 OK') !== false;
-        }
-        catch (Exception $exception) {
+        } catch (Exception $exception) {
             return false;
         }
     }
@@ -57,7 +56,7 @@ class Http
             return $default ?: $_SERVER['HTTP_HOST'] ?? 'localhost';
         }
 
-        if (! static::isUrl($url)) {
+        if (!static::isUrl($url)) {
             throw new NotValidUrlException($url);
         }
 

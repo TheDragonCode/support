@@ -2,7 +2,7 @@
 
 use Helldar\Support\Facades\Dumper;
 
-if (! function_exists('dd_sql')) {
+if (!function_exists('dd_sql')) {
     /**
      * Dump the passed variables and end the script.
      *
