@@ -10,11 +10,11 @@ class Http
     /**
      * Checks whether the string is URL address
      *
-     * @param string $path
+     * @param string|null $path
      *
      * @return bool
      */
-    public static function isUrl(string $path): bool
+    public static function isUrl(string $path = null): bool
     {
         return filter_var($path, FILTER_VALIDATE_URL) !== false;
     }
