@@ -3,7 +3,6 @@
 namespace Helldar\Support\Laravel\Models;
 
 use Illuminate\Container\Container;
-use Illuminate\Contracts\Container\BindingResolutionException;
 
 trait InitModelHelper
 {
@@ -12,6 +11,7 @@ trait InitModelHelper
 
     /**
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     *
      * @return \Helldar\Support\Laravel\Models\ModelHelper
      */
     protected function model(): ModelHelper
