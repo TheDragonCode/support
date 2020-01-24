@@ -18,6 +18,13 @@ abstract class CompositeKeysModel extends Model
      */
     protected $primaryKey = [];
 
+    public function getAttribute($key)
+    {
+        return ! is_array($key)
+            ? parent::getAttribute($key)
+            : null;
+    }
+
     protected function setKeysForSaveQuery(Builder $query)
     {
         $keys = $this->primaryKey;
