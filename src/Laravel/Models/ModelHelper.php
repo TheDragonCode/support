@@ -13,8 +13,9 @@ class ModelHelper
     /**
      * @param $model
      *
-     * @return string
      * @throws IncorrectModelException
+     *
+     * @return string
      */
     public function connection($model): ?string
     {
@@ -26,8 +27,9 @@ class ModelHelper
     /**
      * @param $model
      *
-     * @return string
      * @throws IncorrectModelException
+     *
+     * @return string
      */
     public function table($model): string
     {
@@ -39,8 +41,9 @@ class ModelHelper
     /**
      * @param $model
      *
-     * @return string
      * @throws IncorrectModelException
+     *
+     * @return string
      */
     public function tableWithConnection($model): string
     {
@@ -55,8 +58,9 @@ class ModelHelper
     /**
      * @param $model
      *
-     * @return string
      * @throws IncorrectModelException
+     *
+     * @return string
      */
     public function primaryKey($model): string
     {
@@ -77,8 +81,9 @@ class ModelHelper
     /**
      * @param $model
      *
-     * @return array
      * @throws IncorrectModelException
+     *
+     * @return array
      */
     public function fillable($model): array
     {
@@ -91,8 +96,9 @@ class ModelHelper
      * @param mixed|Model $model
      * @param Request $request
      *
-     * @return array
      * @throws IncorrectModelException
+     *
+     * @return array
      */
     public function onlyFillable($model, $request): array
     {
@@ -105,8 +111,9 @@ class ModelHelper
      * @param $model
      * @param mixed ...$except
      *
-     * @return array
      * @throws IncorrectModelException
+     *
+     * @return array
      */
     public function exceptFillable($model, ...$except): array
     {
@@ -116,8 +123,9 @@ class ModelHelper
     /**
      * @param Model|string $model
      *
-     * @return Model
      * @throws IncorrectModelException
+     *
+     * @return Model
      */
     public function model($model)
     {

@@ -35,8 +35,7 @@ class Http
             $value = $headers[$key] ?? null;
 
             return stripos($value, '200 OK') !== false;
-        }
-        catch (Exception $exception) {
+        } catch (Exception $exception) {
             return false;
         }
     }
@@ -47,8 +46,9 @@ class Http
      * @param string|null $url
      * @param string|null $default
      *
-     * @return string
      * @throws NotValidUrlException
+     *
+     * @return string
      */
     public static function baseUrl(string $url = null, string $default = null): string
     {
@@ -99,8 +99,9 @@ class Http
      * @param string|null $url
      * @param string|null $default
      *
-     * @return string|null
      * @throws NotValidUrlException
+     *
+     * @return string|null
      */
     public static function subdomain(string $url = null, string $default = null): ?string
     {

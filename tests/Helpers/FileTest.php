@@ -2,12 +2,12 @@
 
 namespace Tests\Helpers;
 
-use Helldar\Support\Facades\File;
-use Tests\TestCase;
-
 use function file_exists;
+use Helldar\Support\Facades\File;
+
 use function is_dir;
 use function json_encode;
+use Tests\TestCase;
 
 class FileTest extends TestCase
 {
