@@ -155,7 +155,7 @@ class Arr
             ksort($array);
         }
 
-        $replace = $replace = [
+        $replace = [
             '{{slot}}' => json_encode($array),
         ];
 
