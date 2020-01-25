@@ -29,8 +29,9 @@ class Digit
      * @param float $number
      * @param int $precision
      *
-     * @return string
      * @throws InvalidNumberException
+     *
+     * @return string
      */
     public static function shortNumber(float $number, int $precision = 1): string
     {
