@@ -171,8 +171,8 @@ class Arr
     }
 
     /**
-     * @param ArrayAccess|array $array
-     * @param string|int $key
+     * @param array|ArrayAccess $array
+     * @param int|string $key
      *
      * @return bool
      */

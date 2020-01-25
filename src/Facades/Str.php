@@ -102,7 +102,7 @@ class Str
      * Determine if a given string ends with a given substring.
      *
      * @param string $haystack
-     * @param string|array $needles
+     * @param array|string $needles
      *
      * @return bool
      */

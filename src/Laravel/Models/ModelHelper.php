@@ -93,7 +93,7 @@ class ModelHelper
     }
 
     /**
-     * @param Model|mixed $model
+     * @param mixed|Model $model
      * @param Request $request
      *
      * @throws IncorrectModelException
@@ -121,7 +121,7 @@ class ModelHelper
     }
 
     /**
-     * @param string|Model $model
+     * @param Model|string $model
      *
      * @throws IncorrectModelException
      *
