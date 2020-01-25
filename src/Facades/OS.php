@@ -11,7 +11,7 @@ class OS
 {
     public static function isUnix(): bool
     {
-        return !static::isWindows();
+        return ! static::isWindows();
     }
 
     public static function isWindows(): bool

@@ -13,9 +13,8 @@ class ModelHelper
     /**
      * @param $model
      *
-     * @throws IncorrectModelException
-     *
      * @return string
+     * @throws IncorrectModelException
      */
     public function connection($model): ?string
     {
@@ -27,9 +26,8 @@ class ModelHelper
     /**
      * @param $model
      *
-     * @throws IncorrectModelException
-     *
      * @return string
+     * @throws IncorrectModelException
      */
     public function table($model): string
     {
@@ -41,9 +39,8 @@ class ModelHelper
     /**
      * @param $model
      *
-     * @throws IncorrectModelException
-     *
      * @return string
+     * @throws IncorrectModelException
      */
     public function tableWithConnection($model): string
     {
@@ -58,9 +55,8 @@ class ModelHelper
     /**
      * @param $model
      *
-     * @throws IncorrectModelException
-     *
      * @return string
+     * @throws IncorrectModelException
      */
     public function primaryKey($model): string
     {
@@ -81,9 +77,8 @@ class ModelHelper
     /**
      * @param $model
      *
-     * @throws IncorrectModelException
-     *
      * @return array
+     * @throws IncorrectModelException
      */
     public function fillable($model): array
     {
@@ -96,9 +91,8 @@ class ModelHelper
      * @param mixed|Model $model
      * @param Request $request
      *
-     * @throws IncorrectModelException
-     *
      * @return array
+     * @throws IncorrectModelException
      */
     public function onlyFillable($model, $request): array
     {
@@ -111,9 +105,8 @@ class ModelHelper
      * @param $model
      * @param mixed ...$except
      *
-     * @throws IncorrectModelException
-     *
      * @return array
+     * @throws IncorrectModelException
      */
     public function exceptFillable($model, ...$except): array
     {
@@ -123,9 +116,8 @@ class ModelHelper
     /**
      * @param Model|string $model
      *
-     * @throws IncorrectModelException
-     *
      * @return Model
+     * @throws IncorrectModelException
      */
     public function model($model)
     {

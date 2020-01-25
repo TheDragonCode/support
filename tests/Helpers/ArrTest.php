@@ -3,9 +3,9 @@
 namespace Tests\Helpers;
 
 use Helldar\Support\Facades\Arr;
-use function json_encode;
-
 use Tests\TestCase;
+
+use function json_encode;
 
 class ArrTest extends TestCase
 {

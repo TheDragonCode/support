@@ -20,7 +20,7 @@ abstract class CompositeKeysModel extends Model
 
     public function getAttribute($key)
     {
-        return !is_array($key)
+        return ! is_array($key)
             ? parent::getAttribute($key)
             : null;
     }
@@ -29,7 +29,7 @@ abstract class CompositeKeysModel extends Model
     {
         $keys = $this->primaryKey;
 
-        if (!is_array($keys)) {
+        if (! is_array($keys)) {
             return $query->where($keys, $this->getAttribute($keys));
         }
 

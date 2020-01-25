@@ -35,7 +35,8 @@ class Http
             $value = $headers[$key] ?? null;
 
             return stripos($value, '200 OK') !== false;
-        } catch (Exception $exception) {
+        }
+        catch (Exception $exception) {
             return false;
         }
     }
@@ -46,9 +47,8 @@ class Http
      * @param string|null $url
      * @param string|null $default
      *
-     * @throws NotValidUrlException
-     *
      * @return string
+     * @throws NotValidUrlException
      */
     public static function baseUrl(string $url = null, string $default = null): string
     {
@@ -56,7 +56,7 @@ class Http
             return $default ?: $_SERVER['HTTP_HOST'] ?? 'localhost';
         }
 
-        if (!static::isUrl($url)) {
+        if (! static::isUrl($url)) {
             throw new NotValidUrlException($url);
         }
 
@@ -99,9 +99,8 @@ class Http
      * @param string|null $url
      * @param string|null $default
      *
-     * @throws NotValidUrlException
-     *
      * @return string|null
+     * @throws NotValidUrlException
      */
     public static function subdomain(string $url = null, string $default = null): ?string
     {

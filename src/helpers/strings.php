@@ -2,7 +2,7 @@
 
 use Helldar\Support\Facades\Str;
 
-if (!function_exists('de')) {
+if (! function_exists('de')) {
     /**
      * Convert special HTML entities back to characters.
      *
@@ -16,7 +16,7 @@ if (!function_exists('de')) {
     }
 }
 
-if (!function_exists('str_choice')) {
+if (! function_exists('str_choice')) {
     /**
      * The str_choice function translates the given language line with inflection.
      *
@@ -32,7 +32,7 @@ if (!function_exists('str_choice')) {
     }
 }
 
-if (!function_exists('str_replace_spaces')) {
+if (! function_exists('str_replace_spaces')) {
     /**
      * Replacing multiple spaces with a single space.
      *
@@ -46,7 +46,7 @@ if (!function_exists('str_replace_spaces')) {
     }
 }
 
-if (!function_exists('str_finish')) {
+if (! function_exists('str_finish')) {
     /**
      * Cap a string with a single instance of a given value.
      *
@@ -61,7 +61,7 @@ if (!function_exists('str_finish')) {
     }
 }
 
-if (!function_exists('str_ends_with')) {
+if (! function_exists('str_ends_with')) {
     /**
      * Determine if a given string ends with a given substring.
      *

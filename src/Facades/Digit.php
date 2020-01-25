@@ -29,13 +29,12 @@ class Digit
      * @param float $number
      * @param int $precision
      *
-     * @throws InvalidNumberException
-     *
      * @return string
+     * @throws InvalidNumberException
      */
     public static function shortNumber(float $number, int $precision = 1): string
     {
-        if (!is_numeric($number)) {
+        if (! is_numeric($number)) {
             throw new InvalidNumberException($number);
         }
 

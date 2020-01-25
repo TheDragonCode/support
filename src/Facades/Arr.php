@@ -199,7 +199,7 @@ class Arr
         }
 
         return array_filter($array, function ($key) use ($keys) {
-            return !in_array($key, $keys);
+            return ! in_array($key, $keys);
         }, ARRAY_FILTER_USE_KEY);
     }
 }
