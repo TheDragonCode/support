@@ -38,7 +38,7 @@ class Arr
      */
     public static function sizeOfMaxValue(array $array): int
     {
-        return mb_strlen(max($array), 'UTF-8');
+        return max(array_map('mb_strlen', $array));
     }
 
     /**
@@ -64,15 +64,10 @@ class Arr
 
     /**
      * Sort an associative array in the order specified by an array of keys.
-     *
      * Example:
-     *
      *  $arr = ['q' => 1, 'r' => 2, 's' => 5, 'w' => 123];
-     *
      *  Arr::sortByKeysArray($arr, ['q', 'w', 'e']);
-     *
      * print_r($arr);
-     *
      * /*
      *   Array
      *   (
@@ -99,7 +94,6 @@ class Arr
 
     /**
      * Merge one or more arrays recursively.
-     *
      * Don't forget that numeric keys NOT will be renumbered!
      *
      * @param mixed ...$arrays
@@ -205,7 +199,7 @@ class Arr
         }
 
         return array_filter($array, function ($key) use ($keys) {
-            return !in_array($key, $keys);
+            return ! in_array($key, $keys);
         }, ARRAY_FILTER_USE_KEY);
     }
 }
