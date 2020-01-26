@@ -38,7 +38,9 @@ class Arr
      */
     public static function sizeOfMaxValue(array $array): int
     {
-        return max(array_map('mb_strlen', $array));
+        return count($array)
+            ? max(array_map('mb_strlen', $array))
+            : 0;
     }
 
     /**
