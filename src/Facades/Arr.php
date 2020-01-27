@@ -204,4 +204,17 @@ class Arr
             return ! in_array($key, $keys);
         }, ARRAY_FILTER_USE_KEY);
     }
+
+    /**
+     * Get a subset of the items from the given array.
+     *
+     * @param array $array
+     * @param array $keys
+     *
+     * @return array
+     */
+    public static function only(array $array, array $keys): array
+    {
+        return array_intersect_key($array, array_flip($keys));
+    }
 }

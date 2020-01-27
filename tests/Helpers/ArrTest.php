@@ -3,9 +3,9 @@
 namespace Tests\Helpers;
 
 use Helldar\Support\Facades\Arr;
-use function json_encode;
-
 use Tests\TestCase;
+
+use function json_encode;
 
 class ArrTest extends TestCase
 {
@@ -177,5 +177,19 @@ class ArrTest extends TestCase
         $this->assertEquals(['baz' => 'baz'], Arr::except(['baz' => 'baz'], []));
         $this->assertEquals([], Arr::except([], ['foo', 'bar']));
         $this->assertEquals([], Arr::except([], []));
+    }
+
+    public function testOnly()
+    {
+        $arr = [
+            'foo' => 'Foo',
+            'bar' => 'Bar',
+            'baz' => 'Baz',
+            200   => 'Num 200',
+            400   => 'Num 400',
+        ];
+
+        $this->assertSame(['foo' => 'Foo', 'bar' => 'Bar'], Arr::only($arr, ['foo', 'bar']));
+        $this->assertSame(['bar' => 'Bar', 200 => 'Num 200'], Arr::only($arr, ['bar', 200]));
     }
 }
