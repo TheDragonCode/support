@@ -68,4 +68,36 @@ class StrTest extends TestCase
 
         $this->assertFalse(Str::endsWith('foo bar', 'foo'));
     }
+
+    public function testLower()
+    {
+        $this->assertSame('foo bar', Str::lower('Foo Bar'));
+        $this->assertSame('foo bar', Str::lower('FoO BaR'));
+        $this->assertSame('foo bar', Str::lower('foo bar'));
+        $this->assertSame('foo-bar', Str::lower('FoO-BaR'));
+    }
+
+    public function testStudly()
+    {
+        $this->assertSame('FooBar', Str::studly('Foo Bar'));
+        $this->assertSame('FoOBaR', Str::studly('FoO BaR'));
+        $this->assertSame('FooBar', Str::studly('foo bar'));
+        $this->assertSame('FoOBaR', Str::studly('FoO-BaR'));
+    }
+
+    public function testCamel()
+    {
+        $this->assertSame('fooBar', Str::camel('Foo Bar'));
+        $this->assertSame('foOBaR', Str::camel('FoO BaR'));
+        $this->assertSame('fooBar', Str::camel('foo bar'));
+        $this->assertSame('foOBaR', Str::camel('FoO-BaR'));
+    }
+
+    public function testSnake()
+    {
+        $this->assertSame('foo_bar', Str::snake('Foo Bar'));
+        $this->assertSame('fo_o_ba_r', Str::snake('FoO BaR'));
+        $this->assertSame('foo_bar', Str::snake('foo bar'));
+        $this->assertSame('fo_o-_ba_r', Str::snake('FoO-BaR'));
+    }
 }
