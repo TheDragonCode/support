@@ -42,6 +42,13 @@ class StrTest extends TestCase
         $this->assertEquals('users of this', Str::choice(20, ['user', 'users', 'users'], 'of this'));
     }
 
+    public function testStart()
+    {
+        $this->assertSame('/test/string', Str::start('test/string', '/'));
+        $this->assertSame('/test/string', Str::start('/test/string', '/'));
+        $this->assertSame('/test/string', Str::start('//test/string', '/'));
+    }
+
     public function testReplaceSpaces()
     {
         $this->assertEquals('foo bar', Str::replaceSpaces('foo bar'));
@@ -59,6 +66,30 @@ class StrTest extends TestCase
         $this->assertEquals('foo/', Str::finish('foo'));
 
         $this->assertEquals('foobar', Str::finish('foo', 'bar'));
+    }
+
+    public function testStartsWith()
+    {
+        $this->assertTrue(Str::startsWith('jason', 'jas'));
+        $this->assertTrue(Str::startsWith('jason', 'jason'));
+        $this->assertTrue(Str::startsWith('jason', ['jas']));
+        $this->assertTrue(Str::startsWith('jason', ['day', 'jas']));
+        $this->assertFalse(Str::startsWith('jason', 'day'));
+        $this->assertFalse(Str::startsWith('jason', ['day']));
+        $this->assertFalse(Str::startsWith('jason', ''));
+        $this->assertFalse(Str::startsWith('7', ' 7'));
+        $this->assertTrue(Str::startsWith('7a', '7'));
+        $this->assertTrue(Str::startsWith('7a', 7));
+        $this->assertTrue(Str::startsWith('7.12a', 7.12));
+        $this->assertFalse(Str::startsWith('7.12a', 7.13));
+        $this->assertTrue(Str::startsWith(7.123, '7'));
+        $this->assertTrue(Str::startsWith(7.123, '7.12'));
+        $this->assertFalse(Str::startsWith(7.123, '7.13'));
+        // Test for multibyte string support
+        $this->assertTrue(Str::startsWith('Jönköping', 'Jö'));
+        $this->assertTrue(Str::startsWith('Malmö', 'Malmö'));
+        $this->assertFalse(Str::startsWith('Jönköping', 'Jonko'));
+        $this->assertFalse(Str::startsWith('Malmö', 'Malmo'));
     }
 
     public function testEndsWith()
@@ -99,5 +130,26 @@ class StrTest extends TestCase
         $this->assertSame('fo_o_ba_r', Str::snake('FoO BaR'));
         $this->assertSame('foo_bar', Str::snake('foo bar'));
         $this->assertSame('fo_o-_ba_r', Str::snake('FoO-BaR'));
+    }
+
+    public function testLength()
+    {
+        $this->assertEquals(11, Str::length('foo bar baz'));
+        $this->assertEquals(11, Str::length('foo bar baz', 'UTF-8'));
+    }
+
+    public function testSubstr()
+    {
+        $this->assertSame('Ё', Str::substr('БГДЖИЛЁ', -1));
+        $this->assertSame('ЛЁ', Str::substr('БГДЖИЛЁ', -2));
+        $this->assertSame('И', Str::substr('БГДЖИЛЁ', -3, 1));
+        $this->assertSame('ДЖИЛ', Str::substr('БГДЖИЛЁ', 2, -1));
+        $this->assertEmpty(Str::substr('БГДЖИЛЁ', 4, -4));
+        $this->assertSame('ИЛ', Str::substr('БГДЖИЛЁ', -3, -1));
+        $this->assertSame('ГДЖИЛЁ', Str::substr('БГДЖИЛЁ', 1));
+        $this->assertSame('ГДЖ', Str::substr('БГДЖИЛЁ', 1, 3));
+        $this->assertSame('БГДЖ', Str::substr('БГДЖИЛЁ', 0, 4));
+        $this->assertSame('Ё', Str::substr('БГДЖИЛЁ', -1, 1));
+        $this->assertEmpty(Str::substr('Б', 2));
     }
 }

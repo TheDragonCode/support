@@ -84,6 +84,23 @@ class Str
     }
 
     /**
+     * Begin a string with a single instance of a given value.
+     *
+     * @see https://github.com/illuminate/support/blob/master/Str.php
+     *
+     * @param string $value
+     * @param string $prefix
+     *
+     * @return string
+     */
+    public static function start($value, $prefix)
+    {
+        $quoted = preg_quote($prefix, '/');
+
+        return $prefix . preg_replace('/^(?:' . $quoted . ')+/u', '', $value);
+    }
+
+    /**
      * Cap a string with a single instance of a given value.
      *
      * @param string $value
@@ -96,6 +113,27 @@ class Str
         $quoted = preg_quote($cap, '/');
 
         return preg_replace('/(?:' . $quoted . ')+$/u', '', $value) . $cap;
+    }
+
+    /**
+     * Determine if a given string starts with a given substring.
+     *
+     * @see https://github.com/illuminate/support/blob/master/Str.php
+     *
+     * @param string $haystack
+     * @param string|array $needles
+     *
+     * @return bool
+     */
+    public static function startsWith($haystack, $needles)
+    {
+        foreach ((array) $needles as $needle) {
+            if ((string) $needle !== '' && substr($haystack, 0, strlen($needle)) === (string) $needle) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -119,6 +157,8 @@ class Str
 
     /**
      * Convert the given string to lower-case.
+     *
+     * @see https://github.com/illuminate/support/blob/master/Str.php
      *
      * @param string $value
      *
@@ -172,5 +212,40 @@ class Str
         }
 
         return $value;
+    }
+
+    /**
+     * Return the length of the given string.
+     *
+     * @see https://github.com/illuminate/support/blob/master/Str.php
+     *
+     * @param string $value
+     * @param string|null $encoding
+     *
+     * @return int
+     */
+    public static function length($value, $encoding = null)
+    {
+        if ($encoding) {
+            return mb_strlen($value, $encoding);
+        }
+
+        return mb_strlen($value);
+    }
+
+    /**
+     * Returns the portion of string specified by the start and length parameters.
+     *
+     * @see https://github.com/illuminate/support/blob/master/Str.php
+     *
+     * @param string $string
+     * @param int $start
+     * @param int|null $length
+     *
+     * @return string
+     */
+    public static function substr($string, $start, $length = null)
+    {
+        return mb_substr($string, $start, $length, 'UTF-8');
     }
 }
