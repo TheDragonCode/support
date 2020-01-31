@@ -5,6 +5,19 @@ namespace Helldar\Support\Facades;
 use Exception;
 use Helldar\Support\Exceptions\NotValidUrlException;
 
+use function array_search;
+use function explode;
+use function file_exists;
+use function filter_var;
+use function get_headers;
+use function implode;
+use function is_null;
+use function ltrim;
+use function parse_url;
+use function reset;
+use function sizeof;
+use function stripos;
+
 class Http
 {
     /**
@@ -16,7 +29,7 @@ class Http
      */
     public static function isUrl(string $path = null): bool
     {
-        return \filter_var($path, FILTER_VALIDATE_URL) !== false;
+        return filter_var($path, FILTER_VALIDATE_URL) !== false;
     }
 
     /**
@@ -29,13 +42,14 @@ class Http
     public static function exists(string $url): bool
     {
         try {
-            $headers = \get_headers($url);
+            $headers = get_headers($url);
 
-            $key   = \array_search('HTTP/', $headers);
+            $key   = array_search('HTTP/', $headers);
             $value = $headers[$key] ?? null;
 
-            return \stripos($value, '200 OK') !== false;
-        } catch (Exception $exception) {
+            return stripos($value, '200 OK') !== false;
+        }
+        catch (Exception $exception) {
             return false;
         }
     }
@@ -46,13 +60,12 @@ class Http
      * @param string|null $url
      * @param string|null $default
      *
-     * @throws NotValidUrlException
-     *
      * @return string
+     * @throws NotValidUrlException
      */
     public static function baseUrl(string $url = null, string $default = null): string
     {
-        if (\is_null($url)) {
+        if (is_null($url)) {
             return $default ?: $_SERVER['HTTP_HOST'] ?? 'localhost';
         }
 
@@ -60,7 +73,7 @@ class Http
             throw new NotValidUrlException($url);
         }
 
-        return \parse_url($url, PHP_URL_HOST);
+        return parse_url($url, PHP_URL_HOST);
     }
 
     /**
@@ -85,12 +98,12 @@ class Http
         $pass = ($user || $pass) ? ($pass . '@') : '';
 
         $path = $parsed_url['path'] ?? '';
-        $path = $path ? ('/' . \ltrim($path, '/')) : '';
+        $path = $path ? ('/' . ltrim($path, '/')) : '';
 
         $query    = isset($parsed_url['query']) ? ('?' . $parsed_url['query']) : '';
         $fragment = isset($parsed_url['fragment']) ? ('#' . $parsed_url['fragment']) : '';
 
-        return \implode('', [$scheme, $user, $pass, $host, $port, $path, $query, $fragment]);
+        return implode('', [$scheme, $user, $pass, $host, $port, $path, $query, $fragment]);
     }
 
     /**
@@ -99,16 +112,15 @@ class Http
      * @param string|null $url
      * @param string|null $default
      *
-     * @throws NotValidUrlException
-     *
      * @return string|null
+     * @throws NotValidUrlException
      */
     public static function subdomain(string $url = null, string $default = null): ?string
     {
-        $host = \explode('.', static::baseUrl($url, $default));
+        $host = explode('.', static::baseUrl($url, $default));
 
-        if (\sizeof($host) > 2) {
-            return \reset($host);
+        if (sizeof($host) > 2) {
+            return reset($host);
         }
 
         return null;
@@ -126,6 +138,6 @@ class Http
     {
         return static::isUrl($url)
             ? (static::exists($url) ? $url : $default)
-            : (\file_exists($url) ? $url : $default);
+            : (file_exists($url) ? $url : $default);
     }
 }

@@ -4,6 +4,14 @@ namespace Helldar\Support\Facades;
 
 use Illuminate\Database\Eloquent\Builder;
 
+use function array_map;
+use function compact;
+use function dd;
+use function is_float;
+use function is_int;
+use function str_replace;
+use function vsprintf;
+
 class Dumper
 {
     /**
@@ -25,17 +33,17 @@ class Dumper
 
         $sql = $query->toSql();
 
-        $bindings = \array_map(function ($binding) {
-            return \is_int($binding) || \is_float($binding) ? $binding : "'{$binding}'";
+        $bindings = array_map(function ($binding) {
+            return is_int($binding) || is_float($binding) ? $binding : "'{$binding}'";
         }, $query->getBindings());
 
-        $raw      = \vsprintf(\str_replace(['%', '?'], ['%%', '%s'], $sql), $bindings);
+        $raw      = vsprintf(str_replace(['%', '?'], ['%%', '%s'], $sql), $bindings);
         $bindings = $query->getRawBindings();
 
         if ($is_return) {
-            return $is_short ? $raw : \compact('sql', 'bindings', 'raw');
+            return $is_short ? $raw : compact('sql', 'bindings', 'raw');
         }
 
-        \dd($is_short ? $raw : \compact('sql', 'bindings', 'raw'));
+        dd($is_short ? $raw : compact('sql', 'bindings', 'raw'));
     }
 }

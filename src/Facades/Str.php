@@ -4,6 +4,23 @@ namespace Helldar\Support\Facades;
 
 use Illuminate\Contracts\Support\Htmlable;
 
+use function ctype_lower;
+use function htmlspecialchars;
+use function htmlspecialchars_decode;
+use function implode;
+use function is_null;
+use function lcfirst;
+use function mb_strlen;
+use function mb_strtolower;
+use function mb_substr;
+use function preg_quote;
+use function preg_replace;
+use function str_replace;
+use function strlen;
+use function substr;
+use function trim;
+use function ucwords;
+
 class Str
 {
     /**
@@ -16,7 +33,7 @@ class Str
      */
     public static function e($value = null, bool $double_encode = true): ?string
     {
-        if (\is_null($value)) {
+        if (is_null($value)) {
             return null;
         }
 
@@ -24,7 +41,7 @@ class Str
             return $value->toHtml();
         }
 
-        return \htmlspecialchars($value, ENT_QUOTES, 'UTF-8', $double_encode);
+        return htmlspecialchars($value, ENT_QUOTES, 'UTF-8', $double_encode);
     }
 
     /**
@@ -36,11 +53,11 @@ class Str
      */
     public static function de(string $value = null): ?string
     {
-        if (\is_null($value)) {
+        if (is_null($value)) {
             return null;
         }
 
-        return \htmlspecialchars_decode($value, ENT_QUOTES);
+        return htmlspecialchars_decode($value, ENT_QUOTES);
     }
 
     /**
@@ -52,7 +69,7 @@ class Str
      */
     public static function replaceSpaces(string $value): ?string
     {
-        return \preg_replace('!\s+!', ' ', $value);
+        return preg_replace('!\s+!', ' ', $value);
     }
 
     /**
@@ -76,11 +93,11 @@ class Str
             $result = $choice[1] ?? '';
         }
 
-        if (empty(\trim($additional))) {
-            return \trim($result);
+        if (empty(trim($additional))) {
+            return trim($result);
         }
 
-        return \implode(' ', [\trim($result), \trim($additional)]);
+        return implode(' ', [trim($result), trim($additional)]);
     }
 
     /**
@@ -95,9 +112,9 @@ class Str
      */
     public static function start($value, $prefix)
     {
-        $quoted = \preg_quote($prefix, '/');
+        $quoted = preg_quote($prefix, '/');
 
-        return $prefix . \preg_replace('/^(?:' . $quoted . ')+/u', '', $value);
+        return $prefix . preg_replace('/^(?:' . $quoted . ')+/u', '', $value);
     }
 
     /**
@@ -110,9 +127,9 @@ class Str
      */
     public static function finish(string $value, string $cap = '/'): string
     {
-        $quoted = \preg_quote($cap, '/');
+        $quoted = preg_quote($cap, '/');
 
-        return \preg_replace('/(?:' . $quoted . ')+$/u', '', $value) . $cap;
+        return preg_replace('/(?:' . $quoted . ')+$/u', '', $value) . $cap;
     }
 
     /**
@@ -128,7 +145,7 @@ class Str
     public static function startsWith($haystack, $needles)
     {
         foreach ((array) $needles as $needle) {
-            if ((string) $needle !== '' && \substr($haystack, 0, \strlen($needle)) === (string) $needle) {
+            if ((string) $needle !== '' && substr($haystack, 0, strlen($needle)) === (string) $needle) {
                 return true;
             }
         }
@@ -147,7 +164,7 @@ class Str
     public static function endsWith($haystack, $needles): bool
     {
         foreach ((array) $needles as $needle) {
-            if (\substr($haystack, -\strlen($needle)) === (string) $needle) {
+            if (substr($haystack, -strlen($needle)) === (string) $needle) {
                 return true;
             }
         }
@@ -166,7 +183,7 @@ class Str
      */
     public static function lower($value)
     {
-        return \mb_strtolower($value, 'UTF-8');
+        return mb_strtolower($value, 'UTF-8');
     }
 
     /**
@@ -178,9 +195,9 @@ class Str
      */
     public static function studly($value)
     {
-        $value = \ucwords(\str_replace(['-', '_'], ' ', $value));
+        $value = ucwords(str_replace(['-', '_'], ' ', $value));
 
-        return \str_replace(' ', '', $value);
+        return str_replace(' ', '', $value);
     }
 
     /**
@@ -192,7 +209,7 @@ class Str
      */
     public static function camel($value)
     {
-        return \lcfirst(static::studly($value));
+        return lcfirst(static::studly($value));
     }
 
     /**
@@ -205,10 +222,10 @@ class Str
      */
     public static function snake($value, $delimiter = '_')
     {
-        if (! \ctype_lower($value)) {
-            $value = \preg_replace('/\s+/u', '', ucwords($value));
+        if (! ctype_lower($value)) {
+            $value = preg_replace('/\s+/u', '', ucwords($value));
 
-            $value = static::lower(\preg_replace('/(.)(?=[A-Z])/u', '$1' . $delimiter, $value));
+            $value = static::lower(preg_replace('/(.)(?=[A-Z])/u', '$1' . $delimiter, $value));
         }
 
         return $value;
@@ -227,10 +244,10 @@ class Str
     public static function length($value, $encoding = null)
     {
         if ($encoding) {
-            return \mb_strlen($value, $encoding);
+            return mb_strlen($value, $encoding);
         }
 
-        return \mb_strlen($value);
+        return mb_strlen($value);
     }
 
     /**
@@ -246,6 +263,6 @@ class Str
      */
     public static function substr($string, $start, $length = null)
     {
-        return \mb_substr($string, $start, $length, 'UTF-8');
+        return mb_substr($string, $start, $length, 'UTF-8');
     }
 }

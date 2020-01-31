@@ -2,11 +2,11 @@
 
 namespace Helldar\Support\Tools;
 
-use function array_keys;
+use Helldar\Support\Exceptions\UnknownStubFileException;
 
+use function array_keys;
 use function array_values;
 use function file_get_contents;
-use Helldar\Support\Exceptions\UnknownStubFileException;
 use function realpath;
 use function str_replace;
 
