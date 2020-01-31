@@ -2,11 +2,9 @@
 
 namespace Helldar\Support\Facades;
 
-use ArrayAccess;
-use Helldar\Support\Tools\Stub;
-
 use function array_filter;
 use function array_flip;
+
 use function array_intersect;
 use function array_intersect_key;
 use function array_keys;
@@ -15,8 +13,10 @@ use function array_merge;
 use function array_push;
 use function array_unique;
 use function array_values;
+use ArrayAccess;
 use function count;
 use function get_object_vars;
+use Helldar\Support\Tools\Stub;
 use function in_array;
 use function is_array;
 use function is_object;

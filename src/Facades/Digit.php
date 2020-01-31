@@ -2,11 +2,11 @@
 
 namespace Helldar\Support\Facades;
 
-use Helldar\Support\Exceptions\InvalidNumberException;
-
 use function bcpow;
+
 use function ceil;
 use function end;
+use Helldar\Support\Exceptions\InvalidNumberException;
 use function is_numeric;
 use function ksort;
 use function round;
@@ -38,8 +38,9 @@ class Digit
      * @param float $number
      * @param int $precision
      *
-     * @return string
      * @throws InvalidNumberException
+     *
+     * @return string
      */
     public static function shortNumber(float $number, int $precision = 1): string
     {

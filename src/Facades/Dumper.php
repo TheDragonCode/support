@@ -2,11 +2,11 @@
 
 namespace Helldar\Support\Facades;
 
-use Illuminate\Database\Eloquent\Builder;
-
 use function array_map;
+
 use function compact;
 use function dd;
+use Illuminate\Database\Eloquent\Builder;
 use function is_float;
 use function is_int;
 use function str_replace;
