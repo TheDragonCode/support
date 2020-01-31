@@ -10,8 +10,9 @@ trait InitModelHelper
     protected static $model_helper;
 
     /**
-     * @return \Helldar\Support\Laravel\Models\ModelHelper
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     *
+     * @return \Helldar\Support\Laravel\Models\ModelHelper
      */
     protected function model(): ModelHelper
     {
