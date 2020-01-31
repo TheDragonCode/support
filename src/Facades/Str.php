@@ -121,7 +121,7 @@ class Str
      * @see https://github.com/illuminate/support/blob/master/Str.php
      *
      * @param string $haystack
-     * @param string|array $needles
+     * @param array|string $needles
      *
      * @return bool
      */
