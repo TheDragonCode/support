@@ -48,6 +48,6 @@ class OS
     {
         $family = PHP_MINOR_VERSION >= 2 ? PHP_OS_FAMILY : PHP_OS;
 
-        return $is_lower ? mb_strtolower($family) : $family;
+        return $is_lower ? \mb_strtolower($family) : $family;
     }
 }
