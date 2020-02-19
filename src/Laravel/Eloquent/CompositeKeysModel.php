@@ -12,7 +12,9 @@ abstract class CompositeKeysModel extends Model
     public $incrementing = false;
 
     /**
-     * Required!
+     * ATTENTION!
+     *
+     * Be sure to fill in the columns.
      *
      * @var array
      */
