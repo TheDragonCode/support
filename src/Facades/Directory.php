@@ -40,6 +40,8 @@ class Directory
             }
         }
 
+        \sort($items);
+
         return $items;
     }
 
