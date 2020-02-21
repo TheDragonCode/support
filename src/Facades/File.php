@@ -2,28 +2,29 @@
 
 namespace Helldar\Support\Facades;
 
-use function file_exists;
 use function file_put_contents;
-use function mkdir;
 use function pathinfo;
 
 class File
 {
     public static function store(string $path, string $content)
     {
-        $directory = pathinfo($path, PATHINFO_DIRNAME);
-
-        static::makeDirectory($directory);
+        Directory::make(
+            pathinfo($path, PATHINFO_DIRNAME)
+        );
 
         file_put_contents($path, $content);
     }
 
+    /**
+     * @deprecated Use Helldar\Support\Facades\Directory::make() instead.
+     *
+     * @param string $path
+     *
+     * @return bool
+     */
     public static function makeDirectory(string $path): bool
     {
-        if (! file_exists($path)) {
-            return mkdir($path, 755, true);
-        }
-
-        return true;
+        return Directory::make($path);
     }
 }
