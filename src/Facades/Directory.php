@@ -10,8 +10,9 @@ class Directory
     /**
      * @param string $path
      *
-     * @return \DirectoryIterator
      * @throws \Helldar\Support\Exceptions\DirectoryNotFoundException
+     *
+     * @return \DirectoryIterator
      */
     public static function all(string $path): DirectoryIterator
     {
@@ -25,8 +26,9 @@ class Directory
     /**
      * @param string $path
      *
-     * @return array
      * @throws \Helldar\Support\Exceptions\DirectoryNotFoundException
+     *
+     * @return array
      */
     public static function names(string $path): array
     {
