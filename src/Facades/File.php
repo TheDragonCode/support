@@ -9,9 +9,7 @@ class File
 {
     public static function store(string $path, string $content)
     {
-        Directory::make(
-            pathinfo($path, PATHINFO_DIRNAME)
-        );
+        Directory::make(pathinfo($path, PATHINFO_DIRNAME));
 
         file_put_contents($path, $content);
     }
