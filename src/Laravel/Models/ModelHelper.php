@@ -136,7 +136,7 @@ class ModelHelper
         }
 
         if (is_string($model)) {
-            return $this->models[$model] = new $model;
+            return $this->models[$model] = new $model();
         }
 
         throw new IncorrectModelException($model);

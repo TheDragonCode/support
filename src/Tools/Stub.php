@@ -12,9 +12,9 @@ use function str_replace;
 
 class Stub
 {
-    const CONFIG_FILE = 'config.stub';
+    public const CONFIG_FILE = 'config.stub';
 
-    const LANG_JSON = 'lang_json.stub';
+    public const LANG_JSON = 'lang_json.stub';
 
     public static function get(string $filename): string
     {

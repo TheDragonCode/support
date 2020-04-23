@@ -15,13 +15,12 @@ use function is_null;
 use function ltrim;
 use function parse_url;
 use function reset;
-use function sizeof;
 use function stripos;
 
 class Http
 {
     /**
-     * Checks whether the string is URL address
+     * Checks whether the string is URL address.
      *
      * @param string|null $path
      *
@@ -120,7 +119,7 @@ class Http
     {
         $host = explode('.', static::baseUrl($url, $default));
 
-        if (sizeof($host) > 2) {
+        if (count($host) > 2) {
             return reset($host);
         }
 

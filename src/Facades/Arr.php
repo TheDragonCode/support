@@ -89,7 +89,7 @@ class Arr
      * Example:
      *  $arr = ['q' => 1, 'r' => 2, 's' => 5, 'w' => 123];
      *  Arr::sortByKeysArray($arr, ['q', 'w', 'e']);
-     * print_r($arr);
+     * print_r($arr);.
      * /*
      *   Array
      *   (
