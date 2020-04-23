@@ -19,7 +19,7 @@ if (! function_exists('factorial')) {
 if (! function_exists('short_number')) {
     /**
      * Converts a number into a short version.
-     * eg: 1000 >> 1K
+     * eg: 1000 >> 1K.
      *
      * @param float $number
      * @param int $precision

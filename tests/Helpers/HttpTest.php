@@ -54,6 +54,6 @@ class HttpTest extends TestCase
 
         $this->assertEquals($default, Http::imageOrDefault($url_1, $default));
         $this->assertEquals($default, Http::imageOrDefault($url_2, $default));
-        $this->assertEquals(null, Http::imageOrDefault($url_2));
+        $this->assertNull(Http::imageOrDefault($url_2));
     }
 }
