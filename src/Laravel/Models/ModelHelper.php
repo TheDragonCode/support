@@ -6,6 +6,12 @@ use Helldar\Support\Exceptions\Laravel\IncorrectModelException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
+/**
+ * Instead, use `Helldar\LaravelSupport\Support\ModelHelper`
+ * from `andrey-helldar/laravel-support` package.
+ *
+ * @deprecated Will be removed from version 2.0
+ */
 class ModelHelper
 {
     private $models = [];
@@ -93,8 +99,8 @@ class ModelHelper
     }
 
     /**
-     * @param mixed|Model $model
-     * @param Request $request
+     * @param  mixed|Model  $model
+     * @param  Request  $request
      *
      * @throws IncorrectModelException
      *
@@ -109,7 +115,7 @@ class ModelHelper
 
     /**
      * @param $model
-     * @param mixed ...$except
+     * @param  mixed  ...$except
      *
      * @throws IncorrectModelException
      *
@@ -121,7 +127,7 @@ class ModelHelper
     }
 
     /**
-     * @param Model|string $model
+     * @param  Model|string  $model
      *
      * @throws IncorrectModelException
      *

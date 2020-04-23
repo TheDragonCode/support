@@ -5,6 +5,12 @@ namespace Helldar\Support\Laravel\Eloquent;
 use Illuminate\Database\Eloquent\Model;
 use Webpatser\Uuid\Uuid;
 
+/**
+ * Instead, use `Helldar\LaravelSupport\Eloquent\UuidModel`
+ * from `andrey-helldar/laravel-support` package.
+ *
+ * @deprecated Will be removed from version 2.0
+ */
 abstract class UuidModel extends Model
 {
     public $incrementing = false;

@@ -7,6 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 use function is_array;
 
+/**
+ * Instead, use `Helldar\LaravelSupport\Eloquent\CompositeKeysModel`
+ * from `andrey-helldar/laravel-support` package.
+ *
+ * @deprecated Will be removed from version 2.0
+ */
 abstract class CompositeKeysModel extends Model
 {
     public $incrementing = false;

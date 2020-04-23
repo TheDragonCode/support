@@ -25,9 +25,8 @@
         "phpunit/phpunit": "^8.0|^9.0"
     },
     "suggest": {
-        "symfony/thanks": "Give thanks (in the form of a GitHub) to your fellow PHP package maintainers",
-        "illuminate/database": "For using methods from the Dumper class and Eloquent helpers in Laravel framework",
-        "webpatser/laravel-uuid": "For using Laravel Eloquent abstract classes."
+        "andrey-helldar/laravel-support": "Various helper files for the Laravel and Lumen frameworks",
+        "symfony/thanks": "Give thanks (in the form of a GitHub) to your fellow PHP package maintainers"
     },
     "autoload": {
         "psr-4": {

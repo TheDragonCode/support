@@ -4,6 +4,12 @@ namespace Helldar\Support\Laravel\Models;
 
 use Illuminate\Container\Container;
 
+/**
+ * Instead, use `Helldar\LaravelSupport\Traits\InitModelHelper`
+ * from `andrey-helldar/laravel-support` package.
+ *
+ * @deprecated Will be removed from version 2.0
+ */
 trait InitModelHelper
 {
     /** @var \Helldar\Support\Laravel\Models\ModelHelper */
