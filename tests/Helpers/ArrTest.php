@@ -167,7 +167,7 @@ class ArrTest extends TestCase
         $this->assertEquals('bar', Arr::get(['foo' => 'bar'], 'foo'));
         $this->assertEquals('bar', Arr::get(['foo' => 'bar'], 'foo', 'bar'));
         $this->assertEquals('baz', Arr::get(['foo' => 'bar'], 'bar', 'baz'));
-        $this->assertEquals(null, Arr::get(['foo' => 'bar'], 'bar'));
+        $this->assertNull(Arr::get(['foo' => 'bar'], 'bar'));
     }
 
     public function testExcept()

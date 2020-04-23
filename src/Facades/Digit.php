@@ -33,7 +33,7 @@ class Digit
 
     /**
      * Converts a number into a short version.
-     * eg: 1000 >> 1K
+     * eg: 1000 >> 1K.
      *
      * @param float $number
      * @param int $precision
@@ -68,7 +68,7 @@ class Digit
      */
     public static function roundedBcPow(float $digit, int $length = 4, int $precision = 1): float
     {
-        $divider = (double) bcpow(10, ($length - 4), 2);
+        $divider = (float) bcpow(10, ($length - 4), 2);
 
         return round($digit / $divider, $precision);
     }
