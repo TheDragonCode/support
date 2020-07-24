@@ -8,7 +8,7 @@ use Helldar\Support\Exceptions\DirectoryNotFoundException;
 class Directory
 {
     /**
-     * @param string $path
+     * @param  string  $path
      *
      * @throws \Helldar\Support\Exceptions\DirectoryNotFoundException
      *
@@ -16,7 +16,7 @@ class Directory
      */
     public static function all(string $path): DirectoryIterator
     {
-        if (! \file_exists($path)) {
+        if (! file_exists($path)) {
             throw new DirectoryNotFoundException($path);
         }
 
@@ -24,7 +24,7 @@ class Directory
     }
 
     /**
-     * @param string $path
+     * @param  string  $path
      *
      * @throws \Helldar\Support\Exceptions\DirectoryNotFoundException
      *
@@ -40,7 +40,7 @@ class Directory
             }
         }
 
-        \sort($items);
+        sort($items);
 
         return $items;
     }

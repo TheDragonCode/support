@@ -6,7 +6,7 @@ if (! function_exists('de')) {
     /**
      * Convert special HTML entities back to characters.
      *
-     * @param string $value
+     * @param  string  $value
      *
      * @return string
      */
@@ -20,9 +20,9 @@ if (! function_exists('str_choice')) {
     /**
      * The str_choice function translates the given language line with inflection.
      *
-     * @param float $number
-     * @param array $choice
-     * @param string $additional
+     * @param  float  $number
+     * @param  array  $choice
+     * @param  string  $additional
      *
      * @return string
      */
@@ -36,7 +36,7 @@ if (! function_exists('str_replace_spaces')) {
     /**
      * Replacing multiple spaces with a single space.
      *
-     * @param string $value
+     * @param  string  $value
      *
      * @return string|null
      */
@@ -50,8 +50,8 @@ if (! function_exists('str_finish')) {
     /**
      * Cap a string with a single instance of a given value.
      *
-     * @param string $value
-     * @param string $cap
+     * @param  string  $value
+     * @param  string  $cap
      *
      * @return string
      */
@@ -65,8 +65,8 @@ if (! function_exists('str_ends_with')) {
     /**
      * Determine if a given string ends with a given substring.
      *
-     * @param string $haystack
-     * @param array|string $needles
+     * @param  string  $haystack
+     * @param  array|string  $needles
      *
      * @return bool
      */

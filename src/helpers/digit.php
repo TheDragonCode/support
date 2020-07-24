@@ -6,7 +6,7 @@ if (! function_exists('factorial')) {
     /**
      * Calculating the factorial of a number.
      *
-     * @param int $n
+     * @param  int  $n
      *
      * @return float|int
      */
@@ -21,8 +21,8 @@ if (! function_exists('short_number')) {
      * Converts a number into a short version.
      * eg: 1000 >> 1K.
      *
-     * @param float $number
-     * @param int $precision
+     * @param  float  $number
+     * @param  int  $precision
      *
      * @return string
      */

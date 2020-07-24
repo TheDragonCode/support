@@ -2,15 +2,7 @@
 
 namespace Helldar\Support\Facades;
 
-use function array_map;
-
-use function compact;
-use function dd;
 use Illuminate\Database\Eloquent\Builder;
-use function is_float;
-use function is_int;
-use function str_replace;
-use function vsprintf;
 
 class Dumper
 {
@@ -20,8 +12,8 @@ class Dumper
      * @see https://gist.github.com/Ellrion/561fc48894a87b853917e0a5cec83181#file-helper-php
      *
      * @param $query
-     * @param bool $is_short
-     * @param bool $is_return
+     * @param  bool  $is_short
+     * @param  bool  $is_return
      *
      * @return array|string
      */

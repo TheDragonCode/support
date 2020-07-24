@@ -7,8 +7,8 @@ if (! function_exists('dd_sql')) {
      * Dump the passed variables and end the script.
      *
      * @param      $query
-     * @param bool $is_short
-     * @param bool $is_return
+     * @param  bool  $is_short
+     * @param  bool  $is_return
      *
      * @return array|string
      */

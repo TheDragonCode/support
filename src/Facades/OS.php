@@ -2,8 +2,6 @@
 
 namespace Helldar\Support\Facades;
 
-use function mb_strtolower;
-
 /**
  * @see https://www.php.net/manual/ru/reserved.constants.php
  */

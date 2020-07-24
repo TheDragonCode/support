@@ -2,9 +2,6 @@
 
 namespace Helldar\Support\Facades;
 
-use function file_put_contents;
-use function pathinfo;
-
 class File
 {
     public static function store(string $path, string $content)
@@ -17,7 +14,7 @@ class File
     /**
      * @deprecated Use Helldar\Support\Facades\Directory::make() instead.
      *
-     * @param string $path
+     * @param  string  $path
      *
      * @return bool
      */

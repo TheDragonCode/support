@@ -2,27 +2,15 @@
 
 namespace Helldar\Support\Facades;
 
-use function array_search;
 use Exception;
-
-use function explode;
-use function file_exists;
-use function filter_var;
-use function get_headers;
 use Helldar\Support\Exceptions\NotValidUrlException;
-use function implode;
-use function is_null;
-use function ltrim;
-use function parse_url;
-use function reset;
-use function stripos;
 
 class Http
 {
     /**
      * Checks whether the string is URL address.
      *
-     * @param string|null $path
+     * @param  string|null  $path
      *
      * @return bool
      */
@@ -34,7 +22,7 @@ class Http
     /**
      * Checks whether a file or directory exists on URL.
      *
-     * @param string $url
+     * @param  string  $url
      *
      * @return bool
      */
@@ -47,7 +35,8 @@ class Http
             $value = $headers[$key] ?? null;
 
             return stripos($value, '200 OK') !== false;
-        } catch (Exception $exception) {
+        }
+        catch (Exception $exception) {
             return false;
         }
     }
@@ -55,8 +44,8 @@ class Http
     /**
      * Get the domain name from the URL.
      *
-     * @param string|null $url
-     * @param string|null $default
+     * @param  string|null  $url
+     * @param  string|null  $default
      *
      * @throws NotValidUrlException
      *
@@ -80,7 +69,7 @@ class Http
      *
      * @see https://gist.github.com/Ellrion/f51ba0d40ae1d62eeae44fd1adf7b704
      *
-     * @param array $parsed_url
+     * @param  array  $parsed_url
      *
      * @return string
      */
@@ -108,8 +97,8 @@ class Http
     /**
      * Retrieving the current subdomain name.
      *
-     * @param string|null $url
-     * @param string|null $default
+     * @param  string|null  $url
+     * @param  string|null  $default
      *
      * @throws NotValidUrlException
      *
@@ -129,8 +118,8 @@ class Http
     /**
      * Check the existence of the file and return the default value if it is missing.
      *
-     * @param string $url
-     * @param string|null $default
+     * @param  string  $url
+     * @param  string|null  $default
      *
      * @return string
      */

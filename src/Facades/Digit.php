@@ -2,23 +2,14 @@
 
 namespace Helldar\Support\Facades;
 
-use function bcpow;
-
-use function ceil;
-use function end;
 use Helldar\Support\Exceptions\InvalidNumberException;
-use function is_numeric;
-use function ksort;
-use function round;
-use function strlen;
-use function substr;
 
 class Digit
 {
     /**
      * Calculating the factorial of a number.
      *
-     * @param int $n
+     * @param  int  $n
      *
      * @return float|int
      */
@@ -35,8 +26,8 @@ class Digit
      * Converts a number into a short version.
      * eg: 1000 >> 1K.
      *
-     * @param float $number
-     * @param int $precision
+     * @param  float  $number
+     * @param  int  $precision
      *
      * @throws InvalidNumberException
      *
@@ -60,9 +51,9 @@ class Digit
     /**
      * Format a number with grouped with divider.
      *
-     * @param float $digit
-     * @param int $length
-     * @param int $precision
+     * @param  float  $digit
+     * @param  int  $length
+     * @param  int  $precision
      *
      * @return float
      */
@@ -77,8 +68,8 @@ class Digit
      * Create short unique identifier from number.
      * Actually using in short URL.
      *
-     * @param int $number
-     * @param string $chars
+     * @param  int  $number
+     * @param  string  $chars
      *
      * @return string
      */
@@ -105,7 +96,7 @@ class Digit
     /**
      * Getting the suffix for abbreviated numbers.
      *
-     * @param int $length
+     * @param  int  $length
      *
      * @return string
      */
