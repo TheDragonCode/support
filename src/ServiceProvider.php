@@ -7,5 +7,4 @@ namespace Helldar\Support;
  */
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
-    //
 }
