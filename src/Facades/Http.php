@@ -94,6 +94,20 @@ class Http
     }
 
     /**
+     * Retrieving the current domain name.
+     *
+     * @param  string|null  $url
+     *
+     * @return string|null
+     */
+    public static function domain(string $url = null): ?string
+    {
+        return static::isUrl($url)
+            ? parse_url($url, PHP_URL_HOST)
+            : null;
+    }
+
+    /**
      * Retrieving the current subdomain name.
      *
      * @param  string|null  $url
