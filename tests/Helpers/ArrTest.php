@@ -3,9 +3,9 @@
 namespace Tests\Helpers;
 
 use Helldar\Support\Facades\Arr;
-use function json_encode;
-
 use Tests\TestCase;
+
+use function json_encode;
 
 class ArrTest extends TestCase
 {
@@ -105,6 +105,30 @@ class ArrTest extends TestCase
         ];
 
         $renamed = Arr::renameKeys($source, 'mb_strtoupper');
+
+        $this->assertEquals($expected, $renamed);
+    }
+
+    public function testRenameKeysMap()
+    {
+        $source = [
+            'foo' => 123,
+            'BaR' => 456,
+            'BAZ' => 789,
+        ];
+
+        $expected = [
+            'FOOX' => 123,
+            'BARX' => 456,
+            'BAZ'  => 789,
+        ];
+
+        $map = [
+            'foo' => 'FOOX',
+            'BaR' => 'BARX',
+        ];
+
+        $renamed = Arr::renameKeysMap($source, $map);
 
         $this->assertEquals($expected, $renamed);
     }

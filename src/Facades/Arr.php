@@ -9,7 +9,7 @@ class Arr
 {
     /**
      * Renaming array keys.
-     * As the first parameter, a callback function is passed, which determines the actions for processing the value.
+     * As the second parameter, a callback function is passed, which determines the actions for processing the value.
      * The output of the function must be a string with a name.
      *
      * @param  array  $array
@@ -27,6 +27,21 @@ class Arr
         }
 
         return $result;
+    }
+
+    /**
+     * Renaming array keys with map.
+     *
+     * @param  array  $array
+     * @param  array  $map
+     *
+     * @return array
+     */
+    public static function renameKeysMap(array $array, array $map): array
+    {
+        return self::renameKeys($array, static function ($key) use ($map) {
+            return $map[$key] ?? $key;
+        });
     }
 
     /**

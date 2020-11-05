@@ -23,7 +23,7 @@
     },
     "require-dev": {
         "ext-bcmath": "*",
-        "phpunit/phpunit": "^8.0|^9.0"
+        "phpunit/phpunit": "^9.0"
     },
     "suggest": {
         "andrey-helldar/laravel-support": "Various helper files for the Laravel and Lumen frameworks",
