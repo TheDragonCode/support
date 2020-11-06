@@ -232,4 +232,9 @@ class Arr
     {
         return array_intersect_key($array, array_flip($keys));
     }
+
+    public static function map(array $array, callable $callback): array
+    {
+        return array_map($callback, $array);
+    }
 }
