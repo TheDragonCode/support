@@ -35,7 +35,8 @@ class Http
             $value = $headers[$key] ?? null;
 
             return stripos($value, '200 OK') !== false;
-        } catch (Exception $exception) {
+        }
+        catch (Exception $exception) {
             return false;
         }
     }
@@ -94,6 +95,20 @@ class Http
     }
 
     /**
+     * Retrieving the current domain schema.
+     *
+     * @param  string|null  $url
+     *
+     * @return string|null
+     */
+    public static function scheme(string $url = null): ?string
+    {
+        return static::isUrl($url)
+            ? parse_url($url, PHP_URL_SCHEME)
+            : null;
+    }
+
+    /**
      * Retrieving the current domain name.
      *
      * @param  string|null  $url
@@ -105,6 +120,25 @@ class Http
         return static::isUrl($url)
             ? parse_url($url, PHP_URL_HOST)
             : null;
+    }
+
+    /**
+     * Retrieving the current domain name with schema.
+     *
+     * @param  string|null  $url
+     *
+     * @return string|null
+     */
+    public static function host(string $url = null): ?string
+    {
+        if (static::isUrl($url)) {
+            return static::buildUrl([
+                'scheme' => static::scheme($url),
+                'host'   => static::domain($url),
+            ]);
+        }
+
+        return null;
     }
 
     /**
