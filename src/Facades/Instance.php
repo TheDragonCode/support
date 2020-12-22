@@ -60,14 +60,16 @@ final class Instance
         return false;
     }
 
-    public static function call($object, string $method)
+    public static function call($object, string $method, $default = null)
     {
-        return Is::object($object) && method_exists($object, $method)
-            ? call_user_func([$object, $method])
-            : null;
+        if (Is::object($object) && method_exists($object, $method)) {
+            return call_user_func([$object, $method]);
+        }
+
+        return $default;
     }
 
-    public static function callsWhenNotEmpty($object, $methods)
+    public static function callsWhenNotEmpty($object, $methods, $default = null)
     {
         foreach (Arr::wrap($methods) as $method) {
             if ($value = self::call($object, $method)) {
@@ -75,7 +77,7 @@ final class Instance
             }
         }
 
-        return null;
+        return $default;
     }
 
     protected static function resolve($class): ReflectionClass
