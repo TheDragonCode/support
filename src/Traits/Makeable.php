@@ -2,7 +2,7 @@
 
 namespace Helldar\Support\Traits;
 
-final class Makeable
+trait Makeable
 {
     public static function make(...$parameters)
     {
