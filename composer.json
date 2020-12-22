@@ -32,7 +32,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Helldar\\Support\\": "src/"
+            "Helldar\\Support\\": "src"
         },
         "files": [
             "src/helpers/digit.php",
@@ -43,7 +43,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/"
+            "Tests\\": "tests"
         }
     },
     "config": {
