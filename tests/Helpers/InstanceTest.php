@@ -3,7 +3,10 @@
 namespace Tests\Helpers;
 
 use Helldar\Support\Facades\Instance;
-use Tests\Fixtures\{Bar, Baz, Contract, Foo};
+use Tests\Fixtures\Bar;
+use Tests\Fixtures\Baz;
+use Tests\Fixtures\Contract;
+use Tests\Fixtures\Foo;
 use Tests\TestCase;
 
 final class InstanceTest extends TestCase
