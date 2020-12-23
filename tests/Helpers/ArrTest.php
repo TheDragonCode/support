@@ -3,11 +3,11 @@
 namespace Tests\Helpers;
 
 use Helldar\Support\Facades\Arr;
+use function json_encode;
 use Tests\Fixtures\Bar;
 use Tests\Fixtures\Baz;
-use Tests\TestCase;
 
-use function json_encode;
+use Tests\TestCase;
 
 class ArrTest extends TestCase
 {
