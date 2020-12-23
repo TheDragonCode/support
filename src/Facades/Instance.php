@@ -42,7 +42,7 @@ final class Instance
         return basename(str_replace('\\', '/', $class));
     }
 
-    public static function classname($class): string
+    public static function classname($class = null): ?string
     {
         return Is::object($class) ? get_class($class) : $class;
     }
