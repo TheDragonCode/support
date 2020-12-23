@@ -2,8 +2,10 @@
 
 namespace Helldar\Support\Facades;
 
+use Exception;
 use Helldar\Support\Services\Reflection;
 use ReflectionClass;
+use Throwable;
 
 final class Is
 {
@@ -22,6 +24,11 @@ final class Is
         $class = Instance::classname($value);
 
         return Reflection::resolve($value)->isInterface() || interface_exists($class);
+    }
+
+    public static function error($value): bool
+    {
+        return Instance::of($value, [Exception::class, Throwable::class]);
     }
 
     public static function reflectionClass($class): bool

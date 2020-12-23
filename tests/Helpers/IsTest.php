@@ -2,6 +2,7 @@
 
 namespace Tests\Helpers;
 
+use Exception;
 use Helldar\Support\Facades\Is;
 use ReflectionClass;
 use Tests\Fixtures\Bar;
@@ -52,5 +53,14 @@ final class IsTest extends TestCase
         $this->assertFalse(Is::reflectionClass(Contract::class));
 
         $this->assertTrue(Is::reflectionClass(new ReflectionClass(new Foo())));
+    }
+
+    public function testError()
+    {
+        $this->assertFalse(Is::error(Foo::class));
+        $this->assertFalse(Is::error(new Foo()));
+
+        $this->assertTrue(Is::error(Exception::class));
+        $this->assertTrue(Is::error(new Exception()));
     }
 }
