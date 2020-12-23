@@ -182,9 +182,19 @@ class Arr
 
     public static function toArray($array = null): array
     {
-        return is_object($array)
-            ? get_object_vars($array)
-            : static::wrap($array);
+        if (is_object($array)) {
+            $array = method_exists($array, 'toArray') ? $array->toArray() : get_object_vars($array);
+        }
+
+        $array = self::wrap($array);
+
+        foreach ($array as &$item) {
+            $item = is_array($item) || is_object($item)
+                ? self::toArray($item)
+                : $item;
+        }
+
+        return $array;
     }
 
     /**

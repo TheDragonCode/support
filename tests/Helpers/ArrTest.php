@@ -3,9 +3,11 @@
 namespace Tests\Helpers;
 
 use Helldar\Support\Facades\Arr;
-use function json_encode;
-
+use Tests\Fixtures\Bar;
+use Tests\Fixtures\Baz;
 use Tests\TestCase;
+
+use function json_encode;
 
 class ArrTest extends TestCase
 {
@@ -178,6 +180,9 @@ class ArrTest extends TestCase
         $this->assertEquals(['foo' => 'foo', 'bar' => 'bar'], Arr::toArray(['foo' => 'foo', 'bar' => 'bar']));
         $this->assertEquals(['foo' => 'foo', 'bar' => 'bar'], Arr::toArray((object) ['foo' => 'foo', 'bar' => 'bar']));
         $this->assertEquals(['foo'], Arr::toArray('foo'));
+
+        $this->assertEquals(['first' => 'foo', 'second' => 'bar'], Arr::toArray(new Bar()));
+        $this->assertEquals(['qwerty' => 'Qwerty'], Arr::toArray(new Baz()));
     }
 
     public function testExists()
