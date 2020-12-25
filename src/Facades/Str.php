@@ -26,8 +26,8 @@ class Str
     /**
      * Escape HTML special characters in a string.
      *
-     * @param Htmlable|string $value
-     * @param bool $double_encode
+     * @param  Htmlable|string  $value
+     * @param  bool  $double_encode
      *
      * @return string
      */
@@ -47,7 +47,7 @@ class Str
     /**
      * Convert special HTML entities back to characters.
      *
-     * @param string|null $value
+     * @param  string|null  $value
      *
      * @return string|null
      */
@@ -63,7 +63,7 @@ class Str
     /**
      * Replacing multiple spaces with a single space.
      *
-     * @param string $value
+     * @param  string  $value
      *
      * @return string|null
      */
@@ -75,9 +75,9 @@ class Str
     /**
      * The str_choice function translates the given language line with inflection.
      *
-     * @param float $number
-     * @param array $choice
-     * @param string $additional
+     * @param  float  $number
+     * @param  array  $choice
+     * @param  string  $additional
      *
      * @return string
      */
@@ -105,8 +105,8 @@ class Str
      *
      * @see https://github.com/illuminate/support/blob/master/Str.php
      *
-     * @param string $value
-     * @param string $prefix
+     * @param  string  $value
+     * @param  string  $prefix
      *
      * @return string
      */
@@ -120,8 +120,8 @@ class Str
     /**
      * Cap a string with a single instance of a given value.
      *
-     * @param string $value
-     * @param string $cap
+     * @param  string  $value
+     * @param  string  $cap
      *
      * @return string
      */
@@ -137,8 +137,8 @@ class Str
      *
      * @see https://github.com/illuminate/support/blob/master/Str.php
      *
-     * @param string $haystack
-     * @param array|string $needles
+     * @param  string  $haystack
+     * @param  array|string  $needles
      *
      * @return bool
      */
@@ -156,8 +156,8 @@ class Str
     /**
      * Determine if a given string ends with a given substring.
      *
-     * @param string $haystack
-     * @param array|string $needles
+     * @param  string  $haystack
+     * @param  array|string  $needles
      *
      * @return bool
      */
@@ -177,7 +177,7 @@ class Str
      *
      * @see https://github.com/illuminate/support/blob/master/Str.php
      *
-     * @param string $value
+     * @param  string  $value
      *
      * @return string
      */
@@ -189,7 +189,7 @@ class Str
     /**
      * Convert a value to studly caps case.
      *
-     * @param string $value
+     * @param  string  $value
      *
      * @return string
      */
@@ -203,7 +203,7 @@ class Str
     /**
      * Convert a value to camel case.
      *
-     * @param string $value
+     * @param  string  $value
      *
      * @return string
      */
@@ -215,8 +215,8 @@ class Str
     /**
      * Convert a string to snake case.
      *
-     * @param string $value
-     * @param string $delimiter
+     * @param  string  $value
+     * @param  string  $delimiter
      *
      * @return string
      */
@@ -236,8 +236,8 @@ class Str
      *
      * @see https://github.com/illuminate/support/blob/master/Str.php
      *
-     * @param string $value
-     * @param string|null $encoding
+     * @param  string  $value
+     * @param  string|null  $encoding
      *
      * @return int
      */
@@ -255,9 +255,9 @@ class Str
      *
      * @see https://github.com/illuminate/support/blob/master/Str.php
      *
-     * @param string $string
-     * @param int $start
-     * @param int|null $length
+     * @param  string  $string
+     * @param  int  $start
+     * @param  int|null  $length
      *
      * @return string
      */

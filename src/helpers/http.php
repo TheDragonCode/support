@@ -6,7 +6,7 @@ if (! function_exists('url_exists')) {
     /**
      * Checks whether a file or directory exists on URL.
      *
-     * @param string $url
+     * @param  string  $url
      *
      * @return bool
      */
@@ -34,7 +34,7 @@ if (! function_exists('subdomain_name')) {
     /**
      * Retrieving the current subdomain name.
      *
-     * @param string|null $url
+     * @param  string|null  $url
      *
      * @return string|null
      */

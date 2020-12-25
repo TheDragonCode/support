@@ -15,22 +15,24 @@
         }
     ],
     "require": {
-        "php": "^7.1.3",
-        "ext-bcmath": "*",
+        "php": "^7.1.3|^8.0",
+        "ext-ctype": "*",
         "ext-dom": "*",
         "ext-json": "*",
         "ext-mbstring": "*"
     },
     "require-dev": {
-        "phpunit/phpunit": "^8.0|^9.0"
+        "ext-bcmath": "*",
+        "phpunit/phpunit": "^9.0"
     },
     "suggest": {
         "andrey-helldar/laravel-support": "Various helper files for the Laravel and Lumen frameworks",
-        "symfony/thanks": "Give thanks (in the form of a GitHub) to your fellow PHP package maintainers"
+        "symfony/thanks": "Give thanks (in the form of a GitHub) to your fellow PHP package maintainers",
+        "ext-bcmath": "Require the extension if you will be using Helldar\\Support\\Facades\\Digit."
     },
     "autoload": {
         "psr-4": {
-            "Helldar\\Support\\": "src/"
+            "Helldar\\Support\\": "src"
         },
         "files": [
             "src/helpers/digit.php",
@@ -41,7 +43,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/"
+            "Tests\\": "tests"
         }
     },
     "config": {

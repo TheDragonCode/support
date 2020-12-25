@@ -5,8 +5,6 @@ namespace Helldar\Support\Laravel\Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
-use function is_array;
-
 /**
  * Instead, use `Helldar\LaravelSupport\Eloquent\CompositeKeysModel`
  * from `andrey-helldar/laravel-support` package.

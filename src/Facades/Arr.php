@@ -2,37 +2,17 @@
 
 namespace Helldar\Support\Facades;
 
-use function array_filter;
-use function array_flip;
-
-use function array_intersect;
-use function array_intersect_key;
-use function array_keys;
-use function array_map;
-use function array_merge;
-use function array_push;
-use function array_unique;
-use function array_values;
 use ArrayAccess;
-use function count;
-use function get_object_vars;
 use Helldar\Support\Tools\Stub;
-use function in_array;
-use function is_array;
-use function is_object;
-use function json_encode;
-use function ksort;
-use function max;
-use function var_export;
 
 class Arr
 {
     /**
      * Renaming array keys.
-     * As the first parameter, a callback function is passed, which determines the actions for processing the value.
+     * As the second parameter, a callback function is passed, which determines the actions for processing the value.
      * The output of the function must be a string with a name.
      *
-     * @param array $array
+     * @param  array  $array
      * @param $callback
      *
      * @return array
@@ -50,9 +30,24 @@ class Arr
     }
 
     /**
+     * Renaming array keys with map.
+     *
+     * @param  array  $array
+     * @param  array  $map
+     *
+     * @return array
+     */
+    public static function renameKeysMap(array $array, array $map): array
+    {
+        return self::renameKeys($array, static function ($key) use ($map) {
+            return $map[$key] ?? $key;
+        });
+    }
+
+    /**
      * Get the size of the longest text element of the array.
      *
-     * @param array $array
+     * @param  array  $array
      *
      * @return int
      */
@@ -66,8 +61,8 @@ class Arr
     /**
      * Push one a unique element onto the end of array.
      *
-     * @param array $array
-     * @param array|mixed $values
+     * @param  array  $array
+     * @param  array|mixed  $values
      *
      * @return array
      */
@@ -101,8 +96,8 @@ class Arr
      *
      * @see https://gist.github.com/Ellrion/a3145621f936aa9416f4c04987533d8d#file-helper-php Original Source
      *
-     * @param array $array
-     * @param array $sorter
+     * @param  array  $array
+     * @param  array  $sorter
      *
      * @return array
      */
@@ -118,7 +113,7 @@ class Arr
      * Merge one or more arrays recursively.
      * Don't forget that numeric keys NOT will be renumbered!
      *
-     * @param mixed ...$arrays
+     * @param  mixed  ...$arrays
      *
      * @return array
      */
@@ -187,14 +182,24 @@ class Arr
 
     public static function toArray($array = null): array
     {
-        return is_object($array)
-            ? get_object_vars($array)
-            : static::wrap($array);
+        if (is_object($array)) {
+            $array = method_exists($array, 'toArray') ? $array->toArray() : get_object_vars($array);
+        }
+
+        $array = self::wrap($array);
+
+        foreach ($array as &$item) {
+            $item = is_array($item) || is_object($item)
+                ? self::toArray($item)
+                : $item;
+        }
+
+        return $array;
     }
 
     /**
-     * @param array|ArrayAccess $array
-     * @param int|string $key
+     * @param  array|ArrayAccess  $array
+     * @param  int|string  $key
      *
      * @return bool
      */
@@ -228,13 +233,18 @@ class Arr
     /**
      * Get a subset of the items from the given array.
      *
-     * @param array $array
-     * @param array $keys
+     * @param  array  $array
+     * @param  array  $keys
      *
      * @return array
      */
     public static function only(array $array, array $keys): array
     {
         return array_intersect_key($array, array_flip($keys));
+    }
+
+    public static function map(array $array, callable $callback): array
+    {
+        return array_map($callback, $array);
     }
 }

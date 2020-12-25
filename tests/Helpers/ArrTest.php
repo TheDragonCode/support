@@ -4,6 +4,8 @@ namespace Tests\Helpers;
 
 use Helldar\Support\Facades\Arr;
 use function json_encode;
+use Tests\Fixtures\Bar;
+use Tests\Fixtures\Baz;
 
 use Tests\TestCase;
 
@@ -109,6 +111,30 @@ class ArrTest extends TestCase
         $this->assertEquals($expected, $renamed);
     }
 
+    public function testRenameKeysMap()
+    {
+        $source = [
+            'foo' => 123,
+            'BaR' => 456,
+            'BAZ' => 789,
+        ];
+
+        $expected = [
+            'FOOX' => 123,
+            'BARX' => 456,
+            'BAZ'  => 789,
+        ];
+
+        $map = [
+            'foo' => 'FOOX',
+            'BaR' => 'BARX',
+        ];
+
+        $renamed = Arr::renameKeysMap($source, $map);
+
+        $this->assertEquals($expected, $renamed);
+    }
+
     public function testMerge()
     {
         $arr1 = [
@@ -154,6 +180,9 @@ class ArrTest extends TestCase
         $this->assertEquals(['foo' => 'foo', 'bar' => 'bar'], Arr::toArray(['foo' => 'foo', 'bar' => 'bar']));
         $this->assertEquals(['foo' => 'foo', 'bar' => 'bar'], Arr::toArray((object) ['foo' => 'foo', 'bar' => 'bar']));
         $this->assertEquals(['foo'], Arr::toArray('foo'));
+
+        $this->assertEquals(['first' => 'foo', 'second' => 'bar'], Arr::toArray(new Bar()));
+        $this->assertEquals(['qwerty' => 'Qwerty'], Arr::toArray(new Baz()));
     }
 
     public function testExists()

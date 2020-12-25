@@ -2,11 +2,21 @@
 
 namespace Helldar\Support\Facades;
 
-use function file_put_contents;
-use function pathinfo;
-
 class File
 {
+    public static function all(string $path): array
+    {
+        $files = [];
+
+        foreach (Directory::all($path) as $iterator) {
+            if ($iterator->isFile()) {
+                $files[] = $files;
+            }
+        }
+
+        return $files;
+    }
+
     public static function store(string $path, string $content)
     {
         Directory::make(pathinfo($path, PATHINFO_DIRNAME));
@@ -17,7 +27,7 @@ class File
     /**
      * @deprecated Use Helldar\Support\Facades\Directory::make() instead.
      *
-     * @param string $path
+     * @param  string  $path
      *
      * @return bool
      */
