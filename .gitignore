@@ -5,3 +5,5 @@ build/
 *.cache
 *.orig
 *.log
+
+composer.lock
