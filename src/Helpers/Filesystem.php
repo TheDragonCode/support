@@ -39,6 +39,5 @@ class Filesystem
 
     public function put(string $path, string $content): void
     {
-
     }
 }
