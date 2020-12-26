@@ -4,21 +4,39 @@ Support package is a collection of helpers and tools for projects.
 
 ![support](https://user-images.githubusercontent.com/10347617/56077139-41887f00-5de1-11e9-8aa3-769cc1140ffa.png)
 
-<p align="center">
-    <a href="https://styleci.io/repos/180017051"><img src="https://styleci.io/repos/180017051/shield" alt="StyleCI" /></a>
-    <a href="https://packagist.org/packages/andrey-helldar/support"><img src="https://img.shields.io/packagist/dt/andrey-helldar/support.svg?style=flat-square" alt="Total Downloads" /></a>
-    <a href="https://packagist.org/packages/andrey-helldar/support"><img src="https://poser.pugx.org/andrey-helldar/support/v/stable?format=flat-square" alt="Latest Stable Version" /></a>
-    <a href="https://packagist.org/packages/andrey-helldar/support"><img src="https://poser.pugx.org/andrey-helldar/support/v/unstable?format=flat-square" alt="Latest Unstable Version" /></a>
-    <a href="https://travis-ci.org/andrey-helldar/support"><img src="https://travis-ci.org/andrey-helldar/support.svg?branch=master" alt="Travis CI" /></a>
-    <a href="LICENSE"><img src="https://poser.pugx.org/andrey-helldar/support/license?format=flat-square" alt="License" /></a>
-</p>
+[![StyleCI Status][badge_styleci]][link_styleci]
+[![Github Workflow Status][badge_build]][link_build]
+[![Coverage Status][badge_coverage]][link_scrutinizer]
+[![Scrutinizer Code Quality][badge_quality]][link_scrutinizer]
+
+[![Stable Version][badge_stable]][link_packagist]
+[![Unstable Version][badge_unstable]][link_packagist]
+[![Total Downloads][badge_downloads]][link_packagist]
+[![License][badge_license]][link_license]
 
 
-## Contribution
+[badge_build]:          https://img.shields.io/github/workflow/status/andrey-helldar/support/coverage?style=flat-square
 
-Any ideas are welcome. Feel free to submit any issues or pull requests, please check the [contribution guidelines](CONTRIBUTING.md).
+[badge_coverage]:       https://img.shields.io/scrutinizer/coverage/g/andrey-helldar/support.svg?style=flat-square
 
+[badge_downloads]:      https://img.shields.io/packagist/dt/andrey-helldar/support.svg?style=flat-square
 
-## License
+[badge_license]:        https://img.shields.io/packagist/l/andrey-helldar/support.svg?style=flat-square
 
-This package is released under the [MIT License](LICENSE).
+[badge_quality]:        https://img.shields.io/scrutinizer/g/andrey-helldar/support.svg?style=flat-square
+
+[badge_stable]:         https://img.shields.io/github/v/release/andrey-helldar/support?label=stable&style=flat-square
+
+[badge_styleci]:        https://styleci.io/repos/82566268/shield
+
+[badge_unstable]:       https://img.shields.io/badge/unstable-dev--main-orange?style=flat-square
+
+[link_build]:           https://github.com/andrey-helldar/support/actions
+
+[link_license]:         LICENSE
+
+[link_packagist]:       https://packagist.org/packages/andrey-helldar/support
+
+[link_scrutinizer]:     https://scrutinizer-ci.com/g/andrey-helldar/support
+
+[link_styleci]:         https://github.styleci.io/repos/82566268
