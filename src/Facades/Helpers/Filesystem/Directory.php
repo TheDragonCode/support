@@ -12,7 +12,7 @@ use SplFileInfo;
  * @method static bool delete(string $path)
  * @method static bool doesntExist(string $path)
  * @method static bool exists(string $path)
- * @method static bool isDirectory(SplFileInfo|DirectoryIterator|string $value)
+ * @method static bool isDirectory(DirectoryIterator|SplFileInfo|string $value)
  * @method static bool make(string $path, int $mode = 755)
  * @method static DirectoryIterator all(string $path)
  */

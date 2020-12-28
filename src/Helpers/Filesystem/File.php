@@ -39,8 +39,7 @@ class File
                 if (! @unlink($path)) {
                     $success = false;
                 }
-            }
-            catch (ErrorException $e) {
+            } catch (ErrorException $e) {
                 $success = false;
             }
         }
@@ -49,7 +48,7 @@ class File
     }
 
     /**
-     * @param  \SplFileInfo|\DirectoryIterator|string  $value
+     * @param  \DirectoryIterator|\SplFileInfo|string  $value
      *
      * @return bool
      */

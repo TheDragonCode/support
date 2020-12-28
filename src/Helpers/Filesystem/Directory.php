@@ -83,7 +83,7 @@ final class Directory
     }
 
     /**
-     * @param  \SplFileInfo|DirectoryIterator|string  $value
+     * @param  DirectoryIterator|\SplFileInfo|string  $value
      *
      * @return bool
      */
