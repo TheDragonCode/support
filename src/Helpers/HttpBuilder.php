@@ -16,14 +16,14 @@ final class HttpBuilder
     protected $parsed = [];
 
     protected $components = [
-        PHP_URL_SCHEME   => "scheme",
-        PHP_URL_HOST     => "host",
-        PHP_URL_PORT     => "port",
-        PHP_URL_USER     => "user",
-        PHP_URL_PASS     => "pass",
-        PHP_URL_QUERY    => "query",
-        PHP_URL_PATH     => "path",
-        PHP_URL_FRAGMENT => "fragment",
+        PHP_URL_SCHEME   => 'scheme',
+        PHP_URL_HOST     => 'host',
+        PHP_URL_PORT     => 'port',
+        PHP_URL_USER     => 'user',
+        PHP_URL_PASS     => 'pass',
+        PHP_URL_QUERY    => 'query',
+        PHP_URL_PATH     => 'path',
+        PHP_URL_FRAGMENT => 'fragment',
     ];
 
     public function parse(string $url, int $component = -1): self
@@ -32,7 +32,7 @@ final class HttpBuilder
         $key       = $this->componentKey($component);
 
         $component === -1 || empty($key)
-            ? $this->parsed = parse_url($url)
+            ? $this->parsed       = parse_url($url)
             : $this->parsed[$key] = parse_url($url, $component);
 
         return $this;

@@ -45,8 +45,7 @@ final class Http
             preg_match('[2-3]{1}\d{2}\sOK', $value, $matches);
 
             return count($matches) > 0;
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             return false;
         }
     }
