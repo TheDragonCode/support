@@ -19,7 +19,7 @@ abstract class BaseFacade
         return $instance->$method(...$args);
     }
 
-    protected static function getFacadeRoot()
+    public static function getFacadeRoot()
     {
         return static::resolveFacadeInstance(static::getFacadeAccessor());
     }

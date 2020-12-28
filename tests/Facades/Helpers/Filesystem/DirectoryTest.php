@@ -4,21 +4,21 @@ namespace Tests\Facades\Helpers\Filesystem;
 
 use Helldar\Support\Exceptions\DirectoryNotFoundException;
 use Helldar\Support\Facades\Helpers\Filesystem\Directory;
-use Helldar\Support\Facades\Helpers\Str;
+use Helldar\Support\Facades\Helpers\Filesystem\File;
 use Tests\TestCase;
 
 final class DirectoryTest extends TestCase
 {
     public function testAll()
     {
-        $available = ['Contracts', 'Instances', '.gitignore'];
+        $available = ['.', '..', 'Contracts', 'Facades', 'Instances'];
 
-        $dirs = Directory::all(__DIR__ . '/../../../Fixtures');
+        $dirs = Directory::all($this->fixturesDirectory());
 
         foreach ($dirs as $dir) {
-            if (! $dir->isDot()) {
-                $this->assertTrue(in_array($dir->getFilename(), $available));
-            }
+            in_array($dir->getFilename(), $available)
+                ? $this->assertTrue(Directory::isDirectory($dir))
+                : $this->assertFalse(Directory::isDirectory($dir));
         }
     }
 
@@ -32,7 +32,7 @@ final class DirectoryTest extends TestCase
 
     public function testAsFile()
     {
-        $path = realpath(__DIR__ . '/../../../Fixtures/.gitignore');
+        $path = realpath($this->fixturesDirectory('.gitignore'));
 
         $this->expectException(DirectoryNotFoundException::class);
         $this->expectExceptionMessage('Directory "' . $path . '" does not exist.');
@@ -42,13 +42,17 @@ final class DirectoryTest extends TestCase
 
     public function testDelete()
     {
-        $path = $this->tempDirectory(Str::camel(microtime()));
+        $path = $this->tempDirectory();
 
-        $this->assertTrue(Directory::doesntExist($path));
+        $this->assertDirectoryDoesNotExist($path);
+
         $this->assertTrue(Directory::make($path));
-        $this->assertTrue(Directory::exists($path));
+
+        $this->assertDirectoryExists($path);
+
         $this->assertTrue(Directory::delete($path));
-        $this->assertTrue(Directory::doesntExist($path));
+
+        $this->assertDirectoryDoesNotExist($path);
     }
 
     public function testDeleteDoesntExists()
@@ -56,12 +60,14 @@ final class DirectoryTest extends TestCase
         $this->expectException(DirectoryNotFoundException::class);
         $this->expectExceptionMessage('Directory "foo" does not exist.');
 
-        Directory::delete('foo');
+        $this->assertTrue(Directory::delete('foo'));
     }
 
     public function testDeleteAsFile()
     {
-        $path = realpath(__DIR__ . '/../../../Fixtures/.gitignore');
+        $path = $this->tempDirectory('.gitignore');
+
+        File::store($path, 'foo');
 
         $this->expectException(DirectoryNotFoundException::class);
         $this->expectExceptionMessage('Directory "' . $path . '" does not exist.');
@@ -77,24 +83,37 @@ final class DirectoryTest extends TestCase
 
     public function testNames()
     {
-        $available = ['Contracts', 'Instances'];
+        $available = ['Contracts', 'Facades', 'Instances'];
 
-        $names = Directory::names(__DIR__ . '/../../../Fixtures');
+        $names = Directory::names($this->fixturesDirectory());
 
         $this->assertSame($available, $names);
     }
 
     public function testMake()
     {
-        $path = $this->tempDirectory(Str::camel(microtime()));
+        $path = $this->tempDirectory();
 
-        $this->assertTrue(Directory::doesntExist($path));
+        $this->assertDirectoryDoesNotExist($path);
+
         $this->assertTrue(Directory::make($path));
-        $this->assertTrue(Directory::exists($path));
+
+        $this->assertDirectoryExists($path);
     }
 
     public function testExists()
     {
-        $this->assertTrue(Directory::exists(__DIR__ . '/../../../Fixtures'));
+        $this->assertTrue(Directory::exists($this->fixturesDirectory()));
+    }
+
+    public function testIsDirectory()
+    {
+        $this->assertTrue(Directory::isDirectory($this->fixturesDirectory()));
+
+        $this->assertTrue(Directory::isDirectory($this->fixturesDirectory('Contracts')));
+        $this->assertTrue(Directory::isDirectory($this->fixturesDirectory('Instances')));
+
+        $this->assertFalse(Directory::isDirectory($this->fixturesDirectory('Contracts/Contract.php')));
+        $this->assertFalse(Directory::isDirectory($this->fixturesDirectory('Instances/Foo.php')));
     }
 }

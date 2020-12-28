@@ -38,7 +38,7 @@ final class HttpBuilder
         $key       = $this->componentKey($component);
 
         $component === -1 || empty($key)
-            ? $this->parsed       = parse_url($url)
+            ? $this->parsed = parse_url($url)
             : $this->parsed[$key] = parse_url($url, $component);
 
         return $this;
@@ -86,7 +86,7 @@ final class HttpBuilder
 
     public function compile(): string
     {
-        return implode('', $this->prepare());
+        return implode('', array_filter($this->prepare()));
     }
 
     protected function prepare(): array
@@ -94,10 +94,11 @@ final class HttpBuilder
         return [
             $this->getScheme() ? $this->getScheme() . '://' : '',
             $this->getUser(),
-            $this->getPassword() ? $this->getPassword() . '@' : '',
+            $this->getPassword() ? ':' . $this->getPassword() : '',
+            $this->getUser() || $this->getPassword() ? '@' : '',
             $this->getHost(),
             $this->getPort() ? ':' . $this->getPort() : '',
-            $this->getPath() ? '/' . ltrim($this->getPath()) : '',
+            $this->getPath() ? '/' . ltrim($this->getPath(), '/') : '',
             $this->getQuery() ? '?' . $this->getQuery() : '',
             $this->getFragment() ? '#' . $this->getFragment() : '',
         ];
@@ -110,7 +111,7 @@ final class HttpBuilder
 
     protected function componentIndex(int $component = -1): int
     {
-        return Arr::getKeyIfExist($this->components, $component, -1);
+        return Arr::getKey($this->components, $component, -1);
     }
 
     protected function componentKey(int $component = -1): ?string

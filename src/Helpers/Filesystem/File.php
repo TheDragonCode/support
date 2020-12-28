@@ -2,9 +2,12 @@
 
 namespace Helldar\Support\Helpers\Filesystem;
 
+use DirectoryIterator;
 use ErrorException;
 use Helldar\Support\Facades\Helpers\Arr;
 use Helldar\Support\Facades\Helpers\Filesystem\Directory;
+use Helldar\Support\Facades\Helpers\Instance;
+use SplFileInfo;
 
 class File
 {
@@ -36,11 +39,26 @@ class File
                 if (! @unlink($path)) {
                     $success = false;
                 }
-            } catch (ErrorException $e) {
+            }
+            catch (ErrorException $e) {
                 $success = false;
             }
         }
 
         return $success;
+    }
+
+    /**
+     * @param  \SplFileInfo|\DirectoryIterator|string  $value
+     *
+     * @return bool
+     */
+    public function isFile($value): bool
+    {
+        if (Instance::of($value, [SplFileInfo::class, DirectoryIterator::class])) {
+            return $value->isFile();
+        }
+
+        return is_file($value);
     }
 }

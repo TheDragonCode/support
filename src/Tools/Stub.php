@@ -10,9 +10,9 @@ final class Stub
 
     public const JSON = 'json.stub';
 
-    public function replace(string $filename, array $replace): string
+    public function replace(string $stub_file, array $replace): string
     {
-        $content = $this->get($filename);
+        $content = $this->get($stub_file);
 
         $keys   = array_keys($replace);
         $values = array_values($replace);
@@ -31,6 +31,6 @@ final class Stub
 
     protected function path(string $filename): ?string
     {
-        return realpath(__DIR__ . '/../stubs/' . $filename);
+        return realpath(__DIR__ . '/../../resources/stubs/' . $filename);
     }
 }

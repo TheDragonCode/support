@@ -6,6 +6,8 @@ use DirectoryIterator;
 use FilesystemIterator;
 use Helldar\Support\Exceptions\DirectoryNotFoundException;
 use Helldar\Support\Facades\Helpers\Filesystem\File;
+use Helldar\Support\Facades\Helpers\Instance;
+use SplFileInfo;
 
 final class Directory
 {
@@ -51,7 +53,7 @@ final class Directory
 
     public function delete(string $path): bool
     {
-        if ($this->doesntExist($path)) {
+        if (! $this->isDirectory($path)) {
             throw new DirectoryNotFoundException($path);
         }
 
@@ -78,5 +80,19 @@ final class Directory
     public function doesntExist(string $path): bool
     {
         return ! $this->exists($path);
+    }
+
+    /**
+     * @param  \SplFileInfo|DirectoryIterator|string  $value
+     *
+     * @return bool
+     */
+    public function isDirectory($value): bool
+    {
+        if (Instance::of($value, [SplFileInfo::class, DirectoryIterator::class])) {
+            return $value->isDir();
+        }
+
+        return is_dir($value);
     }
 }

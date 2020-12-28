@@ -16,14 +16,14 @@ use Helldar\Support\Helpers\Arr as Helper;
  * @method static array sortByKeys(array $array, array $sorter)
  * @method static array toArray($value = null)
  * @method static array wrap($value = null)
- * @method static bool exists(array $array, $key)
+ * @method static bool exists(array|\ArrayAccess $array, $key)
  * @method static bool isArrayable($value = null)
  * @method static int longestStringLength(array $array)
  * @method static mixed get(array $array, $key, $default = null)
- * @method static mixed getKeyIfExist(array $array, $key, $default = null)
+ * @method static mixed getKey(array $array, $key, $default = null)
  * @method static void store(array $array, string $path, bool $is_json = false, bool $sort_keys = false)
- * @method static void storeAsArray(array $array, string $path, bool $sort_keys = false)
- * @method static void storeAsJson(array $array, string $path, bool $sort_keys = false)
+ * @method static void storeAsArray(string $path, array $array, bool $sort_keys = false)
+ * @method static void storeAsJson(string $path, array $array, bool $sort_keys = false)
  */
 final class Arr extends BaseFacade
 {

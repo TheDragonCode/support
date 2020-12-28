@@ -34,6 +34,6 @@ final class Is
 
     public function reflectionClass($class): bool
     {
-        return Instance::of($class, ReflectionClass::class);
+        return $class instanceof ReflectionClass;
     }
 }

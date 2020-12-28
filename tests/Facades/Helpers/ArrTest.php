@@ -2,79 +2,297 @@
 
 namespace Tests\Facades\Helpers;
 
+use Helldar\Support\Facades\Helpers\Arr;
+use Helldar\Support\Facades\Helpers\Str;
+use Tests\Fixtures\Instances\Arrayable;
+use Tests\Fixtures\Instances\Bar;
+use Tests\Fixtures\Instances\Baz;
 use Tests\TestCase;
 
 final class ArrTest extends TestCase
 {
     public function testExcept()
     {
-    }
+        $array = [
+            'foo' => 123,
+            'bar' => 456,
+            'baz' => 789,
+        ];
 
-    public function testRenameKeysMap()
-    {
-    }
+        $this->assertSame(['bar' => 456, 'baz' => 789], Arr::except($array, 'foo'));
+        $this->assertSame(['bar' => 456, 'baz' => 789], Arr::except($array, ['foo']));
 
-    public function testGet()
-    {
-    }
+        $this->assertSame(['bar' => 456], Arr::except($array, ['foo', 'baz']));
 
-    public function testMerge()
-    {
-    }
+        $this->assertSame(['foo' => 123, 'bar' => 456, 'baz' => 789], Arr::except($array, []));
+        $this->assertSame(['foo' => 123, 'bar' => 456, 'baz' => 789], Arr::except($array, null));
+        $this->assertSame(['foo' => 123, 'bar' => 456, 'baz' => 789], Arr::except($array, 123));
 
-    public function testLongestStringLength()
-    {
-    }
-
-    public function testOnly()
-    {
-    }
-
-    public function testStoreAsArray()
-    {
-    }
-
-    public function testSortByKeys()
-    {
-    }
-
-    public function testExists()
-    {
-    }
-
-    public function testWrap()
-    {
-    }
-
-    public function testToArray()
-    {
-    }
-
-    public function testIsArrayable()
-    {
-    }
-
-    public function testStoreAsJson()
-    {
-    }
-
-    public function testAddUnique()
-    {
-    }
-
-    public function testStore()
-    {
-    }
-
-    public function testGetKeyIfExist()
-    {
-    }
-
-    public function testMap()
-    {
+        $this->assertSame([], Arr::except([], []));
+        $this->assertSame([], Arr::except([], ''));
+        $this->assertSame([], Arr::except([], ['foo', 'bar']));
     }
 
     public function testRenameKeys()
     {
+        $source = [
+            'foo' => 123,
+            'BaR' => 456,
+            'BAZ' => 789,
+        ];
+
+        $expected_renamed = [
+            'FOO' => 123,
+            'BAR' => 456,
+            'BAZ' => 789,
+        ];
+
+        $expected_modified = [
+            'foo_123' => 123,
+            'bar_456' => 456,
+            'baz_789' => 789,
+        ];
+
+        $renamed = Arr::renameKeys($source, static function ($key) {
+            return mb_strtoupper($key);
+        });
+
+        $modified = Arr::renameKeys($source, static function ($key, $value) {
+            return mb_strtolower($key) . '_' . $value;
+        });
+
+        $this->assertSame($expected_renamed, $renamed);
+        $this->assertSame($expected_modified, $modified);
+    }
+
+    public function testRenameKeysMap()
+    {
+        $source = [
+            'foo' => 123,
+            'BaR' => 456,
+            'BAZ' => 789,
+        ];
+
+        $expected = [
+            'FOOX' => 123,
+            'BARX' => 456,
+            'BAZ'  => 789,
+        ];
+
+        $map = [
+            'foo' => 'FOOX',
+            'BaR' => 'BARX',
+        ];
+
+        $renamed = Arr::renameKeysMap($source, $map);
+
+        $this->assertSame($expected, $renamed);
+    }
+
+    public function testGet()
+    {
+        $this->assertEquals('bar', Arr::get(['foo' => 'bar'], 'foo'));
+        $this->assertEquals('bar', Arr::get(['foo' => 'bar'], 'foo', 'bar'));
+        $this->assertEquals('baz', Arr::get(['foo' => 'bar'], 'bar', 'baz'));
+
+        $this->assertNull(Arr::get(['foo' => 'bar'], 'bar'));
+    }
+
+    public function testMerge()
+    {
+        $arr1 = [
+            'foo' => 'Bar',
+            '0'   => 'Foo',
+            '2'   => 'Bar',
+            '400' => 'Baz',
+            600   => ['foo' => 'Foo', 'bar' => 'Bar'],
+        ];
+
+        $arr2 = [
+            '2'   => 'Bar bar',
+            '500' => 'Foo bar',
+            '600' => ['baz' => 'Baz'],
+            '700' => ['aaa' => 'AAA'],
+        ];
+
+        $expected = [
+            'foo' => 'Bar',
+            0     => 'Foo',
+            2     => 'Bar bar',
+            400   => 'Baz',
+            500   => 'Foo bar',
+            600   => ['bar' => 'Bar', 'baz' => 'Baz', 'foo' => 'Foo'],
+            700   => ['aaa' => 'AAA'],
+        ];
+
+        $result = Arr::merge($arr1, $arr2);
+
+        $this->assertSame($expected, $result);
+    }
+
+    public function testLongestStringLength()
+    {
+        $array = ['foo', 'bar', 'foobar', 'baz'];
+
+        $this->assertSame(6, Arr::longestStringLength($array));
+    }
+
+    public function testOnly()
+    {
+        $arr = [
+            'foo' => 'Foo',
+            'bar' => 'Bar',
+            'baz' => 'Baz',
+            200   => 'Num 200',
+            400   => 'Num 400',
+        ];
+
+        $this->assertSame(['foo' => 'Foo', 'bar' => 'Bar'], Arr::only($arr, ['foo', 'bar']));
+        $this->assertSame(['bar' => 'Bar', 200 => 'Num 200'], Arr::only($arr, ['bar', 200]));
+
+        $this->assertSame([], Arr::only($arr, []));
+        $this->assertSame([], Arr::only($arr, null));
+    }
+
+    public function testStoreAsArray()
+    {
+        $array = ['q' => 1, 'r' => 2, 's' => 5, 'w' => 123];
+
+        $path = $this->tempDirectory('array.php');
+
+        Arr::store($array, $path);
+
+        $loaded = require $path;
+
+        $this->assertFileExists($path);
+        $this->assertIsArray($loaded);
+        $this->assertEquals($array, $loaded);
+    }
+
+    public function testStoreAsJson()
+    {
+        $array = ['q' => 1, 'r' => 2, 's' => 5, 'w' => 123];
+
+        $path = $this->tempDirectory('array.json');
+
+        Arr::store($array, $path, true);
+
+        $this->assertJsonStringEqualsJsonFile($path, json_encode($array));
+    }
+
+    public function testStoreAsSortedArray()
+    {
+        $array = ['w' => 123, 'q' => 1, 's' => 5, 'r' => 2];
+
+        $path = $this->tempDirectory('sorted.php');
+
+        Arr::storeAsArray($path, $array, true);
+
+        $loaded = require $path;
+
+        $this->assertIsArray($loaded);
+        $this->assertEquals($array, $loaded);
+    }
+
+    public function testStoreAsSortedJson()
+    {
+        $array = ['w' => 123, 'q' => 1, 's' => 5, 'r' => 2];
+
+        $path = $this->tempDirectory('sorted.json');
+
+        Arr::storeAsJson($path, $array, true);
+
+        $this->assertJsonStringEqualsJsonFile($path, json_encode($array));
+    }
+
+    public function testSortByKeys()
+    {
+        $source = ['q' => 1, 'r' => 2, 's' => 5, 'w' => 123];
+
+        $sorter = ['q', 'w', 'e'];
+
+        $expected = ['q' => 1, 'w' => 123, 'r' => 2, 's' => 5];
+
+        $actual = Arr::sortByKeys($source, $sorter);
+
+        $this->assertSame($expected, $actual);
+    }
+
+    public function testExists()
+    {
+        $this->assertTrue(Arr::exists(['foo' => 'bar'], 'foo'));
+        $this->assertFalse(Arr::exists(['foo' => 'bar'], 'bar'));
+
+        $this->assertTrue(Arr::exists(new Arrayable(), 'foo'));
+        $this->assertTrue(Arr::exists(new Arrayable(), 'bar'));
+        $this->assertFalse(Arr::exists(new Arrayable(), 'qwe'));
+        $this->assertFalse(Arr::exists(new Arrayable(), 'rty'));
+    }
+
+    public function testWrap()
+    {
+        $this->assertEquals(['data'], Arr::wrap('data'));
+        $this->assertEquals(['data'], Arr::wrap(['data']));
+        $this->assertEquals([1], Arr::wrap(1));
+    }
+
+    public function testToArray()
+    {
+        $this->assertEquals(['foo', 'bar'], Arr::toArray(['foo', 'bar']));
+        $this->assertEquals(['foo' => 'Foo', 'bar' => 'Bar'], Arr::toArray(['foo' => 'Foo', 'bar' => 'Bar']));
+        $this->assertEquals(['foo' => 'Foo', 'bar' => 'Bar'], Arr::toArray((object) ['foo' => 'Foo', 'bar' => 'Bar']));
+        $this->assertEquals(['foo'], Arr::toArray('foo'));
+
+        $this->assertEquals(['first' => 'Foo', 'second' => 'Bar'], Arr::toArray(new Bar()));
+        $this->assertEquals(['qwerty' => 'Qwerty'], Arr::toArray(new Baz()));
+    }
+
+    public function testIsArrayable()
+    {
+        $this->assertTrue(Arr::isArrayable([]));
+        $this->assertTrue(Arr::isArrayable(['foo']));
+        $this->assertTrue(Arr::isArrayable(new Arrayable()));
+    }
+
+    public function testAddUnique()
+    {
+        $array   = ['foo'];
+        $values1 = ['foo', 'bar', 'baz'];
+        $values2 = 'foobar';
+
+        $expected = ['foo', 'bar', 'baz', 'foobar'];
+
+        $array = Arr::addUnique($array, $values1);
+        $array = Arr::addUnique($array, $values2);
+
+        $this->assertSame($expected, $array);
+    }
+
+    public function testGetKeyIfExist()
+    {
+        $this->assertEquals('foo', Arr::getKey(['foo' => 'bar'], 'foo'));
+        $this->assertEquals('foo', Arr::getKey(['foo' => 'bar'], 'foo', 'bar'));
+        $this->assertEquals('baz', Arr::getKey(['foo' => 'bar'], 'bar', 'baz'));
+
+        $this->assertNull(Arr::get(['foo' => 'bar'], 'bar'));
+    }
+
+    public function testMap()
+    {
+        $source = [
+            'foo' => 11,
+            'bar' => 22,
+            'baz' => 33,
+        ];
+
+        $expected = [
+            'foo' => 'Foo_22',
+            'bar' => 'Bar_44',
+            'baz' => 'Baz_66',
+        ];
+
+        $this->assertSame($expected, Arr::map($source, static function ($value, $key) {
+            return Str::studly($key) . '_' . ($value * 2);
+        }));
     }
 }

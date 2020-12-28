@@ -138,6 +138,8 @@ class Arr
             }
         }
 
+        ksort($result);
+
         return $result;
     }
 
@@ -165,7 +167,13 @@ class Arr
         return $array;
     }
 
-    public function exists(array $array, $key): bool
+    /**
+     * @param  array|\ArrayAccess  $array
+     * @param  mixed  $key
+     *
+     * @return bool
+     */
+    public function exists($array, $key): bool
     {
         return $array instanceof ArrayAccess
             ? $array->offsetExists($key)
@@ -178,7 +186,7 @@ class Arr
         return $this->exists($array, $key) ? $array[$key] : $default;
     }
 
-    public function getKeyIfExist(array $array, $key, $default = null)
+    public function getKey(array $array, $key, $default = null)
     {
         return isset($array[$key]) ? $key : $default;
     }
@@ -188,7 +196,7 @@ class Arr
         $keys = (array) $keys;
 
         return array_filter($array, static function ($key) use ($keys) {
-            return ! empty($keys) && ! in_array($key, $keys);
+            return empty($keys) || ! in_array($key, $keys);
         }, ARRAY_FILTER_USE_KEY);
     }
 
@@ -207,7 +215,11 @@ class Arr
 
     public function map(array $array, callable $callback): array
     {
-        return array_map($callback, $array);
+        foreach ($array as $key => &$value) {
+            $value = $callback($value, $key);
+        }
+
+        return $array;
     }
 
     public function isArrayable($value = null): bool
