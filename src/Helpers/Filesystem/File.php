@@ -2,39 +2,12 @@
 
 namespace Helldar\Support\Helpers\Filesystem;
 
-use DirectoryIterator;
 use ErrorException;
-use Helldar\Support\Exceptions\DirectoryNotFoundException;
 use Helldar\Support\Facades\Helpers\Arr;
 use Helldar\Support\Facades\Helpers\Filesystem\Directory;
 
 class File
 {
-    /**
-     * @param  string  $path
-     *
-     * @throws \Helldar\Support\Exceptions\DirectoryNotFoundException
-     *
-     * @return array|\SplFileInfo[]
-     */
-    public function all(string $path): array
-    {
-        if (Directory::doesntExist($path)) {
-            throw new DirectoryNotFoundException($path);
-        }
-
-        $dirs  = new DirectoryIterator($path);
-        $items = [];
-
-        foreach ($dirs as $item) {
-            if ($item->isFile()) {
-                $items[] = $item->current();
-            }
-        }
-
-        return $items;
-    }
-
     public function store(string $path, string $content): void
     {
         Directory::make(pathinfo($path, PATHINFO_DIRNAME));

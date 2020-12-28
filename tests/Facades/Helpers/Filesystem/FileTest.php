@@ -6,11 +6,6 @@ use Tests\TestCase;
 
 final class FileTest extends TestCase
 {
-    public function testAll()
-    {
-
-    }
-
     public function testStore()
     {
 

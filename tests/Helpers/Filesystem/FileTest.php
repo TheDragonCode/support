@@ -15,9 +15,4 @@ final class FileTest extends TestCase
     {
 
     }
-
-    public function testAll()
-    {
-
-    }
 }

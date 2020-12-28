@@ -42,7 +42,7 @@ final class DirectoryTest extends TestCase
 
     public function testDelete()
     {
-        $path = __DIR__ . '/../../../Fixtures/Temp/' . Str::camel(microtime());
+        $path = $this->tempDirectory(Str::camel(microtime()));
 
         $this->assertTrue(Directory::doesntExist($path));
         $this->assertTrue(Directory::make($path));
@@ -86,7 +86,7 @@ final class DirectoryTest extends TestCase
 
     public function testMake()
     {
-        $path = __DIR__ . '/../../../Fixtures/Temp/' . Str::camel(microtime());
+        $path = $this->tempDirectory(Str::camel(microtime()));
 
         $this->assertTrue(Directory::doesntExist($path));
         $this->assertTrue(Directory::make($path));
