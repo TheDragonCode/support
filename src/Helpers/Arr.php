@@ -66,11 +66,11 @@ class Arr
      *
      * @return array
      */
-    public function flatten(array $array, $values): array
+    public function addUnique(array $array, $values): array
     {
         if ($this->isArrayable($values)) {
             foreach ($values as $value) {
-                $array = $this->flatten($array, $value);
+                $array = $this->addUnique($array, $value);
             }
         } else {
             array_push($array, $values);
@@ -201,5 +201,39 @@ class Arr
     public function isArrayable($value = null): bool
     {
         return is_array($value) || is_object($value) || $value instanceof ArrayAccess;
+    }
+
+    public function store(array $array, string $path, bool $is_json = false, bool $sort_keys = false): void
+    {
+        $is_json
+            ? $this->storeAsJson($array, $path, $sort_keys)
+            : $this->storeAsArray($array, $path, $sort_keys);
+    }
+
+    public function storeAsJson(array $array, string $path, bool $sort_keys = false): void
+    {
+        if ($sort_keys) {
+            ksort($array);
+        }
+
+        $this->storeToFile($path, Stub::CONFIG_FILE, json_encode($array));
+    }
+
+    public function storeAsArray(array $array, string $path, bool $sort_keys = false): void
+    {
+        if ($sort_keys) {
+            ksort($array);
+        }
+
+        $this->storeToFile($path, Stub::CONFIG_FILE, var_export($array, true));
+    }
+
+    public function storeToFile(string $path, string $stub, string $content)
+    {
+        $replace = ['{{slot}}' => $content];
+
+        $content = Stub::replace($stub, $replace);
+
+        File::put($path, $content);
     }
 }
