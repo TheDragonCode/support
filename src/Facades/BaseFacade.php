@@ -25,7 +25,7 @@ abstract class BaseFacade
     }
 
     /**
-     * @return string|object
+     * @return object|string
      */
     protected static function getFacadeAccessor()
     {
@@ -33,7 +33,7 @@ abstract class BaseFacade
     }
 
     /**
-     * @param  string|object  $facade
+     * @param  object|string  $facade
      *
      * @return object
      */
