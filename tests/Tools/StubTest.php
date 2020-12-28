@@ -8,11 +8,9 @@ final class StubTest extends TestCase
 {
     public function testGet()
     {
-
     }
 
     public function testReplace()
     {
-
     }
 }

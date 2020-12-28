@@ -63,8 +63,7 @@ class File
                 if (! @unlink($path)) {
                     $success = false;
                 }
-            }
-            catch (ErrorException $e) {
+            } catch (ErrorException $e) {
                 $success = false;
             }
         }

@@ -8,21 +8,17 @@ final class DigitTest extends TestCase
 {
     public function testRounded()
     {
-
     }
 
     public function testShortKey()
     {
-
     }
 
     public function testFactorial()
     {
-
     }
 
     public function testToShort()
     {
-
     }
 }
