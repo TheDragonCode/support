@@ -26,7 +26,7 @@ use RuntimeException;
  * @method HttpBuilder setPass(string $value)
  * @method HttpBuilder setPath(string $value)
  * @method HttpBuilder setPort(string $value)
- * @method HttpBuilder setQuery(string|array $value)
+ * @method HttpBuilder setQuery(array|string $value)
  * @method HttpBuilder setScheme(string $value)
  * @method HttpBuilder setUser(string $value)
  */
@@ -81,7 +81,7 @@ final class HttpBuilder
         $key       = $this->componentKey($component);
 
         $component === -1 || empty($key)
-            ? $this->parsed = parse_url($url)
+            ? $this->parsed       = parse_url($url)
             : $this->parsed[$key] = parse_url($url, $component);
 
         return $this;
