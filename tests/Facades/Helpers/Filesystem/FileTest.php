@@ -8,11 +8,9 @@ final class FileTest extends TestCase
 {
     public function testStore()
     {
-
     }
 
     public function testExists()
     {
-
     }
 }
