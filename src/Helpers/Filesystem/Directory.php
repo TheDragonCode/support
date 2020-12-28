@@ -3,10 +3,19 @@
 namespace Helldar\Support\Helpers\Filesystem;
 
 use DirectoryIterator;
+use FilesystemIterator;
 use Helldar\Support\Exceptions\DirectoryNotFoundException;
+use Helldar\Support\Facades\Helpers\Filesystem\File;
 
 final class Directory
 {
+    /**
+     * @param  string  $path
+     *
+     * @throws \Helldar\Support\Exceptions\DirectoryNotFoundException
+     *
+     * @return DirectoryIterator
+     */
     public function all(string $path): DirectoryIterator
     {
         if ($this->doesntExist($path)) {
@@ -38,6 +47,27 @@ final class Directory
         }
 
         return true;
+    }
+
+    public function delete(string $path): bool
+    {
+        if ($this->doesntExist($path)) {
+            throw new DirectoryNotFoundException($path);
+        }
+
+        $items = new FilesystemIterator($path);
+
+        $success = true;
+
+        foreach ($items as $item) {
+            $item->isDir() && ! $item->isLink()
+                ? $this->delete($item->getPathname())
+                : File::delete($item->getPathname());
+        }
+
+        @rmdir($path);
+
+        return $success;
     }
 
     public function exists(string $path): bool

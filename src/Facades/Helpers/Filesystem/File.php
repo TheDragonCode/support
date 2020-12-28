@@ -6,8 +6,9 @@ use Helldar\Support\Facades\BaseFacade;
 use Helldar\Support\Helpers\Filesystem\File as Helper;
 
 /**
- * @method static array all(string $path)
+ * @method static array|\SplFileInfo[] all(string $path)
  * @method static bool exists(string $path)
+ * @method static void delete(string|string[] $paths)
  * @method static void store(string $path, string $content)
  */
 final class File extends BaseFacade

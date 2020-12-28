@@ -2,26 +2,37 @@
 
 namespace Helldar\Support\Helpers\Filesystem;
 
+use DirectoryIterator;
+use ErrorException;
 use Helldar\Support\Exceptions\DirectoryNotFoundException;
+use Helldar\Support\Facades\Helpers\Arr;
 use Helldar\Support\Facades\Helpers\Filesystem\Directory;
 
 class File
 {
+    /**
+     * @param  string  $path
+     *
+     * @throws \Helldar\Support\Exceptions\DirectoryNotFoundException
+     *
+     * @return array|\SplFileInfo[]
+     */
     public function all(string $path): array
     {
         if (Directory::doesntExist($path)) {
             throw new DirectoryNotFoundException($path);
         }
 
-        $files = [];
+        $dirs  = new DirectoryIterator($path);
+        $items = [];
 
-        foreach (Directory::all($path) as $iterator) {
-            if ($iterator->isFile()) {
-                $files[] = $files;
+        foreach ($dirs as $item) {
+            if ($item->isFile()) {
+                $items[] = $item->current();
             }
         }
 
-        return $files;
+        return $items;
     }
 
     public function store(string $path, string $content): void
@@ -34,5 +45,30 @@ class File
     public function exists(string $path): bool
     {
         return file_exists($path) && is_file($path);
+    }
+
+    /**
+     * @param  string|string[]  $paths
+     *
+     * @return bool
+     */
+    public function delete($paths): bool
+    {
+        $paths = Arr::wrap($paths);
+
+        $success = true;
+
+        foreach ($paths as $path) {
+            try {
+                if (! @unlink($path)) {
+                    $success = false;
+                }
+            }
+            catch (ErrorException $e) {
+                $success = false;
+            }
+        }
+
+        return $success;
     }
 }
