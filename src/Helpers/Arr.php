@@ -207,34 +207,34 @@ class Arr
     public function store(array $array, string $path, bool $is_json = false, bool $sort_keys = false): void
     {
         $is_json
-            ? $this->storeAsJson($array, $path, $sort_keys)
-            : $this->storeAsArray($array, $path, $sort_keys);
+            ? $this->storeAsJson($path, $array, $sort_keys)
+            : $this->storeAsArray($path, $array, $sort_keys);
     }
 
-    public function storeAsJson(array $array, string $path, bool $sort_keys = false): void
+    public function storeAsJson(string $path, array $array, bool $sort_keys = false): void
+    {
+        $this->prepareToStore($path, Stub::CONFIG_FILE, $array, static function (array $array) {
+            return json_encode($array);
+        }, $sort_keys);
+    }
+
+    public function storeAsArray(string $path, array $array, bool $sort_keys = false): void
+    {
+        $this->prepareToStore($path, Stub::CONFIG_FILE, $array, static function (array $array) {
+            return var_export($array, true);
+        }, $sort_keys);
+    }
+
+    protected function prepareToStore(string $path, string $stub, array $array, callable $replace, bool $sort_keys = false): void
     {
         if ($sort_keys) {
             ksort($array);
         }
 
-        $this->storeToFile($path, Stub::CONFIG_FILE, json_encode($array));
-    }
+        $content = Stub::replace($stub, [
+            '{{slot}}' => $replace($array),
+        ]);
 
-    public function storeAsArray(array $array, string $path, bool $sort_keys = false): void
-    {
-        if ($sort_keys) {
-            ksort($array);
-        }
-
-        $this->storeToFile($path, Stub::CONFIG_FILE, var_export($array, true));
-    }
-
-    public function storeToFile(string $path, string $stub, string $content)
-    {
-        $replace = ['{{slot}}' => $content];
-
-        $content = Stub::replace($stub, $replace);
-
-        File::put($path, $content);
+        File::store($path, $content);
     }
 }

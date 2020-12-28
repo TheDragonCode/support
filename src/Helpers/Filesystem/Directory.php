@@ -7,7 +7,7 @@ use Helldar\Support\Exceptions\DirectoryNotFoundException;
 
 final class Directory
 {
-    public function find(string $path): DirectoryIterator
+    public function all(string $path): DirectoryIterator
     {
         if ($this->doesntExist($path)) {
             throw new DirectoryNotFoundException($path);
@@ -20,7 +20,7 @@ final class Directory
     {
         $items = [];
 
-        foreach ($this->find($path) as $directory) {
+        foreach ($this->all($path) as $directory) {
             if ($directory->isDir() && ! $directory->isDot()) {
                 $items[] = $directory->getFilename();
             }
