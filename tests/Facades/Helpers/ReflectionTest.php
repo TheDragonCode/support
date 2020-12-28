@@ -8,6 +8,5 @@ final class ReflectionTest extends TestCase
 {
     public function testResolve()
     {
-
     }
 }
