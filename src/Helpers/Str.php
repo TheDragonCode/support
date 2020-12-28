@@ -309,4 +309,34 @@ final class Str
     {
         return mb_substr($string, $start, $length, 'UTF-8');
     }
+
+    /**
+     * Get the portion of a string before the first occurrence of a given value.
+     *
+     * @see https://github.com/illuminate/support/blob/master/Str.php
+     *
+     * @param  string  $subject
+     * @param  string  $search
+     *
+     * @return string
+     */
+    public function before(string $subject, string $search): ?string
+    {
+        return $search === '' ? $subject : explode($search, $subject)[0];
+    }
+
+    /**
+     * Return the remainder of a string after the first occurrence of a given value.
+     *
+     * @see https://github.com/illuminate/support/blob/master/Str.php
+     *
+     * @param  string  $subject
+     * @param  string  $search
+     *
+     * @return string
+     */
+    public function after(string $subject, string $search): string
+    {
+        return $search === '' ? $subject : array_reverse(explode($search, $subject, 2))[0];
+    }
 }

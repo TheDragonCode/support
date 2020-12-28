@@ -10,7 +10,7 @@ abstract class TestCase extends BaseTestCase
 {
     protected function tearDown(): void
     {
-        // $this->destroyTempDirectory();
+        $this->destroyTempDirectory();
 
         parent::tearDown();
     }
@@ -32,6 +32,10 @@ abstract class TestCase extends BaseTestCase
 
     protected function destroyTempDirectory()
     {
-        Directory::delete(__DIR__ . '/Temp');
+        $path = __DIR__ . '/temp';
+
+        if (Directory::exists($path)) {
+            Directory::delete($path);
+        }
     }
 }

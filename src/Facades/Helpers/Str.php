@@ -16,6 +16,8 @@ use Helldar\Support\Helpers\Str as Helper;
  * @method static string snake(?string $value)
  * @method static string start(?string $value, string $prefix)
  * @method static string studly(?string $value)
+ * @method static string|null after(string $subject, string $search)
+ * @method static string|null before(string $subject, string $search)
  * @method static string|null de(?string $value)
  * @method static string|null e(?string $value, bool $double = true)
  * @method static string|null removeSpaces(?string $value)
