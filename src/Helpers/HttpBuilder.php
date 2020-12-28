@@ -3,9 +3,10 @@
 namespace Helldar\Support\Helpers;
 
 use Helldar\Support\Concerns\Makeable;
+use Helldar\Support\Facades\Helpers\Arr;
 
 /**
- * Based on Maxim Ellrion's code.
+ * Based on code by Maksim (Ellrion) Platonov.
  *
  * @see https://gist.github.com/Ellrion/f51ba0d40ae1d62eeae44fd1adf7b704
  */
@@ -26,13 +27,18 @@ final class HttpBuilder
         PHP_URL_FRAGMENT => 'fragment',
     ];
 
+    public function same(): self
+    {
+        return $this;
+    }
+
     public function parse(string $url, int $component = -1): self
     {
         $component = $this->componentIndex($component);
         $key       = $this->componentKey($component);
 
         $component === -1 || empty($key)
-            ? $this->parsed       = parse_url($url)
+            ? $this->parsed = parse_url($url)
             : $this->parsed[$key] = parse_url($url, $component);
 
         return $this;
@@ -104,11 +110,11 @@ final class HttpBuilder
 
     protected function componentIndex(int $component = -1): int
     {
-        return isset($this->components[$component]) ? $component : -1;
+        return Arr::getKeyIfExist($this->components, $component, -1);
     }
 
     protected function componentKey(int $component = -1): ?string
     {
-        return $this->components[$component] ?? null;
+        return Arr::get($this->components, $component);
     }
 }

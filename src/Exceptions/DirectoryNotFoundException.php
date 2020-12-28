@@ -6,7 +6,7 @@ use Exception;
 
 final class DirectoryNotFoundException extends Exception
 {
-    public function __construct(string $path)
+    public function __construct(?string $path)
     {
         $message = 'Directory "' . $path . '" does not exist.';
 

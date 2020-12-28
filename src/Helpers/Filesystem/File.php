@@ -3,6 +3,7 @@
 namespace Helldar\Support\Helpers\Filesystem;
 
 use Helldar\Support\Exceptions\DirectoryNotFoundException;
+use Helldar\Support\Facades\Helpers\Filesystem\Directory;
 
 class File
 {
@@ -23,7 +24,7 @@ class File
         return $files;
     }
 
-    public function store(string $path, string $content)
+    public function store(string $path, string $content): void
     {
         Directory::make(pathinfo($path, PATHINFO_DIRNAME));
 
@@ -32,6 +33,6 @@ class File
 
     public function exists(string $path): bool
     {
-        return file_exists($path);
+        return file_exists($path) && is_file($path);
     }
 }

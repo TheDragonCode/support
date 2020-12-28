@@ -6,9 +6,9 @@ use Exception;
 
 final class NotValidUrlException extends Exception
 {
-    public function __construct($url = '')
+    public function __construct(?string $url)
     {
-        $message = sprintf('The "%s" is not a valid URL.', Str::e($url));
+        $message = 'The "' . $url . '" is not a valid URL.';
 
         parent::__construct($message, 412);
     }

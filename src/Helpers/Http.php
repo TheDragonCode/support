@@ -4,7 +4,8 @@ namespace Helldar\Support\Helpers;
 
 use Exception;
 use Helldar\Support\Exceptions\NotValidUrlException;
-use Helldar\Support\Helpers\Filesystem\File;
+use Helldar\Support\Facades\Helpers\Filesystem\File;
+use Helldar\Support\Facades\Helpers\HttpBuilder;
 
 final class Http
 {
@@ -36,6 +37,8 @@ final class Http
      */
     public function exists(string $url): bool
     {
+        $this->validateUrl($url);
+
         try {
             $headers = get_headers($url);
 
@@ -45,7 +48,8 @@ final class Http
             preg_match('[2-3]{1}\d{2}\sOK', $value, $matches);
 
             return count($matches) > 0;
-        } catch (Exception $e) {
+        }
+        catch (Exception $e) {
             return false;
         }
     }
@@ -92,7 +96,7 @@ final class Http
             return null;
         }
 
-        return HttpBuilder::make()
+        return HttpBuilder::same()
             ->parse($url, PHP_URL_SCHEME)
             ->parse($url, PHP_URL_HOST)
             ->compile();

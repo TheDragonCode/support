@@ -3,7 +3,9 @@
 namespace Helldar\Support\Helpers;
 
 use ArrayAccess;
-use Helldar\Support\Helpers\Filesystem\File;
+use Helldar\Support\Facades\Helpers\Filesystem\File;
+use Helldar\Support\Facades\Tools\Stub;
+use Helldar\Support\Tools\Stub as StubTool;
 
 class Arr
 {
@@ -141,7 +143,11 @@ class Arr
 
     public function wrap($value = null): array
     {
-        return is_array($value) ? $value : [$value];
+        if (is_array($value)) {
+            return $value;
+        }
+
+        return ! empty($value) ? [$value] : [];
     }
 
     public function toArray($value = null): array
@@ -170,6 +176,11 @@ class Arr
     {
         // TODO: $array[$key] ?? $default;
         return $this->exists($array, $key) ? $array[$key] : $default;
+    }
+
+    public function getKeyIfExist(array $array, $key, $default = null)
+    {
+        return isset($array[$key]) ? $key : $default;
     }
 
     public function except(array $array, $keys): array
@@ -213,14 +224,14 @@ class Arr
 
     public function storeAsJson(string $path, array $array, bool $sort_keys = false): void
     {
-        $this->prepareToStore($path, Stub::CONFIG_FILE, $array, static function (array $array) {
+        $this->prepareToStore($path, StubTool::JSON, $array, static function (array $array) {
             return json_encode($array);
         }, $sort_keys);
     }
 
     public function storeAsArray(string $path, array $array, bool $sort_keys = false): void
     {
-        $this->prepareToStore($path, Stub::CONFIG_FILE, $array, static function (array $array) {
+        $this->prepareToStore($path, StubTool::PHP_ARRAY, $array, static function (array $array) {
             return var_export($array, true);
         }, $sort_keys);
     }
