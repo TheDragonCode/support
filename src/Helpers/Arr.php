@@ -3,6 +3,7 @@
 namespace Helldar\Support\Helpers;
 
 use ArrayAccess;
+use Helldar\Support\Helpers\Filesystem\File;
 
 class Arr
 {
