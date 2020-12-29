@@ -58,6 +58,55 @@ final class HttpBuilderTest extends TestCase
         $this->assertSame('qwerty', $builder->getFragment());
     }
 
+    public function testRawShort()
+    {
+        $parsed = parse_url('https://localhost/foo/bar');
+
+        $builder = HttpBuilder::raw($parsed);
+
+        $this->assertSame('https', $builder->getScheme());
+        $this->assertSame('localhost', $builder->getHost());
+        $this->assertSame('/foo/bar', $builder->getPath());
+
+        $this->assertNull($builder->getPort());
+        $this->assertNull($builder->getUser());
+        $this->assertNull($builder->getQuery());
+        $this->assertNull($builder->getPass());
+        $this->assertNull($builder->getFragment());
+    }
+
+    public function testRawFull()
+    {
+        $parsed = parse_url('https://foo:bar@localhost/foo/bar?id=123#qwerty');
+
+        $builder = HttpBuilder::raw($parsed);
+
+        $this->assertSame('https', $builder->getScheme());
+        $this->assertSame('foo', $builder->getUser());
+        $this->assertSame('bar', $builder->getPass());
+        $this->assertSame('localhost', $builder->getHost());
+        $this->assertSame('/foo/bar', $builder->getPath());
+        $this->assertSame('id=123', $builder->getQuery());
+        $this->assertSame('qwerty', $builder->getFragment());
+    }
+
+    public function testRawCompile()
+    {
+        $builder = HttpBuilder::parse('https://foo:bar@localhost/foo/bar?id=123#qwerty');
+
+        $this->assertSame('https://foo:bar@localhost/foo/bar?id=123#qwerty', $builder->compile());
+    }
+
+    public function testRawIncorrect()
+    {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Filling in the "foo" key is prohibited.');
+
+        $parsed = ['foo' => 'bar'];
+
+        HttpBuilder::raw($parsed);
+    }
+
     public function testCompileShort()
     {
         $builder = HttpBuilder::parse('https://localhost/foo/bar');

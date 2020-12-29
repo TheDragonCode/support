@@ -7,6 +7,7 @@ use Helldar\Support\Helpers\HttpBuilder as Helper;
 
 /**
  * @method static Helper parse(string $url, int $component = -1)
+ * @method static Helper raw(array $parsed)
  * @method static Helper same()
  * @method static Helper setFragment(array|string $value)
  * @method static Helper setHost(string $value)

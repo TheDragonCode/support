@@ -101,8 +101,28 @@ final class HttpBuilder
         $key       = $this->componentKey($component);
 
         $component === -1 || empty($key)
-            ? $this->parsed       = parse_url($url)
+            ? $this->parsed = parse_url($url)
             : $this->parsed[$key] = parse_url($url, $component);
+
+        return $this;
+    }
+
+    /**
+     * Filling the builder with parsed data.
+     *
+     * @param  array  $parsed
+     *
+     * @return $this
+     */
+    public function raw(array $parsed): self
+    {
+        foreach ($parsed as $key => $value) {
+            if (! $this->allowKey($key)) {
+                throw new RuntimeException('Filling in the "' . $key . '" key is prohibited.');
+            }
+
+            $this->set($key, $value);
+        }
 
         return $this;
     }
