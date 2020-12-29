@@ -47,8 +47,7 @@ class Http
             $value = $headers[$key] ?? null;
 
             return stripos($value, '200 OK') !== false;
-        }
-        catch (Exception $exception) {
+        } catch (Exception $exception) {
             return false;
         }
     }

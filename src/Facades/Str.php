@@ -2,12 +2,12 @@
 
 namespace Helldar\Support\Facades;
 
-use Helldar\Support\Traits\Deprecation;
-use Illuminate\Contracts\Support\Htmlable;
-
 use function ctype_lower;
+use Helldar\Support\Traits\Deprecation;
+
 use function htmlspecialchars;
 use function htmlspecialchars_decode;
+use Illuminate\Contracts\Support\Htmlable;
 use function implode;
 use function is_null;
 use function lcfirst;
