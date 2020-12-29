@@ -2,9 +2,9 @@
 
 namespace Helldar\Support\Helpers;
 
-use Helldar\Support\Facades\Helpers\Arr;
-use Helldar\Support\Facades\Helpers\Is;
-use Helldar\Support\Facades\Helpers\Reflection;
+use Helldar\Support\Facades\Helpers\Arr as ArrHelper;
+use Helldar\Support\Facades\Helpers\Is as IsHelper;
+use Helldar\Support\Facades\Helpers\Reflection as ReflectionHelper;
 use ReflectionClass;
 
 final class Instance
@@ -26,7 +26,7 @@ final class Instance
         $reflection = $this->resolve($haystack);
         $classname  = $this->classname($haystack);
 
-        foreach (Arr::wrap($needles) as $needle) {
+        foreach (ArrHelper::wrap($needles) as $needle) {
             if (! $this->exists($needle)) {
                 continue;
             }
@@ -67,7 +67,7 @@ final class Instance
      */
     public function classname($class = null): ?string
     {
-        if (Is::object($class)) {
+        if (IsHelper::object($class)) {
             return get_class($class);
         }
 
@@ -83,11 +83,11 @@ final class Instance
      */
     public function exists($haystack): bool
     {
-        if (Is::object($haystack)) {
+        if (IsHelper::object($haystack)) {
             return true;
         }
 
-        return Is::string($haystack) ? class_exists($haystack) || interface_exists($haystack) : false;
+        return IsHelper::string($haystack) ? class_exists($haystack) || interface_exists($haystack) : false;
     }
 
     /**
@@ -101,7 +101,7 @@ final class Instance
      */
     public function call($object, string $method, $default = null)
     {
-        if (Is::object($object) && method_exists($object, $method)) {
+        if (IsHelper::object($object) && method_exists($object, $method)) {
             return call_user_func([$object, $method]);
         }
 
@@ -119,7 +119,7 @@ final class Instance
      */
     public function callWhen($object, $methods, $default = null)
     {
-        foreach (Arr::wrap($methods) as $method) {
+        foreach (ArrHelper::wrap($methods) as $method) {
             if ($value = $this->call($object, $method)) {
                 return $value;
             }
@@ -140,7 +140,7 @@ final class Instance
     public function callOf(array $map, $value, $default = null)
     {
         foreach ($map as $class => $method) {
-            if (Is::object($value) && $this->of($value, $class)) {
+            if (IsHelper::object($value) && $this->of($value, $class)) {
                 return $this->call($value, $method, $default);
             }
         }
@@ -151,12 +151,12 @@ final class Instance
     /**
      * Creates a ReflectionClass object.
      *
-     * @param  object|ReflectionClass  $class
+     * @param  string|object|ReflectionClass  $class
      *
      * @return \ReflectionClass
      */
     protected function resolve($class): ReflectionClass
     {
-        return Reflection::resolve($class);
+        return ReflectionHelper::resolve($class);
     }
 }

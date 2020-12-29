@@ -4,8 +4,8 @@ namespace Helldar\Support\Helpers;
 
 use Exception;
 use Helldar\Support\Exceptions\NotValidUrlException;
-use Helldar\Support\Facades\Helpers\Filesystem\File;
-use Helldar\Support\Facades\Helpers\HttpBuilder;
+use Helldar\Support\Facades\Helpers\Filesystem\File as FileHelper;
+use Helldar\Support\Facades\Helpers\HttpBuilder as HttpBuilderHelper;
 
 final class Http
 {
@@ -57,7 +57,8 @@ final class Http
             preg_match('/HTTP\/\d{1}\.?\d?\s[2-3]\d{2}/i', $value, $matches);
 
             return count($matches) > 0;
-        } catch (Exception $e) {
+        }
+        catch (Exception $e) {
             return false;
         }
     }
@@ -75,7 +76,7 @@ final class Http
     {
         $this->validateUrl($url);
 
-        return HttpBuilder::parse($url)->getHost();
+        return HttpBuilderHelper::parse($url)->getHost();
     }
 
     /**
@@ -91,7 +92,7 @@ final class Http
     {
         $this->validateUrl($url);
 
-        $host = explode('.', HttpBuilder::parse($url)->getHost());
+        $host = explode('.', HttpBuilderHelper::parse($url)->getHost());
 
         return count($host) > 2 ? reset($host) : null;
     }
@@ -109,7 +110,7 @@ final class Http
     {
         $this->validateUrl($url);
 
-        return HttpBuilder::same()
+        return HttpBuilderHelper::same()
             ->parse($url, PHP_URL_SCHEME)
             ->parse($url, PHP_URL_HOST)
             ->compile();
@@ -128,7 +129,7 @@ final class Http
     {
         $this->validateUrl($url);
 
-        return HttpBuilder::parse($url)->getScheme();
+        return HttpBuilderHelper::parse($url)->getScheme();
     }
 
     /**
@@ -145,6 +146,6 @@ final class Http
     {
         return $this->isUrl($url)
             ? ($this->exists($url) ? $url : $default)
-            : (File::exists($url) ? $url : $default);
+            : (FileHelper::exists($url) ? $url : $default);
     }
 }

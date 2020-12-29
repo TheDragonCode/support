@@ -4,7 +4,7 @@ namespace Helldar\Support\Helpers\Filesystem;
 
 use DirectoryIterator;
 use Helldar\Support\Facades\Helpers\Arr;
-use Helldar\Support\Facades\Helpers\Filesystem\Directory;
+use Helldar\Support\Facades\Helpers\Filesystem\Directory as DirectoryHelper;
 use Helldar\Support\Facades\Helpers\Instance;
 use SplFileInfo;
 use Throwable;
@@ -20,7 +20,7 @@ class File
      */
     public function store(string $path, string $content, int $mode = 755): void
     {
-        Directory::make(pathinfo($path, PATHINFO_DIRNAME), $mode);
+        DirectoryHelper::make(pathinfo($path, PATHINFO_DIRNAME), $mode);
 
         file_put_contents($path, $content);
     }
@@ -55,7 +55,8 @@ class File
                 if (! @unlink($path)) {
                     $success = false;
                 }
-            } catch (Throwable $e) {
+            }
+            catch (Throwable $e) {
                 $success = false;
             }
         }

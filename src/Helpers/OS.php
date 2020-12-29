@@ -2,7 +2,7 @@
 
 namespace Helldar\Support\Helpers;
 
-use Helldar\Support\Facades\Helpers\Str;
+use Helldar\Support\Facades\Helpers\Str as StrHelper;
 
 /**
  * @see https://www.php.net/manual/ru/reserved.constants.php
@@ -48,6 +48,6 @@ final class OS
     {
         $family = version_compare(PHP_VERSION, '7.2', '<') ? PHP_OS : PHP_OS_FAMILY;
 
-        return $lower ? Str::lower($family) : $family;
+        return $lower ? StrHelper::lower($family) : $family;
     }
 }

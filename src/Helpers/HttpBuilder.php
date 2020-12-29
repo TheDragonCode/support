@@ -3,8 +3,8 @@
 namespace Helldar\Support\Helpers;
 
 use ArgumentCountError;
-use Helldar\Support\Facades\Helpers\Arr;
-use Helldar\Support\Facades\Helpers\Str;
+use Helldar\Support\Facades\Helpers\Arr as ArrFacade;
+use Helldar\Support\Facades\Helpers\Str as StrFacade;
 use RuntimeException;
 
 /**
@@ -70,7 +70,7 @@ final class HttpBuilder
                 case $this->isSetter($method):
                     $this->validateArgumentsCount($method, $args);
 
-                    return $this->set($key, ...$args);
+                    return $this->set($key, $args[0]);
             }
         }
 
@@ -166,7 +166,7 @@ final class HttpBuilder
      */
     protected function componentIndex(int $component = -1): int
     {
-        return Arr::getKey($this->components, $component, -1);
+        return ArrFacade::getKey($this->components, $component, -1);
     }
 
     /**
@@ -178,7 +178,7 @@ final class HttpBuilder
      */
     protected function componentKey(int $component = -1): ?string
     {
-        return Arr::get($this->components, $component);
+        return ArrFacade::get($this->components, $component);
     }
 
     /**
@@ -202,7 +202,7 @@ final class HttpBuilder
      */
     protected function isGetter(string $method): bool
     {
-        return Str::startsWith($method, 'get');
+        return StrFacade::startsWith($method, 'get');
     }
 
     /**
@@ -214,7 +214,7 @@ final class HttpBuilder
      */
     protected function isSetter(string $method): bool
     {
-        return Str::startsWith($method, 'set');
+        return StrFacade::startsWith($method, 'set');
     }
 
     /**
@@ -226,9 +226,9 @@ final class HttpBuilder
      */
     protected function parseKey(string $method): ?string
     {
-        $search = Str::startsWith($method, 'get') ? 'get' : 'set';
+        $search = StrFacade::startsWith($method, 'get') ? 'get' : 'set';
 
-        return Str::lower(Str::after($method, $search));
+        return StrFacade::lower(StrFacade::after($method, $search));
     }
 
     /**

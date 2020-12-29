@@ -3,8 +3,8 @@
 namespace Helldar\Support\Helpers;
 
 use Exception;
-use Helldar\Support\Facades\Helpers\Instance;
-use Helldar\Support\Facades\Helpers\Reflection;
+use Helldar\Support\Facades\Helpers\Instance as InstanceHelper;
+use Helldar\Support\Facades\Helpers\Reflection as ReflectionHelper;
 use ReflectionClass;
 use Throwable;
 
@@ -44,12 +44,12 @@ final class Is
     public function contract($value): bool
     {
         if (is_string($value)) {
-            $class = Instance::classname($value);
+            $class = InstanceHelper::classname($value);
 
             return ! empty($class) && interface_exists($class);
         }
 
-        return Reflection::resolve($value)->isInterface();
+        return ReflectionHelper::resolve($value)->isInterface();
     }
 
     /**
@@ -61,7 +61,7 @@ final class Is
      */
     public function error($value): bool
     {
-        return Instance::of($value, [Exception::class, Throwable::class]);
+        return InstanceHelper::of($value, [Exception::class, Throwable::class]);
     }
 
     /**

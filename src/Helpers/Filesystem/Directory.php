@@ -5,7 +5,7 @@ namespace Helldar\Support\Helpers\Filesystem;
 use DirectoryIterator;
 use FilesystemIterator;
 use Helldar\Support\Exceptions\DirectoryNotFoundException;
-use Helldar\Support\Facades\Helpers\Filesystem\File;
+use Helldar\Support\Facades\Helpers\Filesystem\File as FileHelper;
 use Helldar\Support\Facades\Helpers\Instance;
 use SplFileInfo;
 
@@ -88,7 +88,7 @@ final class Directory
         foreach ($items as $item) {
             $item->isDir() && ! $item->isLink()
                 ? $this->delete($item->getPathname())
-                : File::delete($item->getPathname());
+                : FileHelper::delete($item->getPathname());
         }
 
         @rmdir($path);
