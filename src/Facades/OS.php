@@ -6,7 +6,6 @@ use Helldar\Support\Traits\Deprecation;
 
 /**
  * @see https://www.php.net/manual/ru/reserved.constants.php
- *
  * @deprecated 2.0: Namespace "Helldar\Support\Facades\Is" is deprecated, use "Helldar\Support\Facades\Helpers\Is" instead.
  */
 class OS
