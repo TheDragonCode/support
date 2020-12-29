@@ -46,7 +46,7 @@ final class DirectoryTest extends TestCase
 
         $this->assertDirectoryDoesNotExist($path);
 
-        $this->assertTrue(Directory::make($path));
+        $this->assertTrue(Directory::make($path, 777));
 
         $this->assertDirectoryExists($path);
 
@@ -96,7 +96,7 @@ final class DirectoryTest extends TestCase
 
         $this->assertDirectoryDoesNotExist($path);
 
-        $this->assertTrue(Directory::make($path));
+        $this->assertTrue(Directory::make($path, 777));
 
         $this->assertDirectoryExists($path);
     }

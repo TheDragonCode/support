@@ -35,7 +35,7 @@ final class OSTest extends TestCase
 
     public function testIsUnix()
     {
-        $this->assertFalse(OS::isUnix());
+        $this->assertTrue(OS::isUnix());
     }
 
     public function testIsUnknown()
