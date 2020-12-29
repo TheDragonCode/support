@@ -10,13 +10,11 @@ abstract class BaseFacade
 
     public static function __callStatic($method, $args)
     {
-        $instance = static::getFacadeRoot();
-
-        if (! $instance) {
-            throw new RuntimeException('A facade root has not been set.');
+        if ($instance = static::getFacadeRoot()) {
+            return $instance->$method(...$args);
         }
 
-        return $instance->$method(...$args);
+        throw new RuntimeException('A facade root has not been set.');
     }
 
     public static function getFacadeRoot()
@@ -50,6 +48,7 @@ abstract class BaseFacade
         if (is_object($facade)) {
             return $facade;
         }
+
         if (isset(static::$resolved_instance[$facade])) {
             return static::$resolved_instance[$facade];
         }
