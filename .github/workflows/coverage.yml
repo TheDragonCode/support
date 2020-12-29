@@ -30,7 +30,7 @@ jobs:
             -   name: Execute tests
                 run: |
                     mkdir -p build/logs
-                    sudo vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
+                    sudo XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
 
             -   name: Export
                 run: |
