@@ -40,7 +40,7 @@ abstract class TestCase extends BaseTestCase
 
     protected function destroyTempDirectory()
     {
-        $path = __DIR__ . '/temp';
+        $path = '/tmp';
 
         if (Directory::exists($path)) {
             Directory::delete($path);
