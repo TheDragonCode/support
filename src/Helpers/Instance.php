@@ -87,11 +87,7 @@ final class Instance
             return true;
         }
 
-        if (Is::string($haystack)) {
-            return class_exists($haystack) || interface_exists($haystack);
-        }
-
-        return false;
+        return Is::string($haystack) ? class_exists($haystack) || interface_exists($haystack) : false;
     }
 
     /**

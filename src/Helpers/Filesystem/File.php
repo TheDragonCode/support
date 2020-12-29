@@ -3,11 +3,11 @@
 namespace Helldar\Support\Helpers\Filesystem;
 
 use DirectoryIterator;
-use ErrorException;
 use Helldar\Support\Facades\Helpers\Arr;
 use Helldar\Support\Facades\Helpers\Filesystem\Directory;
 use Helldar\Support\Facades\Helpers\Instance;
 use SplFileInfo;
+use Throwable;
 
 class File
 {
@@ -55,7 +55,8 @@ class File
                 if (! @unlink($path)) {
                     $success = false;
                 }
-            } catch (ErrorException $e) {
+            }
+            catch (Throwable $e) {
                 $success = false;
             }
         }

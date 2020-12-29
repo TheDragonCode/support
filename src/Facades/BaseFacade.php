@@ -10,7 +10,7 @@ abstract class BaseFacade
 
     public static function __callStatic($method, $args)
     {
-        if ($instance = static::getFacadeRoot()) {
+        if ($instance = self::getFacadeRoot()) {
             return $instance->$method(...$args);
         }
 
@@ -19,7 +19,7 @@ abstract class BaseFacade
 
     public static function getFacadeRoot()
     {
-        return static::resolveFacadeInstance(static::getFacadeAccessor());
+        return self::resolveFacadeInstance(static::getFacadeAccessor());
     }
 
     /**
@@ -27,7 +27,7 @@ abstract class BaseFacade
      */
     public static function clearResolvedInstances()
     {
-        static::$resolved_instance = [];
+        self::$resolved_instance = [];
     }
 
     /**
@@ -45,14 +45,12 @@ abstract class BaseFacade
      */
     protected static function resolveFacadeInstance($facade): object
     {
-        if (is_object($facade)) {
-            return $facade;
+        $class = is_object($facade) ? get_class($facade) : $facade;
+
+        if (isset(self::$resolved_instance[$class])) {
+            return self::$resolved_instance[$class];
         }
 
-        if (isset(static::$resolved_instance[$facade])) {
-            return static::$resolved_instance[$facade];
-        }
-
-        return static::$resolved_instance[$facade] = new $facade();
+        return self::$resolved_instance[$class] = is_object($facade) ? $facade : new $facade();
     }
 }

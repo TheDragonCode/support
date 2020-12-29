@@ -73,6 +73,8 @@ final class HttpBuilder
                     return $this->set($key, ...$args);
             }
         }
+
+        throw new RuntimeException("Using an unknown method: \"{$method}\"");
     }
 
     /**
@@ -99,7 +101,7 @@ final class HttpBuilder
         $key       = $this->componentKey($component);
 
         $component === -1 || empty($key)
-            ? $this->parsed       = parse_url($url)
+            ? $this->parsed = parse_url($url)
             : $this->parsed[$key] = parse_url($url, $component);
 
         return $this;
@@ -133,18 +135,6 @@ final class HttpBuilder
             $this->getQuery() ? '?' . $this->getQuery() : '',
             $this->getFragment() ? '#' . $this->getFragment() : '',
         ];
-    }
-
-    /**
-     * Gets the value by key.
-     *
-     * @param  string  $key
-     *
-     * @return string|null
-     */
-    protected function value(string $key): ?string
-    {
-        return Arr::get($this->parsed, $key);
     }
 
     /**

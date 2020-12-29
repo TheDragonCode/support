@@ -44,10 +44,6 @@ final class Str
      */
     public function e(?string $value, bool $double = true): ?string
     {
-        if (empty($value)) {
-            return null;
-        }
-
         if ($escaped = Instance::callOf($this->escaping_methods, $value)) {
             return $escaped;
         }
@@ -64,10 +60,6 @@ final class Str
      */
     public function de(?string $value): ?string
     {
-        if (empty($value)) {
-            return null;
-        }
-
         return htmlspecialchars_decode($value, ENT_QUOTES);
     }
 
@@ -220,10 +212,6 @@ final class Str
      */
     public function studly(?string $value): ?string
     {
-        if (empty($value)) {
-            return null;
-        }
-
         $key = $value;
 
         if (isset(self::$studlyCache[$key])) {
@@ -246,10 +234,6 @@ final class Str
      */
     public function camel(?string $value): ?string
     {
-        if (empty($value)) {
-            return null;
-        }
-
         if (isset(self::$camelCache[$value])) {
             return self::$camelCache[$value];
         }
@@ -269,10 +253,6 @@ final class Str
      */
     public function snake(?string $value, string $delimiter = '_'): ?string
     {
-        if (empty($value)) {
-            return null;
-        }
-
         $key = $value;
 
         if (isset(self::$snakeCache[$key][$delimiter])) {
@@ -333,7 +313,7 @@ final class Str
      */
     public function before(string $subject, string $search): ?string
     {
-        return $search === '' ? $subject : explode($search, $subject)[0];
+        return ! empty($search) ? explode($search, $subject)[0] : null;
     }
 
     /**
@@ -346,8 +326,8 @@ final class Str
      *
      * @return string
      */
-    public function after(string $subject, string $search): string
+    public function after(string $subject, string $search): ?string
     {
-        return $search === '' ? $subject : array_reverse(explode($search, $subject, 2))[0];
+        return ! empty($search) ? array_reverse(explode($search, $subject, 2))[0] : null;
     }
 }

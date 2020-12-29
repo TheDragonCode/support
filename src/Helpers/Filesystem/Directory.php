@@ -63,11 +63,7 @@ final class Directory
      */
     public function make(string $path, int $mode = 755): bool
     {
-        if ($this->doesntExist($path)) {
-            return mkdir($path, $mode, true);
-        }
-
-        return true;
+        return $this->doesntExist($path) ? mkdir($path, $mode, true) : true;
     }
 
     /**
