@@ -225,7 +225,7 @@ final class HttpTest extends TestCase
         $image = 'https://github.githubassets.com/pinned-octocat.svg';
         $path  = $this->tempDirectory('foo.jpg');
 
-        File::store($path, 'foo');
+        File::store($path, 'foo', 777);
 
         $this->assertSame($image, Http::image($image));
         $this->assertSame($image, Http::image($image, 'https://example.com/foo.jpg'));

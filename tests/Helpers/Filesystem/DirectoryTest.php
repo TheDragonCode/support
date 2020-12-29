@@ -47,7 +47,7 @@ final class DirectoryTest extends TestCase
 
         $this->assertFalse(DirectoryFacade::exists($path));
 
-        $this->assertTrue($this->directory()->make($path));
+        $this->assertTrue($this->directory()->make($path, 777));
 
         $this->assertDirectoryExists($path);
 
@@ -68,7 +68,7 @@ final class DirectoryTest extends TestCase
     {
         $path = $this->tempDirectory('.gitignore');
 
-        File::store($path, 'foo');
+        File::store($path, 'foo', 777);
 
         $this->expectException(DirectoryNotFoundException::class);
         $this->expectExceptionMessage('Directory "' . $path . '" does not exist.');
@@ -97,7 +97,7 @@ final class DirectoryTest extends TestCase
 
         $this->assertFalse(DirectoryFacade::exists($path));
 
-        $this->assertTrue($this->directory()->make($path));
+        $this->assertTrue($this->directory()->make($path, 777));
 
         $this->assertDirectoryExists($path);
     }

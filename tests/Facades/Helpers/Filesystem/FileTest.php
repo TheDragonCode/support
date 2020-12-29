@@ -15,7 +15,7 @@ final class FileTest extends TestCase
 
         $this->assertFalse(File::exists($path));
 
-        File::store($path, 'foo');
+        File::store($path, 'foo', 777);
 
         $this->assertFileExists($path);
     }
@@ -32,7 +32,7 @@ final class FileTest extends TestCase
     {
         $path = $this->tempDirectory('foo.bar');
 
-        File::store($path, 'foo');
+        File::store($path, 'foo', 777);
 
         $this->assertFileExists($path);
 
@@ -47,9 +47,9 @@ final class FileTest extends TestCase
         $path2 = $this->tempDirectory('foo2');
         $path3 = $this->tempDirectory('foo3');
 
-        File::store($path1, 'foo');
-        File::store($path2, 'foo');
-        File::store($path3, 'foo');
+        File::store($path1, 'foo', 777);
+        File::store($path2, 'foo', 777);
+        File::store($path3, 'foo', 777);
 
         $this->assertFileExists($path1);
         $this->assertFileExists($path2);
@@ -68,7 +68,7 @@ final class FileTest extends TestCase
 
         $this->assertFalse(File::isFile($path));
 
-        File::store($path, 'foo');
+        File::store($path, 'foo', 777);
 
         $this->assertTrue(File::isFile($path));
     }

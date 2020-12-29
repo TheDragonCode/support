@@ -67,7 +67,7 @@ final class DirectoryTest extends TestCase
     {
         $path = $this->tempDirectory('.gitignore');
 
-        File::store($path, 'foo');
+        File::store($path, 'foo', 777);
 
         $this->expectException(DirectoryNotFoundException::class);
         $this->expectExceptionMessage('Directory "' . $path . '" does not exist.');
