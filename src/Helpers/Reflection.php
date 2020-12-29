@@ -10,7 +10,7 @@ final class Reflection
     /**
      * Creates a ReflectionClass object.
      *
-     * @param  string|object|ReflectionClass  $class
+     * @param  object|ReflectionClass|string  $class
      *
      * @throws \ReflectionException
      *

@@ -151,7 +151,7 @@ final class Instance
     /**
      * Creates a ReflectionClass object.
      *
-     * @param  string|object|ReflectionClass  $class
+     * @param  object|ReflectionClass|string  $class
      *
      * @return \ReflectionClass
      */
