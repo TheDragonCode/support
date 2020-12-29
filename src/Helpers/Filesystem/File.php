@@ -11,9 +11,9 @@ use SplFileInfo;
 
 class File
 {
-    public function store(string $path, string $content): void
+    public function store(string $path, string $content, int $mode = 755): void
     {
-        Directory::make(pathinfo($path, PATHINFO_DIRNAME));
+        Directory::make(pathinfo($path, PATHINFO_DIRNAME), $mode);
 
         file_put_contents($path, $content);
     }
@@ -39,7 +39,8 @@ class File
                 if (! @unlink($path)) {
                     $success = false;
                 }
-            } catch (ErrorException $e) {
+            }
+            catch (ErrorException $e) {
                 $success = false;
             }
         }

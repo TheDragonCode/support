@@ -79,7 +79,7 @@ final class FileTest extends TestCase
 
         $this->assertFalse($this->file()->isFile($path));
 
-        $this->file()->store($path, 'foo');
+        $this->file()->store($path, 'foo', 777);
 
         $file = new SplFileInfo($path);
 
@@ -90,7 +90,7 @@ final class FileTest extends TestCase
     {
         $path = $this->tempDirectory();
 
-        $this->file()->store($path . '/foo', 'foo');
+        $this->file()->store($path . '/foo', 'foo', 777);
 
         $files = new DirectoryIterator($path);
 
