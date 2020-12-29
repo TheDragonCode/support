@@ -6,14 +6,14 @@ use Helldar\Support\Facades\BaseFacade;
 use Helldar\Support\Helpers\Http as Helper;
 
 /**
- * @method static bool exists(string $url)
- * @method static bool isUrl(string $url = null)
- * @method static string|null domain(string $url = null, string $default = null)
- * @method static string|null host(string $url = null)
- * @method static string|null image(string $url = null, string $default = null)
- * @method static string|null scheme(string $url = null)
- * @method static string|null subdomain(string $url = null, string $default = null)
- * @method static void validateUrl(string $url = null)
+ * @method static bool exists(?string $url)
+ * @method static bool isUrl(?string $url)
+ * @method static string domain(?string $url)
+ * @method static string host(?string $url)
+ * @method static string scheme(?string $url)
+ * @method static string|null image(string $url, string $default = null)
+ * @method static string|null subdomain(?string $url)
+ * @method static void validateUrl(?string $url)
  */
 final class Http extends BaseFacade
 {

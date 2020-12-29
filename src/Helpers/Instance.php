@@ -27,7 +27,7 @@ final class Instance
                 $haystack instanceof $needle ||
                 $classname === $this->classname($needle) ||
                 $reflection->isSubclassOf($needle) ||
-                $reflection->implementsInterface($needle)
+                ($reflection->isInterface() && $reflection->implementsInterface($needle))
             ) {
                 return true;
             }
@@ -36,16 +36,20 @@ final class Instance
         return false;
     }
 
-    public function basename($class): string
+    public function basename($class): ?string
     {
         $class = $this->classname($class);
 
-        return basename(str_replace('\\', '/', $class));
+        return basename(str_replace('\\', '/', $class)) ?: null;
     }
 
     public function classname($class = null): ?string
     {
-        return Is::object($class) ? get_class($class) : $class;
+        if (Is::object($class)) {
+            return get_class($class);
+        }
+
+        return class_exists($class) || interface_exists($class) ? $class : null;
     }
 
     public function exists($haystack): bool
@@ -70,7 +74,7 @@ final class Instance
         return $default;
     }
 
-    public function callsWhenNotEmpty($object, $methods, $default = null)
+    public function callWhen($object, $methods, $default = null)
     {
         foreach (Arr::wrap($methods) as $method) {
             if ($value = $this->call($object, $method)) {
@@ -84,8 +88,8 @@ final class Instance
     public function callOf(array $map, $value, $default = null)
     {
         foreach ($map as $class => $method) {
-            if ($this->of($value, $class)) {
-                return $value->$method();
+            if (Is::object($value) && $this->of($value, $class)) {
+                return $this->call($value, $method, $default);
             }
         }
 

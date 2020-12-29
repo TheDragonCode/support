@@ -6,7 +6,7 @@ use RuntimeException;
 
 abstract class BaseFacade
 {
-    protected static $resolvedInstance = [];
+    protected static $resolved_instance = [];
 
     public static function __callStatic($method, $args)
     {
@@ -22,6 +22,16 @@ abstract class BaseFacade
     public static function getFacadeRoot()
     {
         return static::resolveFacadeInstance(static::getFacadeAccessor());
+    }
+
+    /**
+     * Clear all of the resolved instances.
+     *
+     * @return void
+     */
+    public static function clearResolvedInstances()
+    {
+        static::$resolved_instance = [];
     }
 
     /**
@@ -42,10 +52,10 @@ abstract class BaseFacade
         if (is_object($facade)) {
             return $facade;
         }
-        if (isset(static::$resolvedInstance[$facade])) {
-            return static::$resolvedInstance[$facade];
+        if (isset(static::$resolved_instance[$facade])) {
+            return static::$resolved_instance[$facade];
         }
 
-        return static::$resolvedInstance[$facade] = new $facade();
+        return static::$resolved_instance[$facade] = new $facade();
     }
 }

@@ -175,23 +175,44 @@ class Arr
      */
     public function exists($array, $key): bool
     {
-        return $array instanceof ArrayAccess
-            ? $array->offsetExists($key)
-            : isset($array[$key]);
+        if ($array instanceof ArrayAccess) {
+            return $array->offsetExists($key);
+        }
+
+        return isset($array[$key]);
     }
 
-    public function get(array $array, $key, $default = null)
+    /**
+     * @param  ArrayAccess|array  $array
+     * @param  mixed  $key
+     * @param  mixed|null  $default
+     *
+     * @return mixed|null
+     */
+    public function get($array, $key, $default = null)
     {
-        // TODO: $array[$key] ?? $default;
-        return $this->exists($array, $key) ? $array[$key] : $default;
+        return $array[$key] ?? $default;
     }
 
-    public function getKey(array $array, $key, $default = null)
+    /**
+     * @param  ArrayAccess|array  $array
+     * @param  mixed  $key
+     * @param  null  $default
+     *
+     * @return mixed|null
+     */
+    public function getKey($array, $key, $default = null)
     {
-        return isset($array[$key]) ? $key : $default;
+        return $this->exists($array, $key) ? $key : $default;
     }
 
-    public function except(array $array, $keys): array
+    /**
+     * @param  ArrayAccess|array  $array
+     * @param $keys
+     *
+     * @return array
+     */
+    public function except($array, $keys): array
     {
         $keys = (array) $keys;
 
@@ -203,17 +224,23 @@ class Arr
     /**
      * Get a subset of the items from the given array.
      *
-     * @param  array  $array
+     * @param  ArrayAccess|array  $array
      * @param  array|string  $keys
      *
      * @return array
      */
-    public function only(array $array, $keys): array
+    public function only($array, $keys): array
     {
         return array_intersect_key($array, array_flip((array) $keys));
     }
 
-    public function map(array $array, callable $callback): array
+    /**
+     * @param  ArrayAccess|array  $array
+     * @param  callable  $callback
+     *
+     * @return array
+     */
+    public function map($array, callable $callback): array
     {
         foreach ($array as $key => &$value) {
             $value = $callback($value, $key);
@@ -227,21 +254,37 @@ class Arr
         return is_array($value) || is_object($value) || $value instanceof ArrayAccess;
     }
 
-    public function store(array $array, string $path, bool $is_json = false, bool $sort_keys = false): void
+    /**
+     * @param  ArrayAccess|array  $array
+     * @param  string  $path
+     * @param  bool  $is_json
+     * @param  bool  $sort_keys
+     */
+    public function store($array, string $path, bool $is_json = false, bool $sort_keys = false): void
     {
         $is_json
             ? $this->storeAsJson($path, $array, $sort_keys)
             : $this->storeAsArray($path, $array, $sort_keys);
     }
 
-    public function storeAsJson(string $path, array $array, bool $sort_keys = false): void
+    /**
+     * @param  string  $path
+     * @param  ArrayAccess|array  $array
+     * @param  bool  $sort_keys
+     */
+    public function storeAsJson(string $path, $array, bool $sort_keys = false): void
     {
         $this->prepareToStore($path, StubTool::JSON, $array, static function (array $array) {
             return json_encode($array);
         }, $sort_keys);
     }
 
-    public function storeAsArray(string $path, array $array, bool $sort_keys = false): void
+    /**
+     * @param  string  $path
+     * @param  ArrayAccess|array  $array
+     * @param  bool  $sort_keys
+     */
+    public function storeAsArray(string $path, $array, bool $sort_keys = false): void
     {
         $this->prepareToStore($path, StubTool::PHP_ARRAY, $array, static function (array $array) {
             return var_export($array, true);

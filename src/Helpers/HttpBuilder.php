@@ -81,7 +81,7 @@ final class HttpBuilder
         $key       = $this->componentKey($component);
 
         $component === -1 || empty($key)
-            ? $this->parsed       = parse_url($url)
+            ? $this->parsed = parse_url($url)
             : $this->parsed[$key] = parse_url($url, $component);
 
         return $this;
@@ -151,12 +151,8 @@ final class HttpBuilder
         return $this;
     }
 
-    protected function get(string $key, ...$args): ?string
+    protected function get(string $key): ?string
     {
-        if (count($args) > 1) {
-            throw new ArgumentCountError($key . ' expects at most 0 parameter, ' . count($args) . ' given');
-        }
-
         return $this->parsed[$key] ?? null;
     }
 

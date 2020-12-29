@@ -16,12 +16,12 @@ final class Http
      *
      * @return bool
      */
-    public function isUrl(string $url = null): bool
+    public function isUrl(?string $url): bool
     {
         return filter_var($url, FILTER_VALIDATE_URL) !== false;
     }
 
-    public function validateUrl(string $url = null): void
+    public function validateUrl(?string $url): void
     {
         if (! $this->isUrl($url)) {
             throw new NotValidUrlException($url);
@@ -33,9 +33,11 @@ final class Http
      *
      * @param  string  $url
      *
+     * @throws \Helldar\Support\Exceptions\NotValidUrlException
+     *
      * @return bool
      */
-    public function exists(string $url): bool
+    public function exists(?string $url): bool
     {
         $this->validateUrl($url);
 
@@ -45,10 +47,11 @@ final class Http
             $key   = array_search('HTTP/', $headers);
             $value = $headers[$key] ?? null;
 
-            preg_match('[2-3]{1}\d{2}\sOK', $value, $matches);
+            preg_match('/HTTP\/\d{1}\.?\d?\s[2-3]\d{2}/i', $value, $matches);
 
             return count($matches) > 0;
-        } catch (Exception $e) {
+        }
+        catch (Exception $e) {
             return false;
         }
     }
@@ -57,18 +60,13 @@ final class Http
      * Get the domain name from the URL.
      *
      * @param  string|null  $url
-     * @param  string|null  $default
      *
      * @throws \Helldar\Support\Exceptions\NotValidUrlException
      *
      * @return string
      */
-    public function domain(string $url = null, string $default = null): string
+    public function domain(?string $url): string
     {
-        if (is_null($url)) {
-            return $default ?: $_SERVER['HTTP_HOST'] ?? 'localhost';
-        }
-
         $this->validateUrl($url);
 
         return HttpBuilder::parse($url)->getHost();
@@ -82,18 +80,18 @@ final class Http
      *
      * @return string|null
      */
-    public function subdomain(string $url = null, string $default = null): ?string
+    public function subdomain(?string $url): ?string
     {
+        $this->validateUrl($url);
+
         $host = explode('.', HttpBuilder::parse($url)->getHost());
 
-        return count($host) > 2 ? reset($host) : $default;
+        return count($host) > 2 ? reset($host) : null;
     }
 
-    public function host(string $url = null): ?string
+    public function host(?string $url): string
     {
-        if (! $this->isUrl($url)) {
-            return null;
-        }
+        $this->validateUrl($url);
 
         return HttpBuilder::same()
             ->parse($url, PHP_URL_SCHEME)
@@ -101,7 +99,7 @@ final class Http
             ->compile();
     }
 
-    public function scheme(string $url): ?string
+    public function scheme(?string $url): string
     {
         $this->validateUrl($url);
 

@@ -96,6 +96,12 @@ final class ArrTest extends TestCase
         $this->assertEquals('baz', Arr::get(['foo' => 'bar'], 'bar', 'baz'));
 
         $this->assertNull(Arr::get(['foo' => 'bar'], 'bar'));
+
+        $this->assertSame('Foo', Arr::get(new Arrayable(), 'foo'));
+        $this->assertSame('Bar', Arr::get(new Arrayable(), 'bar'));
+        $this->assertSame('Baz', Arr::get(new Arrayable(), 'baz'));
+
+        $this->assertNull(Arr::get(new Arrayable(), 'qwerty'));
     }
 
     public function testMerge()

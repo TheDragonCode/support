@@ -83,7 +83,7 @@ final class Str
         return preg_replace('!\s+!', ' ', $value);
     }
 
-    public function choice(float $number, array $choice = [], string $extra = ''): string
+    public function choice(float $number, array $choice = [], string $extra = null): string
     {
         $number = (int) $number;
         $mod    = $number % 10;
@@ -291,7 +291,9 @@ final class Str
      */
     public function length(?string $value, string $encoding = null): int
     {
-        return mb_strlen($value, $encoding);
+        return $encoding
+            ? mb_strlen($value, $encoding)
+            : mb_strlen($value);
     }
 
     /**

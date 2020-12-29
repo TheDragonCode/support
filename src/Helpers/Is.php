@@ -22,9 +22,13 @@ final class Is
 
     public function contract($value): bool
     {
-        $class = Instance::classname($value);
+        if (is_string($value)) {
+            $class = Instance::classname($value);
 
-        return Reflection::resolve($value)->isInterface() || interface_exists($class);
+            return ! empty($class) && interface_exists($class);
+        }
+
+        return Reflection::resolve($value)->isInterface();
     }
 
     public function error($value): bool
@@ -32,8 +36,8 @@ final class Is
         return Instance::of($value, [Exception::class, Throwable::class]);
     }
 
-    public function reflectionClass($class): bool
+    public function reflectionClass($value): bool
     {
-        return $class instanceof ReflectionClass;
+        return $value instanceof ReflectionClass;
     }
 }

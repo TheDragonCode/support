@@ -107,7 +107,7 @@ final class HttpBuilderTest extends TestCase
     public function testArgumentCountOne()
     {
         $this->expectException(ArgumentCountError::class);
-        $this->expectExceptionMessage('scheme expects at most 1 parameter, 3 given.');
+        $this->expectExceptionMessage('setScheme expects at most 1 parameter, 3 given.');
 
         HttpBuilder::setScheme('foo', 'bar', 'baz');
     }
@@ -115,7 +115,7 @@ final class HttpBuilderTest extends TestCase
     public function testArgumentCountTwo()
     {
         $this->expectException(ArgumentCountError::class);
-        $this->expectExceptionMessage('scheme expects at most 1 parameter, 2 given.');
+        $this->expectExceptionMessage('setScheme expects at most 1 parameter, 2 given.');
 
         HttpBuilder::setScheme('foo', 'bar');
     }

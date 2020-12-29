@@ -7,7 +7,7 @@ use Helldar\Support\Helpers\Reflection as Helper;
 use ReflectionClass;
 
 /**
- * @method static ReflectionClass resolve(object|string $class)
+ * @method static ReflectionClass resolve(ReflectionClass|object|string $class)
  */
 final class Reflection extends BaseFacade
 {
