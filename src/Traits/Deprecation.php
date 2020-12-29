@@ -11,7 +11,8 @@ trait Deprecation
         static::deprecation(
             'The namespace will be changed from %s to \Helldar\Support\Facades\Helpers\%s.',
             static::getDeprecationClassBasename(),
-            static::getDeprecationClassBasename());
+            static::getDeprecationClassBasename()
+        );
 
         if (! empty($message)) {
             static::deprecation($message, ...$args);

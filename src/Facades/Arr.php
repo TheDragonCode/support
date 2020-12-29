@@ -117,7 +117,6 @@ class Arr
      *   )
      *
      * @see https://gist.github.com/Ellrion/a3145621f936aa9416f4c04987533d8d#file-helper-php
-     *
      * @deprecated 2.0: The namespace will be changed. Method will be renamed to `sortByKeys()`.
      *
      * @param  array  $array
