@@ -12,6 +12,8 @@ use SplFileInfo;
 final class Directory
 {
     /**
+     * Get a list of files and folders in a directory.
+     *
      * @param  string  $path
      *
      * @throws \Helldar\Support\Exceptions\DirectoryNotFoundException
@@ -27,6 +29,15 @@ final class Directory
         return new DirectoryIterator($path);
     }
 
+    /**
+     * Get a list of directory names along a path.
+     *
+     * @param  string  $path
+     *
+     * @throws \Helldar\Support\Exceptions\DirectoryNotFoundException
+     *
+     * @return array
+     */
     public function names(string $path): array
     {
         $items = [];
@@ -42,6 +53,14 @@ final class Directory
         return array_values($items);
     }
 
+    /**
+     * Create a directory at the specified path.
+     *
+     * @param  string  $path
+     * @param  int  $mode
+     *
+     * @return bool
+     */
     public function make(string $path, int $mode = 755): bool
     {
         if ($this->doesntExist($path)) {
@@ -51,6 +70,15 @@ final class Directory
         return true;
     }
 
+    /**
+     * Delete the directory with all contents in the specified path.
+     *
+     * @param  string  $path
+     *
+     * @throws \Helldar\Support\Exceptions\DirectoryNotFoundException
+     *
+     * @return bool
+     */
     public function delete(string $path): bool
     {
         if (! $this->isDirectory($path)) {
@@ -72,17 +100,33 @@ final class Directory
         return $success;
     }
 
+    /**
+     * Check if the directory exists.
+     *
+     * @param  string  $path
+     *
+     * @return bool
+     */
     public function exists(string $path): bool
     {
         return file_exists($path) && is_dir($path);
     }
 
+    /**
+     * Check if the directory doesn't exists.
+     *
+     * @param  string  $path
+     *
+     * @return bool
+     */
     public function doesntExist(string $path): bool
     {
         return ! $this->exists($path);
     }
 
     /**
+     * Check if object or path is a directory.
+     *
      * @param  DirectoryIterator|\SplFileInfo|string  $value
      *
      * @return bool

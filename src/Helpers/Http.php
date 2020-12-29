@@ -10,7 +10,7 @@ use Helldar\Support\Facades\Helpers\HttpBuilder;
 final class Http
 {
     /**
-     * Checks whether the string is URL address.
+     * Check if the string is a valid URL.
      *
      * @param  string|null  $url
      *
@@ -21,6 +21,13 @@ final class Http
         return filter_var($url, FILTER_VALIDATE_URL) !== false;
     }
 
+    /**
+     * Validate if the value is a valid URL or throw an error.
+     *
+     * @param  string|null  $url
+     *
+     * @throws \Helldar\Support\Exceptions\NotValidUrlException
+     */
     public function validateUrl(?string $url): void
     {
         if (! $this->isUrl($url)) {
@@ -29,9 +36,9 @@ final class Http
     }
 
     /**
-     * Checks whether a URL exists.
+     * Check if the specified URL exists.
      *
-     * @param  string  $url
+     * @param  string|null  $url
      *
      * @throws \Helldar\Support\Exceptions\NotValidUrlException
      *
@@ -50,7 +57,8 @@ final class Http
             preg_match('/HTTP\/\d{1}\.?\d?\s[2-3]\d{2}/i', $value, $matches);
 
             return count($matches) > 0;
-        } catch (Exception $e) {
+        }
+        catch (Exception $e) {
             return false;
         }
     }
@@ -72,10 +80,11 @@ final class Http
     }
 
     /**
-     * Retrieving the current subdomain name.
+     * Get the subdomain name from the URL.
      *
      * @param  string|null  $url
-     * @param  string|null  $default
+     *
+     * @throws \Helldar\Support\Exceptions\NotValidUrlException
      *
      * @return string|null
      */
@@ -88,6 +97,15 @@ final class Http
         return count($host) > 2 ? reset($host) : null;
     }
 
+    /**
+     * Get the scheme and host from the URL.
+     *
+     * @param  string|null  $url
+     *
+     * @throws \Helldar\Support\Exceptions\NotValidUrlException
+     *
+     * @return string
+     */
     public function host(?string $url): string
     {
         $this->validateUrl($url);
@@ -98,6 +116,15 @@ final class Http
             ->compile();
     }
 
+    /**
+     * Get the scheme name from the URL.
+     *
+     * @param  string|null  $url
+     *
+     * @throws \Helldar\Support\Exceptions\NotValidUrlException
+     *
+     * @return string
+     */
     public function scheme(?string $url): string
     {
         $this->validateUrl($url);
@@ -110,6 +137,8 @@ final class Http
      *
      * @param  string  $url
      * @param  string|null  $default
+     *
+     * @throws \Helldar\Support\Exceptions\NotValidUrlException
      *
      * @return string|null
      */

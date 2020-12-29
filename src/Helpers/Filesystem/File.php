@@ -11,6 +11,13 @@ use SplFileInfo;
 
 class File
 {
+    /**
+     * Save content to file.
+     *
+     * @param  string  $path
+     * @param  string  $content
+     * @param  int  $mode
+     */
     public function store(string $path, string $content, int $mode = 755): void
     {
         Directory::make(pathinfo($path, PATHINFO_DIRNAME), $mode);
@@ -18,12 +25,21 @@ class File
         file_put_contents($path, $content);
     }
 
+    /**
+     * Checks if the file exists.
+     *
+     * @param  string  $path
+     *
+     * @return bool
+     */
     public function exists(string $path): bool
     {
         return file_exists($path) && is_file($path);
     }
 
     /**
+     * Deletes files in the specified paths.
+     *
      * @param  string|string[]  $paths
      *
      * @return bool
@@ -39,7 +55,8 @@ class File
                 if (! @unlink($path)) {
                     $success = false;
                 }
-            } catch (ErrorException $e) {
+            }
+            catch (ErrorException $e) {
                 $success = false;
             }
         }
@@ -48,6 +65,8 @@ class File
     }
 
     /**
+     * Checks if an object or link is a file at the specified path.
+     *
      * @param  \DirectoryIterator|\SplFileInfo|string  $value
      *
      * @return bool

@@ -143,6 +143,13 @@ class Arr
         return $result;
     }
 
+    /**
+     * If the given value is not an array and not null, wrap it in one.
+     *
+     * @param  null  $value
+     *
+     * @return array
+     */
     public function wrap($value = null): array
     {
         if (is_array($value)) {
@@ -152,6 +159,13 @@ class Arr
         return ! empty($value) ? [$value] : [];
     }
 
+    /**
+     * Get the instance as an array.
+     *
+     * @param  mixed  $value
+     *
+     * @return array
+     */
     public function toArray($value = null): array
     {
         if (is_object($value)) {
@@ -168,6 +182,8 @@ class Arr
     }
 
     /**
+     * Determine if the given key exists in the provided array.
+     *
      * @param  array|\ArrayAccess  $array
      * @param  mixed  $key
      *
@@ -183,6 +199,8 @@ class Arr
     }
 
     /**
+     * Get an item from an array.
+     *
      * @param  array|ArrayAccess  $array
      * @param  mixed  $key
      * @param  mixed|null  $default
@@ -195,6 +213,8 @@ class Arr
     }
 
     /**
+     * If the element key exists, then return the name of the key, otherwise the default value.
+     *
      * @param  array|ArrayAccess  $array
      * @param  mixed  $key
      * @param  null  $default
@@ -207,6 +227,8 @@ class Arr
     }
 
     /**
+     * Get all of the given array except for a specified array of keys.
+     *
      * @param  array|ArrayAccess  $array
      * @param $keys
      *
@@ -235,6 +257,8 @@ class Arr
     }
 
     /**
+     * Applies the callback to the elements of the given arrays.
+     *
      * @param  array|ArrayAccess  $array
      * @param  callable  $callback
      *
@@ -249,12 +273,21 @@ class Arr
         return $array;
     }
 
+    /**
+     * Check if the item is an array.
+     *
+     * @param  null  $value
+     *
+     * @return bool
+     */
     public function isArrayable($value = null): bool
     {
         return is_array($value) || is_object($value) || $value instanceof ArrayAccess;
     }
 
     /**
+     * Save array to php or json file.
+     *
      * @param  array|ArrayAccess  $array
      * @param  string  $path
      * @param  bool  $is_json
@@ -268,6 +301,8 @@ class Arr
     }
 
     /**
+     * Save array to json file.
+     *
      * @param  string  $path
      * @param  array|ArrayAccess  $array
      * @param  bool  $sort_keys
@@ -280,6 +315,8 @@ class Arr
     }
 
     /**
+     * Save array to php file.
+     *
      * @param  string  $path
      * @param  array|ArrayAccess  $array
      * @param  bool  $sort_keys
@@ -291,6 +328,15 @@ class Arr
         }, $sort_keys);
     }
 
+    /**
+     * Prepare an array for writing to a file.
+     *
+     * @param  string  $path
+     * @param  string  $stub
+     * @param  array  $array
+     * @param  callable  $replace
+     * @param  bool  $sort_keys
+     */
     protected function prepareToStore(string $path, string $stub, array $array, callable $replace, bool $sort_keys = false): void
     {
         if ($sort_keys) {
