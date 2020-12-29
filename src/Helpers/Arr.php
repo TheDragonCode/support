@@ -183,7 +183,7 @@ class Arr
     }
 
     /**
-     * @param  ArrayAccess|array  $array
+     * @param  array|ArrayAccess  $array
      * @param  mixed  $key
      * @param  mixed|null  $default
      *
@@ -195,7 +195,7 @@ class Arr
     }
 
     /**
-     * @param  ArrayAccess|array  $array
+     * @param  array|ArrayAccess  $array
      * @param  mixed  $key
      * @param  null  $default
      *
@@ -207,7 +207,7 @@ class Arr
     }
 
     /**
-     * @param  ArrayAccess|array  $array
+     * @param  array|ArrayAccess  $array
      * @param $keys
      *
      * @return array
@@ -224,7 +224,7 @@ class Arr
     /**
      * Get a subset of the items from the given array.
      *
-     * @param  ArrayAccess|array  $array
+     * @param  array|ArrayAccess  $array
      * @param  array|string  $keys
      *
      * @return array
@@ -235,7 +235,7 @@ class Arr
     }
 
     /**
-     * @param  ArrayAccess|array  $array
+     * @param  array|ArrayAccess  $array
      * @param  callable  $callback
      *
      * @return array
@@ -255,7 +255,7 @@ class Arr
     }
 
     /**
-     * @param  ArrayAccess|array  $array
+     * @param  array|ArrayAccess  $array
      * @param  string  $path
      * @param  bool  $is_json
      * @param  bool  $sort_keys
@@ -269,7 +269,7 @@ class Arr
 
     /**
      * @param  string  $path
-     * @param  ArrayAccess|array  $array
+     * @param  array|ArrayAccess  $array
      * @param  bool  $sort_keys
      */
     public function storeAsJson(string $path, $array, bool $sort_keys = false): void
@@ -281,7 +281,7 @@ class Arr
 
     /**
      * @param  string  $path
-     * @param  ArrayAccess|array  $array
+     * @param  array|ArrayAccess  $array
      * @param  bool  $sort_keys
      */
     public function storeAsArray(string $path, $array, bool $sort_keys = false): void

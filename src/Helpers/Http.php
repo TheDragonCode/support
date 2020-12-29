@@ -50,8 +50,7 @@ final class Http
             preg_match('/HTTP\/\d{1}\.?\d?\s[2-3]\d{2}/i', $value, $matches);
 
             return count($matches) > 0;
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             return false;
         }
     }
