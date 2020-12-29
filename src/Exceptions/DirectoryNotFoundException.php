@@ -11,7 +11,7 @@ class DirectoryNotFoundException extends Exception
 
     public function __construct(string $path)
     {
-        static::deprecation('The typing of the variable will be changed to "?string $path".');
+        static::deprecatedMethodParameters(__FUNCTION__);
 
         $message = "Directory \"{$path}\" does not exist";
 

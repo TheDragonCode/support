@@ -4,9 +4,15 @@ namespace Helldar\Support\Facades;
 
 use Exception;
 use Helldar\Support\Exceptions\NotValidUrlException;
+use Helldar\Support\Traits\Deprecation;
 
+/**
+ * @deprecated 2.0: Namespace "Helldar\Support\Facades\Http" is deprecated, use "Helldar\Support\Facades\Helpers\Http" instead.
+ */
 class Http
 {
+    use Deprecation;
+
     /**
      * Checks whether the string is URL address.
      *
@@ -16,6 +22,9 @@ class Http
      */
     public static function isUrl(string $path = null): bool
     {
+        static::deprecatedNamespace();
+        static::deprecatedMethodParameters(__FUNCTION__);
+
         return filter_var($path, FILTER_VALIDATE_URL) !== false;
     }
 
@@ -28,6 +37,9 @@ class Http
      */
     public static function exists(string $url): bool
     {
+        static::deprecatedNamespace();
+        static::deprecatedMethodParameters(__FUNCTION__);
+
         try {
             $headers = get_headers($url);
 
@@ -35,7 +47,8 @@ class Http
             $value = $headers[$key] ?? null;
 
             return stripos($value, '200 OK') !== false;
-        } catch (Exception $exception) {
+        }
+        catch (Exception $exception) {
             return false;
         }
     }
@@ -52,6 +65,9 @@ class Http
      */
     public static function baseUrl(string $url = null, string $default = null): string
     {
+        static::deprecatedNamespace();
+        static::deprecatedRenameMethod(__FUNCTION__, 'domain');
+
         if (is_null($url)) {
             return $default ?: $_SERVER['HTTP_HOST'] ?? 'localhost';
         }
@@ -74,6 +90,9 @@ class Http
      */
     public static function buildUrl(array $parsed_url)
     {
+        static::deprecatedNamespace();
+        static::deprecatedRenameMethod(__FUNCTION__, 'HttpBuilder::parse');
+
         $scheme = isset($parsed_url['scheme']) ? ($parsed_url['scheme'] . '://') : '';
 
         $host = $parsed_url['host'] ?? '';
@@ -102,6 +121,9 @@ class Http
      */
     public static function scheme(string $url = null): ?string
     {
+        static::deprecatedNamespace();
+        static::deprecatedMethodParameters(__FUNCTION__);
+
         return static::isUrl($url)
             ? parse_url($url, PHP_URL_SCHEME)
             : null;
@@ -116,6 +138,9 @@ class Http
      */
     public static function domain(string $url = null): ?string
     {
+        static::deprecatedNamespace();
+        static::deprecatedMethodParameters(__FUNCTION__);
+
         return static::isUrl($url)
             ? parse_url($url, PHP_URL_HOST)
             : null;
@@ -130,6 +155,9 @@ class Http
      */
     public static function host(string $url = null): ?string
     {
+        static::deprecatedNamespace();
+        static::deprecatedMethodParameters(__FUNCTION__);
+
         if (static::isUrl($url)) {
             return static::buildUrl([
                 'scheme' => static::scheme($url),
@@ -152,6 +180,9 @@ class Http
      */
     public static function subdomain(string $url = null, string $default = null): ?string
     {
+        static::deprecatedNamespace();
+        static::deprecatedMethodParameters(__FUNCTION__);
+
         $host = explode('.', static::baseUrl($url, $default));
 
         if (count($host) > 2) {
@@ -171,6 +202,9 @@ class Http
      */
     public static function imageOrDefault(string $url, string $default = null): ?string
     {
+        static::deprecatedNamespace();
+        static::deprecatedRenameMethod(__FUNCTION__, 'image');
+
         return static::isUrl($url)
             ? (static::exists($url) ? $url : $default)
             : (file_exists($url) ? $url : $default);

@@ -3,9 +3,15 @@
 namespace Helldar\Support\Facades;
 
 use Helldar\Support\Exceptions\InvalidNumberException;
+use Helldar\Support\Traits\Deprecation;
 
+/**
+ * @deprecated 2.0: Namespace "Helldar\Support\Facades\Digit" is deprecated, use "Helldar\Support\Facades\Helpers\Digit" instead.
+ */
 class Digit
 {
+    use Deprecation;
+
     /**
      * Calculating the factorial of a number.
      *
@@ -15,6 +21,8 @@ class Digit
      */
     public static function factorial($n = 0)
     {
+        static::deprecatedNamespace();
+
         if ($n == 0) {
             return 1;
         }
@@ -35,6 +43,9 @@ class Digit
      */
     public static function shortNumber(float $number, int $precision = 1): string
     {
+        static::deprecatedNamespace();
+        static::deprecatedRenameMethod(__FUNCTION__, 'toShort');
+
         if (! is_numeric($number)) {
             throw new InvalidNumberException($number);
         }
@@ -59,6 +70,9 @@ class Digit
      */
     public static function roundedBcPow(float $digit, int $length = 4, int $precision = 1): float
     {
+        static::deprecatedNamespace();
+        static::deprecatedRenameMethod(__FUNCTION__, 'rounded');
+
         $divider = (float) bcpow(10, ($length - 4), 2);
 
         return round($digit / $divider, $precision);
@@ -75,6 +89,9 @@ class Digit
      */
     public static function shortString(int $number, string $chars = 'abcdefghijklmnopqrstuvwxyz'): string
     {
+        static::deprecatedNamespace();
+        static::deprecatedRenameMethod(__FUNCTION__, 'shortKey');
+
         $length = strlen($chars);
         $mod    = $number % $length;
 

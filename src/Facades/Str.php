@@ -2,11 +2,12 @@
 
 namespace Helldar\Support\Facades;
 
-use function ctype_lower;
+use Helldar\Support\Traits\Deprecation;
+use Illuminate\Contracts\Support\Htmlable;
 
+use function ctype_lower;
 use function htmlspecialchars;
 use function htmlspecialchars_decode;
-use Illuminate\Contracts\Support\Htmlable;
 use function implode;
 use function is_null;
 use function lcfirst;
@@ -21,8 +22,13 @@ use function substr;
 use function trim;
 use function ucwords;
 
+/**
+ * @deprecated 2.0: Namespace "Helldar\Support\Facades\Str" is deprecated, use "Helldar\Support\Facades\Helpers\Str" instead.
+ */
 class Str
 {
+    use Deprecation;
+
     /**
      * Escape HTML special characters in a string.
      *
@@ -33,6 +39,9 @@ class Str
      */
     public static function e($value = null, bool $double_encode = true): ?string
     {
+        static::deprecatedNamespace();
+        static::deprecatedMethodParameters(__FUNCTION__);
+
         if (is_null($value)) {
             return null;
         }
@@ -53,6 +62,9 @@ class Str
      */
     public static function de(string $value = null): ?string
     {
+        static::deprecatedNamespace();
+        static::deprecatedMethodParameters(__FUNCTION__);
+
         if (is_null($value)) {
             return null;
         }
@@ -69,6 +81,9 @@ class Str
      */
     public static function replaceSpaces(string $value): ?string
     {
+        static::deprecatedNamespace();
+        static::deprecatedRenameMethod(__FUNCTION__, 'removeSpaces');
+
         return preg_replace('!\s+!', ' ', $value);
     }
 
@@ -83,6 +98,9 @@ class Str
      */
     public static function choice(float $number, array $choice = [], string $additional = '')
     {
+        static::deprecatedNamespace();
+        static::deprecatedMethodParameters(__FUNCTION__);
+
         $result = $choice[0] ?? '';
         $number = (int) $number;
         $mod    = $number % 10;
@@ -112,6 +130,9 @@ class Str
      */
     public static function start($value, $prefix)
     {
+        static::deprecatedNamespace();
+        static::deprecatedMethodParameters(__FUNCTION__);
+
         $quoted = preg_quote($prefix, '/');
 
         return $prefix . preg_replace('/^(?:' . $quoted . ')+/u', '', $value);
@@ -127,6 +148,8 @@ class Str
      */
     public static function finish(string $value, string $cap = '/'): string
     {
+        static::deprecatedNamespace();
+
         $quoted = preg_quote($cap, '/');
 
         return preg_replace('/(?:' . $quoted . ')+$/u', '', $value) . $cap;
@@ -144,6 +167,9 @@ class Str
      */
     public static function startsWith($haystack, $needles)
     {
+        static::deprecatedNamespace();
+        static::deprecatedMethodParameters(__FUNCTION__);
+
         foreach ((array) $needles as $needle) {
             if ((string) $needle !== '' && substr($haystack, 0, strlen($needle)) === (string) $needle) {
                 return true;
@@ -163,6 +189,9 @@ class Str
      */
     public static function endsWith($haystack, $needles): bool
     {
+        static::deprecatedNamespace();
+        static::deprecatedMethodParameters(__FUNCTION__);
+
         foreach ((array) $needles as $needle) {
             if (substr($haystack, -strlen($needle)) === (string) $needle) {
                 return true;
@@ -183,6 +212,9 @@ class Str
      */
     public static function lower($value)
     {
+        static::deprecatedNamespace();
+        static::deprecatedMethodParameters(__FUNCTION__);
+
         return mb_strtolower($value, 'UTF-8');
     }
 
@@ -195,6 +227,9 @@ class Str
      */
     public static function studly($value)
     {
+        static::deprecatedNamespace();
+        static::deprecatedMethodParameters(__FUNCTION__);
+
         $value = ucwords(str_replace(['-', '_'], ' ', $value));
 
         return str_replace(' ', '', $value);
@@ -209,6 +244,9 @@ class Str
      */
     public static function camel($value)
     {
+        static::deprecatedNamespace();
+        static::deprecatedMethodParameters(__FUNCTION__);
+
         return lcfirst(static::studly($value));
     }
 
@@ -222,6 +260,9 @@ class Str
      */
     public static function snake($value, $delimiter = '_')
     {
+        static::deprecatedNamespace();
+        static::deprecatedMethodParameters(__FUNCTION__);
+
         if (! ctype_lower($value)) {
             $value = preg_replace('/\s+/u', '', ucwords($value));
 
@@ -243,6 +284,9 @@ class Str
      */
     public static function length($value, $encoding = null)
     {
+        static::deprecatedNamespace();
+        static::deprecatedMethodParameters(__FUNCTION__);
+
         if ($encoding) {
             return mb_strlen($value, $encoding);
         }
@@ -263,6 +307,9 @@ class Str
      */
     public static function substr($string, $start, $length = null)
     {
+        static::deprecatedNamespace();
+        static::deprecatedMethodParameters(__FUNCTION__);
+
         return mb_substr($string, $start, $length, 'UTF-8');
     }
 }

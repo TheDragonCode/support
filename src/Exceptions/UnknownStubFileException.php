@@ -12,7 +12,7 @@ class UnknownStubFileException extends Exception
 
     public function __construct($filename = '')
     {
-        static::deprecation('The typing of the variable will be changed to "?string $filename".');
+        static::deprecatedMethodParameters(__FUNCTION__);
 
         $message = sprintf('Unknown stub file: "%s"', Str::e($filename));
 

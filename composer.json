@@ -19,7 +19,8 @@
         "ext-ctype": "*",
         "ext-dom": "*",
         "ext-json": "*",
-        "ext-mbstring": "*"
+        "ext-mbstring": "*",
+        "symfony/deprecation-contracts": "^2.0"
     },
     "require-dev": {
         "ext-bcmath": "*",
@@ -35,7 +36,6 @@
             "Helldar\\Support\\": "src"
         },
         "files": [
-            "src/helpers/function.php",
             "src/helpers/digit.php",
             "src/helpers/dumper.php",
             "src/helpers/http.php",

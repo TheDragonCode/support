@@ -7,7 +7,7 @@ use Helldar\Support\Tools\Stub;
 use Helldar\Support\Traits\Deprecation;
 
 /**
- * @deprecated 2.0: The namespace will be changed.
+ * @deprecated 2.0: Namespace "Helldar\Support\Facades\Arr" is deprecated, use "Helldar\Support\Facades\Helpers\Arr" instead.
  */
 class Arr
 {
@@ -18,8 +18,6 @@ class Arr
      * As the second parameter, a callback function is passed, which determines the actions for processing the value.
      * The output of the function must be a string with a name.
      *
-     * @deprecated 2.0: The namespace will be changed.
-     *
      * @param  array  $array
      * @param $callback
      *
@@ -27,7 +25,8 @@ class Arr
      */
     public static function renameKeys(array $array, $callback): array
     {
-        static::deprecationNamespace('The typing of the `$callback` variable will be set to `callable` in %s.', __FUNCTION__);
+        static::deprecatedNamespace();
+        static::deprecatedMethodParameters(__FUNCTION__);
 
         $result = [];
 
@@ -42,8 +41,6 @@ class Arr
     /**
      * Renaming array keys with map.
      *
-     * @deprecated 2.0: The namespace will be changed.
-     *
      * @param  array  $array
      * @param  array  $map
      *
@@ -51,7 +48,7 @@ class Arr
      */
     public static function renameKeysMap(array $array, array $map): array
     {
-        static::deprecationNamespace();
+        static::deprecatedNamespace();
 
         return self::renameKeys($array, static function ($key) use ($map) {
             return $map[$key] ?? $key;
@@ -61,15 +58,14 @@ class Arr
     /**
      * Get the size of the longest text element of the array.
      *
-     * @deprecated 2.0: The namespace will be changed. The method will be renamed.
-     *
      * @param  array  $array
      *
      * @return int
      */
     public static function sizeOfMaxValue(array $array): int
     {
-        static::deprecationNamespace('The %s method will be renamed to `longestStringLength()`.', __FUNCTION__);
+        static::deprecatedNamespace();
+        static::deprecatedRenameMethod(__FUNCTION__, 'longestStringLength');
 
         return count($array)
             ? max(array_map('mb_strlen', $array))
@@ -79,8 +75,6 @@ class Arr
     /**
      * Push one a unique element onto the end of array.
      *
-     * @deprecated 2.0: The namespace will be changed.
-     *
      * @param  array  $array
      * @param  array|mixed  $values
      *
@@ -88,7 +82,7 @@ class Arr
      */
     public static function addUnique(array $array, $values): array
     {
-        static::deprecationNamespace();
+        static::deprecatedNamespace();
 
         if (is_array($values) || is_object($values)) {
             foreach ($values as $value) {
@@ -117,7 +111,6 @@ class Arr
      *   )
      *
      * @see https://gist.github.com/Ellrion/a3145621f936aa9416f4c04987533d8d#file-helper-php
-     * @deprecated 2.0: The namespace will be changed. Method will be renamed to `sortByKeys()`.
      *
      * @param  array  $array
      * @param  array  $sorter
@@ -126,7 +119,8 @@ class Arr
      */
     public static function sortByKeysArray(array $array, array $sorter)
     {
-        static::deprecationNamespace('Method %s will be renamed to `sortByKeys()`.', __FUNCTION__);
+        static::deprecatedNamespace();
+        static::deprecatedRenameMethod(__FUNCTION__, 'sortByKeys');
 
         $sorter = array_intersect($sorter, array_keys($array));
         $array  = array_merge(array_flip($sorter), $array);
@@ -138,15 +132,13 @@ class Arr
      * Merge one or more arrays recursively.
      * Don't forget that numeric keys NOT will be renumbered!
      *
-     * @deprecated 2.0: The namespace will be changed.
-     *
      * @param  mixed  ...$arrays
      *
      * @return array
      */
     public static function merge(...$arrays): array
     {
-        static::deprecationNamespace();
+        static::deprecatedNamespace();
 
         $result = [];
 
@@ -163,19 +155,10 @@ class Arr
         return $result;
     }
 
-    /**
-     * @deprecated 2.0: The namespace will be changed.
-     *
-     * @param  array  $array
-     * @param  string  $path
-     * @param  bool  $is_json
-     * @param  bool  $sort_array_keys
-     */
     public static function store(array $array, string $path, bool $is_json = false, bool $sort_array_keys = false)
     {
-        static::deprecationNamespace(
-            'The typing of the `array $array` parameter will change to just `$array` and the $sort_array_keys parameter will be renamed to $sort_keys.'
-        );
+        static::deprecatedNamespace();
+        static::deprecatedMethodParameters(__FUNCTION__);
 
         if ($is_json) {
             static::storeAsJson($array, $path, $sort_array_keys);
@@ -184,18 +167,10 @@ class Arr
         }
     }
 
-    /**
-     * @deprecated 2.0: The namespace will be changed.
-     *
-     * @param  array  $array
-     * @param  string  $path
-     * @param  bool  $sort_array_keys
-     */
     public static function storeAsArray(array $array, string $path, bool $sort_array_keys = false)
     {
-        static::deprecationNamespace(
-            'The typing of the `array $array` parameter will change to just `$array` and the $sort_array_keys parameter will be renamed to $sort_keys.'
-        );
+        static::deprecatedNamespace();
+        static::deprecatedMethodParameters(__FUNCTION__);
 
         if ($sort_array_keys) {
             ksort($array);
@@ -212,18 +187,10 @@ class Arr
         File::store($path, $content);
     }
 
-    /**
-     * @deprecated 2.0: The namespace will be changed.
-     *
-     * @param  array  $array
-     * @param  string  $path
-     * @param  bool  $sort_array_keys
-     */
     public static function storeAsJson(array $array, string $path, bool $sort_array_keys = false)
     {
-        static::deprecationNamespace(
-            'The typing of the `array $array` parameter will change to just `$array` and the $sort_array_keys parameter will be renamed to $sort_keys.'
-        );
+        static::deprecatedNamespace();
+        static::deprecatedMethodParameters(__FUNCTION__);
 
         if ($sort_array_keys) {
             ksort($array);
@@ -238,30 +205,18 @@ class Arr
         File::store($path, $content);
     }
 
-    /**
-     * @deprecated 2.0: The namespace will be changed.
-     *
-     * @param  null  $array
-     *
-     * @return array|null[]
-     */
     public static function wrap($array = null): array
     {
-        static::deprecationNamespace('the $array parameter will be renamed to $value.');
+        static::deprecatedNamespace();
+        static::deprecatedMethodParameters(__FUNCTION__);
 
         return is_array($array) ? $array : [$array];
     }
 
-    /**
-     * @deprecated 2.0: The namespace will be changed.
-     *
-     * @param  null  $array
-     *
-     * @return null[]
-     */
     public static function toArray($array = null): array
     {
-        static::deprecationNamespace('the $array parameter will be renamed to $value.');
+        static::deprecatedNamespace();
+        static::deprecatedMethodParameters(__FUNCTION__);
 
         if (is_object($array)) {
             $array = method_exists($array, 'toArray') ? $array->toArray() : get_object_vars($array);
@@ -278,56 +233,29 @@ class Arr
         return $array;
     }
 
-    /**
-     * @deprecated 2.0: The namespace will be changed.
-     *
-     * @param  array|ArrayAccess  $array
-     * @param  int|string  $key
-     *
-     * @return bool
-     */
     public static function exists(array $array, $key): bool
     {
-        static::deprecationNamespace(
-            'The typing of the `array $array` parameter will change to just `$array`.'
-        );
+        static::deprecatedNamespace();
+        static::deprecatedMethodParameters(__FUNCTION__);
 
         return $array instanceof ArrayAccess
             ? $array->offsetExists($key)
             : isset($array[$key]);
     }
 
-    /**
-     * @deprecated 2.0: The namespace will be changed.
-     *
-     * @param  array  $array
-     * @param $key
-     * @param  null  $default
-     *
-     * @return mixed|null
-     */
     public static function get(array $array, $key, $default = null)
     {
-        static::deprecationNamespace(
-            'The typing of the `array $array` parameter will change to just `$array`.'
-        );
+        static::deprecatedNamespace();
+        static::deprecatedMethodParameters(__FUNCTION__);
 
         return static::exists($array, $key)
             ? $array[$key]
             : $default;
     }
 
-    /**
-     * @deprecated 2.0: The namespace will be changed.
-     *
-     * @param  array  $array
-     * @param $keys
-     *
-     * @return array
-     */
     public static function except(array $array, $keys): array
     {
-        static::deprecationNamespace();
+        static::deprecatedNamespace();
 
         $keys = (array) $keys;
 
@@ -340,38 +268,18 @@ class Arr
         }, ARRAY_FILTER_USE_KEY);
     }
 
-    /**
-     * Get a subset of the items from the given array.
-     *
-     * @deprecated 2.0: The namespace will be changed.
-     *
-     * @param  array  $array
-     * @param  array  $keys
-     *
-     * @return array
-     */
     public static function only(array $array, array $keys): array
     {
-        static::deprecationNamespace(
-            'The typing of the `array $array` parameter will change to just `$array`.'
-        );
+        static::deprecatedNamespace();
+        static::deprecatedMethodParameters(__FUNCTION__);
 
         return array_intersect_key($array, array_flip($keys));
     }
 
-    /**
-     * @deprecated 2.0: The namespace will be changed.
-     *
-     * @param  array  $array
-     * @param  callable  $callback
-     *
-     * @return array
-     */
     public static function map(array $array, callable $callback): array
     {
-        static::deprecationNamespace(
-            'The typing of the `array $array` parameter will change to just `$array`.'
-        );
+        static::deprecatedNamespace();
+        static::deprecatedMethodParameters(__FUNCTION__);
 
         return array_map($callback, $array);
     }

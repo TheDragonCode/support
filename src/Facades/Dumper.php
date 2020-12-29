@@ -2,10 +2,16 @@
 
 namespace Helldar\Support\Facades;
 
+use Helldar\Support\Traits\Deprecation;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * @deprecated 2.0: Namespace "Helldar\Support\Facades\Dumper" is deprecated, use "Helldar\LaravelSupport\Facades\Dumper" instead.
+ */
 class Dumper
 {
+    use Deprecation;
+
     /**
      * Dump the passed variables and end the script.
      *
@@ -19,6 +25,8 @@ class Dumper
      */
     public static function ddSql($query, bool $is_short = false, bool $is_return = false)
     {
+        static::deprecated('Method moved to package "andrey-helldar/laravel-support".');
+
         if ($query instanceof Builder) {
             $query = $query->getQuery();
         }

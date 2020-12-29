@@ -12,7 +12,7 @@ class NotValidUrlException extends Exception
 
     public function __construct($url = '')
     {
-        static::deprecation('The typing of the variable will be changed to "?string $url".');
+        static::deprecatedMethodParameters(__FUNCTION__);
 
         $message = sprintf('The "%s" is not a valid URL.', Str::e($url));
 
