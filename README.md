@@ -15,7 +15,7 @@ Support package is a collection of helpers and tools for projects.
 [![License][badge_license]][link_license]
 
 
-[badge_build]:          https://img.shields.io/github/workflow/status/andrey-helldar/support/coverage?style=flat-square
+[badge_build]:          https://img.shields.io/github/workflow/status/andrey-helldar/support/phpunit?style=flat-square
 
 [badge_coverage]:       https://img.shields.io/scrutinizer/coverage/g/andrey-helldar/support.svg?style=flat-square
 
