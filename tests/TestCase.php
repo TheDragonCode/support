@@ -25,10 +25,13 @@ abstract class TestCase extends BaseTestCase
 
     protected function tempDirectory(string $path = null): string
     {
+        $prefix = $this->tempDirectoryPrefix();
+
         $time = Str::camel(microtime());
+
         $path = ltrim($path, '/');
 
-        return implode(DIRECTORY_SEPARATOR, [__DIR__, 'tmp', $time, $path]);
+        return implode(DIRECTORY_SEPARATOR, [$prefix, $time, $path]);
     }
 
     protected function fixturesDirectory(string $path = null): string
@@ -40,10 +43,15 @@ abstract class TestCase extends BaseTestCase
 
     protected function destroyTempDirectory()
     {
-        $path = '/tmp';
+        $path = $this->tempDirectoryPrefix();
 
         if (Directory::exists($path)) {
             Directory::delete($path);
         }
+    }
+
+    protected function tempDirectoryPrefix(): string
+    {
+        return __DIR__ . '/tmp';
     }
 }
