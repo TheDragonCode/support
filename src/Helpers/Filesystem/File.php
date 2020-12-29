@@ -55,8 +55,7 @@ class File
                 if (! @unlink($path)) {
                     $success = false;
                 }
-            }
-            catch (Throwable $e) {
+            } catch (Throwable $e) {
                 $success = false;
             }
         }
