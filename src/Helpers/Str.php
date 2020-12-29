@@ -83,6 +83,15 @@ final class Str
         return preg_replace('!\s+!', ' ', $value);
     }
 
+    /**
+     * Get a string according to an integer value.
+     *
+     * @param  float  $number
+     * @param  array  $choice
+     * @param  string|null  $extra
+     *
+     * @return string
+     */
     public function choice(float $number, array $choice = [], string $extra = null): string
     {
         $number = (int) $number;

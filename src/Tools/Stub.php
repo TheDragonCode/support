@@ -10,6 +10,16 @@ final class Stub
 
     public const JSON = 'json.stub';
 
+    /**
+     * Replace the contents of the template file.
+     *
+     * @param  string  $stub_file
+     * @param  array  $replace
+     *
+     * @throws \Helldar\Support\Exceptions\UnknownStubFileException
+     *
+     * @return string
+     */
     public function replace(string $stub_file, array $replace): string
     {
         $content = $this->get($stub_file);
@@ -20,6 +30,15 @@ final class Stub
         return str_replace($keys, $values, $content);
     }
 
+    /**
+     * Receive the contents of the template file.
+     *
+     * @param  string  $filename
+     *
+     * @throws \Helldar\Support\Exceptions\UnknownStubFileException
+     *
+     * @return string
+     */
     public function get(string $filename): string
     {
         if ($path = $this->path($filename)) {
@@ -29,6 +48,13 @@ final class Stub
         throw new UnknownStubFileException($filename);
     }
 
+    /**
+     * Receive the path to the template file.
+     *
+     * @param  string  $filename
+     *
+     * @return string|null
+     */
     protected function path(string $filename): ?string
     {
         return realpath(__DIR__ . '/../../resources/stubs/' . $filename);
