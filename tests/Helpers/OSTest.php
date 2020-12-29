@@ -2,43 +2,54 @@
 
 namespace Tests\Helpers;
 
-use Helldar\Support\Facades\OS;
+use Helldar\Support\Helpers\OS;
 use Tests\TestCase;
 
-class OSTest extends TestCase
+final class OSTest extends TestCase
 {
-    public function testIsWindows()
+    public function testIsLinux()
     {
-        $this->assertFalse(OS::isWindows());
+        $this->assertTrue($this->os()->isLinux());
+    }
+
+    public function testFamily()
+    {
+        $this->assertSame('linux', $this->os()->family());
+        $this->assertSame('Linux', $this->os()->family(false));
     }
 
     public function testIsDarwin()
     {
-        $this->assertFalse(OS::isDarwin());
+        $this->assertFalse($this->os()->isDarwin());
     }
 
-    public function testIsSolaris()
+    public function testIsWindows()
     {
-        $this->assertFalse(OS::isSolaris());
-    }
-
-    public function testIsUnknown()
-    {
-        $this->assertFalse(OS::isUnknown());
-    }
-
-    public function testIsUnix()
-    {
-        $this->assertTrue(OS::isUnix());
+        $this->assertFalse($this->os()->isWindows());
     }
 
     public function testIsBSD()
     {
-        $this->assertFalse(OS::isBSD());
+        $this->assertFalse($this->os()->isBSD());
     }
 
-    public function testIsLinux()
+    public function testIsUnix()
     {
-        $this->assertTrue(OS::isLinux());
+        $this->assertTrue($this->os()->isUnix());
+    }
+
+    public function testIsUnknown()
+    {
+        $this->assertFalse($this->os()->isUnknown());
+    }
+
+    public function testIsSolaris()
+    {
+        $this->assertFalse($this->os()->isSolaris());
+    }
+
+    protected function os(): OS
+    {
+        return new OS();
     }
 }

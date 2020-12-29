@@ -2,21 +2,21 @@
 
 namespace Tests\Helpers;
 
-use Helldar\Support\Services\Reflection;
+use Helldar\Support\Helpers\Reflection;
 use ReflectionClass;
-use Tests\Fixtures\Foo;
+use Tests\Fixtures\Instances\Foo;
 use Tests\TestCase;
 
 final class ReflectionTest extends TestCase
 {
     public function testResolve()
     {
-        $this->assertTrue(
-            Reflection::resolve(Foo::class) instanceof ReflectionClass
-        );
+        $this->assertTrue($this->reflection()->resolve(new ReflectionClass(new Foo())) instanceof ReflectionClass);
+        $this->assertTrue($this->reflection()->resolve(new Foo()) instanceof ReflectionClass);
+    }
 
-        $this->assertTrue(
-            Reflection::resolve(new Foo()) instanceof ReflectionClass
-        );
+    protected function reflection(): Reflection
+    {
+        return new Reflection();
     }
 }

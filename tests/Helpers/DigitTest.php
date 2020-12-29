@@ -2,83 +2,88 @@
 
 namespace Tests\Helpers;
 
-use Helldar\Support\Facades\Digit;
+use Helldar\Support\Helpers\Digit;
 use Tests\TestCase;
 
-class DigitTest extends TestCase
+final class DigitTest extends TestCase
 {
-    public function testRoundedBcPow()
+    public function testRounded()
     {
-        $this->assertEquals(410000, Digit::roundedBcPow(4100, 2));
-        $this->assertEquals(499000, Digit::roundedBcPow(4990, 2));
-        $this->assertEquals(98900, Digit::roundedBcPow(989, 2));
-        $this->assertEquals(98900, Digit::roundedBcPow(989, 2));
+        $this->assertSame(410000.0, $this->digit()->rounded(4100, 2));
+        $this->assertSame(499000.0, $this->digit()->rounded(4990, 2));
+        $this->assertSame(98900.0, $this->digit()->rounded(989, 2));
+        $this->assertSame(98900.0, $this->digit()->rounded(989, 2));
 
-        $this->assertEquals(6100, Digit::roundedBcPow(6100));
-        $this->assertEquals(7990, Digit::roundedBcPow(7990));
-        $this->assertEquals(289, Digit::roundedBcPow(289));
+        $this->assertSame(6100.0, $this->digit()->rounded(6100));
+        $this->assertSame(7990.0, $this->digit()->rounded(7990));
+        $this->assertSame(289.0, $this->digit()->rounded(289));
+    }
+
+    public function testShortKey()
+    {
+        $this->assertSame('a', $this->digit()->shortKey(0));
+        $this->assertSame('d', $this->digit()->shortKey(3));
+        $this->assertSame('f', $this->digit()->shortKey(5));
+        $this->assertSame('h', $this->digit()->shortKey(7));
+        $this->assertSame('k', $this->digit()->shortKey(10));
+        $this->assertSame('l', $this->digit()->shortKey(11));
+        $this->assertSame('m', $this->digit()->shortKey(12));
+        $this->assertSame('n', $this->digit()->shortKey(13));
+        $this->assertSame('q', $this->digit()->shortKey(16));
+        $this->assertSame('u', $this->digit()->shortKey(20));
+        $this->assertSame('dw', $this->digit()->shortKey(100));
+        $this->assertSame('hs', $this->digit()->shortKey(200));
+        $this->assertSame('bmm', $this->digit()->shortKey(1000));
+        $this->assertSame('hki', $this->digit()->shortKey(5000));
     }
 
     public function testFactorial()
     {
-        $this->assertEquals(1, Digit::factorial(1));
-        $this->assertEquals(2, Digit::factorial(2));
-        $this->assertEquals(120, Digit::factorial(5));
-        $this->assertEquals(40320, Digit::factorial(8));
-        $this->assertEquals(3628800, Digit::factorial(10));
+        $this->assertSame(1, $this->digit()->factorial(1));
+        $this->assertSame(2, $this->digit()->factorial(2));
+        $this->assertSame(120, $this->digit()->factorial(5));
+        $this->assertSame(40320, $this->digit()->factorial(8));
+        $this->assertSame(3628800, $this->digit()->factorial(10));
     }
 
-    public function testShortNumber()
+    public function testToShort()
     {
-        $this->assertEquals('100', Digit::shortNumber(100));
-        $this->assertEquals('1K', Digit::shortNumber(1000));
-        $this->assertEquals('4K', Digit::shortNumber(4000));
-        $this->assertEquals('4.4K', Digit::shortNumber(4400));
-        $this->assertEquals('4.5K', Digit::shortNumber(4450));
+        $this->assertSame('100', $this->digit()->toShort(100));
+        $this->assertSame('1K', $this->digit()->toShort(1000));
+        $this->assertSame('4K', $this->digit()->toShort(4000));
+        $this->assertSame('4.4K', $this->digit()->toShort(4400));
+        $this->assertSame('4.5K', $this->digit()->toShort(4450));
 
-        $this->assertEquals('1M', Digit::shortNumber(1000000));
-        $this->assertEquals('1M', Digit::shortNumber(1000900));
-        $this->assertEquals('1M', Digit::shortNumber(1001900));
-        $this->assertEquals('4M', Digit::shortNumber(4001900));
-        $this->assertEquals('4.3M', Digit::shortNumber(4291900));
-        $this->assertEquals('4.3M', Digit::shortNumber(4301900));
-        $this->assertEquals('4.5M', Digit::shortNumber(4501900));
-        $this->assertEquals('4.5M', Digit::shortNumber(4501900));
+        $this->assertSame('1M', $this->digit()->toShort(1000000));
+        $this->assertSame('1M', $this->digit()->toShort(1000900));
+        $this->assertSame('1M', $this->digit()->toShort(1001900));
+        $this->assertSame('4M', $this->digit()->toShort(4001900));
+        $this->assertSame('4.3M', $this->digit()->toShort(4291900));
+        $this->assertSame('4.3M', $this->digit()->toShort(4301900));
+        $this->assertSame('4.5M', $this->digit()->toShort(4501900));
+        $this->assertSame('4.5M', $this->digit()->toShort(4501900));
 
-        $this->assertEquals('1B', Digit::shortNumber(1000000000));
-        $this->assertEquals('1B', Digit::shortNumber(1000900000));
-        $this->assertEquals('1B', Digit::shortNumber(1001900000));
-        $this->assertEquals('4B', Digit::shortNumber(4001900000));
-        $this->assertEquals('4.3B', Digit::shortNumber(4291900000));
-        $this->assertEquals('4.3B', Digit::shortNumber(4301900000));
-        $this->assertEquals('4.5B', Digit::shortNumber(4501900000));
-        $this->assertEquals('4.5B', Digit::shortNumber(4501900000));
+        $this->assertSame('1B', $this->digit()->toShort(1000000000));
+        $this->assertSame('1B', $this->digit()->toShort(1000900000));
+        $this->assertSame('1B', $this->digit()->toShort(1001900000));
+        $this->assertSame('4B', $this->digit()->toShort(4001900000));
+        $this->assertSame('4.3B', $this->digit()->toShort(4291900000));
+        $this->assertSame('4.3B', $this->digit()->toShort(4301900000));
+        $this->assertSame('4.5B', $this->digit()->toShort(4501900000));
+        $this->assertSame('4.5B', $this->digit()->toShort(4501900000));
 
-        $this->assertEquals('1T+', Digit::shortNumber(1000000000000));
-        $this->assertEquals('1T+', Digit::shortNumber(1000900000000));
-        $this->assertEquals('1T+', Digit::shortNumber(1001900000000));
-        $this->assertEquals('4T+', Digit::shortNumber(4001900000000));
-        $this->assertEquals('4.3T+', Digit::shortNumber(4291900000000));
-        $this->assertEquals('4.3T+', Digit::shortNumber(4301900000000));
-        $this->assertEquals('4.5T+', Digit::shortNumber(4501900000000));
-        $this->assertEquals('4.5T+', Digit::shortNumber(4501900000000));
+        $this->assertSame('1T+', $this->digit()->toShort(1000000000000));
+        $this->assertSame('1T+', $this->digit()->toShort(1000900000000));
+        $this->assertSame('1T+', $this->digit()->toShort(1001900000000));
+        $this->assertSame('4T+', $this->digit()->toShort(4001900000000));
+        $this->assertSame('4.3T+', $this->digit()->toShort(4291900000000));
+        $this->assertSame('4.3T+', $this->digit()->toShort(4301900000000));
+        $this->assertSame('4.5T+', $this->digit()->toShort(4501900000000));
+        $this->assertSame('4.5T+', $this->digit()->toShort(4501900000000));
     }
 
-    public function testShortString()
+    protected function digit(): Digit
     {
-        $this->assertEquals('a', Digit::shortString(0));
-        $this->assertEquals('d', Digit::shortString(3));
-        $this->assertEquals('f', Digit::shortString(5));
-        $this->assertEquals('h', Digit::shortString(7));
-        $this->assertEquals('k', Digit::shortString(10));
-        $this->assertEquals('l', Digit::shortString(11));
-        $this->assertEquals('m', Digit::shortString(12));
-        $this->assertEquals('n', Digit::shortString(13));
-        $this->assertEquals('q', Digit::shortString(16));
-        $this->assertEquals('u', Digit::shortString(20));
-        $this->assertEquals('dw', Digit::shortString(100));
-        $this->assertEquals('hs', Digit::shortString(200));
-        $this->assertEquals('bmm', Digit::shortString(1000));
-        $this->assertEquals('hki', Digit::shortString(5000));
+        return new Digit();
     }
 }

@@ -2,98 +2,124 @@
 
 namespace Tests\Helpers;
 
-use Helldar\Support\Facades\Instance;
-use Tests\Fixtures\Bar;
-use Tests\Fixtures\Baz;
-use Tests\Fixtures\Contract;
-use Tests\Fixtures\Foo;
+use Helldar\Support\Helpers\Instance;
+use Tests\Fixtures\Contracts\Contract;
+use Tests\Fixtures\Instances\Bar;
+use Tests\Fixtures\Instances\Baz;
+use Tests\Fixtures\Instances\Foo;
 use Tests\TestCase;
 
 final class InstanceTest extends TestCase
 {
-    public function testStringOf()
+    public function testOf()
     {
-        $class = Foo::class;
+        // Foo
+        $this->assertTrue($this->instance()->of(Foo::class, Foo::class));
+        $this->assertFalse($this->instance()->of(Foo::class, Bar::class));
+        $this->assertTrue($this->instance()->of(Foo::class, Contract::class));
 
-        $this->assertFalse(Instance::of($class, Bar::class));
-        $this->assertFalse(Instance::of($class, Baz::class));
+        $this->assertTrue($this->instance()->of(new Foo(), Foo::class));
+        $this->assertFalse($this->instance()->of(new Foo(), Bar::class));
+        $this->assertTrue($this->instance()->of(new Foo(), Contract::class));
 
-        $this->assertTrue(Instance::of($class, Contract::class));
-        $this->assertTrue(Instance::of($class, Foo::class));
+        // Bar
+        $this->assertTrue($this->instance()->of(Bar::class, Bar::class));
+        $this->assertFalse($this->instance()->of(Bar::class, Foo::class));
+        $this->assertFalse($this->instance()->of(Bar::class, Contract::class));
 
-        $this->assertFalse(Instance::of($class, [Bar::class, Baz::class]));
-        $this->assertTrue(Instance::of($class, [Bar::class, Baz::class, Contract::class]));
-    }
-
-    public function testObjectOf()
-    {
-        $class = new Foo();
-
-        $this->assertFalse(Instance::of($class, Bar::class));
-        $this->assertFalse(Instance::of($class, Baz::class));
-
-        $this->assertTrue(Instance::of($class, Contract::class));
-        $this->assertTrue(Instance::of($class, Foo::class));
-
-        $this->assertFalse(Instance::of($class, [Bar::class, Baz::class]));
-        $this->assertTrue(Instance::of($class, [Bar::class, Baz::class, Contract::class]));
-    }
-
-    public function testBasename()
-    {
-        $this->assertSame('Foo', Instance::basename(Foo::class));
-        $this->assertSame('Bar', Instance::basename(Bar::class));
-        $this->assertSame('Baz', Instance::basename(Baz::class));
-        $this->assertSame('Contract', Instance::basename(Contract::class));
-
-        $this->assertSame('Foo', Instance::basename(new Foo()));
-        $this->assertSame('Bar', Instance::basename(new Bar()));
-        $this->assertSame('Baz', Instance::basename(new Baz()));
+        $this->assertTrue($this->instance()->of(new Bar(), Bar::class));
+        $this->assertFalse($this->instance()->of(new Bar(), Foo::class));
+        $this->assertFalse($this->instance()->of(new Bar(), Contract::class));
     }
 
     public function testClassname()
     {
-        $this->assertSame('Tests\Fixtures\Foo', Instance::classname(Foo::class));
-        $this->assertSame('Tests\Fixtures\Bar', Instance::classname(Bar::class));
-        $this->assertSame('Tests\Fixtures\Baz', Instance::classname(Baz::class));
-        $this->assertSame('Tests\Fixtures\Contract', Instance::classname(Contract::class));
+        $this->assertSame('Tests\Fixtures\Instances\Foo', $this->instance()->classname(Foo::class));
+        $this->assertSame('Tests\Fixtures\Instances\Bar', $this->instance()->classname(Bar::class));
+        $this->assertSame('Tests\Fixtures\Instances\Baz', $this->instance()->classname(Baz::class));
 
-        $this->assertSame('Tests\Fixtures\Foo', Instance::classname(new Foo()));
-        $this->assertSame('Tests\Fixtures\Bar', Instance::classname(new Bar()));
-        $this->assertSame('Tests\Fixtures\Baz', Instance::classname(new Baz()));
+        $this->assertSame('Tests\Fixtures\Instances\Foo', $this->instance()->classname(new Foo()));
+        $this->assertSame('Tests\Fixtures\Instances\Bar', $this->instance()->classname(new Bar()));
+        $this->assertSame('Tests\Fixtures\Instances\Baz', $this->instance()->classname(new Baz()));
+
+        $this->assertSame('Tests\Fixtures\Contracts\Contract', $this->instance()->classname(Contract::class));
+
+        $this->assertNull($this->instance()->classname('foo'));
     }
 
-    public function testExists()
+    public function testBasename()
     {
-        $this->assertTrue(Instance::exists(Foo::class));
-        $this->assertTrue(Instance::exists(Bar::class));
-        $this->assertTrue(Instance::exists(Baz::class));
-        $this->assertTrue(Instance::exists(Contract::class));
+        $this->assertSame('Foo', $this->instance()->basename(Foo::class));
+        $this->assertSame('Bar', $this->instance()->basename(Bar::class));
+        $this->assertSame('Baz', $this->instance()->basename(Baz::class));
 
-        $this->assertTrue(Instance::exists(new Foo()));
-        $this->assertTrue(Instance::exists(new Bar()));
-        $this->assertTrue(Instance::exists(new Baz()));
+        $this->assertSame('Foo', $this->instance()->basename(new Foo()));
+        $this->assertSame('Bar', $this->instance()->basename(new Bar()));
+        $this->assertSame('Baz', $this->instance()->basename(new Baz()));
 
-        $this->assertFalse(Instance::exists('Qwerty'));
+        $this->assertNull($this->instance()->basename('foo'));
     }
 
     public function testCall()
     {
-        $object = new Foo();
+        $this->assertSame('ok', $this->instance()->call(new Foo(), 'callDymamic'));
+        $this->assertSame('foo', $this->instance()->call(new Foo(), 'unknown', 'foo'));
+        $this->assertSame('foo', $this->instance()->call(Foo::class, 'unknown', 'foo'));
 
-        $this->assertNull(Instance::call($object, 'foo'));
+        $this->assertNull($this->instance()->call(Foo::class, 'unknown'));
+    }
 
-        $this->assertSame('ok', Instance::call($object, 'callStatic'));
-        $this->assertSame('ok', Instance::call($object, 'callDymamic'));
+    public function testCallOf()
+    {
+        $this->assertSame('ok', $this->instance()->callOf([
+            Contract::class => 'callDymamic',
+        ], new Foo()));
+
+        $this->assertSame('ok', $this->instance()->callOf([
+            'Unknown'       => 'unknown',
+            Contract::class => 'callDymamic',
+        ], new Foo()));
+
+        $this->assertSame('foo', $this->instance()->callOf([
+            'Unknown' => 'unknown',
+        ], new Foo(), 'foo'));
+
+        $this->assertNull($this->instance()->callOf([
+            'Unknown' => 'unknown',
+        ], new Foo()));
+
+        $this->assertNull($this->instance()->callOf([
+            'Unknown' => 'unknown',
+        ], 'foo'));
     }
 
     public function testCallsWhenNotEmpty()
     {
-        $object = new Foo();
+        $this->assertSame('ok', $this->instance()->callWhen(new Foo(), 'callDymamic'));
+        $this->assertSame('ok', $this->instance()->callWhen(new Foo(), ['unknown', 'callDymamic']));
+        $this->assertSame('foo', $this->instance()->callWhen(new Foo(), 'unknown', 'foo'));
+        $this->assertSame('foo', $this->instance()->callWhen(Foo::class, 'unknown', 'foo'));
 
-        $this->assertNull(Instance::callsWhenNotEmpty($object, 'foo'));
-        $this->assertNull(Instance::callsWhenNotEmpty($object, 'callEmpty'));
+        $this->assertNull($this->instance()->callWhen(Foo::class, 'unknown'));
+    }
 
-        $this->assertSame('ok', Instance::callsWhenNotEmpty($object, ['callEmpty', 'callDymamic']));
+    public function testExists()
+    {
+        $this->assertTrue($this->instance()->exists(new Foo()));
+        $this->assertTrue($this->instance()->exists(new Bar()));
+        $this->assertTrue($this->instance()->exists(new Baz()));
+
+        $this->assertTrue($this->instance()->exists(Foo::class));
+        $this->assertTrue($this->instance()->exists(Bar::class));
+        $this->assertTrue($this->instance()->exists(Baz::class));
+
+        $this->assertTrue($this->instance()->exists(Contract::class));
+
+        $this->assertFalse($this->instance()->exists('foo'));
+    }
+
+    protected function instance(): Instance
+    {
+        return new Instance();
     }
 }

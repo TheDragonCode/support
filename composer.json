@@ -15,7 +15,7 @@
         }
     ],
     "require": {
-        "php": "^7.1.3|^8.0",
+        "php": "^7.2.5|^8.0",
         "ext-ctype": "*",
         "ext-dom": "*",
         "ext-json": "*",
@@ -23,7 +23,8 @@
     },
     "require-dev": {
         "ext-bcmath": "*",
-        "phpunit/phpunit": "^9.0"
+        "symfony/var-dumper": "^5.2",
+        "phpunit/phpunit": "^8.0|^9.0"
     },
     "suggest": {
         "andrey-helldar/laravel-support": "Various helper files for the Laravel and Lumen frameworks",
@@ -33,13 +34,7 @@
     "autoload": {
         "psr-4": {
             "Helldar\\Support\\": "src"
-        },
-        "files": [
-            "src/helpers/digit.php",
-            "src/helpers/dumper.php",
-            "src/helpers/http.php",
-            "src/helpers/strings.php"
-        ]
+        }
     },
     "autoload-dev": {
         "psr-4": {
@@ -51,12 +46,5 @@
         "sort-packages": true
     },
     "minimum-stability": "stable",
-    "prefer-stable": true,
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Helldar\\Support\\ServiceProvider"
-            ]
-        }
-    }
+    "prefer-stable": true
 }
