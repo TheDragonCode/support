@@ -86,7 +86,6 @@ final class HttpTest extends TestCase
     {
         $this->assertTrue($this->http()->exists('https://google.com'));
         $this->assertTrue($this->http()->exists('https://yandex.com'));
-        $this->assertTrue($this->http()->exists('https://1.1.1.1'));
 
         $this->assertFalse($this->http()->exists('https://aaa.a'));
         $this->assertFalse($this->http()->exists('https://bbb.b'));

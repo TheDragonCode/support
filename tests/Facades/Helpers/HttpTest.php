@@ -86,7 +86,6 @@ final class HttpTest extends TestCase
     {
         $this->assertTrue(Http::exists('https://google.com'));
         $this->assertTrue(Http::exists('https://yandex.com'));
-        $this->assertTrue(Http::exists('https://1.1.1.1'));
 
         $this->assertFalse(Http::exists('https://aaa.a'));
         $this->assertFalse(Http::exists('https://bbb.b'));
