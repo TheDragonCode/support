@@ -44,7 +44,7 @@ final class DirectoryTest extends TestCase
     {
         $path = $this->tempDirectory();
 
-        $this->assertDirectoryDoesNotExist($path);
+        $this->assertFalse(Directory::exists($path));
 
         $this->assertTrue(Directory::make($path, 777));
 
@@ -52,7 +52,7 @@ final class DirectoryTest extends TestCase
 
         $this->assertTrue(Directory::delete($path));
 
-        $this->assertDirectoryDoesNotExist($path);
+        $this->assertFalse(Directory::exists($path));
     }
 
     public function testDeleteDoesntExists()
@@ -94,7 +94,7 @@ final class DirectoryTest extends TestCase
     {
         $path = $this->tempDirectory();
 
-        $this->assertDirectoryDoesNotExist($path);
+        $this->assertFalse(Directory::exists($path));
 
         $this->assertTrue(Directory::make($path, 777));
 

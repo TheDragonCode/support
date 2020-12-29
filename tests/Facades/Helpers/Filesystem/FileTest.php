@@ -13,7 +13,7 @@ final class FileTest extends TestCase
     {
         $path = $this->tempDirectory('foo/bar/baz/foo.txt');
 
-        $this->assertFileDoesNotExist($path);
+        $this->assertFalse(File::exists($path));
 
         File::store($path, 'foo');
 
@@ -38,7 +38,7 @@ final class FileTest extends TestCase
 
         File::delete($path);
 
-        $this->assertFileDoesNotExist($path);
+        $this->assertFalse(File::exists($path));
     }
 
     public function testDeleteAsArray()
@@ -57,9 +57,9 @@ final class FileTest extends TestCase
 
         File::delete([$path1, $path2, $path3]);
 
-        $this->assertFileDoesNotExist($path1);
-        $this->assertFileDoesNotExist($path2);
-        $this->assertFileDoesNotExist($path3);
+        $this->assertFalse(File::exists($path1));
+        $this->assertFalse(File::exists($path2));
+        $this->assertFalse(File::exists($path3));
     }
 
     public function testIsFileAsString()

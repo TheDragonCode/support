@@ -3,6 +3,7 @@
 namespace Tests\Helpers\Filesystem;
 
 use Helldar\Support\Exceptions\DirectoryNotFoundException;
+use Helldar\Support\Facades\Helpers\Filesystem\Directory as DirectoryFacade;
 use Helldar\Support\Facades\Helpers\Filesystem\File;
 use Helldar\Support\Helpers\Filesystem\Directory;
 use Tests\TestCase;
@@ -44,7 +45,7 @@ final class DirectoryTest extends TestCase
     {
         $path = $this->tempDirectory();
 
-        $this->assertDirectoryDoesNotExist($path);
+        $this->assertFalse(DirectoryFacade::exists($path));
 
         $this->assertTrue($this->directory()->make($path));
 
@@ -52,7 +53,7 @@ final class DirectoryTest extends TestCase
 
         $this->assertTrue($this->directory()->delete($path));
 
-        $this->assertDirectoryDoesNotExist($path);
+        $this->assertFalse(DirectoryFacade::exists($path));
     }
 
     public function testDeleteDoesntExists()
@@ -94,7 +95,7 @@ final class DirectoryTest extends TestCase
     {
         $path = $this->tempDirectory();
 
-        $this->assertDirectoryDoesNotExist($path);
+        $this->assertFalse(DirectoryFacade::exists($path));
 
         $this->assertTrue($this->directory()->make($path));
 
