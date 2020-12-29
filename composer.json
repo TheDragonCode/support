@@ -35,6 +35,7 @@
             "Helldar\\Support\\": "src"
         },
         "files": [
+            "src/helpers/function.php",
             "src/helpers/digit.php",
             "src/helpers/dumper.php",
             "src/helpers/http.php",
