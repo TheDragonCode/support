@@ -28,7 +28,7 @@ abstract class TestCase extends BaseTestCase
         $time = Str::camel(microtime());
         $path = ltrim($path, '/');
 
-        return implode(DIRECTORY_SEPARATOR, [__DIR__, 'Temp', $time, $path]);
+        return implode(DIRECTORY_SEPARATOR, [__DIR__, 'tmp', $time, $path]);
     }
 
     protected function fixturesDirectory(string $path = null): string

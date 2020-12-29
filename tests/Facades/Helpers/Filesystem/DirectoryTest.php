@@ -32,7 +32,7 @@ final class DirectoryTest extends TestCase
 
     public function testAsFile()
     {
-        $path = realpath($this->fixturesDirectory('.gitignore'));
+        $path = realpath($this->fixturesDirectory('.gitkeep'));
 
         $this->expectException(DirectoryNotFoundException::class);
         $this->expectExceptionMessage('Directory "' . $path . '" does not exist.');
@@ -65,7 +65,7 @@ final class DirectoryTest extends TestCase
 
     public function testDeleteAsFile()
     {
-        $path = $this->tempDirectory('.gitignore');
+        $path = $this->tempDirectory('.gitkeep');
 
         File::store($path, 'foo', 777);
 
