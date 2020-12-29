@@ -26,8 +26,6 @@ abstract class BaseFacade
 
     /**
      * Clear all of the resolved instances.
-     *
-     * @return void
      */
     public static function clearResolvedInstances()
     {
