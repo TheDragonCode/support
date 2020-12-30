@@ -26,6 +26,15 @@
         "symfony/var-dumper": "^5.2",
         "phpunit/phpunit": "^8.0|^9.0"
     },
+    "conflict": {
+        "andrey-helldar/api-response": "<8.0",
+        "andrey-helldar/lang-translations": "<3.0",
+        "andrey-helldar/laravel-lang-publisher": "<8.0",
+        "andrey-helldar/laravel-routes-core": "<2.0",
+        "andrey-helldar/pretty-array": "<2.0",
+        "andrey-helldar/pretty-routes": "<2.0",
+        "andrey-helldar/short-url": "<2.0"
+    },
     "suggest": {
         "andrey-helldar/laravel-support": "Various helper files for the Laravel and Lumen frameworks",
         "symfony/thanks": "Give thanks (in the form of a GitHub) to your fellow PHP package maintainers",
