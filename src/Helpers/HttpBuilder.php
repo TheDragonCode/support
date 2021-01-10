@@ -12,22 +12,22 @@ use RuntimeException;
  *
  * @see https://gist.github.com/Ellrion/f51ba0d40ae1d62eeae44fd1adf7b704
  *
- * @method static HttpBuilder setFragment(array|string $value)
- * @method static HttpBuilder setHost(string $value)
- * @method static HttpBuilder setPass(string $value)
- * @method static HttpBuilder setPath(string $value)
- * @method static HttpBuilder setPort(string $value)
- * @method static HttpBuilder setQuery(array|string $value)
- * @method static HttpBuilder setScheme(string $value)
- * @method static HttpBuilder setUser(string $value)
- * @method static string|null getFragment()
- * @method static string|null getHost()
- * @method static string|null getPass()
- * @method static string|null getPath()
- * @method static string|null getPort()
- * @method static string|null getQuery()
- * @method static string|null getScheme()
- * @method static string|null getUser()
+ * @method HttpBuilder setFragment(array|string $value)
+ * @method HttpBuilder setHost(string $value)
+ * @method HttpBuilder setPass(string $value)
+ * @method HttpBuilder setPath(string $value)
+ * @method HttpBuilder setPort(string $value)
+ * @method HttpBuilder setQuery(array|string $value)
+ * @method HttpBuilder setScheme(string $value)
+ * @method HttpBuilder setUser(string $value)
+ * @method string|null getFragment()
+ * @method string|null getHost()
+ * @method string|null getPass()
+ * @method string|null getPath()
+ * @method string|null getPort()
+ * @method string|null getQuery()
+ * @method string|null getScheme()
+ * @method string|null getUser()
  */
 final class HttpBuilder
 {
