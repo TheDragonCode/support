@@ -4,6 +4,7 @@ namespace Helldar\Support\Helpers;
 
 use ArgumentCountError;
 use Helldar\Support\Facades\Helpers\Arr as ArrFacade;
+use Helldar\Support\Facades\Helpers\Http as HttpHelper;
 use Helldar\Support\Facades\Helpers\Str as StrFacade;
 use RuntimeException;
 
@@ -97,11 +98,15 @@ final class HttpBuilder
      */
     public function parse(string $url, int $component = -1): self
     {
+        if ($component === -1) {
+            HttpHelper::validateUrl($url);
+        }
+
         $component = $this->componentIndex($component);
         $key       = $this->componentKey($component);
 
         $component === -1 || empty($key)
-            ? $this->parsed       = parse_url($url)
+            ? $this->parsed = parse_url($url)
             : $this->parsed[$key] = parse_url($url, $component);
 
         return $this;
