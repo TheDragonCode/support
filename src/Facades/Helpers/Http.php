@@ -11,6 +11,7 @@ use Helldar\Support\Helpers\Http as Helper;
  * @method static string domain(?string $url)
  * @method static string host(?string $url)
  * @method static string scheme(?string $url)
+ * @method static string validatedUrl(?string $url)
  * @method static string|null image(string $url, string $default = null)
  * @method static string|null subdomain(?string $url)
  * @method static void validateUrl(?string $url)

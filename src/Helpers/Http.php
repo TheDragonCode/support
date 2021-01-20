@@ -36,6 +36,21 @@ final class Http
     }
 
     /**
+     * Returns the URL after validation, or throws an error.
+     *
+     * @param  string|null  $url
+     *
+     * @throws \Helldar\Support\Exceptions\NotValidUrlException
+     * @return string
+     */
+    public function validatedUrl(?string $url): string
+    {
+        $this->validateUrl($url);
+
+        return $url;
+    }
+
+    /**
      * Check if the specified URL exists.
      *
      * @param  string|null  $url
@@ -57,7 +72,8 @@ final class Http
             preg_match('/HTTP\/\d{1}\.?\d?\s[2-3]\d{2}/i', $value, $matches);
 
             return count($matches) > 0;
-        } catch (Exception $e) {
+        }
+        catch (Exception $e) {
             return false;
         }
     }

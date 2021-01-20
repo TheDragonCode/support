@@ -205,6 +205,23 @@ final class HttpTest extends TestCase
         $this->http()->validateUrl('foo.bar');
     }
 
+    public function testValidatedUrlSuccess()
+    {
+        $url = 'http://example.com/foo/bar';
+
+        $validated = $this->http()->validatedUrl($url);
+
+        $this->assertSame($url, $validated);
+    }
+
+    public function testValidatedUrlIncorrect()
+    {
+        $this->expectException(NotValidUrlException::class);
+        $this->expectExceptionMessage('The "foo.bar" is not a valid URL.');
+
+        $this->http()->validatedUrl('foo.bar');
+    }
+
     public function testIsUrl()
     {
         $this->assertTrue($this->http()->isUrl('https://localhost'));
