@@ -143,6 +143,25 @@ final class HttpBuilder
     }
 
     /**
+     * Returns parsed data.
+     *
+     * @return null[]|string[]
+     */
+    public function toArray(): array
+    {
+        return [
+            'scheme'   => $this->getScheme(),
+            'host'     => $this->getHost(),
+            'port'     => $this->getPort(),
+            'user'     => $this->getUser(),
+            'pass'     => $this->getPass(),
+            'query'    => $this->getQuery(),
+            'path'     => $this->getPath(),
+            'fragment' => $this->getFragment(),
+        ];
+    }
+
+    /**
      * Prepares data for compilation.
      *
      * @return array

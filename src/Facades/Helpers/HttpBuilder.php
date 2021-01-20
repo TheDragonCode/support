@@ -6,6 +6,7 @@ use Helldar\Support\Facades\BaseFacade;
 use Helldar\Support\Helpers\HttpBuilder as Helper;
 
 /**
+ * @method static array toArray()
  * @method static Helper parse(string $url, int $component = -1)
  * @method static Helper raw(array $parsed)
  * @method static Helper same()

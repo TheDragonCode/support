@@ -162,6 +162,42 @@ final class HttpBuilderTest extends TestCase
         $this->assertSame('http://foo:bar@example.com/foo/bar?id=123#qwerty', $builder->compile());
     }
 
+    public function testFullToArray()
+    {
+        $builder = HttpBuilder::parse('https://foo:bar@example.com/foo/bar?id=123#qwerty');
+
+        $this->assertIsArray($builder->toArray());
+
+        $this->assertSame([
+            'scheme'   => 'https',
+            'host'     => 'example.com',
+            'port'     => null,
+            'user'     => 'foo',
+            'pass'     => 'bar',
+            'query'    => 'id=123',
+            'path'     => '/foo/bar',
+            'fragment' => 'qwerty',
+        ], $builder->toArray());
+    }
+
+    public function testShortToArray()
+    {
+        $builder = HttpBuilder::parse('https://example.com');
+
+        $this->assertIsArray($builder->toArray());
+
+        $this->assertSame([
+            'scheme'   => 'https',
+            'host'     => 'example.com',
+            'port'     => null,
+            'user'     => null,
+            'pass'     => null,
+            'query'    => null,
+            'path'     => null,
+            'fragment' => null,
+        ], $builder->toArray());
+    }
+
     public function testArgumentCountOne()
     {
         $this->expectException(ArgumentCountError::class);
