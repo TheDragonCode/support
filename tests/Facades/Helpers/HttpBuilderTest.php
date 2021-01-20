@@ -3,6 +3,7 @@
 namespace Tests\Facades\Helpers;
 
 use ArgumentCountError;
+use Helldar\Support\Exceptions\NotValidUrlException;
 use Helldar\Support\Facades\Helpers\HttpBuilder;
 use Helldar\Support\Helpers\HttpBuilder as Helper;
 use RuntimeException;
@@ -56,6 +57,14 @@ final class HttpBuilderTest extends TestCase
         $this->assertSame('/foo/bar', $builder->getPath());
         $this->assertSame('id=123', $builder->getQuery());
         $this->assertSame('qwerty', $builder->getFragment());
+    }
+
+    public function testParseIncorrect()
+    {
+        $this->expectException(NotValidUrlException::class);
+        $this->expectExceptionMessage('The "foo.bar" is not a valid URL.');
+
+        HttpBuilder::parse('foo.bar');
     }
 
     public function testRawShort()
