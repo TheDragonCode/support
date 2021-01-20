@@ -11,8 +11,8 @@ final class HttpBuilderTest extends TestCase
 {
     public function testInstance()
     {
-        $this->assertTrue($this->builder()->parse('http://localhost') instanceof Helper);
-        $this->assertTrue($this->builder()->same() instanceof Helper);
+        $this->assertInstanceOf(Helper::class, $this->builder()->parse('http://localhost'));
+        $this->assertInstanceOf(Helper::class, $this->builder()->same());
     }
 
     public function testParseShort()
