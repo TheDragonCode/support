@@ -91,12 +91,12 @@ final class HttpBuilder
     /**
      * Parse a URL.
      *
-     * @param  string  $url
+     * @param  string|null  $url
      * @param  int  $component
      *
      * @return $this
      */
-    public function parse(string $url, int $component = -1): self
+    public function parse(?string $url, int $component = -1): self
     {
         if ($component === -1) {
             HttpHelper::validateUrl($url);

@@ -67,6 +67,22 @@ final class HttpBuilderTest extends TestCase
         HttpBuilder::parse('foo.bar');
     }
 
+    public function testParseEmpty()
+    {
+        $this->expectException(NotValidUrlException::class);
+        $this->expectExceptionMessage('The "" is not a valid URL.');
+
+        HttpBuilder::parse('');
+    }
+
+    public function testParseNull()
+    {
+        $this->expectException(NotValidUrlException::class);
+        $this->expectExceptionMessage('The "" is not a valid URL.');
+
+        HttpBuilder::parse(null);
+    }
+
     public function testRawShort()
     {
         $parsed = parse_url('https://localhost/foo/bar');
