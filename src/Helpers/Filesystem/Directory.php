@@ -135,4 +135,18 @@ final class Directory
 
         return is_dir($value);
     }
+
+    /**
+     * Checks the existence of a directory.
+     *
+     * @param  DirectoryIterator|\SplFileInfo|string  $path
+     *
+     * @throws \Helldar\Support\Exceptions\DirectoryNotFoundException
+     */
+    public function validate($path): void
+    {
+        if (! $this->isDirectory($path)) {
+            throw new DirectoryNotFoundException($path);
+        }
+    }
 }

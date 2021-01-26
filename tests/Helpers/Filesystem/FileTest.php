@@ -3,6 +3,7 @@
 namespace Tests\Helpers\Filesystem;
 
 use DirectoryIterator;
+use Helldar\Support\Exceptions\FileNotFoundException;
 use Helldar\Support\Helpers\Filesystem\File;
 use SplFileInfo;
 use Tests\TestCase;
@@ -99,6 +100,20 @@ final class FileTest extends TestCase
                 ? $this->assertFalse($this->file()->isFile($item))
                 : $this->assertTrue($this->file()->isFile($item));
         }
+    }
+
+    public function testValidateSuccess()
+    {
+        $this->file()->validate($this->fixturesDirectory('.gitkeep'));
+
+        $this->assertTrue(true);
+    }
+
+    public function testValidateFailed()
+    {
+        $this->expectException(FileNotFoundException::class);
+
+        $this->file()->validate($this->fixturesDirectory('foo/bar'));
     }
 
     protected function file(): File

@@ -116,4 +116,18 @@ final class DirectoryTest extends TestCase
         $this->assertFalse(Directory::isDirectory($this->fixturesDirectory('Contracts/Contract.php')));
         $this->assertFalse(Directory::isDirectory($this->fixturesDirectory('Instances/Foo.php')));
     }
+
+    public function testValidateSuccess()
+    {
+        Directory::validate($this->fixturesDirectory());
+
+        $this->assertTrue(true);
+    }
+
+    public function testValidateFailed()
+    {
+        $this->expectException(DirectoryNotFoundException::class);
+
+        Directory::validate($this->fixturesDirectory('foo/bar'));
+    }
 }
