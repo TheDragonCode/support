@@ -1,6 +1,6 @@
 # Support
 
-Support package is a collection of helpers and tools for projects.
+Support package is a collection of helpers and tools for any project.
 
 ![support](https://user-images.githubusercontent.com/10347617/56077139-41887f00-5de1-11e9-8aa3-769cc1140ffa.png)
 
