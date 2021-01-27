@@ -1,9 +1,9 @@
 {
     "name": "andrey-helldar/support",
-    "description": "Support package is a collection of helpers and tools for projects.",
+    "description": "Support package is a collection of helpers and tools for any project.",
     "type": "library",
     "license": "MIT",
-    "keywords": ["support", "laravel", "symfony", "yii", "yii2", "framework"],
+    "keywords": ["support", "laravel", "symfony", "yii", "yii2", "framework", "helper", "helpers"],
     "support": {
         "issues": "https://github.com/andrey-helldar/support/issues",
         "source": "https://github.com/andrey-helldar/support"
@@ -38,7 +38,7 @@
     "suggest": {
         "andrey-helldar/laravel-support": "Various helper files for the Laravel and Lumen frameworks",
         "symfony/thanks": "Give thanks (in the form of a GitHub) to your fellow PHP package maintainers",
-        "ext-bcmath": "Require the extension if you will be using Helldar\\Support\\Facades\\Digit."
+        "ext-bcmath": "Require the extension if you will be using Helldar\\Support\\Facades\\Helpers\\Digit."
     },
     "autoload": {
         "psr-4": {
