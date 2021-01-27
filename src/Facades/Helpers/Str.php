@@ -22,6 +22,7 @@ use Helldar\Support\Helpers\Str as Helper;
  * @method static string|null e(?string $value, bool $double = true)
  * @method static string|null removeSpaces(?string $value)
  * @method static string|null substr(string $string, int $start, int $length = null)
+ * @method static string|null upper(?string $value)
  */
 final class Str extends BaseFacade
 {

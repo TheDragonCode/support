@@ -119,6 +119,12 @@ final class StrTest extends TestCase
         $this->assertSame('foo bar baz', Str::lower('fOo Bar bAz'));
     }
 
+    public function testUpper()
+    {
+        $this->assertSame('FOO BAR BAZ', Str::upper('FOO BAR BAZ'));
+        $this->assertSame('FOO BAR BAZ', Str::upper('fOo Bar bAz'));
+    }
+
     public function testFinish()
     {
         $this->assertSame('ab/', Str::finish('ab'));

@@ -202,6 +202,18 @@ final class Str
     }
 
     /**
+     * Convert the given string to upper-case.
+     *
+     * @param  string|null  $value
+     *
+     * @return string
+     */
+    public function upper(?string $value): ?string
+    {
+        return mb_strtoupper($value, 'UTF-8');
+    }
+
+    /**
      * Convert a value to studly caps case.
      *
      * @see https://github.com/illuminate/support/blob/master/Str.php
