@@ -204,6 +204,8 @@ final class Str
     /**
      * Convert the given string to upper-case.
      *
+     * @see https://github.com/illuminate/support/blob/master/Str.php
+     *
      * @param  string|null  $value
      *
      * @return string
@@ -341,5 +343,26 @@ final class Str
     public function after(string $subject, string $search): ?string
     {
         return ! empty($search) ? array_reverse(explode($search, $subject, 2))[0] : null;
+    }
+
+    /**
+     * Determine if a given string contains a given substring.
+     *
+     * @see https://github.com/illuminate/support/blob/master/Str.php
+     *
+     * @param  string  $haystack
+     * @param  string|string[]  $needles
+     *
+     * @return bool
+     */
+    public function contains(string $haystack, $needles): bool
+    {
+        foreach ((array) $needles as $needle) {
+            if (! empty($needle) && mb_strpos($haystack, $needle) !== false) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

@@ -193,6 +193,19 @@ final class StrTest extends TestCase
         $this->assertEmpty($this->str()->substr('Б', 2));
     }
 
+    public function testStrContains()
+    {
+        $this->assertTrue($this->str()->contains('qwerty', 'ert'));
+        $this->assertTrue($this->str()->contains('qwerty', 'qwerty'));
+        $this->assertTrue($this->str()->contains('qwerty', ['ert']));
+        $this->assertTrue($this->str()->contains('qwerty', ['xxx', 'ert']));
+
+        $this->assertFalse($this->str()->contains('qwerty', 'xxx'));
+        $this->assertFalse($this->str()->contains('qwerty', ['xxx']));
+        $this->assertFalse($this->str()->contains('qwerty', ''));
+        $this->assertFalse($this->str()->contains('', ''));
+    }
+
     protected function str(): Str
     {
         return new Str();
