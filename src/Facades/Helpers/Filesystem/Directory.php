@@ -13,7 +13,7 @@ use SplFileInfo;
  * @method static bool doesntExist(string $path)
  * @method static bool exists(string $path)
  * @method static bool isDirectory(DirectoryIterator|SplFileInfo|string $value)
- * @method static bool make(string $path, int $mode = 755)
+ * @method static bool make(string $path, int $mode = 0755)
  * @method static DirectoryIterator all(string $path)
  * @method static void validate(DirectoryIterator|SplFileInfo|string $path)
  */
