@@ -61,7 +61,7 @@ final class Directory
      *
      * @return bool
      */
-    public function make(string $path, int $mode = 755): bool
+    public function make(string $path, int $mode = 0755): bool
     {
         return $this->doesntExist($path) ? mkdir($path, $mode, true) : true;
     }
