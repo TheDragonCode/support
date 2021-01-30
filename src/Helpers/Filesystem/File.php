@@ -19,7 +19,7 @@ class File
      * @param  string  $content
      * @param  int  $mode
      */
-    public function store(string $path, string $content, int $mode = 755): void
+    public function store(string $path, string $content, int $mode = 0755): void
     {
         DirectoryHelper::make(pathinfo($path, PATHINFO_DIRNAME), $mode);
 
