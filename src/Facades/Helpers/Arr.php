@@ -22,9 +22,9 @@ use Helldar\Support\Helpers\Arr as Helper;
  * @method static int longestStringLength(array $array)
  * @method static mixed get(array|ArrayAccess $array, $key, $default = null)
  * @method static mixed getKey(array|ArrayAccess $array, $key, $default = null)
- * @method static void store(array|ArrayAccess $array, string $path, bool $is_json = false, bool $sort_keys = false)
+ * @method static void store(array|ArrayAccess $array, string $path, bool $is_json = false, bool $sort_keys = false, int $json_flags = 0)
  * @method static void storeAsArray(string $path, array|ArrayAccess $array, bool $sort_keys = false)
- * @method static void storeAsJson(string $path, array|ArrayAccess $array, bool $sort_keys = false)
+ * @method static void storeAsJson(string $path, array|ArrayAccess $array, bool $sort_keys = false, int $flags = 0)
  */
 final class Arr extends BaseFacade
 {

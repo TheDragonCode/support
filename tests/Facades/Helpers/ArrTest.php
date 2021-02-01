@@ -186,6 +186,17 @@ final class ArrTest extends TestCase
         $this->assertJsonStringEqualsJsonFile($path, json_encode($array));
     }
 
+    public function testStoreAsPrettyJson()
+    {
+        $array = ['q' => 1, 'r' => 2, 's' => 5, 'w' => 123];
+
+        $path = $this->tempDirectory('array.json');
+
+        Arr::store($array, $path, true, false, JSON_PRETTY_PRINT);
+
+        $this->assertJsonStringEqualsJsonFile($path, json_encode($array, JSON_PRETTY_PRINT));
+    }
+
     public function testStoreAsSortedArray()
     {
         $array = ['w' => 123, 'q' => 1, 's' => 5, 'r' => 2];
@@ -209,6 +220,17 @@ final class ArrTest extends TestCase
         Arr::storeAsJson($path, $array, true);
 
         $this->assertJsonStringEqualsJsonFile($path, json_encode($array));
+    }
+
+    public function testStoreAsSortedPrettyJson()
+    {
+        $array = ['w' => 123, 'q' => 1, 's' => 5, 'r' => 2];
+
+        $path = $this->tempDirectory('sorted.json');
+
+        Arr::storeAsJson($path, $array, true, JSON_PRETTY_PRINT);
+
+        $this->assertJsonStringEqualsJsonFile($path, json_encode($array, JSON_PRETTY_PRINT));
     }
 
     public function testSortByKeys()

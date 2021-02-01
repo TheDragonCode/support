@@ -292,11 +292,12 @@ class Arr
      * @param  string  $path
      * @param  bool  $is_json
      * @param  bool  $sort_keys
+     * @param  int  $json_flags
      */
-    public function store($array, string $path, bool $is_json = false, bool $sort_keys = false): void
+    public function store($array, string $path, bool $is_json = false, bool $sort_keys = false, int $json_flags = 0): void
     {
         $is_json
-            ? $this->storeAsJson($path, $array, $sort_keys)
+            ? $this->storeAsJson($path, $array, $sort_keys, $json_flags)
             : $this->storeAsArray($path, $array, $sort_keys);
     }
 
@@ -306,11 +307,12 @@ class Arr
      * @param  string  $path
      * @param  array|ArrayAccess  $array
      * @param  bool  $sort_keys
+     * @param  int  $flags
      */
-    public function storeAsJson(string $path, $array, bool $sort_keys = false): void
+    public function storeAsJson(string $path, $array, bool $sort_keys = false, int $flags = 0): void
     {
-        $this->prepareToStore($path, StubTool::JSON, $array, static function (array $array) {
-            return json_encode($array);
+        $this->prepareToStore($path, StubTool::JSON, $array, static function (array $array) use ($flags) {
+            return json_encode($array, $flags);
         }, $sort_keys);
     }
 
