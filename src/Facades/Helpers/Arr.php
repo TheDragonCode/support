@@ -19,6 +19,7 @@ use Helldar\Support\Helpers\Arr as Helper;
  * @method static array wrap($value = null)
  * @method static bool exists(array|ArrayAccess $array, $key)
  * @method static bool isArrayable($value = null)
+ * @method static bool isEmpty($value)
  * @method static int longestStringLength(array $array)
  * @method static mixed get(array|ArrayAccess $array, $key, $default = null)
  * @method static mixed getKey(array|ArrayAccess $array, $key, $default = null)

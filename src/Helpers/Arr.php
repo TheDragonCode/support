@@ -286,6 +286,21 @@ class Arr
     }
 
     /**
+     * Determines if the array or arrayable object is empty.
+     *
+     * @param  mixed  $value
+     *
+     * @return bool
+     */
+    public function isEmpty($value): bool
+    {
+        $value = is_object($value) && method_exists($value, 'toArray') ? $value->toArray() : $value;
+        $value = is_object($value) ? (array) $value : $value;
+
+        return is_array($value) && empty($value);
+    }
+
+    /**
      * Save array to php or json file.
      *
      * @param  array|ArrayAccess  $array

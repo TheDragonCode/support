@@ -5,8 +5,10 @@ namespace Tests\Facades\Helpers;
 use Helldar\Support\Facades\Helpers\Arr;
 use Helldar\Support\Facades\Helpers\Str;
 use Tests\Fixtures\Instances\Arrayable;
+use Tests\Fixtures\Instances\Baq;
 use Tests\Fixtures\Instances\Bar;
 use Tests\Fixtures\Instances\Baz;
+use Tests\Fixtures\Instances\Foo;
 use Tests\TestCase;
 
 final class ArrTest extends TestCase
@@ -280,6 +282,26 @@ final class ArrTest extends TestCase
         $this->assertTrue(Arr::isArrayable([]));
         $this->assertTrue(Arr::isArrayable(['foo']));
         $this->assertTrue(Arr::isArrayable(new Arrayable()));
+    }
+
+    public function testIsEmpty()
+    {
+        $this->assertFalse(Arr::isEmpty(''));
+        $this->assertFalse(Arr::isEmpty(' '));
+        $this->assertFalse(Arr::isEmpty('      '));
+        $this->assertFalse(Arr::isEmpty(null));
+
+        $this->assertFalse(Arr::isEmpty(0));
+        $this->assertFalse(Arr::isEmpty('   0   '));
+        $this->assertFalse(Arr::isEmpty(false));
+
+        $this->assertTrue(Arr::isEmpty([]));
+        $this->assertTrue(Arr::isEmpty(new Foo()));
+
+        $this->assertFalse(Arr::isEmpty(new Bar()));
+        $this->assertFalse(Arr::isEmpty(new Baz()));
+        $this->assertFalse(Arr::isEmpty(new Baq()));
+        $this->assertFalse(Arr::isEmpty(new Arrayable()));
     }
 
     public function testAddUnique()
