@@ -65,7 +65,7 @@ class Arr
      * Push one a unique element onto the end of array.
      *
      * @param  array  $array
-     * @param  array|mixed  $values
+     * @param  mixed  $values
      *
      * @return array
      */
@@ -146,7 +146,7 @@ class Arr
     /**
      * If the given value is not an array and not null, wrap it in one.
      *
-     * @param  null  $value
+     * @param  mixed  $value
      *
      * @return array
      */
@@ -217,7 +217,7 @@ class Arr
      *
      * @param  array|ArrayAccess  $array
      * @param  mixed  $key
-     * @param  null  $default
+     * @param  mixed  $default
      *
      * @return mixed|null
      */
@@ -238,7 +238,7 @@ class Arr
     {
         $keys = (array) $keys;
 
-        return array_filter($array, static function ($key) use ($keys) {
+        return array_filter((array) $array, static function ($key) use ($keys) {
             return empty($keys) || ! in_array($key, $keys);
         }, ARRAY_FILTER_USE_KEY);
     }
@@ -276,7 +276,7 @@ class Arr
     /**
      * Check if the item is an array.
      *
-     * @param  null  $value
+     * @param  mixed  $value
      *
      * @return bool
      */
@@ -362,12 +362,14 @@ class Arr
      *
      * @param  string  $path
      * @param  string  $stub
-     * @param  array  $array
+     * @param  array|ArrayAccess  $array
      * @param  callable  $replace
      * @param  bool  $sort_keys
      */
     protected function prepareToStore(string $path, string $stub, array $array, callable $replace, bool $sort_keys = false): void
     {
+        $array = (array) $array;
+
         if ($sort_keys) {
             ksort($array);
         }
