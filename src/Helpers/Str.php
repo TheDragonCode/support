@@ -2,7 +2,7 @@
 
 namespace Helldar\Support\Helpers;
 
-use Helldar\Support\Facades\Helpers\Instance as InstanceHelper;
+use Helldar\Support\Facades\Helpers\Call as CallHelper;
 use Illuminate\Contracts\Support\DeferringDisplayableValue;
 use Illuminate\Contracts\Support\Htmlable;
 
@@ -44,7 +44,7 @@ final class Str
      */
     public function e(?string $value, bool $double = true): ?string
     {
-        if ($escaped = InstanceHelper::callOf($this->escaping_methods, $value)) {
+        if ($escaped = CallHelper::runOf($this->escaping_methods, $value)) {
             return $escaped;
         }
 

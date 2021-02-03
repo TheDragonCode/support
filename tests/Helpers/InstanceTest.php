@@ -60,6 +60,7 @@ final class InstanceTest extends TestCase
         $this->assertNull($this->instance()->basename('foo'));
     }
 
+    /** @deprecated */
     public function testCall()
     {
         $this->assertSame('ok', $this->instance()->call(new Foo(), 'callDymamic'));
@@ -69,6 +70,7 @@ final class InstanceTest extends TestCase
         $this->assertNull($this->instance()->call(Foo::class, 'unknown'));
     }
 
+    /** @deprecated */
     public function testCallOf()
     {
         $this->assertSame('ok', $this->instance()->callOf([
@@ -93,6 +95,7 @@ final class InstanceTest extends TestCase
         ], 'foo'));
     }
 
+    /** @deprecated */
     public function testCallsWhenNotEmpty()
     {
         $this->assertSame('ok', $this->instance()->callWhen(new Foo(), 'callDymamic'));

@@ -20,4 +20,9 @@ final class Foo implements Contract
     {
         return false;
     }
+
+    public function callParameter(string $value): string
+    {
+        return 'foo_' . $value;
+    }
 }

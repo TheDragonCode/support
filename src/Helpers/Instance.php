@@ -2,13 +2,17 @@
 
 namespace Helldar\Support\Helpers;
 
+use Helldar\Support\Concerns\Deprecation;
 use Helldar\Support\Facades\Helpers\Arr as ArrHelper;
+use Helldar\Support\Facades\Helpers\Call as CallHelper;
 use Helldar\Support\Facades\Helpers\Is as IsHelper;
 use Helldar\Support\Facades\Helpers\Reflection as ReflectionHelper;
 use ReflectionClass;
 
 final class Instance
 {
+    use Deprecation;
+
     /**
      * Checks if the item being checked inherits from other objects and interfaces.
      *
@@ -93,6 +97,8 @@ final class Instance
     /**
      * Calls a method on an object.
      *
+     * @deprecated The method is deprecated and will be removed in version 3.0. Use "Helldar\Support\Facades\Helpers\Call::runExists()" instead.
+     *
      * @param  object  $object
      * @param  string  $method
      * @param  null  $default
@@ -101,15 +107,15 @@ final class Instance
      */
     public function call($object, string $method, $default = null)
     {
-        if (IsHelper::object($object) && method_exists($object, $method)) {
-            return call_user_func([$object, $method]);
-        }
+        self::deprecatedMethod(__FUNCTION__, CallHelper::class, 'runExists');
 
-        return $default;
+        return CallHelper::runExists($object, $method) ?: $default;
     }
 
     /**
      * Calls the object's methods one by one and returns the first non-empty value.
+     *
+     * @deprecated The method is deprecated and will be removed in version 3.0. Use "Helldar\Support\Facades\Helpers\Call::runMethods()" instead.
      *
      * @param  object  $object
      * @param  string|string[]  $methods
@@ -119,17 +125,15 @@ final class Instance
      */
     public function callWhen($object, $methods, $default = null)
     {
-        foreach (ArrHelper::wrap($methods) as $method) {
-            if ($value = $this->call($object, $method)) {
-                return $value;
-            }
-        }
+        self::deprecatedMethod(__FUNCTION__, CallHelper::class, 'runMethods');
 
-        return $default;
+        return CallHelper::runMethods($object, $methods) ?: $default;
     }
 
     /**
      * Calls a method of an object that matches a class.
+     *
+     * @deprecated The method is deprecated and will be removed in version 3.0. Use "Helldar\Support\Facades\Helpers\Call::runOf()" instead.
      *
      * @param  array  $map
      * @param  object  $value
@@ -139,13 +143,9 @@ final class Instance
      */
     public function callOf(array $map, $value, $default = null)
     {
-        foreach ($map as $class => $method) {
-            if (IsHelper::object($value) && $this->of($value, $class)) {
-                return $this->call($value, $method, $default);
-            }
-        }
+        self::deprecatedMethod(__FUNCTION__, CallHelper::class, 'runOf');
 
-        return $default;
+        return CallHelper::runOf($map, $value) ?: $default;
     }
 
     /**
