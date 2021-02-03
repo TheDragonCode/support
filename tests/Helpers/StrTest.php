@@ -61,6 +61,15 @@ final class StrTest extends TestCase
         $this->assertSame('fo_o-_ba_r', $this->str()->snake('FoO   -   BaR'));
     }
 
+    public function testTitle()
+    {
+        $this->assertSame('Foo Bar', $this->str()->title('Foo Bar'));
+        $this->assertSame('Foo Bar', $this->str()->title('FoO BaR'));
+        $this->assertSame('Foo Bar', $this->str()->title('foo bar'));
+        $this->assertSame('Foo-Bar', $this->str()->title('FoO-BaR'));
+        $this->assertSame('Foo   -   Bar', $this->str()->title('FoO   -   BaR'));
+    }
+
     public function testStart()
     {
         $this->assertSame('/test/string', $this->str()->start('test/string', '/'));

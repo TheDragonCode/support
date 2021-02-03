@@ -283,6 +283,20 @@ final class Str
     }
 
     /**
+     * Convert the given string to title case.
+     *
+     * @see https://github.com/illuminate/support/blob/master/Str.php
+     *
+     * @param  string|null  $value
+     *
+     * @return string|null
+     */
+    public function title(?string $value): ?string
+    {
+        return mb_convert_case($value, MB_CASE_TITLE, 'UTF-8');
+    }
+
+    /**
      * Return the length of the given string.
      *
      * @see https://github.com/illuminate/support/blob/master/Str.php
