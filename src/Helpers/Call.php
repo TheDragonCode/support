@@ -15,7 +15,7 @@ final class Call
     /**
      * Gets the result of executing code in the specified class.
      *
-     * @param  Closure|callable|string  $class
+     * @param  callable|Closure|string  $class
      * @param  string  $method
      * @param  mixed  ...$parameters
      *
@@ -43,7 +43,7 @@ final class Call
     /**
      * Gets the result of executing code in the specified class if method exist.
      *
-     * @param  Closure|callable|string  $class
+     * @param  callable|Closure|string  $class
      * @param  string  $method
      * @param  mixed  ...$parameters
      *
@@ -69,8 +69,8 @@ final class Call
     /**
      * Calls the object's methods one by one and returns the first non-empty value.
      *
-     * @param  Closure|callable|string  $class
-     * @param  string|array  $methods
+     * @param  callable|Closure|string  $class
+     * @param  array|string  $methods
      * @param  mixed  ...$parameters
      *
      * @throws \ReflectionException
@@ -100,6 +100,7 @@ final class Call
      * @param  mixed  ...$parameters
      *
      * @throws \ReflectionException
+     *
      * @return mixed|null
      */
     public function runOf(array $map, $value, ...$parameters)
@@ -119,7 +120,7 @@ final class Call
      * Gets the result of executing code in the specified class, if allowed.
      *
      * @param  bool  $when
-     * @param  Closure|callable|string  $class
+     * @param  callable|Closure|string  $class
      * @param  string  $method
      * @param  mixed  ...$parameters
      *

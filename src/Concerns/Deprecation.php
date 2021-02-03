@@ -10,7 +10,10 @@ trait Deprecation
 
         static::deprecated(
             'The %s::%s() method has been deprecated and will be removed in version 3.0, use  %s::%s() instead.',
-            $namespace, $old_method, $new_class, $new_method
+            $namespace,
+            $old_method,
+            $new_class,
+            $new_method
         );
     }
 
