@@ -293,7 +293,11 @@ final class Str
      */
     public function title(?string $value): ?string
     {
-        return mb_convert_case($value, MB_CASE_TITLE, 'UTF-8');
+        if (is_numeric($value)) {
+            return $value;
+        }
+
+        return mb_convert_case($value, MB_CASE_TITLE, 'UTF-8') ?: null;
     }
 
     /**

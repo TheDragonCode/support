@@ -68,6 +68,16 @@ final class StrTest extends TestCase
         $this->assertSame('Foo Bar', $this->str()->title('foo bar'));
         $this->assertSame('Foo-Bar', $this->str()->title('FoO-BaR'));
         $this->assertSame('Foo   -   Bar', $this->str()->title('FoO   -   BaR'));
+
+        $this->assertSame('123', $this->str()->title('123'));
+        $this->assertSame('123', $this->str()->title(123));
+
+        $this->assertSame('0', $this->str()->title('0'));
+        $this->assertSame('0', $this->str()->title(0));
+
+        $this->assertNull($this->str()->title(''));
+        $this->assertNull($this->str()->title(null));
+        $this->assertNull($this->str()->title(false));
     }
 
     public function testStart()
