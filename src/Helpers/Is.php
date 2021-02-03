@@ -29,6 +29,18 @@ final class Is
     }
 
     /**
+     * Determines if the value is doesn't empty.
+     *
+     * @param  mixed  $value
+     *
+     * @return bool
+     */
+    public function isDoesntEmpty($value): bool
+    {
+        return ! $this->isEmpty($value);
+    }
+
+    /**
      * Finds whether a variable is an object.
      *
      * @param  mixed  $value

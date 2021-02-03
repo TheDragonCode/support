@@ -108,6 +108,26 @@ final class IsTest extends TestCase
         $this->assertFalse($this->is()->isEmpty(new Arrayable()));
     }
 
+    public function testIsDoesntEmpty()
+    {
+        $this->assertFalse($this->is()->isDoesntEmpty(''));
+        $this->assertFalse($this->is()->isDoesntEmpty(' '));
+        $this->assertFalse($this->is()->isDoesntEmpty('      '));
+        $this->assertFalse($this->is()->isDoesntEmpty(null));
+
+        $this->assertTrue($this->is()->isDoesntEmpty(0));
+        $this->assertTrue($this->is()->isDoesntEmpty('   0   '));
+        $this->assertTrue($this->is()->isDoesntEmpty(false));
+
+        $this->assertFalse($this->is()->isDoesntEmpty([]));
+        $this->assertFalse($this->is()->isDoesntEmpty(new Foo()));
+
+        $this->assertTrue($this->is()->isDoesntEmpty(new Bar()));
+        $this->assertTrue($this->is()->isDoesntEmpty(new Baz()));
+        $this->assertTrue($this->is()->isDoesntEmpty(new Baq()));
+        $this->assertTrue($this->is()->isDoesntEmpty(new Arrayable()));
+    }
+
     protected function is(): Is
     {
         return new Is();
