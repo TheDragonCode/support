@@ -5,7 +5,9 @@ namespace Helldar\Support\Helpers;
 use ArgumentCountError;
 use Helldar\Support\Facades\Helpers\Arr as ArrFacade;
 use Helldar\Support\Facades\Helpers\Http as HttpHelper;
+use Helldar\Support\Facades\Helpers\Instance as InstanceHelper;
 use Helldar\Support\Facades\Helpers\Str as StrFacade;
+use Helldar\Support\Tools\HttpBuilderPrepare;
 use RuntimeException;
 
 /**
@@ -106,7 +108,7 @@ final class HttpBuilder
         $key       = $this->componentKey($component);
 
         $component === -1 || empty($key)
-            ? $this->parsed       = parse_url($url)
+            ? $this->parsed = parse_url($url)
             : $this->parsed[$key] = parse_url($url, $component);
 
         return $this;
@@ -139,7 +141,9 @@ final class HttpBuilder
      */
     public function compile(): string
     {
-        return implode('', array_filter($this->prepare()));
+        return implode('', array_filter(array_map(function ($value) {
+            return InstanceHelper::of($value, HttpBuilderPrepare::class) ? $value->get() : $value;
+        }, $this->prepare())));
     }
 
     /**
@@ -169,15 +173,17 @@ final class HttpBuilder
     protected function prepare(): array
     {
         return [
-            $this->getScheme() ? $this->getScheme() . '://' : '',
-            $this->getUser(),
-            $this->getPass() ? ':' . $this->getPass() : '',
+            HttpBuilderPrepare::make()->of($this->getScheme())->suffix('://'),
+            HttpBuilderPrepare::make()->of($this->getUser()),
+            HttpBuilderPrepare::make()->of($this->getPass())->prefix(':'),
+
             $this->getUser() || $this->getPass() ? '@' : '',
-            $this->getHost(),
-            $this->getPort() ? ':' . $this->getPort() : '',
-            $this->getPath() ? '/' . ltrim($this->getPath(), '/') : '',
-            $this->getQuery() ? '?' . $this->getQuery() : '',
-            $this->getFragment() ? '#' . $this->getFragment() : '',
+
+            HttpBuilderPrepare::make()->of($this->getHost()),
+            HttpBuilderPrepare::make()->of($this->getPort())->prefix(':'),
+            HttpBuilderPrepare::make()->of($this->getPath())->prefix('/'),
+            HttpBuilderPrepare::make()->of($this->getQuery())->prefix('?'),
+            HttpBuilderPrepare::make()->of($this->getFragment())->prefix('#'),
         ];
     }
 
