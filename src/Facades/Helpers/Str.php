@@ -8,6 +8,7 @@ use Helldar\Support\Helpers\Str as Helper;
 /**
  * @method static bool contains(string $haystack, $needles)
  * @method static bool endsWith(string $haystack, string|string[] $needles)
+ * @method static bool isEmpty($value)
  * @method static bool startsWith(string $haystack, string|string[] $needles)
  * @method static int length(?string $value, string $encoding = null)
  * @method static string camel(?string $value)

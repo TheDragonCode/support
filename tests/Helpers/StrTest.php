@@ -206,6 +206,19 @@ final class StrTest extends TestCase
         $this->assertFalse($this->str()->contains('', ''));
     }
 
+    public function testIsEmpty()
+    {
+        $this->assertTrue($this->str()->isEmpty(''));
+        $this->assertTrue($this->str()->isEmpty(' '));
+        $this->assertTrue($this->str()->isEmpty('      '));
+        $this->assertTrue($this->str()->isEmpty(null));
+        $this->assertTrue($this->str()->isEmpty([]));
+
+        $this->assertFalse($this->str()->isEmpty(0));
+        $this->assertFalse($this->str()->isEmpty('   0   '));
+        $this->assertFalse($this->str()->isEmpty(false));
+    }
+
     protected function str(): Str
     {
         return new Str();

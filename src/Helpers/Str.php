@@ -365,4 +365,18 @@ final class Str
 
         return false;
     }
+
+    /**
+     * Determines if the value is empty.
+     *
+     * @param  mixed  $value
+     *
+     * @return bool
+     */
+    public function isEmpty($value): bool
+    {
+        $value = is_string($value) ? trim($value) : $value;
+
+        return empty($value) && ! is_numeric($value) && ! is_bool($value);
+    }
 }
