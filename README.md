@@ -35,7 +35,7 @@ If yes, then:
 
 If no, then:
 
-### What you need to add a class
+### What you need to add a new class
 
 * create a new class in `Helldar\Support\Helpers` namespace;
 * create a new facade with doc-block in the `Helldar\Support\Facades\Helpers` namespace;
