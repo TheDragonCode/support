@@ -3,13 +3,31 @@
 namespace Helldar\Support\Helpers;
 
 use Exception;
+use Helldar\Support\Facades\Helpers\Arr as ArrHelper;
 use Helldar\Support\Facades\Helpers\Instance as InstanceHelper;
 use Helldar\Support\Facades\Helpers\Reflection as ReflectionHelper;
+use Helldar\Support\Facades\Helpers\Str as StrHelper;
 use ReflectionClass;
 use Throwable;
 
 final class Is
 {
+    /**
+     * Determines if the value is empty.
+     *
+     * @param  mixed  $value
+     *
+     * @return bool
+     */
+    public function isEmpty($value): bool
+    {
+        if (is_numeric($value) || is_bool($value)) {
+            return false;
+        }
+
+        return empty($value) || StrHelper::isEmpty($value) || ArrHelper::isEmpty($value);
+    }
+
     /**
      * Finds whether a variable is an object.
      *

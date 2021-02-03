@@ -6,6 +6,8 @@ use Exception;
 use Helldar\Support\Facades\Helpers\Is;
 use ReflectionClass;
 use Tests\Fixtures\Contracts\Contract;
+use Tests\Fixtures\Instances\Arrayable;
+use Tests\Fixtures\Instances\Baq;
 use Tests\Fixtures\Instances\Bar;
 use Tests\Fixtures\Instances\Baz;
 use Tests\Fixtures\Instances\Foo;
@@ -84,5 +86,25 @@ final class IsTest extends TestCase
         $this->assertTrue(Is::object(new Foo()));
         $this->assertTrue(Is::object(new Bar()));
         $this->assertTrue(Is::object(new Baz()));
+    }
+
+    public function testIsEmpty()
+    {
+        $this->assertTrue(Is::isEmpty(''));
+        $this->assertTrue(Is::isEmpty(' '));
+        $this->assertTrue(Is::isEmpty('      '));
+        $this->assertTrue(Is::isEmpty(null));
+
+        $this->assertFalse(Is::isEmpty(0));
+        $this->assertFalse(Is::isEmpty('   0   '));
+        $this->assertFalse(Is::isEmpty(false));
+
+        $this->assertTrue(Is::isEmpty([]));
+        $this->assertTrue(Is::isEmpty(new Foo()));
+
+        $this->assertFalse(Is::isEmpty(new Bar()));
+        $this->assertFalse(Is::isEmpty(new Baz()));
+        $this->assertFalse(Is::isEmpty(new Baq()));
+        $this->assertFalse(Is::isEmpty(new Arrayable()));
     }
 }
