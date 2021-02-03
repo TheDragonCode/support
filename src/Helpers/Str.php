@@ -379,4 +379,16 @@ final class Str
 
         return empty($value) && ! is_numeric($value) && (is_string($value) || is_null($value));
     }
+
+    /**
+     * Determines if the value is doesn't empty.
+     *
+     * @param  mixed  $value
+     *
+     * @return bool
+     */
+    public function isDoesntEmpty($value): bool
+    {
+        return ! $this->isEmpty($value);
+    }
 }

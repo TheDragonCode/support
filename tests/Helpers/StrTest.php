@@ -230,6 +230,25 @@ final class StrTest extends TestCase
         $this->assertFalse($this->str()->isEmpty(new Arrayable()));
     }
 
+    public function testIsDoesntEmpty()
+    {
+        $this->assertFalse($this->str()->isDoesntEmpty(''));
+        $this->assertFalse($this->str()->isDoesntEmpty(' '));
+        $this->assertFalse($this->str()->isDoesntEmpty('      '));
+        $this->assertFalse($this->str()->isDoesntEmpty(null));
+
+        $this->assertTrue($this->str()->isDoesntEmpty(0));
+        $this->assertTrue($this->str()->isDoesntEmpty('   0   '));
+        $this->assertTrue($this->str()->isDoesntEmpty(false));
+        $this->assertTrue($this->str()->isDoesntEmpty([]));
+
+        $this->assertTrue($this->str()->isDoesntEmpty(new Foo()));
+        $this->assertTrue($this->str()->isDoesntEmpty(new Bar()));
+        $this->assertTrue($this->str()->isDoesntEmpty(new Baz()));
+        $this->assertTrue($this->str()->isDoesntEmpty(new Baq()));
+        $this->assertTrue($this->str()->isDoesntEmpty(new Arrayable()));
+    }
+
     protected function str(): Str
     {
         return new Str();
