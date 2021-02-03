@@ -3,6 +3,11 @@
 namespace Tests\Helpers;
 
 use Helldar\Support\Helpers\Str;
+use Tests\Fixtures\Instances\Arrayable;
+use Tests\Fixtures\Instances\Baq;
+use Tests\Fixtures\Instances\Bar;
+use Tests\Fixtures\Instances\Baz;
+use Tests\Fixtures\Instances\Foo;
 use Tests\TestCase;
 
 final class StrTest extends TestCase
@@ -217,6 +222,12 @@ final class StrTest extends TestCase
         $this->assertFalse($this->str()->isEmpty('   0   '));
         $this->assertFalse($this->str()->isEmpty(false));
         $this->assertFalse($this->str()->isEmpty([]));
+
+        $this->assertFalse($this->str()->isEmpty(new Foo()));
+        $this->assertFalse($this->str()->isEmpty(new Bar()));
+        $this->assertFalse($this->str()->isEmpty(new Baz()));
+        $this->assertFalse($this->str()->isEmpty(new Baq()));
+        $this->assertFalse($this->str()->isEmpty(new Arrayable()));
     }
 
     protected function str(): Str
