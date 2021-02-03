@@ -304,6 +304,26 @@ final class ArrTest extends TestCase
         $this->assertFalse(Arr::isEmpty(new Arrayable()));
     }
 
+    public function testIsDoesntEmpty()
+    {
+        $this->assertTrue(Arr::isDoesntEmpty(''));
+        $this->assertTrue(Arr::isDoesntEmpty(' '));
+        $this->assertTrue(Arr::isDoesntEmpty('      '));
+        $this->assertTrue(Arr::isDoesntEmpty(null));
+
+        $this->assertTrue(Arr::isDoesntEmpty(0));
+        $this->assertTrue(Arr::isDoesntEmpty('   0   '));
+        $this->assertTrue(Arr::isDoesntEmpty(false));
+
+        $this->assertFalse(Arr::isDoesntEmpty([]));
+        $this->assertFalse(Arr::isDoesntEmpty(new Foo()));
+
+        $this->assertTrue(Arr::isDoesntEmpty(new Bar()));
+        $this->assertTrue(Arr::isDoesntEmpty(new Baz()));
+        $this->assertTrue(Arr::isDoesntEmpty(new Baq()));
+        $this->assertTrue(Arr::isDoesntEmpty(new Arrayable()));
+    }
+
     public function testAddUnique()
     {
         $array   = ['foo'];

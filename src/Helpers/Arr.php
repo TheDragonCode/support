@@ -301,6 +301,18 @@ class Arr
     }
 
     /**
+     * Determines if the value is doesn't empty.
+     *
+     * @param  mixed  $value
+     *
+     * @return bool
+     */
+    public function isDoesntEmpty($value): bool
+    {
+        return ! $this->isEmpty($value);
+    }
+
+    /**
      * Save array to php or json file.
      *
      * @param  array|ArrayAccess  $array
