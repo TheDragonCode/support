@@ -14,6 +14,34 @@ Support package is a collection of helpers and tools for any project.
 [![Total Downloads][badge_downloads]][link_packagist]
 [![License][badge_license]][link_license]
 
+## Contributing
+
+Are you missing any method used in your project?
+
+You can easily add support for it in this package. We do not limit the number of methods or classes.
+
+
+### What you need to add a method
+
+> Does this method fit into existing classes?
+
+If yes, then:
+
+* add a new method to your desired class (Arr, Digit, Http, Str, etc.) in еру `Helldar\Support\Helpers` namespace;
+* Specify the name and parameters of the called method in the dock block of the corresponding facade class (`Helldar\Support\Facades\Helpers`);
+* Add tests for native use (`Tests\Helpers`);
+* Add tests for facade use (`Tests\Facades\Helpers`);
+* It's all 😊
+
+If no, then:
+
+### What you need to add a class
+
+* create a new class in `Helldar\Support\Helpers` namespace;
+* create a new facade with doc-block in the `Helldar\Support\Facades\Helpers` namespace;
+* create a new class of native tests in the `Tests\Helpers` namespace;
+* create a new class of facade tests in the `Tests\Facades\Helpers` namespace;
+* It's all 😊
 
 [badge_build]:          https://img.shields.io/github/workflow/status/andrey-helldar/support/phpunit?style=flat-square
 
