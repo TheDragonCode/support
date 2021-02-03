@@ -377,6 +377,6 @@ final class Str
     {
         $value = is_string($value) ? trim($value) : $value;
 
-        return empty($value) && ! is_numeric($value) && ! is_bool($value);
+        return empty($value) && ! is_numeric($value) && (is_string($value) || is_null($value));
     }
 }

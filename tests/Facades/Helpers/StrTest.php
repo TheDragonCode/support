@@ -212,10 +212,10 @@ final class StrTest extends TestCase
         $this->assertTrue(Str::isEmpty(' '));
         $this->assertTrue(Str::isEmpty('      '));
         $this->assertTrue(Str::isEmpty(null));
-        $this->assertTrue(Str::isEmpty([]));
 
         $this->assertFalse(Str::isEmpty(0));
         $this->assertFalse(Str::isEmpty('   0   '));
         $this->assertFalse(Str::isEmpty(false));
+        $this->assertFalse(Str::isEmpty([]));
     }
 }
