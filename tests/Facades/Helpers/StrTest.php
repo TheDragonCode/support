@@ -230,22 +230,22 @@ final class StrTest extends TestCase
         $this->assertFalse(Str::isEmpty(new Arrayable()));
     }
 
-    public function testIsDoesntEmpty()
+    public function testDoesntEmpty()
     {
-        $this->assertFalse(Str::isDoesntEmpty(''));
-        $this->assertFalse(Str::isDoesntEmpty(' '));
-        $this->assertFalse(Str::isDoesntEmpty('      '));
-        $this->assertFalse(Str::isDoesntEmpty(null));
+        $this->assertFalse(Str::doesntEmpty(''));
+        $this->assertFalse(Str::doesntEmpty(' '));
+        $this->assertFalse(Str::doesntEmpty('      '));
+        $this->assertFalse(Str::doesntEmpty(null));
 
-        $this->assertTrue(Str::isDoesntEmpty(0));
-        $this->assertTrue(Str::isDoesntEmpty('   0   '));
-        $this->assertTrue(Str::isDoesntEmpty(false));
-        $this->assertTrue(Str::isDoesntEmpty([]));
+        $this->assertTrue(Str::doesntEmpty(0));
+        $this->assertTrue(Str::doesntEmpty('   0   '));
+        $this->assertTrue(Str::doesntEmpty(false));
+        $this->assertTrue(Str::doesntEmpty([]));
 
-        $this->assertTrue(Str::isDoesntEmpty(new Foo()));
-        $this->assertTrue(Str::isDoesntEmpty(new Bar()));
-        $this->assertTrue(Str::isDoesntEmpty(new Baz()));
-        $this->assertTrue(Str::isDoesntEmpty(new Baq()));
-        $this->assertTrue(Str::isDoesntEmpty(new Arrayable()));
+        $this->assertTrue(Str::doesntEmpty(new Foo()));
+        $this->assertTrue(Str::doesntEmpty(new Bar()));
+        $this->assertTrue(Str::doesntEmpty(new Baz()));
+        $this->assertTrue(Str::doesntEmpty(new Baq()));
+        $this->assertTrue(Str::doesntEmpty(new Arrayable()));
     }
 }

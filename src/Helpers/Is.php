@@ -35,7 +35,7 @@ final class Is
      *
      * @return bool
      */
-    public function isDoesntEmpty($value): bool
+    public function doesntEmpty($value): bool
     {
         return ! $this->isEmpty($value);
     }

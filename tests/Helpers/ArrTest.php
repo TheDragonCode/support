@@ -304,24 +304,24 @@ final class ArrTest extends TestCase
         $this->assertFalse($this->arr()->isEmpty(new Arrayable()));
     }
 
-    public function testIsDoesntEmpty()
+    public function testDoesntEmpty()
     {
-        $this->assertTrue($this->arr()->isDoesntEmpty(''));
-        $this->assertTrue($this->arr()->isDoesntEmpty(' '));
-        $this->assertTrue($this->arr()->isDoesntEmpty('      '));
-        $this->assertTrue($this->arr()->isDoesntEmpty(null));
+        $this->assertTrue($this->arr()->doesntEmpty(''));
+        $this->assertTrue($this->arr()->doesntEmpty(' '));
+        $this->assertTrue($this->arr()->doesntEmpty('      '));
+        $this->assertTrue($this->arr()->doesntEmpty(null));
 
-        $this->assertTrue($this->arr()->isDoesntEmpty(0));
-        $this->assertTrue($this->arr()->isDoesntEmpty('   0   '));
-        $this->assertTrue($this->arr()->isDoesntEmpty(false));
+        $this->assertTrue($this->arr()->doesntEmpty(0));
+        $this->assertTrue($this->arr()->doesntEmpty('   0   '));
+        $this->assertTrue($this->arr()->doesntEmpty(false));
 
-        $this->assertFalse($this->arr()->isDoesntEmpty([]));
-        $this->assertFalse($this->arr()->isDoesntEmpty(new Foo()));
+        $this->assertFalse($this->arr()->doesntEmpty([]));
+        $this->assertFalse($this->arr()->doesntEmpty(new Foo()));
 
-        $this->assertTrue($this->arr()->isDoesntEmpty(new Bar()));
-        $this->assertTrue($this->arr()->isDoesntEmpty(new Baz()));
-        $this->assertTrue($this->arr()->isDoesntEmpty(new Baq()));
-        $this->assertTrue($this->arr()->isDoesntEmpty(new Arrayable()));
+        $this->assertTrue($this->arr()->doesntEmpty(new Bar()));
+        $this->assertTrue($this->arr()->doesntEmpty(new Baz()));
+        $this->assertTrue($this->arr()->doesntEmpty(new Baq()));
+        $this->assertTrue($this->arr()->doesntEmpty(new Arrayable()));
     }
 
     public function testAddUnique()
