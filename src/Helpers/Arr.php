@@ -230,30 +230,36 @@ class Arr
      * Get all of the given array except for a specified array of keys.
      *
      * @param  array|ArrayAccess  $array
-     * @param $keys
+     * @param  array|string|callable  $keys
      *
      * @return array
      */
     public function except($array, $keys): array
     {
-        $keys = (array) $keys;
+        $callback = is_callable($keys)
+            ? $keys
+            : static function ($key) use ($keys) {
+                return empty($keys) || ! in_array($key, (array) $keys);
+            };
 
-        return array_filter((array) $array, static function ($key) use ($keys) {
-            return empty($keys) || ! in_array($key, $keys);
-        }, ARRAY_FILTER_USE_KEY);
+        return array_filter((array) $array, $callback, ARRAY_FILTER_USE_KEY);
     }
 
     /**
      * Get a subset of the items from the given array.
      *
      * @param  array|ArrayAccess  $array
-     * @param  array|string  $keys
+     * @param  array|string|callable  $keys
      *
      * @return array
      */
     public function only($array, $keys): array
     {
-        return array_intersect_key($array, array_flip((array) $keys));
+        if (is_callable($keys)) {
+            return array_filter($array, $keys, ARRAY_FILTER_USE_KEY);
+        }
+
+        return array_intersect_key((array) $array, array_flip((array) $keys));
     }
 
     /**

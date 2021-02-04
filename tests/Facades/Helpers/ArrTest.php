@@ -35,6 +35,29 @@ final class ArrTest extends TestCase
         $this->assertSame([], Arr::except([], ['foo', 'bar']));
     }
 
+    public function testExceptCallback()
+    {
+        $arr = [
+            'foo' => 'Foo',
+            'bar' => 'Bar',
+            'baz' => 'Baz',
+            200   => 'Num 200',
+            400   => 'Num 400',
+        ];
+
+        $this->assertSame(['baz' => 'Baz', 200 => 'Num 200', 400 => 'Num 400'], Arr::except($arr, static function ($key) {
+            return ! Str::startsWith($key, ['foo', 'bar']);
+        }));
+
+        $this->assertSame(['foo' => 'Foo', 200 => 'Num 200', 400 => 'Num 400'], Arr::except($arr, static function ($key) {
+            return ! Str::startsWith($key, 'ba');
+        }));
+
+        $this->assertSame(['foo' => 'Foo', 'bar' => 'Bar', 'baz' => 'Baz'], Arr::except($arr, static function ($key) {
+            return ! is_numeric($key);
+        }));
+    }
+
     public function testRenameKeys()
     {
         $source = [
@@ -160,6 +183,29 @@ final class ArrTest extends TestCase
 
         $this->assertSame([], Arr::only($arr, []));
         $this->assertSame([], Arr::only($arr, null));
+    }
+
+    public function testOnlyCallback()
+    {
+        $arr = [
+            'foo' => 'Foo',
+            'bar' => 'Bar',
+            'baz' => 'Baz',
+            200   => 'Num 200',
+            400   => 'Num 400',
+        ];
+
+        $this->assertSame(['foo' => 'Foo', 'bar' => 'Bar'], Arr::only($arr, static function ($key) {
+            return Str::startsWith($key, ['foo', 'bar']);
+        }));
+
+        $this->assertSame(['bar' => 'Bar', 'baz' => 'Baz'], Arr::only($arr, static function ($key) {
+            return Str::startsWith($key, 'ba');
+        }));
+
+        $this->assertSame([200 => 'Num 200', 400 => 'Num 400'], Arr::only($arr, static function ($key) {
+            return is_numeric($key);
+        }));
     }
 
     public function testStoreAsArray()

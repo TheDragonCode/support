@@ -11,7 +11,7 @@ use Helldar\Support\Helpers\Arr as Helper;
  * @method static array except(array $array, array|string $keys)
  * @method static array map(array|ArrayAccess $array, callable $callback)
  * @method static array merge(...$arrays)
- * @method static array only(array|ArrayAccess $array, array|string $keys)
+ * @method static array only(array|ArrayAccess $array, array|string|callable $keys)
  * @method static array renameKeys(array $array, callable $callback)
  * @method static array renameKeysMap(array $array, array $map)
  * @method static array sortByKeys(array $array, array $sorter)
