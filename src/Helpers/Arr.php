@@ -230,7 +230,7 @@ class Arr
      * Get all of the given array except for a specified array of keys.
      *
      * @param  array|ArrayAccess  $array
-     * @param  array|string|callable  $keys
+     * @param  array|callable|string  $keys
      *
      * @return array
      */
@@ -249,7 +249,7 @@ class Arr
      * Get a subset of the items from the given array.
      *
      * @param  array|ArrayAccess  $array
-     * @param  array|string|callable  $keys
+     * @param  array|callable|string  $keys
      *
      * @return array
      */
