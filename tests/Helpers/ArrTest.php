@@ -46,15 +46,15 @@ final class ArrTest extends TestCase
         ];
 
         $this->assertSame(['baz' => 'Baz', 200 => 'Num 200', 400 => 'Num 400'], $this->arr()->except($arr, static function ($key) {
-            return Str::startsWith($key, ['foo', 'bar']);
+            return ! Str::startsWith($key, ['foo', 'bar']);
         }));
 
         $this->assertSame(['foo' => 'Foo', 200 => 'Num 200', 400 => 'Num 400'], $this->arr()->except($arr, static function ($key) {
-            return Str::startsWith($key, 'ba');
+            return ! Str::startsWith($key, 'ba');
         }));
 
         $this->assertSame(['foo' => 'Foo', 'bar' => 'Bar', 'baz' => 'Baz'], $this->arr()->except($arr, static function ($key) {
-            return is_numeric($key);
+            return ! is_numeric($key);
         }));
     }
 
