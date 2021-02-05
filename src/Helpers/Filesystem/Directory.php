@@ -33,19 +33,24 @@ final class Directory
      * Get a list of directory names along a path.
      *
      * @param  string  $path
+     * @param  callable|null  $callback
      *
      * @throws \Helldar\Support\Exceptions\DirectoryNotFoundException
      *
      * @return array
      */
-    public function names(string $path): array
+    public function names(string $path, callable $callback = null): array
     {
         $items = [];
 
         /** @var \DirectoryIterator $directory */
         foreach ($this->all($path) as $directory) {
             if ($directory->isDir() && ! $directory->isDot()) {
-                $items[] = $directory->getFilename();
+                $name = $directory->getFilename();
+
+                if (! is_callable($callback) || $callback($name)) {
+                    $items[] = $name;
+                }
             }
         }
 

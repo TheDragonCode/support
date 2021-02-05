@@ -8,7 +8,7 @@ use Helldar\Support\Helpers\Filesystem\File as Helper;
 use SplFileInfo;
 
 /**
- * @method static array names(string $path)
+ * @method static array names(string $path, callable|null $callback = null)
  * @method static bool exists(string $path)
  * @method static bool isFile(DirectoryIterator|SplFileInfo|string $value)
  * @method static void delete(string|string[] $paths)

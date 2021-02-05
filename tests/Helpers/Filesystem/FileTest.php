@@ -4,6 +4,7 @@ namespace Tests\Helpers\Filesystem;
 
 use DirectoryIterator;
 use Helldar\Support\Exceptions\FileNotFoundException;
+use Helldar\Support\Facades\Helpers\Str;
 use Helldar\Support\Helpers\Filesystem\File;
 use SplFileInfo;
 use Tests\TestCase;
@@ -12,9 +13,20 @@ final class FileTest extends TestCase
 {
     public function testNames()
     {
-        $available = ['.bar', '.foo', '.gitkeep'];
+        $available = ['.bar', '.beep', '.foo', '.gitkeep'];
 
         $names = $this->file()->names($this->fixturesDirectory());
+
+        $this->assertSame($available, $names);
+    }
+
+    public function testNamesCallback()
+    {
+        $available = ['.beep', '.gitkeep'];
+
+        $names = $this->file()->names($this->fixturesDirectory(), static function (string $name) {
+            return Str::endsWith($name, 'ep');
+        });
 
         $this->assertSame($available, $names);
     }
