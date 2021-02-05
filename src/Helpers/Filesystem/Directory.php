@@ -155,4 +155,20 @@ final class Directory
             throw new DirectoryNotFoundException($path);
         }
     }
+
+    /**
+     * Checks the existence of a directory and return full path if exist.
+     *
+     * @param  DirectoryIterator|\SplFileInfo|string  $path
+     *
+     * @throws \Helldar\Support\Exceptions\DirectoryNotFoundException
+     *
+     * @return string
+     */
+    public function validated($path): string
+    {
+        $this->validate($path);
+
+        return realpath($path);
+    }
 }

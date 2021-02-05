@@ -142,4 +142,20 @@ final class DirectoryTest extends TestCase
 
         Directory::validate($this->fixturesDirectory('foo/bar'));
     }
+
+    public function testValidatedSuccess()
+    {
+        $path = $this->fixturesDirectory();
+
+        $result = Directory::validated($path);
+
+        $this->assertSame(realpath($path), $result);
+    }
+
+    public function testValidatedFailed()
+    {
+        $this->expectException(DirectoryNotFoundException::class);
+
+        Directory::validated($this->fixturesDirectory('foo/bar'));
+    }
 }

@@ -11,6 +11,7 @@ use SplFileInfo;
  * @method static array names(string $path, callable|null $callback = null)
  * @method static bool exists(string $path)
  * @method static bool isFile(DirectoryIterator|SplFileInfo|string $value)
+ * @method static string validated(DirectoryIterator|SplFileInfo|string $path)
  * @method static void delete(string|string[] $paths)
  * @method static void store(string $path, string $content, int $mode = 0755)
  * @method static void validate(DirectoryIterator|SplFileInfo|string $path)

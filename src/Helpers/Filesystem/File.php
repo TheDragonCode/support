@@ -121,4 +121,20 @@ class File
             throw new FileNotFoundException($path);
         }
     }
+
+    /**
+     * Checks the existence of a file and return full path if exist.
+     *
+     * @param  \DirectoryIterator|\SplFileInfo|string  $path
+     *
+     * @throws \Helldar\Support\Exceptions\FileNotFoundException
+     *
+     * @return string
+     */
+    public function validated($path): string
+    {
+        $this->validate($path);
+
+        return realpath($path);
+    }
 }
