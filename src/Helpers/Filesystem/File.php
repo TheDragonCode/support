@@ -13,6 +13,29 @@ use Throwable;
 class File
 {
     /**
+     * Get a list of filenames along a path.
+     *
+     * @param  string  $path
+     *
+     * @return array
+     */
+    public function names(string $path): array
+    {
+        $items = [];
+
+        /** @var \DirectoryIterator $item */
+        foreach (DirectoryHelper::all($path) as $item) {
+            if ($item->isFile()) {
+                $items[] = $item->getFilename();
+            }
+        }
+
+        sort($items);
+
+        return array_values($items);
+    }
+
+    /**
      * Save content to file.
      *
      * @param  string  $path

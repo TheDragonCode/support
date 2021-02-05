@@ -10,6 +10,15 @@ use Tests\TestCase;
 
 final class FileTest extends TestCase
 {
+    public function testNames()
+    {
+        $available = ['.bar', '.foo', '.gitkeep'];
+
+        $names = File::names($this->fixturesDirectory());
+
+        $this->assertSame($available, $names);
+    }
+
     public function testStore()
     {
         $path = $this->tempDirectory('foo/bar/baz/foo.txt');
