@@ -137,6 +137,22 @@ final class FileTest extends TestCase
         $this->file()->validate($this->fixturesDirectory('foo/bar'));
     }
 
+    public function testValidatedSuccess()
+    {
+        $path = $this->fixturesDirectory('.gitkeep');
+
+        $result = $this->file()->validated($path);
+
+        $this->assertSame(realpath($path), $result);
+    }
+
+    public function testValidatedFailed()
+    {
+        $this->expectException(FileNotFoundException::class);
+
+        $this->file()->validated($this->fixturesDirectory('foo/bar'));
+    }
+
     protected function file(): File
     {
         return new File();
