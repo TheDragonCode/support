@@ -5,6 +5,7 @@ namespace Tests\Facades\Helpers\Filesystem;
 use Helldar\Support\Exceptions\DirectoryNotFoundException;
 use Helldar\Support\Facades\Helpers\Filesystem\Directory;
 use Helldar\Support\Facades\Helpers\Filesystem\File;
+use Helldar\Support\Facades\Helpers\Str;
 use Tests\TestCase;
 
 final class DirectoryTest extends TestCase
@@ -86,6 +87,17 @@ final class DirectoryTest extends TestCase
         $available = ['Contracts', 'Facades', 'Instances'];
 
         $names = Directory::names($this->fixturesDirectory());
+
+        $this->assertSame($available, $names);
+    }
+
+    public function testNamesCallback()
+    {
+        $available = ['Facades', 'Instances'];
+
+        $names = Directory::names($this->fixturesDirectory(), static function (string $name) {
+            return Str::endsWith($name, 'es');
+        });
 
         $this->assertSame($available, $names);
     }

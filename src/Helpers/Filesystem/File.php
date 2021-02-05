@@ -16,17 +16,22 @@ class File
      * Get a list of filenames along a path.
      *
      * @param  string  $path
+     * @param  callable|null  $callback
      *
      * @return array
      */
-    public function names(string $path): array
+    public function names(string $path, callable $callback = null): array
     {
         $items = [];
 
         /** @var \DirectoryIterator $item */
         foreach (DirectoryHelper::all($path) as $item) {
             if ($item->isFile()) {
-                $items[] = $item->getFilename();
+                $name = $item->getFilename();
+
+                if (! is_callable($callback) || $callback($name)) {
+                    $items[] = $item->getFilename();
+                }
             }
         }
 
@@ -79,7 +84,8 @@ class File
                 if (! @unlink($path)) {
                     $success = false;
                 }
-            } catch (Throwable $e) {
+            }
+            catch (Throwable $e) {
                 $success = false;
             }
         }
