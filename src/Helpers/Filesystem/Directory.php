@@ -42,6 +42,7 @@ final class Directory
     {
         $items = [];
 
+        /** @var \DirectoryIterator $directory */
         foreach ($this->all($path) as $directory) {
             if ($directory->isDir() && ! $directory->isDot()) {
                 $items[] = $directory->getFilename();
