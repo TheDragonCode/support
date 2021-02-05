@@ -1,5 +1,5 @@
 name: phpunit
-on: [ push ]
+on: [ push, pull_request ]
 
 jobs:
     build:
@@ -20,7 +20,7 @@ jobs:
                 uses: shivammathur/setup-php@v2
                 with:
                     php-version: ${{ matrix.php }}
-                    extensions: curl, mbstring, zip, pcntl, pdo, pdo_sqlite, iconv
+                    extensions: curl, mbstring, zip, pcntl, pdo, pdo_sqlite, iconv, bcmath
                     coverage: none
 
             -   name: Composer self update
