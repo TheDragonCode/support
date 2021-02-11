@@ -30,7 +30,7 @@ class File
                 $name = $item->getFilename();
 
                 if (! is_callable($callback) || $callback($name)) {
-                    $items[] = $item->getFilename();
+                    $items[] = $name;
                 }
             }
         }
