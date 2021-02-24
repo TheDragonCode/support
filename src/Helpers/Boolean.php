@@ -29,7 +29,7 @@ final class Boolean
     }
 
     /**
-     * Converts a value to a boolean type
+     * Converts a value to a boolean type.
      *
      * @param  mixed  $value
      *
