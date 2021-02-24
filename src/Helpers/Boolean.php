@@ -37,6 +37,22 @@ final class Boolean
      */
     public function to($value): bool
     {
-        return filter_var($value, FILTER_VALIDATE_BOOLEAN);
+        return (bool) $this->parse($value);
+    }
+
+    /**
+     * Getting a filtered value in a boolean view.
+     *
+     * @param  mixed  $value
+     *
+     * @return bool|null
+     */
+    public function parse($value): ?bool
+    {
+        if (is_null($value)) {
+            return null;
+        }
+
+        return filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
     }
 }
