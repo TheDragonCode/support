@@ -6,9 +6,10 @@ use Helldar\Support\Facades\BaseFacade;
 use Helldar\Support\Helpers\Is as Helper;
 
 /**
+ * @method static bool boolean($value)
  * @method static bool contract($value)
- * @method static bool error($value)
  * @method static bool doesntEmpty($value)
+ * @method static bool error($value)
  * @method static bool isEmpty($value)
  * @method static bool object($value)
  * @method static bool reflectionClass($value)
