@@ -14,6 +14,12 @@ Support package is a collection of helpers and tools for any project.
 [![Total Downloads][badge_downloads]][link_packagist]
 [![License][badge_license]][link_license]
 
+## Installation
+
+```bash
+$ composer require andrey-helldar/support
+```
+
 ## Contributing
 
 Are you missing any method used in your project?
