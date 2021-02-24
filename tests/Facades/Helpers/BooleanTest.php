@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Facades;
+namespace Tests\Facades\Helpers;
 
 use Helldar\Support\Facades\Helpers\Boolean;
 use Tests\TestCase;
@@ -36,6 +36,7 @@ final class BooleanTest extends TestCase
         $this->assertFalse(Boolean::isTrue('FALSE'));
 
         $this->assertFalse(Boolean::isTrue(null));
+        $this->assertFalse(Boolean::isTrue(' '));
         $this->assertFalse(Boolean::isTrue('foo'));
         $this->assertFalse(Boolean::isTrue('bar'));
         $this->assertFalse(Boolean::isTrue('baz'));
@@ -72,6 +73,7 @@ final class BooleanTest extends TestCase
         $this->assertFalse(Boolean::isFalse('True'));
         $this->assertFalse(Boolean::isFalse('TRUE'));
 
+        $this->assertTrue(Boolean::isFalse(' '));
         $this->assertTrue(Boolean::isFalse('foo'));
         $this->assertTrue(Boolean::isFalse('bar'));
         $this->assertTrue(Boolean::isFalse('baz'));
@@ -107,6 +109,7 @@ final class BooleanTest extends TestCase
         $this->assertFalse(Boolean::to('False'));
         $this->assertFalse(Boolean::to('FALSE'));
 
+        $this->assertFalse(Boolean::to(' '));
         $this->assertFalse(Boolean::to('foo'));
         $this->assertFalse(Boolean::to('bar'));
         $this->assertFalse(Boolean::to('baz'));
@@ -129,6 +132,7 @@ final class BooleanTest extends TestCase
         $this->assertTrue(Boolean::parse('True'));
         $this->assertTrue(Boolean::parse('TRUE'));
 
+        $this->assertFalse(Boolean::parse(' '));
         $this->assertFalse(Boolean::parse(false));
         $this->assertFalse(Boolean::parse(0));
         $this->assertFalse(Boolean::parse('0'));

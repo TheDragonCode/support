@@ -91,15 +91,30 @@ final class IsTest extends TestCase
     public function testIsBoolean()
     {
         $this->assertTrue($this->is()->boolean(true));
-        $this->assertTrue($this->is()->boolean(false));
         $this->assertTrue($this->is()->boolean(1));
-        $this->assertTrue($this->is()->boolean(0));
         $this->assertTrue($this->is()->boolean('1'));
-        $this->assertTrue($this->is()->boolean('0'));
         $this->assertTrue($this->is()->boolean('on'));
-        $this->assertTrue($this->is()->boolean('off'));
+        $this->assertTrue($this->is()->boolean('On'));
+        $this->assertTrue($this->is()->boolean('ON'));
+        $this->assertTrue($this->is()->boolean('yes'));
+        $this->assertTrue($this->is()->boolean('Yes'));
+        $this->assertTrue($this->is()->boolean('YES'));
         $this->assertTrue($this->is()->boolean('true'));
+        $this->assertTrue($this->is()->boolean('True'));
+        $this->assertTrue($this->is()->boolean('TRUE'));
+
+        $this->assertTrue($this->is()->boolean(false));
+        $this->assertTrue($this->is()->boolean(0));
+        $this->assertTrue($this->is()->boolean('0'));
+        $this->assertTrue($this->is()->boolean('off'));
+        $this->assertTrue($this->is()->boolean('Off'));
+        $this->assertTrue($this->is()->boolean('OFF'));
+        $this->assertTrue($this->is()->boolean('no'));
+        $this->assertTrue($this->is()->boolean('No'));
+        $this->assertTrue($this->is()->boolean('NO'));
         $this->assertTrue($this->is()->boolean('false'));
+        $this->assertTrue($this->is()->boolean('False'));
+        $this->assertTrue($this->is()->boolean('FALSE'));
 
         $this->assertFalse($this->is()->boolean(null));
         $this->assertFalse($this->is()->boolean('foo'));

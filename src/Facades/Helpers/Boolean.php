@@ -9,6 +9,7 @@ use Helldar\Support\Helpers\Boolean as Helper;
  * @method static bool isTrue($value)
  * @method static bool isFalse($value)
  * @method static bool to($value)
+ * @method static bool|null parse($value)
  */
 final class Boolean extends BaseFacade
 {

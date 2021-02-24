@@ -74,7 +74,9 @@ final class Is
      */
     public function boolean($value): bool
     {
-        return BooleanHelper::isTrue($value) || BooleanHelper::isFalse($value);
+        $result = BooleanHelper::parse($value);
+
+        return is_bool($result);
     }
 
     /**

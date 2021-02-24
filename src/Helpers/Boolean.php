@@ -13,7 +13,7 @@ final class Boolean
      */
     public function isTrue($value): bool
     {
-        return $value === true || $value === 1 || $value === '1' || $value === 'on' || $value === 'true';
+        return $this->to($value) === true;
     }
 
     /**
@@ -25,7 +25,7 @@ final class Boolean
      */
     public function isFalse($value): bool
     {
-        return $value === false || $value === 0 || $value === '0' || $value === 'off' || $value === 'false';
+        return $this->to($value) === false;
     }
 
     /**
@@ -37,14 +37,22 @@ final class Boolean
      */
     public function to($value): bool
     {
-        if ($this->isTrue($value)) {
-            return true;
+        return (bool) $this->parse($value);
+    }
+
+    /**
+     * Getting a filtered value in a boolean view.
+     *
+     * @param  mixed  $value
+     *
+     * @return bool|null
+     */
+    public function parse($value): ?bool
+    {
+        if (is_null($value)) {
+            return null;
         }
 
-        if ($this->isFalse($value)) {
-            return false;
-        }
-
-        return (bool) $value;
+        return filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
     }
 }
