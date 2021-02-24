@@ -88,6 +88,29 @@ final class IsTest extends TestCase
         $this->assertTrue($this->is()->object(new Baz()));
     }
 
+    public function testIsBoolean()
+    {
+        $this->assertTrue($this->is()->boolean(true));
+        $this->assertTrue($this->is()->boolean(false));
+        $this->assertTrue($this->is()->boolean(1));
+        $this->assertTrue($this->is()->boolean(0));
+        $this->assertTrue($this->is()->boolean('1'));
+        $this->assertTrue($this->is()->boolean('0'));
+        $this->assertTrue($this->is()->boolean('on'));
+        $this->assertTrue($this->is()->boolean('off'));
+        $this->assertTrue($this->is()->boolean('true'));
+        $this->assertTrue($this->is()->boolean('false'));
+
+        $this->assertFalse($this->is()->boolean(null));
+        $this->assertFalse($this->is()->boolean('foo'));
+        $this->assertFalse($this->is()->boolean('bar'));
+        $this->assertFalse($this->is()->boolean('baz'));
+        $this->assertFalse($this->is()->boolean('qwerty'));
+        $this->assertFalse($this->is()->boolean(['foo']));
+        $this->assertFalse($this->is()->boolean(['foo', 'bar']));
+        $this->assertFalse($this->is()->boolean([]));
+    }
+
     public function testIsEmpty()
     {
         $this->assertTrue($this->is()->isEmpty(''));

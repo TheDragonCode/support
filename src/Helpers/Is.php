@@ -4,6 +4,7 @@ namespace Helldar\Support\Helpers;
 
 use Exception;
 use Helldar\Support\Facades\Helpers\Arr as ArrHelper;
+use Helldar\Support\Facades\Helpers\Boolean as BooleanHelper;
 use Helldar\Support\Facades\Helpers\Instance as InstanceHelper;
 use Helldar\Support\Facades\Helpers\Reflection as ReflectionHelper;
 use Helldar\Support\Facades\Helpers\Str as StrHelper;
@@ -62,6 +63,18 @@ final class Is
     public function string($value): bool
     {
         return is_string($value);
+    }
+
+    /**
+     * Determines if a value is boolean.
+     *
+     * @param  mixed  $value
+     *
+     * @return bool
+     */
+    public function boolean($value): bool
+    {
+        return BooleanHelper::isTrue($value) || BooleanHelper::isFalse($value);
     }
 
     /**
