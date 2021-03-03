@@ -144,7 +144,7 @@ final class Call
 
     protected function resolve($class)
     {
-        return new $class();
+        return IsHelper::object($class) ? $class : new $class();
     }
 
     protected function reflection($class): ReflectionClass

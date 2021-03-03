@@ -4,6 +4,7 @@ namespace Tests\Helpers;
 
 use Helldar\Support\Helpers\Instance;
 use Tests\Fixtures\Contracts\Contract;
+use Tests\Fixtures\Exceptions\AnyException;
 use Tests\Fixtures\Instances\Bar;
 use Tests\Fixtures\Instances\Baz;
 use Tests\Fixtures\Instances\Foo;
@@ -68,6 +69,8 @@ final class InstanceTest extends TestCase
         $this->assertSame('foo', $this->instance()->call(Foo::class, 'unknown', 'foo'));
 
         $this->assertNull($this->instance()->call(Foo::class, 'unknown'));
+
+        $this->assertSame('Foo Bar', $this->instance()->call(new AnyException(), 'getMessage'));
     }
 
     /** @deprecated */
