@@ -12,7 +12,7 @@ final class DirectoryTest extends TestCase
 {
     public function testAll()
     {
-        $available = ['.', '..', 'Contracts', 'Facades', 'Instances'];
+        $available = ['.', '..', 'Contracts', 'Exceptions', 'Facades', 'Instances'];
 
         $dirs = Directory::all($this->fixturesDirectory());
 
@@ -84,7 +84,7 @@ final class DirectoryTest extends TestCase
 
     public function testNames()
     {
-        $available = ['Contracts', 'Facades', 'Instances'];
+        $available = ['Contracts', 'Exceptions', 'Facades', 'Instances'];
 
         $names = Directory::names($this->fixturesDirectory());
 

@@ -5,6 +5,7 @@ namespace Tests\Helpers;
 use Helldar\Support\Helpers\Call;
 use InvalidArgumentException;
 use Tests\Fixtures\Contracts\Contract;
+use Tests\Fixtures\Exceptions\AnyException;
 use Tests\Fixtures\Instances\Foo;
 use Tests\TestCase;
 
@@ -65,6 +66,8 @@ final class CallTest extends TestCase
         $this->assertSame(['foo', 'bar', 'baz'], $this->call()->runMethods(static function ($value, ...$values) {
             return array_merge([$value], $values);
         }, 'foo', 'bar', 'baz'));
+
+        $this->assertSame('Foo Bar', $this->call()->runMethods(new AnyException(), 'getMessage'));
     }
 
     public function testRunOf()

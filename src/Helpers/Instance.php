@@ -99,7 +99,7 @@ final class Instance
      *
      * @deprecated The method is deprecated and will be removed in version 3.0. Use "Helldar\Support\Facades\Helpers\Call::runExists()" instead.
      *
-     * @param  object  $object
+     * @param  object|string  $object
      * @param  string  $method
      * @param  null  $default
      *
