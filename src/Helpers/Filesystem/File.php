@@ -46,12 +46,16 @@ class File
      * @param  string  $path
      * @param  string  $content
      * @param  int  $mode
+     *
+     * @return string Returns the full path to the saved file.
      */
-    public function store(string $path, string $content, int $mode = 0755): void
+    public function store(string $path, string $content, int $mode = 0755): string
     {
         DirectoryHelper::make(pathinfo($path, PATHINFO_DIRNAME), $mode);
 
         file_put_contents($path, $content);
+
+        return realpath($path);
     }
 
     /**

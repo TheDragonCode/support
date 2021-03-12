@@ -37,9 +37,10 @@ final class FileTest extends TestCase
 
         $this->assertFalse(File::exists($path));
 
-        File::store($path, 'foo', 777);
+        $saved = File::store($path, 'foo', 777);
 
         $this->assertFileExists($path);
+        $this->assertSame(realpath($path), $saved);
     }
 
     public function testExists()
