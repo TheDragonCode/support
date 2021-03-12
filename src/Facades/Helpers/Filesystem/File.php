@@ -13,7 +13,7 @@ use SplFileInfo;
  * @method static bool isFile(DirectoryIterator|SplFileInfo|string $value)
  * @method static string validated(DirectoryIterator|SplFileInfo|string $path)
  * @method static void delete(string|string[] $paths)
- * @method static void store(string $path, string $content, int $mode = 0755)
+ * @method static string store(string $path, string $content, int $mode = 0755)
  * @method static void validate(DirectoryIterator|SplFileInfo|string $path)
  */
 final class File extends BaseFacade
