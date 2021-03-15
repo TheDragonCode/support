@@ -147,13 +147,13 @@ final class ArrTest extends TestCase
         ];
 
         $expected = [
-            'foo' => 'Bar',
             0     => 'Foo',
             2     => 'Bar bar',
             400   => 'Baz',
             500   => 'Foo bar',
             600   => ['bar' => 'Bar', 'baz' => 'Baz', 'foo' => 'Foo'],
             700   => ['aaa' => 'AAA'],
+            'foo' => 'Bar',
         ];
 
         $result = $this->arr()->merge($arr1, $arr2);
