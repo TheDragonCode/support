@@ -171,15 +171,45 @@ final class ArrTest extends TestCase
     public function testOnly()
     {
         $arr = [
-            'foo' => 'Foo',
-            'bar' => 'Bar',
-            'baz' => 'Baz',
-            200   => 'Num 200',
-            400   => 'Num 400',
+            'foo'    => 'Foo',
+            'bar'    => 'Bar',
+            'baz'    => 'Baz',
+            'qwerty' => [
+                'q' => 'Q',
+                'w' => 'W',
+                'e' => 'E',
+            ],
+            200      => 'Num 200',
+            400      => 'Num 400',
+            500      => [
+                'r' => 'R',
+                't' => 'T',
+                'y' => 'Y',
+            ],
         ];
 
         $this->assertSame(['foo' => 'Foo', 'bar' => 'Bar'], $this->arr()->only($arr, ['foo', 'bar']));
         $this->assertSame(['bar' => 'Bar', 200 => 'Num 200'], $this->arr()->only($arr, ['bar', 200]));
+
+        $this->assertSame(
+            ['foo' => 'Foo', 'baz' => 'Baz', 'qwerty' => ['q' => 'Q', 'w' => 'W', 'e' => 'E']],
+            $this->arr()->only($arr, ['foo', 'baz', 'qwerty'])
+        );
+
+        $this->assertSame(
+            ['foo' => 'Foo', 'baz' => 'Baz', 500 => ['r' => 'R', 't' => 'T', 'y' => 'Y']],
+            $this->arr()->only($arr, ['foo', 'baz', 500])
+        );
+
+        $this->assertSame(
+            ['foo' => 'Foo', 'qwerty' => ['w' => 'W'], 500 => ['r' => 'R', 't' => 'T', 'y' => 'Y']],
+            $this->arr()->only($arr, ['foo', 'qwerty' => ['w'], 500])
+        );
+
+        $this->assertSame(
+            ['foo' => 'Foo', 'qwerty' => ['w' => 'W'], 500 => ['t' => 'T', 'y' => 'Y']],
+            $this->arr()->only($arr, ['foo', 'qwerty' => ['w'], 500 => ['t', 'y']])
+        );
 
         $this->assertSame([], $this->arr()->only($arr, []));
         $this->assertSame([], $this->arr()->only($arr, null));

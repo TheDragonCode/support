@@ -259,7 +259,17 @@ class Arr
             return array_filter($array, $keys, ARRAY_FILTER_USE_KEY);
         }
 
-        return array_intersect_key((array) $array, array_flip((array) $keys));
+        $result = [];
+
+        foreach ((array) $keys as $index => $key) {
+            if (is_array($key) && isset($array[$index])) {
+                $result[$index] = $this->only($array[$index], $key);
+            } elseif (isset($array[$key])) {
+                $result[$key] = $array[$key];
+            }
+        }
+
+        return $result;
     }
 
     /**
