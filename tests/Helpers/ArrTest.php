@@ -240,75 +240,213 @@ final class ArrTest extends TestCase
 
     public function testStoreAsArray()
     {
-        $array = ['q' => 1, 'r' => 2, 's' => 5, 'w' => 123];
+        $source = [
+            'add key' => 'Add key',
+            'all key' => 'All key',
+
+            'q' => 1,
+            'r' => 2,
+            's' => 5,
+            'w' => 123,
+
+            'API key'      => 'API key',
+            'Are you sure' => 'Are you sure',
+        ];
+
+        $target = [
+            'add key'      => 'Add key',
+            'all key'      => 'All key',
+            'API key'      => 'API key',
+            'Are you sure' => 'Are you sure',
+
+            'q' => 1,
+            'r' => 2,
+            's' => 5,
+            'w' => 123,
+        ];
 
         $path = $this->tempDirectory('array.php');
 
-        $this->arr()->store($array, $path);
+        $this->arr()->store($source, $path);
 
         $loaded = require $path;
 
         $this->assertFileExists($path);
         $this->assertIsArray($loaded);
-        $this->assertEquals($array, $loaded);
+        $this->assertEquals($target, $loaded);
     }
 
     public function testStoreAsJson()
     {
-        $array = ['q' => 1, 'r' => 2, 's' => 5, 'w' => 123];
+        $source = [
+            'add key' => 'Add key',
+            'all key' => 'All key',
+
+            'q' => 1,
+            'r' => 2,
+            's' => 5,
+            'w' => 123,
+
+            'API key'      => 'API key',
+            'Are you sure' => 'Are you sure',
+        ];
+
+        $target = [
+            'add key'      => 'Add key',
+            'all key'      => 'All key',
+            'API key'      => 'API key',
+            'Are you sure' => 'Are you sure',
+
+            'q' => 1,
+            'r' => 2,
+            's' => 5,
+            'w' => 123,
+        ];
 
         $path = $this->tempDirectory('array.json');
 
-        $this->arr()->store($array, $path, true);
+        $this->arr()->store($source, $path, true);
 
-        $this->assertJsonStringEqualsJsonFile($path, json_encode($array));
+        $this->assertJsonStringEqualsJsonFile($path, json_encode($target));
     }
 
     public function testStoreAsPrettyJson()
     {
-        $array = ['q' => 1, 'r' => 2, 's' => 5, 'w' => 123];
+        $source = [
+            'add key' => 'Add key',
+            'all key' => 'All key',
+
+            'q' => 1,
+            'r' => 2,
+            's' => 5,
+            'w' => 123,
+
+            'API key'      => 'API key',
+            'Are you sure' => 'Are you sure',
+        ];
+
+        $target = [
+            'add key'      => 'Add key',
+            'all key'      => 'All key',
+            'API key'      => 'API key',
+            'Are you sure' => 'Are you sure',
+
+            'q' => 1,
+            'r' => 2,
+            's' => 5,
+            'w' => 123,
+        ];
 
         $path = $this->tempDirectory('array.json');
 
-        $this->arr()->store($array, $path, true, false, JSON_PRETTY_PRINT);
+        $this->arr()->store($source, $path, true, false, JSON_PRETTY_PRINT);
 
-        $this->assertJsonStringEqualsJsonFile($path, json_encode($array, JSON_PRETTY_PRINT));
+        $this->assertJsonStringEqualsJsonFile($path, json_encode($target, JSON_PRETTY_PRINT));
     }
 
     public function testStoreAsSortedArray()
     {
-        $array = ['w' => 123, 'q' => 1, 's' => 5, 'r' => 2];
+        $source = [
+            'add key' => 'Add key',
+            'all key' => 'All key',
+
+            'q' => 1,
+            'r' => 2,
+            's' => 5,
+            'w' => 123,
+
+            'API key'      => 'API key',
+            'Are you sure' => 'Are you sure',
+        ];
+
+        $target = [
+            'add key'      => 'Add key',
+            'all key'      => 'All key',
+            'API key'      => 'API key',
+            'Are you sure' => 'Are you sure',
+
+            'q' => 1,
+            'r' => 2,
+            's' => 5,
+            'w' => 123,
+        ];
 
         $path = $this->tempDirectory('sorted.php');
 
-        $this->arr()->storeAsArray($path, $array, true);
+        $this->arr()->storeAsArray($path, $source, true);
 
         $loaded = require $path;
 
         $this->assertIsArray($loaded);
-        $this->assertEquals($array, $loaded);
+        $this->assertEquals($target, $loaded);
     }
 
     public function testStoreAsSortedJson()
     {
-        $array = ['w' => 123, 'q' => 1, 's' => 5, 'r' => 2];
+        $source = [
+            'add key' => 'Add key',
+            'all key' => 'All key',
+
+            'q' => 1,
+            'r' => 2,
+            's' => 5,
+            'w' => 123,
+
+            'API key'      => 'API key',
+            'Are you sure' => 'Are you sure',
+        ];
+
+        $target = [
+            'add key'      => 'Add key',
+            'all key'      => 'All key',
+            'API key'      => 'API key',
+            'Are you sure' => 'Are you sure',
+
+            'q' => 1,
+            'r' => 2,
+            's' => 5,
+            'w' => 123,
+        ];
 
         $path = $this->tempDirectory('sorted.json');
 
-        $this->arr()->storeAsJson($path, $array, true);
+        $this->arr()->storeAsJson($path, $source, true);
 
-        $this->assertJsonStringEqualsJsonFile($path, json_encode($array));
+        $this->assertJsonStringEqualsJsonFile($path, json_encode($target));
     }
 
     public function testStoreAsSortedPrettyJson()
     {
-        $array = ['w' => 123, 'q' => 1, 's' => 5, 'r' => 2];
+        $source = [
+            'add key' => 'Add key',
+            'all key' => 'All key',
+
+            'q' => 1,
+            'r' => 2,
+            's' => 5,
+            'w' => 123,
+
+            'API key'      => 'API key',
+            'Are you sure' => 'Are you sure',
+        ];
+
+        $target = [
+            'add key'      => 'Add key',
+            'all key'      => 'All key',
+            'API key'      => 'API key',
+            'Are you sure' => 'Are you sure',
+
+            'q' => 1,
+            'r' => 2,
+            's' => 5,
+            'w' => 123,
+        ];
 
         $path = $this->tempDirectory('sorted.json');
 
-        $this->arr()->storeAsJson($path, $array, true, JSON_PRETTY_PRINT);
+        $this->arr()->storeAsJson($path, $source, true, JSON_PRETTY_PRINT);
 
-        $this->assertJsonStringEqualsJsonFile($path, json_encode($array, JSON_PRETTY_PRINT));
+        $this->assertJsonStringEqualsJsonFile($path, json_encode($target, JSON_PRETTY_PRINT));
     }
 
     public function testSortByKeys()
