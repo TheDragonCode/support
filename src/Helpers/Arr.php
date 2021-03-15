@@ -138,7 +138,7 @@ class Arr
             }
         }
 
-        ksort($result, SORT_FLAG_CASE ^ SORT_NUMERIC ^ SORT_STRING);
+        ksort($result, SORT_FLAG_CASE ^ SORT_NATURAL);
 
         return $result;
     }
@@ -387,7 +387,7 @@ class Arr
         $array = (array) $array;
 
         if ($sort_keys) {
-            ksort($array, SORT_FLAG_CASE ^ SORT_NUMERIC ^ SORT_STRING);
+            ksort($array, SORT_FLAG_CASE ^ SORT_NATURAL);
         }
 
         $content = Stub::replace($stub, [
