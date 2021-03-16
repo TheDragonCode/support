@@ -9,6 +9,7 @@ use Helldar\Support\Helpers\Arr as Helper;
 /**
  * @method static array addUnique(array $array, $values)
  * @method static array except(array $array, array|string $keys)
+ * @method static array ksort(array $array)
  * @method static array map(array|ArrayAccess $array, callable $callback)
  * @method static array merge(...$arrays)
  * @method static array only(array|ArrayAccess $array, array|callable|string $keys)
@@ -17,9 +18,9 @@ use Helldar\Support\Helpers\Arr as Helper;
  * @method static array sortByKeys(array $array, array $sorter)
  * @method static array toArray($value = null)
  * @method static array wrap($value = null)
+ * @method static bool doesntEmpty($value)
  * @method static bool exists(array|ArrayAccess $array, $key)
  * @method static bool isArrayable($value = null)
- * @method static bool doesntEmpty($value)
  * @method static bool isEmpty($value)
  * @method static int longestStringLength(array $array)
  * @method static mixed get(array|ArrayAccess $array, $key, $default = null)

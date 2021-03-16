@@ -439,6 +439,41 @@ final class ArrTest extends TestCase
         $this->assertSame($expected, $actual);
     }
 
+    public function testKsort()
+    {
+        $source = [
+            'add key' => 'Add key',
+            'all key' => 'All key',
+
+            'q' => 1,
+            'r' => 2,
+            's' => 5,
+            'w' => 123,
+
+            'all_key' => 'All_Key',
+            'add_key' => 'Add_Key',
+
+            'API key'      => 'API key',
+            'Are you sure' => 'Are you sure',
+        ];
+
+        $target = [
+            'add key'      => 'Add key',
+            'add_key'      => 'Add_Key',
+            'all key'      => 'All key',
+            'all_key'      => 'All_Key',
+            'API key'      => 'API key',
+            'Are you sure' => 'Are you sure',
+
+            'q' => 1,
+            'r' => 2,
+            's' => 5,
+            'w' => 123,
+        ];
+
+        $this->assertSame($target, Arr::ksort($source));
+    }
+
     public function testExists()
     {
         $this->assertTrue(Arr::exists(['foo' => 'bar'], 'foo'));
