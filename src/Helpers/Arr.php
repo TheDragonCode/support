@@ -117,6 +117,26 @@ class Arr
     }
 
     /**
+     * Recursively sorting an array by keys.
+     *
+     * @param  array  $array
+     *
+     * @return array
+     */
+    public function ksort(array $array): array
+    {
+        ksort($array, SORT_FLAG_CASE ^ SORT_STRING);
+
+        foreach ($array as $key => &$value) {
+            if (is_array($value)) {
+                $value = $this->ksort($value);
+            }
+        }
+
+        return $array;
+    }
+
+    /**
      * Merge one or more arrays recursively.
      * Don't forget that numeric keys NOT will be renumbered!
      *
@@ -138,9 +158,7 @@ class Arr
             }
         }
 
-        ksort($result, SORT_FLAG_CASE ^ SORT_NATURAL);
-
-        return $result;
+        return $this->ksort($result);
     }
 
     /**
@@ -387,7 +405,7 @@ class Arr
         $array = (array) $array;
 
         if ($sort_keys) {
-            $this->sort($array);
+            $this->ksort($array);
         }
 
         $content = Stub::replace($stub, [
@@ -395,21 +413,5 @@ class Arr
         ]);
 
         File::store($path, $content);
-    }
-
-    /**
-     * Recursively sorting an array by keys.
-     *
-     * @param  array  $array
-     */
-    protected function sort(array &$array): void
-    {
-        ksort($array, SORT_FLAG_CASE ^ SORT_STRING);
-
-        foreach ($array as $key => &$value) {
-            if (is_array($value)) {
-                $this->sort($value);
-            }
-        }
     }
 }
