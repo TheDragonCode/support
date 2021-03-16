@@ -387,7 +387,7 @@ class Arr
         $array = (array) $array;
 
         if ($sort_keys) {
-            ksort($array, SORT_FLAG_CASE ^ SORT_NATURAL);
+            $this->sort($array);
         }
 
         $content = Stub::replace($stub, [
@@ -395,5 +395,21 @@ class Arr
         ]);
 
         File::store($path, $content);
+    }
+
+    /**
+     * Recursively sorting an array by keys.
+     *
+     * @param  array  $array
+     */
+    protected function sort(array &$array): void
+    {
+        ksort($array, SORT_FLAG_CASE ^ SORT_STRING);
+
+        foreach ($array as $key => &$value) {
+            if (is_array($value)) {
+                $this->sort($value);
+            }
+        }
     }
 }
