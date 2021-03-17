@@ -4,7 +4,6 @@ namespace Tests\Helpers;
 
 use Helldar\Support\Helpers\Instance;
 use Tests\Fixtures\Contracts\Contract;
-use Tests\Fixtures\Exceptions\AnyException;
 use Tests\Fixtures\Instances\Bar;
 use Tests\Fixtures\Instances\Baz;
 use Tests\Fixtures\Instances\Foo;
@@ -59,54 +58,6 @@ final class InstanceTest extends TestCase
         $this->assertSame('Baz', $this->instance()->basename(new Baz()));
 
         $this->assertNull($this->instance()->basename('foo'));
-    }
-
-    /** @deprecated */
-    public function testCall()
-    {
-        $this->assertSame('ok', $this->instance()->call(new Foo(), 'callDymamic'));
-        $this->assertSame('foo', $this->instance()->call(new Foo(), 'unknown', 'foo'));
-        $this->assertSame('foo', $this->instance()->call(Foo::class, 'unknown', 'foo'));
-
-        $this->assertNull($this->instance()->call(Foo::class, 'unknown'));
-
-        $this->assertSame('Foo Bar', $this->instance()->call(new AnyException(), 'getMessage'));
-    }
-
-    /** @deprecated */
-    public function testCallOf()
-    {
-        $this->assertSame('ok', $this->instance()->callOf([
-            Contract::class => 'callDymamic',
-        ], new Foo()));
-
-        $this->assertSame('ok', $this->instance()->callOf([
-            'Unknown'       => 'unknown',
-            Contract::class => 'callDymamic',
-        ], new Foo()));
-
-        $this->assertSame('foo', $this->instance()->callOf([
-            'Unknown' => 'unknown',
-        ], new Foo(), 'foo'));
-
-        $this->assertNull($this->instance()->callOf([
-            'Unknown' => 'unknown',
-        ], new Foo()));
-
-        $this->assertNull($this->instance()->callOf([
-            'Unknown' => 'unknown',
-        ], 'foo'));
-    }
-
-    /** @deprecated */
-    public function testCallsWhenNotEmpty()
-    {
-        $this->assertSame('ok', $this->instance()->callWhen(new Foo(), 'callDymamic'));
-        $this->assertSame('ok', $this->instance()->callWhen(new Foo(), ['unknown', 'callDymamic']));
-        $this->assertSame('foo', $this->instance()->callWhen(new Foo(), 'unknown', 'foo'));
-        $this->assertSame('foo', $this->instance()->callWhen(Foo::class, 'unknown', 'foo'));
-
-        $this->assertNull($this->instance()->callWhen(Foo::class, 'unknown'));
     }
 
     public function testExists()
