@@ -583,21 +583,19 @@ final class ArrTest extends TestCase
             $current = is_string($current) ? Str::lower($current) : $current;
             $next    = is_string($next) ? Str::lower($next) : $next;
 
-            $specials = ['*', '-', '_'];
-
             if ($current === $next) {
                 return 0;
             }
 
-            if (in_array($current, $specials, true)) {
-                if (in_array($next, $specials, true)) {
-                    return $current < $next ? -1 : 1;
-                }
-
+            if (is_string($current) && is_numeric($next)) {
                 return -1;
             }
 
-            return (is_string($current) && is_numeric($next)) || ($current < $next) ? -1 : 1;
+            if (is_numeric($current) && is_string($next)) {
+                return 1;
+            }
+
+            return $current < $next ? -1 : 1;
         };
 
         $this->assertSame($target, $this->arr()->ksort($source, $callback));
