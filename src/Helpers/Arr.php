@@ -4,11 +4,48 @@ namespace Helldar\Support\Helpers;
 
 use ArrayAccess;
 use Helldar\Support\Facades\Helpers\Filesystem\File;
+use Helldar\Support\Facades\Helpers\Str;
 use Helldar\Support\Facades\Tools\Stub;
 use Helldar\Support\Tools\Stub as StubTool;
 
 class Arr
 {
+    protected $special_chars = [
+        ' ',
+        '*',
+        '-',
+        '_',
+        '=',
+        '\\',
+        '/',
+        '|',
+        '~',
+        '`',
+        '+',
+        ':',
+        ';',
+        '@',
+        '#',
+        '$',
+        '%',
+        '^',
+        '&',
+        '?',
+        '!',
+        '(',
+        ')',
+        '{',
+        '}',
+        '[',
+        ']',
+        '§',
+        '№',
+        '<',
+        '>',
+        '.',
+        ',',
+    ];
+
     /**
      * Renaming array keys.
      * As the second parameter, a callback function is passed, which determines the actions for processing the value.
@@ -126,9 +163,27 @@ class Arr
      */
     public function ksort(array $array, callable $callback = null): array
     {
-        empty($callback)
-            ? ksort($array, SORT_FLAG_CASE ^ SORT_STRING)
-            : uksort($array, $callback);
+        $callback = $callback
+            ?: function ($current, $next) {
+                $current = is_string($current) ? Str::lower($current) : $current;
+                $next    = is_string($next) ? Str::lower($next) : $next;
+
+                if ($current === $next) {
+                    return 0;
+                }
+
+                if (is_string($current) && is_numeric($next)) {
+                    return in_array($current, $this->special_chars) ? -1 : 1;
+                }
+
+                if (is_numeric($current) && is_string($next)) {
+                    return in_array($next, $this->special_chars) ? 1 : -1;
+                }
+
+                return $current < $next ? -1 : 1;
+            };
+
+        uksort($array, $callback);
 
         foreach ($array as $key => &$value) {
             if (is_array($value)) {

@@ -475,11 +475,11 @@ final class ArrTest extends TestCase
             '*' => 'asterisk',
             '-' => 'hyphen',
 
+            '_' => 'underscore',
+
             0   => 'Number 0',
             400 => 'Number 400',
             700 => 'Number 700',
-
-            '_' => 'underscore',
 
             'add key'      => 'Add key',
             'add_key'      => 'Add_Key',
@@ -537,10 +537,6 @@ final class ArrTest extends TestCase
 
             '_' => 'underscore',
 
-            0   => 'Number 0',
-            400 => 'Number 400',
-            700 => 'Number 700',
-
             'add key'      => 'Add key',
             'add_key'      => 'Add_Key',
             'addkey'       => 'AddKey',
@@ -554,24 +550,26 @@ final class ArrTest extends TestCase
             'r' => 2,
             's' => 5,
             'w' => 123,
+
+            0   => 'Number 0',
+            400 => 'Number 400',
+            700 => 'Number 700',
         ];
 
         $callback = static function ($current, $next) {
             $current = is_string($current) ? Str::lower($current) : $current;
             $next    = is_string($next) ? Str::lower($next) : $next;
 
-            $specials = ['*', '-', '_', '=', '\\', '/', '|', '~', '+', '@', '#', '$', '%', '^', '&', '(', ')', '{', '}', '[', ']'];
-
             if ($current === $next) {
                 return 0;
             }
 
             if (is_string($current) && is_numeric($next)) {
-                return in_array($current, $specials) ? -1 : 1;
+                return -1;
             }
 
             if (is_numeric($current) && is_string($next)) {
-                return in_array($next, $specials) ? 1 : -1;
+                return 1;
             }
 
             return $current < $next ? -1 : 1;
