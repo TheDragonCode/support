@@ -23,6 +23,8 @@ use RuntimeException;
  * @method HttpBuilder setQuery(array|string $value)
  * @method HttpBuilder setScheme(string $value)
  * @method HttpBuilder setUser(string $value)
+ * @method HttpBuilder putQuery(string $key, $value)
+ * @method HttpBuilder removeQuery(string $key)
  * @method string|null getFragment()
  * @method string|null getHost()
  * @method string|null getPass()
@@ -47,6 +49,12 @@ final class HttpBuilder
         PHP_URL_FRAGMENT => 'fragment',
     ];
 
+    protected $allow_put_remove = ['query'];
+
+    protected $casts = [
+        'query' => 'array',
+    ];
+
     /**
      * Calling magic methods.
      *
@@ -55,12 +63,12 @@ final class HttpBuilder
      *
      * @return $this|string|null
      */
-    public function __call($method, $args)
+    public function __call(string $method, $args)
     {
-        if ($this->isGetter($method) || $this->isSetter($method)) {
+        if ($this->isGetter($method) || $this->isSetter($method) || $this->isPutter($method) || $this->isRemover($method)) {
             $key = $this->parseKey($method);
 
-            if (! $this->allowKey($key)) {
+            if (! $this->allowKey($key) || ! $this->allowArrayable($method, $key)) {
                 throw new RuntimeException($method . ' method not defined.');
             }
 
@@ -74,6 +82,16 @@ final class HttpBuilder
                     $this->validateArgumentsCount($method, $args);
 
                     return $this->set($key, $args[0]);
+
+                case $this->isPutter($method):
+                    $this->validateArgumentsCount($method, $args, 2);
+
+                    return $this->put($key, $args[0], $args[1]);
+
+                case $this->isRemover($method):
+                    $this->validateArgumentsCount($method, $args);
+
+                    return $this->remove($key, $args[0]);
             }
         }
 
@@ -108,8 +126,10 @@ final class HttpBuilder
         $key       = $this->componentKey($component);
 
         $component === -1 || empty($key)
-            ? $this->parsed       = parse_url($url)
+            ? $this->parsed = parse_url($url)
             : $this->parsed[$key] = parse_url($url, $component);
+
+        $this->cast();
 
         return $this;
     }
@@ -130,6 +150,8 @@ final class HttpBuilder
 
             $this->set($key, $value);
         }
+
+        $this->cast();
 
         return $this;
     }
@@ -223,6 +245,15 @@ final class HttpBuilder
         return in_array($key, $this->components);
     }
 
+    protected function allowArrayable(?string $method, ?string $key): bool
+    {
+        if ($this->isPutter($method) || $this->isRemover($method)) {
+            return in_array($key, $this->allow_put_remove);
+        }
+
+        return true;
+    }
+
     /**
      * Checks if the method is a request for information.
      *
@@ -248,6 +279,30 @@ final class HttpBuilder
     }
 
     /**
+     * Checks if the method is a request to put value.
+     *
+     * @param  string  $method
+     *
+     * @return bool
+     */
+    protected function isPutter(string $method): bool
+    {
+        return StrFacade::startsWith($method, 'put');
+    }
+
+    /**
+     * Checks if the method is a request to remove value.
+     *
+     * @param  string  $method
+     *
+     * @return bool
+     */
+    protected function isRemover(string $method): bool
+    {
+        return StrFacade::startsWith($method, 'remove');
+    }
+
+    /**
      * Gets the key of the component from the name of the magic method.
      *
      * @param  string  $method
@@ -256,7 +311,25 @@ final class HttpBuilder
      */
     protected function parseKey(string $method): ?string
     {
-        $search = StrFacade::startsWith($method, 'get') ? 'get' : 'set';
+        $search = 'unknown';
+
+        switch (true) {
+            case $this->isGetter($method):
+                $search = 'get';
+                break;
+
+            case $this->isSetter($method):
+                $search = 'set';
+                break;
+
+            case $this->isPutter($method):
+                $search = 'put';
+                break;
+
+            case $this->isRemover($method):
+                $search = 'remove';
+                break;
+        }
 
         return StrFacade::lower(StrFacade::after($method, $search));
     }
@@ -271,7 +344,13 @@ final class HttpBuilder
      */
     protected function set(string $key, $value): self
     {
-        $this->parsed[$key] = is_array($value) ? http_build_query($value) : $value;
+        switch (true) {
+            case $this->hasCastArray($key):
+                $value = $this->castToArray($value);
+                break;
+        }
+
+        $this->parsed[$key] = $value;
 
         return $this;
     }
@@ -281,11 +360,87 @@ final class HttpBuilder
      *
      * @param  string  $key
      *
-     * @return string|null
+     * @return array|string|null
      */
-    protected function get(string $key): ?string
+    protected function get(string $key)
     {
-        return $this->parsed[$key] ?? null;
+        if ($value = $this->parsed[$key] ?? null) {
+            return $this->hasCastArray($key) ? http_build_query($value) : $value;
+        }
+
+        return null;
+    }
+
+    /**
+     * Adds a key-value to an array.
+     *
+     * @param  string  $key
+     * @param  string  $parameter
+     * @param  mixed  $value
+     *
+     * @return $this
+     */
+    protected function put(string $key, string $parameter, $value): self
+    {
+        $this->parsed[$key][$parameter] = $value;
+
+        return $this;
+    }
+
+    /**
+     * Removes a key from a variable.
+     *
+     * @param  string  $key
+     * @param  string  $parameter
+     *
+     * @return $this
+     */
+    protected function remove(string $key, string $parameter): self
+    {
+        unset($this->parsed[$key][$parameter]);
+
+        return $this;
+    }
+
+    protected function hasCastArray(string $key): bool
+    {
+        return ($this->casts[$key] ?? null) === 'array';
+    }
+
+    protected function cast(): void
+    {
+        foreach ($this->casts as $key => $cast) {
+            $value = $this->parsed[$key] ?? null;
+
+            switch ($cast) {
+                case 'array':
+                    $value = $this->castToArray($value);
+                    break;
+            }
+
+            $this->parsed[$key] = $value;
+        }
+    }
+
+    protected function castToArray($value): array
+    {
+        if (empty($value)) {
+            return [];
+        }
+
+        if (is_array($value)) {
+            return $value;
+        }
+
+        $items = [];
+
+        foreach (explode('&', $value) as $item) {
+            [$key, $value] = StrFacade::contains($item, '=') ? explode('=', $item) : [0, $item];
+
+            $items[$key] = $value;
+        }
+
+        return $items;
     }
 
     /**
@@ -297,7 +452,7 @@ final class HttpBuilder
      */
     protected function validateArgumentsCount(string $method, array $args, int $need = 1): void
     {
-        if (count($args) > 1) {
+        if (count($args) > $need) {
             throw new ArgumentCountError($method . ' expects at most ' . $need . ' parameter, ' . count($args) . ' given.');
         }
     }
