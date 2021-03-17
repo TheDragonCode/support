@@ -125,8 +125,6 @@ final class SorterTest extends TestCase
         $this->assertTrue(in_array('.', $this->sorter()->specialChars()));
         $this->assertTrue(in_array(',', $this->sorter()->specialChars()));
 
-        $this->assertTrue(in_array(0, $this->sorter()->specialChars()));
-
         $this->assertFalse(in_array('foo', $this->sorter()->specialChars()));
         $this->assertFalse(in_array('bar', $this->sorter()->specialChars()));
         $this->assertFalse(in_array('baz', $this->sorter()->specialChars()));
