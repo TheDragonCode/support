@@ -120,16 +120,19 @@ class Arr
      * Recursively sorting an array by keys.
      *
      * @param  array  $array
+     * @param  callable|null  $callback
      *
      * @return array
      */
-    public function ksort(array $array): array
+    public function ksort(array $array, callable $callback = null): array
     {
-        ksort($array, SORT_FLAG_CASE ^ SORT_STRING);
+        empty($callback)
+            ? ksort($array, SORT_FLAG_CASE ^ SORT_STRING)
+            : uksort($array, $callback);
 
         foreach ($array as $key => &$value) {
             if (is_array($value)) {
-                $value = $this->ksort($value);
+                $value = $this->ksort($value, $callback);
             }
         }
 

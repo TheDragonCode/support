@@ -9,7 +9,7 @@ use Helldar\Support\Helpers\Arr as Helper;
 /**
  * @method static array addUnique(array $array, $values)
  * @method static array except(array $array, array|string $keys)
- * @method static array ksort(array $array)
+ * @method static array ksort(array $array, callable $callback = null)
  * @method static array map(array|ArrayAccess $array, callable $callback)
  * @method static array merge(...$arrays)
  * @method static array only(array|ArrayAccess $array, array|callable|string $keys)
