@@ -4,6 +4,7 @@ namespace Helldar\Support\Helpers;
 
 use ArrayAccess;
 use Helldar\Support\Facades\Helpers\Filesystem\File;
+use Helldar\Support\Facades\Tools\Sorter;
 use Helldar\Support\Facades\Tools\Stub;
 use Helldar\Support\Tools\Stub as StubTool;
 
@@ -117,6 +118,29 @@ class Arr
     }
 
     /**
+     * Recursively sorting an array by values.
+     *
+     * @param  array  $array
+     * @param  callable|null  $callback
+     *
+     * @return array
+     */
+    public function sort(array $array, callable $callback = null): array
+    {
+        $callback = $callback ?: Sorter::defaultCallback();
+
+        usort($array, $callback);
+
+        foreach ($array as $key => &$value) {
+            if (is_array($value)) {
+                $value = $this->sort($value, $callback);
+            }
+        }
+
+        return $array;
+    }
+
+    /**
      * Recursively sorting an array by keys.
      *
      * @param  array  $array
@@ -126,9 +150,9 @@ class Arr
      */
     public function ksort(array $array, callable $callback = null): array
     {
-        empty($callback)
-            ? ksort($array, SORT_FLAG_CASE ^ SORT_STRING)
-            : uksort($array, $callback);
+        $callback = $callback ?: Sorter::defaultCallback();
+
+        uksort($array, $callback);
 
         foreach ($array as $key => &$value) {
             if (is_array($value)) {

@@ -2,17 +2,13 @@
 
 namespace Helldar\Support\Helpers;
 
-use Helldar\Support\Concerns\Deprecation;
 use Helldar\Support\Facades\Helpers\Arr as ArrHelper;
-use Helldar\Support\Facades\Helpers\Call as CallHelper;
 use Helldar\Support\Facades\Helpers\Is as IsHelper;
 use Helldar\Support\Facades\Helpers\Reflection as ReflectionHelper;
 use ReflectionClass;
 
 final class Instance
 {
-    use Deprecation;
-
     /**
      * Checks if the item being checked inherits from other objects and interfaces.
      *
@@ -92,60 +88,6 @@ final class Instance
         }
 
         return IsHelper::string($haystack) ? class_exists($haystack) || interface_exists($haystack) : false;
-    }
-
-    /**
-     * Calls a method on an object.
-     *
-     * @deprecated The method is deprecated and will be removed in version 3.0. Use "Helldar\Support\Facades\Helpers\Call::runExists()" instead.
-     *
-     * @param  object|string  $object
-     * @param  string  $method
-     * @param  null  $default
-     *
-     * @return false|mixed|null
-     */
-    public function call($object, string $method, $default = null)
-    {
-        self::deprecatedMethod(__FUNCTION__, CallHelper::class, 'runExists');
-
-        return CallHelper::runExists($object, $method) ?: $default;
-    }
-
-    /**
-     * Calls the object's methods one by one and returns the first non-empty value.
-     *
-     * @deprecated The method is deprecated and will be removed in version 3.0. Use "Helldar\Support\Facades\Helpers\Call::runMethods()" instead.
-     *
-     * @param  object  $object
-     * @param  string|string[]  $methods
-     * @param  null  $default
-     *
-     * @return false|mixed|null
-     */
-    public function callWhen($object, $methods, $default = null)
-    {
-        self::deprecatedMethod(__FUNCTION__, CallHelper::class, 'runMethods');
-
-        return CallHelper::runMethods($object, $methods) ?: $default;
-    }
-
-    /**
-     * Calls a method of an object that matches a class.
-     *
-     * @deprecated The method is deprecated and will be removed in version 3.0. Use "Helldar\Support\Facades\Helpers\Call::runOf()" instead.
-     *
-     * @param  array  $map
-     * @param  object  $value
-     * @param  null  $default
-     *
-     * @return false|mixed|null
-     */
-    public function callOf(array $map, $value, $default = null)
-    {
-        self::deprecatedMethod(__FUNCTION__, CallHelper::class, 'runOf');
-
-        return CallHelper::runOf($map, $value) ?: $default;
     }
 
     /**

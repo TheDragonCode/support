@@ -66,6 +66,22 @@ final class HttpBuilderTest extends TestCase
         $this->builder()->parse('foo.bar');
     }
 
+    public function testParseEmpty()
+    {
+        $this->expectException(NotValidUrlException::class);
+        $this->expectExceptionMessage('The "" is not a valid URL.');
+
+        $this->builder()->parse('');
+    }
+
+    public function testParseNull()
+    {
+        $this->expectException(NotValidUrlException::class);
+        $this->expectExceptionMessage('The "" is not a valid URL.');
+
+        $this->builder()->parse(null);
+    }
+
     public function testRawShort()
     {
         $parsed = parse_url('https://localhost/foo/bar');
@@ -113,22 +129,6 @@ final class HttpBuilderTest extends TestCase
         $parsed = ['foo' => 'bar'];
 
         $this->builder()->raw($parsed);
-    }
-
-    public function testParseEmpty()
-    {
-        $this->expectException(NotValidUrlException::class);
-        $this->expectExceptionMessage('The "" is not a valid URL.');
-
-        $this->builder()->parse('');
-    }
-
-    public function testParseNull()
-    {
-        $this->expectException(NotValidUrlException::class);
-        $this->expectExceptionMessage('The "" is not a valid URL.');
-
-        $this->builder()->parse(null);
     }
 
     public function testCompileShort()
@@ -303,7 +303,7 @@ final class HttpBuilderTest extends TestCase
 
         $builder->setQuery('foo');
 
-        $this->assertSame('foo', $builder->getQuery());
+        $this->assertSame('0=foo', $builder->getQuery());
     }
 
     public function testSetUser()
@@ -315,6 +315,156 @@ final class HttpBuilderTest extends TestCase
         $builder->setUser('foo');
 
         $this->assertSame('foo', $builder->getUser());
+    }
+
+    public function testPutFragment()
+    {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('putFragment method not defined.');
+
+        $this->builder()->putFragment('foo', 'bar');
+    }
+
+    public function testPutHost()
+    {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('putHost method not defined.');
+
+        $this->builder()->putHost('foo', 'bar');
+    }
+
+    public function testPutPass()
+    {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('putPass method not defined.');
+
+        $this->builder()->putPass('foo', 'bar');
+    }
+
+    public function testPutPath()
+    {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('putPath method not defined.');
+
+        $this->builder()->putPath('foo', 'bar');
+    }
+
+    public function testPutPort()
+    {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('putPort method not defined.');
+
+        $this->builder()->putPort('foo', 'bar');
+    }
+
+    public function testPutQuery()
+    {
+        $builder = $this->builder()->parse('https://foo:bar@localhost/foo/bar?id=123#qwerty');
+
+        $this->assertSame('https', $builder->getScheme());
+        $this->assertSame('foo', $builder->getUser());
+        $this->assertSame('bar', $builder->getPass());
+        $this->assertSame('localhost', $builder->getHost());
+        $this->assertSame('/foo/bar', $builder->getPath());
+        $this->assertSame('id=123', $builder->getQuery());
+        $this->assertSame('qwerty', $builder->getFragment());
+
+        $builder->putQuery('qwe', 'rty');
+        $builder->putQuery('wa', 'sd');
+
+        $this->assertSame('https://foo:bar@localhost/foo/bar?id=123&qwe=rty&wa=sd#qwerty', $builder->compile());
+        $this->assertNotSame('https://foo:bar@localhost/foo/bar?id=123#qwerty', $builder->compile());
+    }
+
+    public function testPutScheme()
+    {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('putScheme method not defined.');
+
+        $this->builder()->putScheme('foo', 'bar');
+    }
+
+    public function testPutUser()
+    {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('putUser method not defined.');
+
+        $this->builder()->putUser('foo', 'bar');
+    }
+
+    public function testRemoveFragment()
+    {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('removeFragment method not defined.');
+
+        $this->builder()->removeFragment('foo');
+    }
+
+    public function testRemoveHost()
+    {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('removeHost method not defined.');
+
+        $this->builder()->removeHost('foo');
+    }
+
+    public function testRemovePass()
+    {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('removePass method not defined.');
+
+        $this->builder()->removePass('foo');
+    }
+
+    public function testRemovePath()
+    {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('removePath method not defined.');
+
+        $this->builder()->removePath('foo');
+    }
+
+    public function testRemovePort()
+    {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('removePort method not defined.');
+
+        $this->builder()->removePort('foo');
+    }
+
+    public function testRemoveQuery()
+    {
+        $builder = $this->builder()->parse('https://foo:bar@localhost/foo/bar?id=123&qwe=rty&wa=sd#qwerty');
+
+        $this->assertSame('https', $builder->getScheme());
+        $this->assertSame('foo', $builder->getUser());
+        $this->assertSame('bar', $builder->getPass());
+        $this->assertSame('localhost', $builder->getHost());
+        $this->assertSame('/foo/bar', $builder->getPath());
+        $this->assertSame('id=123&qwe=rty&wa=sd', $builder->getQuery());
+        $this->assertSame('qwerty', $builder->getFragment());
+
+        $builder->removeQuery('qwe');
+        $builder->removeQuery('wa');
+
+        $this->assertSame('https://foo:bar@localhost/foo/bar?id=123#qwerty', $builder->compile());
+        $this->assertNotSame('https://foo:bar@localhost/foo/bar?id=123&qwe=rty&wa=sd#qwerty', $builder->compile());
+    }
+
+    public function testRemoveScheme()
+    {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('removeScheme method not defined.');
+
+        $this->builder()->removeScheme('foo');
+    }
+
+    public function testRemoveUser()
+    {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('removeUser method not defined.');
+
+        $this->builder()->removeUser('foo', 'bar');
     }
 
     public function testSetUnknown()

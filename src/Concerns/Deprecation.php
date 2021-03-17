@@ -9,7 +9,7 @@ trait Deprecation
         $namespace = static::getDeprecatedNamespace();
 
         static::deprecated(
-            'The %s::%s() method has been deprecated and will be removed in version 3.0, use  %s::%s() instead.',
+            'The %s::%s() method has been deprecated and will be removed in version 4.0, use  %s::%s() instead.',
             $namespace,
             $old_method,
             $new_class,
@@ -24,6 +24,6 @@ trait Deprecation
 
     protected static function deprecated(string $message, ...$args): void
     {
-        trigger_deprecation('andrey-helldar/support', '3.0', $message, ...$args);
+        trigger_deprecation('andrey-helldar/support', '4.0', $message, ...$args);
     }
 }

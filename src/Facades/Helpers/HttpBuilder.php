@@ -18,6 +18,8 @@ use Helldar\Support\Helpers\HttpBuilder as Helper;
  * @method static Helper setQuery(array|string $value)
  * @method static Helper setScheme(string $value)
  * @method static Helper setUser(string $value)
+ * @method static Helper putQuery(string $key, $value)
+ * @method static Helper removeQuery(string $key)
  * @method static string compile()
  * @method static string|null getFragment()
  * @method static string|null getHost()
