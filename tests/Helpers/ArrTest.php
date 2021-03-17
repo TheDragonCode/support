@@ -462,6 +462,141 @@ final class ArrTest extends TestCase
         $this->assertSame($expected, $actual);
     }
 
+    public function testSort()
+    {
+        $source = [
+            'add key' => 'Add key',
+            'all key' => 'All key',
+
+            700 => 700,
+
+            '*' => '*',
+
+            'q' => 1,
+            'r' => 2,
+            's' => 5,
+            'w' => 123,
+
+            '-' => '-',
+
+            400 => 400,
+
+            'all_key' => 'All_Key',
+            'add_key' => 'Add_Key',
+
+            0   => 0,
+            '_' => '_',
+
+            'API key'      => 'API key',
+            'Are you sure' => 'Are you sure',
+
+            'allkey' => 'AllKey',
+            'addkey' => 'AddKey',
+        ];
+
+        $target = [
+            '*',
+            '-',
+            '_',
+
+            0,
+            1,
+            2,
+            5,
+            123,
+            400,
+            700,
+
+            'Add key',
+            'Add_Key',
+            'AddKey',
+            'All key',
+            'All_Key',
+            'AllKey',
+            'API key',
+            'Are you sure',
+        ];
+
+        $this->assertSame($target, $this->arr()->sort($source));
+    }
+
+    public function testSortCallback()
+    {
+        $source = [
+            'add key' => 'Add key',
+            'all key' => 'All key',
+
+            700 => 700,
+
+            '*' => '*',
+
+            'q' => 1,
+            'r' => 2,
+            's' => 5,
+            'w' => 123,
+
+            '-' => '-',
+
+            400 => 400,
+
+            'all_key' => 'All_Key',
+            'add_key' => 'Add_Key',
+
+            0   => 0,
+            '_' => '_',
+
+            'API key'      => 'API key',
+            'Are you sure' => 'Are you sure',
+
+            'allkey' => 'AllKey',
+            'addkey' => 'AddKey',
+        ];
+
+        $target = [
+            '*',
+            '-',
+            '_',
+
+            'Add key',
+            'Add_Key',
+            'AddKey',
+            'All key',
+            'All_Key',
+            'AllKey',
+            'API key',
+            'Are you sure',
+
+            0,
+            1,
+            2,
+            5,
+            123,
+            400,
+            700,
+        ];
+
+        $callback = static function ($current, $next) {
+            $current = is_string($current) ? Str::lower($current) : $current;
+            $next    = is_string($next) ? Str::lower($next) : $next;
+
+            if ($current === $next) {
+                return 0;
+            }
+
+            if (is_string($current) && is_numeric($next)) {
+                return -1;
+            }
+
+            if (is_numeric($current) && is_string($next)) {
+                return 1;
+            }
+
+            return $current < $next ? -1 : 1;
+        };
+
+        $this->assertSame($target, $this->arr()->sort($source, $callback));
+    }
+
     public function testKsort()
     {
         $source = [
