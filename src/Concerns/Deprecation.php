@@ -3,7 +3,7 @@
 namespace Helldar\Support\Concerns;
 
 /**
- * If you use this trait, you need to install the dependency:
+ * If you use this trait, you need to install the dependency:.
  *
  * composer require symfony/deprecation-contracts
  */
