@@ -19,8 +19,7 @@
         "ext-ctype": "*",
         "ext-dom": "*",
         "ext-json": "*",
-        "ext-mbstring": "*",
-        "symfony/deprecation-contracts": "^2.2"
+        "ext-mbstring": "*"
     },
     "require-dev": {
         "ext-bcmath": "*",
