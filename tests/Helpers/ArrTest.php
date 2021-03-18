@@ -477,8 +477,6 @@ final class ArrTest extends TestCase
             's' => 5,
             'w' => 123,
 
-            '-' => '-',
-
             400 => 400,
 
             'all_key' => 'All_Key',
@@ -486,6 +484,36 @@ final class ArrTest extends TestCase
 
             0   => 0,
             '_' => '_',
+            '-' => '-',
+
+            'sub' => [
+                'add key' => 'Add key',
+                'all key' => 'All key',
+
+                700 => 700,
+
+                '*' => '*',
+
+                'q' => 1,
+                'r' => 2,
+                's' => 5,
+                'w' => 123,
+
+                400 => 400,
+
+                'all_key' => 'All_Key',
+                'add_key' => 'Add_Key',
+
+                0   => 0,
+                '_' => '_',
+                '-' => '-',
+
+                'API key'      => 'API key',
+                'Are you sure' => 'Are you sure',
+
+                'allkey' => 'AllKey',
+                'addkey' => 'AddKey',
+            ],
 
             'API key'      => 'API key',
             'Are you sure' => 'Are you sure',
@@ -515,6 +543,29 @@ final class ArrTest extends TestCase
             'AllKey',
             'API key',
             'Are you sure',
+
+            [
+                '*',
+                '-',
+                '_',
+
+                0,
+                1,
+                2,
+                5,
+                123,
+                400,
+                700,
+
+                'Add key',
+                'Add_Key',
+                'AddKey',
+                'All key',
+                'All_Key',
+                'AllKey',
+                'API key',
+                'Are you sure',
+            ],
         ];
 
         $this->assertSame($target, $this->arr()->sort($source));
@@ -545,6 +596,36 @@ final class ArrTest extends TestCase
             0   => 0,
             '_' => '_',
 
+            'sub' => [
+                'add key' => 'Add key',
+                'all key' => 'All key',
+
+                700 => 700,
+
+                '*' => '*',
+
+                'q' => 1,
+                'r' => 2,
+                's' => 5,
+                'w' => 123,
+
+                '-' => '-',
+
+                400 => 400,
+
+                'all_key' => 'All_Key',
+                'add_key' => 'Add_Key',
+
+                0   => 0,
+                '_' => '_',
+
+                'API key'      => 'API key',
+                'Are you sure' => 'Are you sure',
+
+                'allkey' => 'AllKey',
+                'addkey' => 'AddKey',
+            ],
+
             'API key'      => 'API key',
             'Are you sure' => 'Are you sure',
 
@@ -573,6 +654,29 @@ final class ArrTest extends TestCase
             123,
             400,
             700,
+
+            [
+                '*',
+                '-',
+                '_',
+
+                'Add key',
+                'Add_Key',
+                'AddKey',
+                'All key',
+                'All_Key',
+                'AllKey',
+                'API key',
+                'Are you sure',
+
+                0,
+                1,
+                2,
+                5,
+                123,
+                400,
+                700,
+            ],
         ];
 
         $callback = static function ($current, $next) {
@@ -622,6 +726,36 @@ final class ArrTest extends TestCase
             0   => 'Number 0',
             '_' => 'underscore',
 
+            'sub' => [
+                'add key' => 'Add key',
+                'all key' => 'All key',
+
+                700 => 'Number 700',
+
+                '*' => 'asterisk',
+
+                'q' => 1,
+                'r' => 2,
+                's' => 5,
+                'w' => 123,
+
+                '-' => 'hyphen',
+
+                400 => 'Number 400',
+
+                'all_key' => 'All_Key',
+                'add_key' => 'Add_Key',
+
+                0   => 'Number 0',
+                '_' => 'underscore',
+
+                'API key'      => 'API key',
+                'Are you sure' => 'Are you sure',
+
+                'allkey' => 'AllKey',
+                'addkey' => 'AddKey',
+            ],
+
             'API key'      => 'API key',
             'Are you sure' => 'Are you sure',
 
@@ -651,6 +785,32 @@ final class ArrTest extends TestCase
             'q' => 1,
             'r' => 2,
             's' => 5,
+
+            'sub' => [
+                '*' => 'asterisk',
+                '-' => 'hyphen',
+
+                '_' => 'underscore',
+
+                0   => 'Number 0',
+                400 => 'Number 400',
+                700 => 'Number 700',
+
+                'add key'      => 'Add key',
+                'add_key'      => 'Add_Key',
+                'addkey'       => 'AddKey',
+                'all key'      => 'All key',
+                'all_key'      => 'All_Key',
+                'allkey'       => 'AllKey',
+                'API key'      => 'API key',
+                'Are you sure' => 'Are you sure',
+
+                'q' => 1,
+                'r' => 2,
+                's' => 5,
+                'w' => 123,
+            ],
+
             'w' => 123,
         ];
 
@@ -682,6 +842,36 @@ final class ArrTest extends TestCase
             0   => 'Number 0',
             '_' => 'underscore',
 
+            'sub' => [
+                'add key' => 'Add key',
+                'all key' => 'All key',
+
+                700 => 'Number 700',
+
+                '*' => 'asterisk',
+
+                'q' => 1,
+                'r' => 2,
+                's' => 5,
+                'w' => 123,
+
+                '-' => 'hyphen',
+
+                400 => 'Number 400',
+
+                'all_key' => 'All_Key',
+                'add_key' => 'Add_Key',
+
+                0   => 'Number 0',
+                '_' => 'underscore',
+
+                'API key'      => 'API key',
+                'Are you sure' => 'Are you sure',
+
+                'allkey' => 'AllKey',
+                'addkey' => 'AddKey',
+            ],
+
             'API key'      => 'API key',
             'Are you sure' => 'Are you sure',
 
@@ -707,6 +897,32 @@ final class ArrTest extends TestCase
             'q' => 1,
             'r' => 2,
             's' => 5,
+
+            'sub' => [
+                '*' => 'asterisk',
+                '-' => 'hyphen',
+
+                '_' => 'underscore',
+
+                'add key'      => 'Add key',
+                'add_key'      => 'Add_Key',
+                'addkey'       => 'AddKey',
+                'all key'      => 'All key',
+                'all_key'      => 'All_Key',
+                'allkey'       => 'AllKey',
+                'API key'      => 'API key',
+                'Are you sure' => 'Are you sure',
+
+                'q' => 1,
+                'r' => 2,
+                's' => 5,
+                'w' => 123,
+
+                0   => 'Number 0',
+                400 => 'Number 400',
+                700 => 'Number 700',
+            ],
+
             'w' => 123,
 
             0   => 'Number 0',
