@@ -3,6 +3,7 @@
 namespace Helldar\Support\Helpers;
 
 use Helldar\Support\Facades\Helpers\Call as CallHelper;
+use Helldar\Support\Facades\Tools\Replace;
 use Illuminate\Contracts\Support\DeferringDisplayableValue;
 use Illuminate\Contracts\Support\Htmlable;
 use voku\helper\ASCII;
@@ -371,12 +372,15 @@ final class Str
      *
      * @param  string  $template
      * @param  array  $values
+     * @param  string|null  $key_format
      *
      * @return string
      */
-    public function replace(string $template, array $values): string
+    public function replace(string $template, array $values, string $key_format = null): string
     {
-        return str_replace(array_keys($values), array_values($values), $template);
+        $keys = Replace::toFormatArray(array_keys($values), $key_format);
+
+        return str_replace($keys, array_values($values), $template);
     }
 
     /**

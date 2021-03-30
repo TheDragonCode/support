@@ -242,6 +242,21 @@ final class StrTest extends TestCase
         $this->assertSame('bZr', $this->str()->replace('bar', ['a' => 'Z', 's' => 'X', 'o' => 'Q']));
         $this->assertSame('bZr', $this->str()->replace('bar', ['a' => 'Z', 's' => 'X', 'f' => 'E']));
         $this->assertSame('bZr', $this->str()->replace('bar', ['a' => 'Z', 's' => 'X', 'f' => 'E', 'o' => 'P']));
+
+        $this->assertSame('foo', $this->str()->replace('foo', ['a' => 'Z', 's' => 'X'], '{%s}'));
+        $this->assertSame('foo', $this->str()->replace('foo', ['a' => 'Z', 's' => 'X', 'o' => 'Q'], '{%s}'));
+        $this->assertSame('foo', $this->str()->replace('foo', ['a' => 'Z', 's' => 'X', 'f' => 'E'], '{%s}'));
+        $this->assertSame('foo', $this->str()->replace('foo', ['a' => 'Z', 's' => 'X', 'f' => 'E', 'o' => 'P'], '{%s}'));
+
+        $this->assertSame('bZr', $this->str()->replace('b{a}r', ['a' => 'Z', 's' => 'X'], '{%s}'));
+        $this->assertSame('bZr', $this->str()->replace('b{a}r', ['a' => 'Z', 's' => 'X', 'o' => 'Q'], '{%s}'));
+        $this->assertSame('bZr', $this->str()->replace('b{a}r', ['a' => 'Z', 's' => 'X', 'f' => 'E'], '{%s}'));
+        $this->assertSame('bZr', $this->str()->replace('b{a}r', ['a' => 'Z', 's' => 'X', 'f' => 'E', 'o' => 'P'], '{%s}'));
+
+        $this->assertSame('bZz', $this->str()->replace('b_a_z', ['a' => 'Z', 's' => 'X'], '_%s_'));
+        $this->assertSame('bZz', $this->str()->replace('b_a_z', ['a' => 'Z', 's' => 'X', 'o' => 'Q'], '_%s_'));
+        $this->assertSame('bZz', $this->str()->replace('b_a_z', ['a' => 'Z', 's' => 'X', 'f' => 'E'], '_%s_'));
+        $this->assertSame('bZz', $this->str()->replace('b_a_z', ['a' => 'Z', 's' => 'X', 'f' => 'E', 'o' => 'P'], '_%s_'));
     }
 
     public function testStrContains()
