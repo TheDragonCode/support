@@ -61,6 +61,20 @@ final class StrTest extends TestCase
         $this->assertSame('fo_o-_ba_r', $this->str()->snake('FoO   -   BaR'));
     }
 
+    public function testSlug()
+    {
+        $this->assertSame('hello-world', $this->str()->slug('hello world'));
+        $this->assertSame('hello-world', $this->str()->slug('hello-world'));
+        $this->assertSame('hello-world', $this->str()->slug('hello_world'));
+        $this->assertSame('hello_world', $this->str()->slug('hello_world', '_'));
+        $this->assertSame('user-at-host', $this->str()->slug('user@host'));
+        $this->assertSame('سلام-دنیا', $this->str()->slug('سلام دنیا', '-', null));
+        $this->assertSame('sometext', $this->str()->slug('some text', ''));
+        $this->assertSame('privetmir', $this->str()->slug('Привет, мир!', ''));
+        $this->assertSame('', $this->str()->slug('', ''));
+        $this->assertSame('', $this->str()->slug(''));
+    }
+
     public function testTitle()
     {
         $this->assertSame('Foo Bar', $this->str()->title('Foo Bar'));
@@ -217,6 +231,19 @@ final class StrTest extends TestCase
         $this->assertEmpty($this->str()->substr('Б', 2));
     }
 
+    public function testReplace()
+    {
+        $this->assertSame('foo', $this->str()->replace('foo', ['a' => 'Z', 's' => 'X']));
+        $this->assertSame('fQQ', $this->str()->replace('foo', ['a' => 'Z', 's' => 'X', 'o' => 'Q']));
+        $this->assertSame('Eoo', $this->str()->replace('foo', ['a' => 'Z', 's' => 'X', 'f' => 'E']));
+        $this->assertSame('EPP', $this->str()->replace('foo', ['a' => 'Z', 's' => 'X', 'f' => 'E', 'o' => 'P']));
+
+        $this->assertSame('bZr', $this->str()->replace('bar', ['a' => 'Z', 's' => 'X']));
+        $this->assertSame('bZr', $this->str()->replace('bar', ['a' => 'Z', 's' => 'X', 'o' => 'Q']));
+        $this->assertSame('bZr', $this->str()->replace('bar', ['a' => 'Z', 's' => 'X', 'f' => 'E']));
+        $this->assertSame('bZr', $this->str()->replace('bar', ['a' => 'Z', 's' => 'X', 'f' => 'E', 'o' => 'P']));
+    }
+
     public function testStrContains()
     {
         $this->assertTrue($this->str()->contains('qwerty', 'ert'));
@@ -266,6 +293,17 @@ final class StrTest extends TestCase
         $this->assertTrue($this->str()->doesntEmpty(new Baz()));
         $this->assertTrue($this->str()->doesntEmpty(new Baq()));
         $this->assertTrue($this->str()->doesntEmpty(new Arrayable()));
+    }
+
+    public function testAscii()
+    {
+        $this->assertSame('', $this->str()->ascii(null));
+
+        $this->assertSame('@', $this->str()->ascii('@'));
+        $this->assertSame('u', $this->str()->ascii('ü'));
+
+        $this->assertSame('h H sht Sht a A ia yo', $this->str()->ascii('х Х щ Щ ъ Ъ иа йо', 'bg'));
+        $this->assertSame('ae oe ue Ae Oe Ue', $this->str()->ascii('ä ö ü Ä Ö Ü', 'de'));
     }
 
     protected function str(): Str
