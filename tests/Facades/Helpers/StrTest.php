@@ -61,6 +61,20 @@ final class StrTest extends TestCase
         $this->assertSame('fo_o-_ba_r', Str::snake('FoO   -   BaR'));
     }
 
+    public function testSlug()
+    {
+        $this->assertSame('hello-world', Str::slug('hello world'));
+        $this->assertSame('hello-world', Str::slug('hello-world'));
+        $this->assertSame('hello-world', Str::slug('hello_world'));
+        $this->assertSame('hello_world', Str::slug('hello_world', '_'));
+        $this->assertSame('user-at-host', Str::slug('user@host'));
+        $this->assertSame('سلام-دنیا', Str::slug('سلام دنیا', '-', null));
+        $this->assertSame('sometext', Str::slug('some text', ''));
+        $this->assertSame('privetmir', Str::slug('Привет, мир!', ''));
+        $this->assertSame('', Str::slug('', ''));
+        $this->assertSame('', Str::slug(''));
+    }
+
     public function testTitle()
     {
         $this->assertSame('Foo Bar', Str::title('Foo Bar'));
@@ -279,5 +293,16 @@ final class StrTest extends TestCase
         $this->assertTrue(Str::doesntEmpty(new Baz()));
         $this->assertTrue(Str::doesntEmpty(new Baq()));
         $this->assertTrue(Str::doesntEmpty(new Arrayable()));
+    }
+
+    public function testAscii()
+    {
+        $this->assertSame('', Str::ascii(null));
+
+        $this->assertSame('@', Str::ascii('@'));
+        $this->assertSame('u', Str::ascii('ü'));
+
+        $this->assertSame('h H sht Sht a A ia yo', Str::ascii('х Х щ Щ ъ Ъ иа йо', 'bg'));
+        $this->assertSame('ae oe ue Ae Oe Ue', Str::ascii('ä ö ü Ä Ö Ü', 'de'));
     }
 }

@@ -5,6 +5,7 @@ namespace Helldar\Support\Helpers;
 use Helldar\Support\Facades\Helpers\Call as CallHelper;
 use Illuminate\Contracts\Support\DeferringDisplayableValue;
 use Illuminate\Contracts\Support\Htmlable;
+use voku\helper\ASCII;
 
 final class Str
 {
@@ -283,6 +284,38 @@ final class Str
     }
 
     /**
+     * Generate a URL friendly "slug" from a given string.
+     *
+     * @see https://github.com/illuminate/support/blob/master/Str.php
+     *
+     * @param  string  $title
+     * @param  string  $separator
+     * @param  string|null  $language
+     *
+     * @return string
+     */
+    public function slug(string $title, string $separator = '-', ?string $language = 'en')
+    {
+        $title = $language ? $this->ascii($title, $language) : $title;
+
+        // Convert all dashes/underscores into separator
+        $flip = $separator === '-' ? '_' : '-';
+
+        $title = preg_replace('![' . preg_quote($flip) . ']+!u', $separator, $title);
+
+        // Replace @ with the word 'at'
+        $title = str_replace('@', $separator . 'at' . $separator, $title);
+
+        // Remove all characters that are not the separator, letters, numbers, or whitespace.
+        $title = preg_replace('![^' . preg_quote($separator) . '\pL\pN\s]+!u', '', $this->lower($title));
+
+        // Replace all separator characters and whitespace by a single separator
+        $title = preg_replace('![' . preg_quote($separator) . '\s]+!u', $separator, $title);
+
+        return trim($title, $separator);
+    }
+
+    /**
      * Convert the given string to title case.
      *
      * @see https://github.com/illuminate/support/blob/master/Str.php
@@ -421,5 +454,20 @@ final class Str
     public function doesntEmpty($value): bool
     {
         return ! $this->isEmpty($value);
+    }
+
+    /**
+     * Transliterate a UTF-8 value to ASCII.
+     *
+     * @see https://github.com/illuminate/support/blob/master/Str.php
+     *
+     * @param  string|null  $value
+     * @param  string|null  $language
+     *
+     * @return string
+     */
+    public function ascii(?string $value, ?string $language = 'en'): string
+    {
+        return ASCII::to_ascii((string) $value, $language);
     }
 }

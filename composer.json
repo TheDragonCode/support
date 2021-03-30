@@ -19,7 +19,8 @@
         "ext-ctype": "*",
         "ext-dom": "*",
         "ext-json": "*",
-        "ext-mbstring": "*"
+        "ext-mbstring": "*",
+        "voku/portable-ascii": "^1.4.8"
     },
     "require-dev": {
         "ext-bcmath": "*",
