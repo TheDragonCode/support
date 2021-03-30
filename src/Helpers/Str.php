@@ -334,6 +334,19 @@ final class Str
     }
 
     /**
+     * Replace all occurrences of the search string with the replacement string.
+     *
+     * @param  string  $template
+     * @param  array  $values
+     *
+     * @return string
+     */
+    public function replace(string $template, array $values): string
+    {
+        return str_replace(array_keys($values), array_values($values), $template);
+    }
+
+    /**
      * Get the portion of a string before the first occurrence of a given value.
      *
      * @see https://github.com/illuminate/support/blob/master/Str.php

@@ -12,6 +12,7 @@ use Helldar\Support\Helpers\Str as Helper;
  * @method static bool isEmpty($value)
  * @method static bool startsWith(string $haystack, string|string[] $needles)
  * @method static int length(?string $value, string $encoding = null)
+ * @method static string replace(string $template, array $values)
  * @method static string|null after(string $subject, string $search)
  * @method static string|null before(string $subject, string $search)
  * @method static string|null camel(?string $value)

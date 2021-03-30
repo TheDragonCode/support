@@ -217,6 +217,19 @@ final class StrTest extends TestCase
         $this->assertEmpty($this->str()->substr('Б', 2));
     }
 
+    public function testReplace()
+    {
+        $this->assertSame('foo', $this->str()->replace('foo', ['a' => 'Z', 's' => 'X']));
+        $this->assertSame('fQQ', $this->str()->replace('foo', ['a' => 'Z', 's' => 'X', 'o' => 'Q']));
+        $this->assertSame('Eoo', $this->str()->replace('foo', ['a' => 'Z', 's' => 'X', 'f' => 'E']));
+        $this->assertSame('EPP', $this->str()->replace('foo', ['a' => 'Z', 's' => 'X', 'f' => 'E', 'o' => 'P']));
+
+        $this->assertSame('bZr', $this->str()->replace('bar', ['a' => 'Z', 's' => 'X']));
+        $this->assertSame('bZr', $this->str()->replace('bar', ['a' => 'Z', 's' => 'X', 'o' => 'Q']));
+        $this->assertSame('bZr', $this->str()->replace('bar', ['a' => 'Z', 's' => 'X', 'f' => 'E']));
+        $this->assertSame('bZr', $this->str()->replace('bar', ['a' => 'Z', 's' => 'X', 'f' => 'E', 'o' => 'P']));
+    }
+
     public function testStrContains()
     {
         $this->assertTrue($this->str()->contains('qwerty', 'ert'));
