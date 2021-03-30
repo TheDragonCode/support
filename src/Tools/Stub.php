@@ -3,6 +3,7 @@
 namespace Helldar\Support\Tools;
 
 use Helldar\Support\Exceptions\UnknownStubFileException;
+use Helldar\Support\Facades\Helpers\Str;
 
 final class Stub
 {
@@ -24,10 +25,7 @@ final class Stub
     {
         $content = $this->get($stub_file);
 
-        $keys   = array_keys($replace);
-        $values = array_values($replace);
-
-        return str_replace($keys, $values, $content);
+        return Str::replace($content, $replace);
     }
 
     /**
