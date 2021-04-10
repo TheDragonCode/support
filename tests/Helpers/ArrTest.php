@@ -1057,17 +1057,60 @@ final class ArrTest extends TestCase
             'foo' => 11,
             'bar' => 22,
             'baz' => 33,
+
+            'qwe' => [
+                'qaz' => 11,
+                'wsx' => 22,
+                'edc' => 33,
+            ],
         ];
 
         $expected = [
             'foo' => 'Foo_22',
             'bar' => 'Bar_44',
             'baz' => 'Baz_66',
+
+            'qwe' => [
+                'qaz' => 11,
+                'wsx' => 22,
+                'edc' => 33,
+            ],
         ];
 
         $this->assertSame($expected, $this->arr()->map($source, static function ($value, $key) {
             return Str::studly($key) . '_' . ($value * 2);
         }));
+    }
+
+    public function testMapRecursive()
+    {
+        $source = [
+            'foo' => 11,
+            'bar' => 22,
+            'baz' => 33,
+
+            'qwe' => [
+                'qaz' => 11,
+                'wsx' => 22,
+                'edc' => 33,
+            ],
+        ];
+
+        $expected = [
+            'foo' => 'Foo_22',
+            'bar' => 'Bar_44',
+            'baz' => 'Baz_66',
+
+            'qwe' => [
+                'qaz' => 'Qaz_22',
+                'wsx' => 'Wsx_44',
+                'edc' => 'Edc_66',
+            ],
+        ];
+
+        $this->assertSame($expected, $this->arr()->map($source, static function ($value, $key) {
+            return Str::studly($key) . '_' . ($value * 2);
+        }, true));
     }
 
     protected function arr(): Arr

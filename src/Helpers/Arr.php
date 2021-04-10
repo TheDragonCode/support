@@ -322,13 +322,18 @@ class Arr
      *
      * @param  array|ArrayAccess  $array
      * @param  callable  $callback
+     * @param  bool  $recursive
      *
      * @return array
      */
-    public function map($array, callable $callback): array
+    public function map($array, callable $callback, bool $recursive = false): array
     {
         foreach ($array as $key => &$value) {
-            $value = $callback($value, $key);
+            if ($recursive && is_array($value)) {
+                $value = $this->map($value, $callback, $recursive);
+            } else {
+                $value = is_array($value) ? $value : $callback($value, $key);
+            }
         }
 
         return $array;
