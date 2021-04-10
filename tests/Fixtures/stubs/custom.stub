@@ -1,0 +1,10 @@
+<?php
+
+// Foo
+// Bar
+
+/*
+ * Foo Bar
+ */
+
+return {{slot}};

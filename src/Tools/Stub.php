@@ -55,6 +55,23 @@ final class Stub
      */
     protected function path(string $filename): ?string
     {
-        return realpath(__DIR__ . '/../../resources/stubs/' . $filename);
+        $path = $this->isCustom($filename) ? $filename : __DIR__ . '/../../resources/stubs/' . $filename;
+
+        return realpath($path);
+    }
+
+    /**
+     * Returns a link to the template file.
+     *
+     * If the file exists under the specified link, it will return it,
+     * otherwise it will search in the default folder.
+     *
+     * @param  string  $path
+     *
+     * @return bool
+     */
+    protected function isCustom(string $path): bool
+    {
+        return file_exists($path);
     }
 }
