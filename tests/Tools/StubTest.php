@@ -3,6 +3,7 @@
 namespace Tests\Tools;
 
 use Helldar\Support\Exceptions\UnknownStubFileException;
+use Helldar\Support\Facades\Helpers\Str;
 use Helldar\Support\Tools\Stub as Tool;
 use Tests\TestCase;
 
@@ -28,6 +29,16 @@ final class StubTest extends TestCase
     public function testGetJson()
     {
         $this->assertSame("{{slot}}\n", $this->stub()->get(Tool::JSON));
+    }
+
+    public function testCustomStubSee()
+    {
+        $path = __DIR__ . '/../Fixtures/stubs/custom.stub';
+
+        $this->assertTrue(Str::contains($this->stub()->get($path), '// Foo'));
+        $this->assertTrue(Str::contains($this->stub()->get($path), '// Bar'));
+        $this->assertTrue(Str::contains($this->stub()->get($path), '* Foo Bar'));
+        $this->assertTrue(Str::contains($this->stub()->get($path), 'return {{slot}};'));
     }
 
     public function testGetThrow()
