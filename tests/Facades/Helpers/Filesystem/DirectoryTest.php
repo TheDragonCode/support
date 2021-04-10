@@ -84,7 +84,7 @@ final class DirectoryTest extends TestCase
 
     public function testNames()
     {
-        $available = ['Contracts', 'Exceptions', 'Facades', 'Instances'];
+        $available = ['Contracts', 'Exceptions', 'Facades', 'Instances', 'stubs'];
 
         $names = Directory::names($this->fixturesDirectory());
 
