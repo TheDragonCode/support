@@ -158,7 +158,7 @@ final class Str
     public function startsWith(string $haystack, $needles): bool
     {
         foreach ((array) $needles as $needle) {
-            if (! empty($needle) && str_starts_with($haystack, $needle)) {
+            if ((string) $needle !== '' && str_starts_with($haystack, $needle)) {
                 return true;
             }
         }
@@ -177,7 +177,7 @@ final class Str
     public function endsWith(string $haystack, $needles): bool
     {
         foreach ((array) $needles as $needle) {
-            if (! empty($needle) && str_ends_with($haystack, $needle)) {
+            if ((string) $needle !== '' && str_ends_with($haystack, $needle)) {
                 return true;
             }
         }
