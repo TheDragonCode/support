@@ -12,37 +12,6 @@ use Tests\TestCase;
 
 final class StrTest extends TestCase
 {
-    public function testEndsWith()
-    {
-        $this->assertTrue($this->str()->endsWith('jason', 'on'));
-        $this->assertTrue($this->str()->endsWith('jason', 'jason'));
-        $this->assertTrue($this->str()->endsWith('jason', ['on']));
-        $this->assertTrue($this->str()->endsWith('jason', ['no', 'on']));
-        $this->assertFalse($this->str()->endsWith('jason', 'no'));
-        $this->assertFalse($this->str()->endsWith('jason', ['no']));
-        $this->assertFalse($this->str()->endsWith('jason', ''));
-        $this->assertFalse($this->str()->endsWith('', ''));
-        $this->assertFalse($this->str()->endsWith('jason', [null]));
-        $this->assertFalse($this->str()->endsWith('jason', null));
-        $this->assertFalse($this->str()->endsWith('jason', 'N'));
-        $this->assertFalse($this->str()->endsWith('7', ' 7'));
-        $this->assertTrue($this->str()->endsWith('a7', '7'));
-        $this->assertTrue($this->str()->endsWith('a7', 7));
-        $this->assertTrue($this->str()->endsWith('a7.12', 7.12));
-        $this->assertFalse($this->str()->endsWith('a7.12', 7.13));
-        $this->assertTrue($this->str()->endsWith(0.27, '7'));
-        $this->assertTrue($this->str()->endsWith(0.27, '0.27'));
-        $this->assertFalse($this->str()->endsWith(0.27, '8'));
-        // Test for multibyte string support
-        $this->assertTrue($this->str()->endsWith('Jönköping', 'öping'));
-        $this->assertTrue($this->str()->endsWith('Malmö', 'mö'));
-        $this->assertFalse($this->str()->endsWith('Jönköping', 'oping'));
-        $this->assertFalse($this->str()->endsWith('Malmö', 'mo'));
-        $this->assertTrue($this->str()->endsWith('你好', '好'));
-        $this->assertFalse($this->str()->endsWith('你好', '你'));
-        $this->assertFalse($this->str()->endsWith('你好', 'a'));
-    }
-
     public function testCamel()
     {
         $this->assertSame('fooBar', $this->str()->camel('Foo Bar'));
@@ -124,6 +93,10 @@ final class StrTest extends TestCase
         $this->assertTrue($this->str()->startsWith(7.123, '7'));
         $this->assertTrue($this->str()->startsWith(7.123, '7.12'));
         $this->assertFalse($this->str()->startsWith(7.123, '7.13'));
+        $this->assertTrue($this->str()->startsWith(0.27, '0'));
+        $this->assertTrue($this->str()->startsWith(0.27, '0.27'));
+        $this->assertFalse($this->str()->startsWith(0.27, '8'));
+
         // Test for multibyte string support
         $this->assertTrue($this->str()->startsWith('Jönköping', 'Jö'));
         $this->assertTrue($this->str()->startsWith('Malmö', 'Malmö'));
@@ -132,6 +105,38 @@ final class StrTest extends TestCase
         $this->assertTrue($this->str()->startsWith('你好', '你'));
         $this->assertFalse($this->str()->startsWith('你好', '好'));
         $this->assertFalse($this->str()->startsWith('你好', 'a'));
+    }
+
+    public function testEndsWith()
+    {
+        $this->assertTrue($this->str()->endsWith('jason', 'on'));
+        $this->assertTrue($this->str()->endsWith('jason', 'jason'));
+        $this->assertTrue($this->str()->endsWith('jason', ['on']));
+        $this->assertTrue($this->str()->endsWith('jason', ['no', 'on']));
+        $this->assertFalse($this->str()->endsWith('jason', 'no'));
+        $this->assertFalse($this->str()->endsWith('jason', ['no']));
+        $this->assertFalse($this->str()->endsWith('jason', ''));
+        $this->assertFalse($this->str()->endsWith('', ''));
+        $this->assertFalse($this->str()->endsWith('jason', [null]));
+        $this->assertFalse($this->str()->endsWith('jason', null));
+        $this->assertFalse($this->str()->endsWith('jason', 'N'));
+        $this->assertFalse($this->str()->endsWith('7', ' 7'));
+        $this->assertTrue($this->str()->endsWith('a7', '7'));
+        $this->assertTrue($this->str()->endsWith('a7', 7));
+        $this->assertTrue($this->str()->endsWith('a7.12', 7.12));
+        $this->assertFalse($this->str()->endsWith('a7.12', 7.13));
+        $this->assertTrue($this->str()->endsWith(0.27, '7'));
+        $this->assertTrue($this->str()->endsWith(0.27, '0.27'));
+        $this->assertFalse($this->str()->endsWith(0.27, '8'));
+
+        // Test for multibyte string support
+        $this->assertTrue($this->str()->endsWith('Jönköping', 'öping'));
+        $this->assertTrue($this->str()->endsWith('Malmö', 'mö'));
+        $this->assertFalse($this->str()->endsWith('Jönköping', 'oping'));
+        $this->assertFalse($this->str()->endsWith('Malmö', 'mo'));
+        $this->assertTrue($this->str()->endsWith('你好', '好'));
+        $this->assertFalse($this->str()->endsWith('你好', '你'));
+        $this->assertFalse($this->str()->endsWith('你好', 'a'));
     }
 
     public function testLength()
@@ -269,6 +274,12 @@ final class StrTest extends TestCase
         $this->assertFalse($this->str()->contains('qwerty', 'xxx'));
         $this->assertFalse($this->str()->contains('qwerty', ['xxx']));
         $this->assertFalse($this->str()->contains('qwerty', ''));
+        $this->assertFalse($this->str()->contains('qwerty', null));
+        $this->assertFalse($this->str()->contains('qwerty', [null]));
+        $this->assertFalse($this->str()->contains('qwerty', [0]));
+        $this->assertFalse($this->str()->contains('qwerty', ['0']));
+        $this->assertFalse($this->str()->contains('qwerty', 0));
+        $this->assertFalse($this->str()->contains('qwerty', '0'));
         $this->assertFalse($this->str()->contains('', ''));
     }
 

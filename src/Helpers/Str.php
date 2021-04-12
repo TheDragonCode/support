@@ -420,7 +420,7 @@ final class Str
     public function contains(string $haystack, $needles): bool
     {
         foreach ((array) $needles as $needle) {
-            if (! empty($needle) && str_contains($haystack, $needle)) {
+            if ((string) $needle !== '' && str_contains($haystack, $needle)) {
                 return true;
             }
         }
