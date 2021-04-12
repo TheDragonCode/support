@@ -150,8 +150,6 @@ final class Str
     /**
      *  Determine if a given string starts with a given substring.
      *
-     * @see https://github.com/illuminate/support/blob/master/Str.php
-     *
      * @param  string  $haystack
      * @param  string|string[]  $needles
      *
@@ -160,7 +158,7 @@ final class Str
     public function startsWith(string $haystack, $needles): bool
     {
         foreach ((array) $needles as $needle) {
-            if ((string) $needle !== '' && strncmp($haystack, $needle, strlen($needle)) === 0) {
+            if ((string) $needle !== '' && str_starts_with($haystack, $needle)) {
                 return true;
             }
         }
@@ -171,8 +169,6 @@ final class Str
     /**
      * Determine if a given string ends with a given substring.
      *
-     * @see https://github.com/illuminate/support/blob/master/Str.php
-     *
      * @param  string  $haystack
      * @param  string|string[]  $needles
      *
@@ -181,7 +177,7 @@ final class Str
     public function endsWith(string $haystack, $needles): bool
     {
         foreach ((array) $needles as $needle) {
-            if ($needle !== '' && substr($haystack, -strlen($needle)) === (string) $needle) {
+            if ((string) $needle !== '' && str_ends_with($haystack, $needle)) {
                 return true;
             }
         }
@@ -416,8 +412,6 @@ final class Str
     /**
      * Determine if a given string contains a given substring.
      *
-     * @see https://github.com/illuminate/support/blob/master/Str.php
-     *
      * @param  string  $haystack
      * @param  string|string[]  $needles
      *
@@ -426,7 +420,7 @@ final class Str
     public function contains(string $haystack, $needles): bool
     {
         foreach ((array) $needles as $needle) {
-            if (! empty($needle) && mb_strpos($haystack, $needle) !== false) {
+            if (! empty($needle) && str_contains($haystack, $needle)) {
                 return true;
             }
         }
