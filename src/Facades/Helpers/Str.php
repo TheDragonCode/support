@@ -13,6 +13,7 @@ use Helldar\Support\Helpers\Str as Helper;
  * @method static bool startsWith(string $haystack, string|string[] $needles)
  * @method static int length(?string $value, string $encoding = null)
  * @method static string ascii(?string $value, string $language = 'en')
+ * @method static string random(int $length = 16)
  * @method static string replace(string $template, array $values, string $key_format = null)
  * @method static string slug(string $title, string $separator = '-', ?string $language = 'en')
  * @method static string|null after(string $subject, string $search)

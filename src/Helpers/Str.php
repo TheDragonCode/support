@@ -429,6 +429,32 @@ final class Str
     }
 
     /**
+     * Generate a more truly "random" alpha-numeric string.
+     *
+     * @see https://github.com/illuminate/support/blob/master/Str.php
+     *
+     * @param  int  $length
+     *
+     * @throws \Exception
+     *
+     * @return string
+     */
+    public function random(int $length = 16): string
+    {
+        $string = '';
+
+        while (($len = strlen($string)) < $length) {
+            $size = $length - $len;
+
+            $bytes = random_bytes($size);
+
+            $string .= substr(str_replace(['/', '+', '='], '', base64_encode($bytes)), 0, $size);
+        }
+
+        return $string;
+    }
+
+    /**
      * Determines if the value is empty.
      *
      * @param  mixed  $value
