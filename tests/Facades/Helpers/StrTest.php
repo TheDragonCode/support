@@ -280,6 +280,17 @@ final class StrTest extends TestCase
         $this->assertFalse(Str::contains('', ''));
     }
 
+    public function testRandom()
+    {
+        $this->assertEquals(16, strlen(Str::random()));
+
+        $randomInteger = random_int(1, 100);
+
+        $this->assertEquals($randomInteger, strlen(Str::random($randomInteger)));
+
+        $this->assertIsString(Str::random());
+    }
+
     public function testIsEmpty()
     {
         $this->assertTrue(Str::isEmpty(''));
