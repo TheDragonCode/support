@@ -6,6 +6,7 @@ use Helldar\Support\Facades\BaseFacade;
 use Helldar\Support\Helpers\Str as Helper;
 
 /**
+ * @method static \Helldar\Support\Helpers\Stringable of(?string $value)
  * @method static bool contains(string $haystack, $needles)
  * @method static bool doesntEmpty($value)
  * @method static bool endsWith(string $haystack, string|string[] $needles)

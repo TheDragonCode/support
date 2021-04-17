@@ -3,6 +3,7 @@
 namespace Tests\Facades\Helpers;
 
 use Helldar\Support\Facades\Helpers\Str;
+use Helldar\Support\Helpers\Stringable;
 use Tests\Fixtures\Instances\Arrayable;
 use Tests\Fixtures\Instances\Baq;
 use Tests\Fixtures\Instances\Bar;
@@ -12,6 +13,38 @@ use Tests\TestCase;
 
 final class StrTest extends TestCase
 {
+    public function testOf()
+    {
+        $this->assertSame('', (string) Str::of(''));
+        $this->assertInstanceOf(Stringable::class, Str::of(''));
+
+        $this->assertSame('', (string) Str::of(null));
+        $this->assertInstanceOf(Stringable::class, Str::of(null));
+
+        $this->assertSame('foo', (string) Str::of('foo'));
+        $this->assertInstanceOf(Stringable::class, Str::of('foo'));
+    }
+
+    public function testAfter()
+    {
+        $this->assertSame('Bar', Str::after('Foo Bar', ' '));
+        $this->assertSame('BaR', Str::after('FoO BaR', ' '));
+        $this->assertSame('bar', Str::after('foo bar', ' '));
+        $this->assertSame('FoO-BaR', Str::after('FoO-BaR', ' '));
+        $this->assertSame('   BaR', Str::after('FoO   -   BaR', '-'));
+        $this->assertSame('  BaR', Str::after('FoO   -   BaR', ' - '));
+    }
+
+    public function testBefore()
+    {
+        $this->assertSame('Foo', Str::before('Foo Bar', ' '));
+        $this->assertSame('FoO', Str::before('FoO BaR', ' '));
+        $this->assertSame('foo', Str::before('foo bar', ' '));
+        $this->assertSame('FoO-BaR', Str::before('FoO-BaR', ' '));
+        $this->assertSame('FoO   ', Str::before('FoO   -   BaR', '-'));
+        $this->assertSame('FoO  ', Str::before('FoO   -   BaR', ' - '));
+    }
+
     public function testCamel()
     {
         $this->assertSame('fooBar', Str::camel('Foo Bar'));
