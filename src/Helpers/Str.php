@@ -37,6 +37,20 @@ final class Str
     ];
 
     /**
+     * Get a new stringable object from the given string.
+     *
+     * @see https://github.com/illuminate/support/blob/master/Str.php
+     *
+     * @param  string|null  $value
+     *
+     * @return \Helldar\Support\Helpers\Stringable
+     */
+    public function of(?string $value): Stringable
+    {
+        return new Stringable($value);
+    }
+
+    /**
      * Escape HTML special characters in a string.
      *
      * @param  string|null  $value
