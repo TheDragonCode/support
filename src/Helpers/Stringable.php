@@ -14,6 +14,11 @@ final class Stringable implements StringableContract
         $this->value = (string) $value;
     }
 
+    public function __toString(): string
+    {
+        return $this->value;
+    }
+
     /**
      * Creates the current object in case of accessing the Stringable through the facade.
      *
@@ -33,7 +38,6 @@ final class Stringable implements StringableContract
      */
     public function removeSpaces(): self
     {
-
         return new self(Helper::removeSpaces($this->value));
     }
 
@@ -196,10 +200,5 @@ final class Stringable implements StringableContract
     public function ascii(?string $language = 'en'): self
     {
         return new self(Helper::ascii($this->value, $language));
-    }
-
-    public function __toString(): string
-    {
-        return $this->value;
     }
 }
