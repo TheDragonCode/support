@@ -85,6 +85,18 @@ final class Digit
         return round($number / $divided, $precision);
     }
 
+    /**
+     * Converts a numeric value to a string.
+     *
+     * @param  float|int  $value
+     *
+     * @return string
+     */
+    public function convertToString(float $value): string
+    {
+        return $value;
+    }
+
     protected function suffix(int $length = 0): string
     {
         $available = [

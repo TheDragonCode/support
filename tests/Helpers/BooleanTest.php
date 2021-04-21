@@ -153,6 +153,15 @@ final class BooleanTest extends TestCase
         $this->assertNull($this->boolean()->parse(['foo', 'bar']));
     }
 
+    public function testConvertToString()
+    {
+        $this->assertSame('true', $this->boolean()->convertToString(true));
+        $this->assertSame('true', $this->boolean()->convertToString(1));
+
+        $this->assertSame('false', $this->boolean()->convertToString(false));
+        $this->assertSame('false', $this->boolean()->convertToString(0));
+    }
+
     protected function boolean()
     {
         return new Boolean();
