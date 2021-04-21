@@ -508,4 +508,16 @@ final class Str
     {
         return ASCII::to_ascii((string) $value, $language);
     }
+
+    /**
+     * Converts a value to a string.
+     *
+     * @param  string|null  $value
+     *
+     * @return string
+     */
+    public function convertToString(?string $value): string
+    {
+        return is_null($value) ? 'null' : $value;
+    }
 }

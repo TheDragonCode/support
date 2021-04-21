@@ -55,4 +55,16 @@ final class Boolean
 
         return filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
     }
+
+    /**
+     * Converts a boolean value to a string.
+     *
+     * @param  bool  $value
+     *
+     * @return string
+     */
+    public function convertToString(bool $value): string
+    {
+        return $value ? 'true' : 'false';
+    }
 }

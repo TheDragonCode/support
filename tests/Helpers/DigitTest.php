@@ -82,6 +82,18 @@ final class DigitTest extends TestCase
         $this->assertSame('4.5T+', $this->digit()->toShort(4501900000000));
     }
 
+    public function testConvertToString()
+    {
+        $this->assertSame('1', $this->digit()->convertToString(1));
+        $this->assertSame('1.3', $this->digit()->convertToString(1.3));
+
+        $this->assertSame('0', $this->digit()->convertToString(0));
+        $this->assertSame('0.3', $this->digit()->convertToString(0.3));
+
+        $this->assertSame('1234', $this->digit()->convertToString(1234));
+        $this->assertSame('1234.5', $this->digit()->convertToString(1234.5));
+    }
+
     protected function digit(): Digit
     {
         return new Digit();

@@ -372,4 +372,12 @@ final class StrTest extends TestCase
         $this->assertSame('h H sht Sht a A ia yo', Str::ascii('х Х щ Щ ъ Ъ иа йо', 'bg'));
         $this->assertSame('ae oe ue Ae Oe Ue', Str::ascii('ä ö ü Ä Ö Ü', 'de'));
     }
+
+    public function testConvertToString()
+    {
+        $this->assertSame('', Str::convertToString(''));
+        $this->assertSame('null', Str::convertToString(null));
+        $this->assertSame('foo', Str::convertToString('foo'));
+        $this->assertSame('bar', Str::convertToString('bar'));
+    }
 }
