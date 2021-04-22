@@ -13,6 +13,7 @@ use Helldar\Support\Helpers\Stringable as Helper;
  * @method static Helper finish(string $cap = '/')
  * @method static Helper lower()
  * @method static Helper of(?string $value)
+ * @method static Helper pregReplace(string $pattern, string $replacement)
  * @method static Helper removeSpaces()
  * @method static Helper replace(array $values, string $key_format = null)
  * @method static Helper slug(string $separator = '-', ?string $language = 'en')

@@ -203,6 +203,19 @@ final class Stringable implements StringableContract
     }
 
     /**
+     * Replace a given value in the string.
+     *
+     * @param  string  $pattern
+     * @param  string  $replacement
+     *
+     * @return \Helldar\Support\Helpers\Stringable
+     */
+    public function pregReplace(string $pattern, string $replacement): self
+    {
+        return new self(Helper::pregReplace($this->value, $pattern, $replacement));
+    }
+
+    /**
      * Transliterate a UTF-8 value to ASCII.
      *
      * @param  string|null  $language
