@@ -26,6 +26,7 @@ use Helldar\Support\Helpers\Str as Helper;
  * @method static string|null e(?string $value, bool $double = true)
  * @method static string|null finish(string $value, string $cap = '/')
  * @method static string|null lower(?string $value)
+ * @method static string|null match(string $value, string $pattern)
  * @method static string|null removeSpaces(?string $value)
  * @method static string|null snake(?string $value, string $delimiter = '_')
  * @method static string|null start(?string $value, string $prefix)

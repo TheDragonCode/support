@@ -469,6 +469,23 @@ final class Str
     }
 
     /**
+     * Get the string matching the given pattern.
+     *
+     * @see https://github.com/illuminate/support/blob/master/Str.php
+     *
+     * @param  string  $value
+     * @param  string  $pattern
+     *
+     * @return string|null
+     */
+    public function match(string $value, string $pattern): ?string
+    {
+        preg_match($pattern, $value, $matches);
+
+        return ! $matches ? null : ($matches[1] ?? $matches[0]);
+    }
+
+    /**
      * Determines if the value is empty.
      *
      * @param  mixed  $value

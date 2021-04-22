@@ -191,6 +191,18 @@ final class Stringable implements StringableContract
     }
 
     /**
+     * Get the string matching the given pattern.
+     *
+     * @param  string  $pattern
+     *
+     * @return \Helldar\Support\Helpers\Stringable
+     */
+    public function match(string $pattern): self
+    {
+        return new self(Helper::match($this->value, $pattern));
+    }
+
+    /**
      * Transliterate a UTF-8 value to ASCII.
      *
      * @param  string|null  $language
