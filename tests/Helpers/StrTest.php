@@ -384,6 +384,14 @@ final class StrTest extends TestCase
         $this->assertSame('bar', $this->str()->convertToString('bar'));
     }
 
+    public function testMatch()
+    {
+        $this->assertSame('bar', $this->str()->match('foo bar', '/bar/'));
+        $this->assertSame('bar', $this->str()->match('foo bar', '/foo (.*)/'));
+
+        $this->assertNull($this->str()->match('foo bar', '/nothing/'));
+    }
+
     protected function str(): Str
     {
         return new Str();

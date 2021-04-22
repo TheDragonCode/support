@@ -192,4 +192,15 @@ class StringableTest extends TestCase
 
         $this->assertSame('-bar-', (string) Stringable::of('FoO       -       BaR - BAZ - BAQ')->slug()->after('foo')->before('baz')->before('zzz'));
     }
+
+    public function testMatch()
+    {
+        $this->assertSame('bar', (string) Stringable::of('foo bar')->match('/bar/'));
+        $this->assertSame('bar', (string) Stringable::of('foo bar')->match('/foo (.*)/'));
+
+        $this->assertSame('', (string) Stringable::of('foo bar')->match('/nothing/'));
+
+        $this->assertSame('bar', (string) Stringable::of('FoO       -       BaR - BAZ - BAQ')->slug()->match('/bar/'));
+        $this->assertSame('bar', (string) Stringable::of('FoO       -       BaR - BAZ - BAQ')->slug()->match('/foo-(\w+)/'));
+    }
 }
