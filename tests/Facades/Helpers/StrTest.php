@@ -388,4 +388,17 @@ final class StrTest extends TestCase
 
         $this->assertNull(Str::match('foo bar', '/nothing/'));
     }
+
+    public function testPregReplace()
+    {
+        $this->assertSame('', Str::pregReplace('', '!\s+!', ''));
+        $this->assertSame('', Str::pregReplace(' ', '!\s+!', ''));
+        $this->assertSame('', Str::pregReplace(null, '!\s+!', ''));
+
+        $this->assertSame('foobar', Str::pregReplace('foo bar', '!\s+!', ''));
+        $this->assertSame('foo-bar', Str::pregReplace('foo bar', '!\s+!', '-'));
+        $this->assertSame('foo-bar', Str::pregReplace('foo     bar', '!\s+!', '-'));
+
+        $this->assertSame('71234567890', Str::pregReplace('abc 7 (123)  456-78-90', '!(\W|\D)+!', ''));
+    }
 }

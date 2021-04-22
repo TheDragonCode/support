@@ -88,7 +88,7 @@ final class Str
      */
     public function removeSpaces(?string $value): ?string
     {
-        return preg_replace('!\s+!', ' ', $value);
+        return $this->pregReplace($value, '!\s+!', ' ');
     }
 
     /**
@@ -483,6 +483,20 @@ final class Str
         preg_match($pattern, $value, $matches);
 
         return ! $matches ? null : ($matches[1] ?? $matches[0]);
+    }
+
+    /**
+     * Replace a given value in the string.
+     *
+     * @param  string|null  $value
+     * @param  string  $pattern
+     * @param  string  $replacement
+     *
+     * @return string|null
+     */
+    public function pregReplace(?string $value, string $pattern, string $replacement): ?string
+    {
+        return preg_replace($pattern, $replacement, $value);
     }
 
     /**

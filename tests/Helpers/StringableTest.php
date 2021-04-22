@@ -204,6 +204,19 @@ class StringableTest extends TestCase
         $this->assertSame('bar', (string) $this->str('FoO       -       BaR - BAZ - BAQ')->slug()->match('/foo-(\w+)/'));
     }
 
+    public function testPregReplace()
+    {
+        $this->assertSame('', (string) $this->str('')->pregReplace('!\s+!', ''));
+        $this->assertSame('', (string) $this->str(' ')->pregReplace('!\s+!', ''));
+        $this->assertSame('', (string) $this->str(null)->pregReplace('!\s+!', ''));
+
+        $this->assertSame('foobar', (string) $this->str('foo bar')->pregReplace('!\s+!', ''));
+        $this->assertSame('foo-bar', (string) $this->str('foo bar')->pregReplace('!\s+!', '-'));
+        $this->assertSame('foo-bar', (string) $this->str('foo     bar')->pregReplace('!\s+!', '-'));
+
+        $this->assertSame('+71234567890', (string) $this->str('abc 7 (123)  456-78-90')->pregReplace('!(\W|\D)+!', '')->start('+'));
+    }
+
     protected function str(?string $value): Stringable
     {
         return new Stringable($value);
