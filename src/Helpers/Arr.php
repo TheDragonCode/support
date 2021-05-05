@@ -318,6 +318,32 @@ class Arr
     }
 
     /**
+     * Flatten a multi-dimensional array into a single level.
+     *
+     * @param  array  $array
+     *
+     * @return array
+     */
+    public function flatten(array $array): array
+    {
+        $result = [];
+
+        foreach ($array as $item) {
+            if (! $this->isArrayable($item)) {
+                $result[] = $item;
+
+                continue;
+            }
+
+            $values = $this->flatten(array_values($item));
+
+            $result = array_merge($result, $values);
+        }
+
+        return array_values($result);
+    }
+
+    /**
      * Applies the callback to the elements of the given arrays.
      *
      * @param  array|ArrayAccess  $array

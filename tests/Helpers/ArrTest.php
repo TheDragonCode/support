@@ -238,6 +238,29 @@ final class ArrTest extends TestCase
         }));
     }
 
+    public function testFlatten()
+    {
+        // Flat arrays are unaffected
+        $array = ['#foo', '#bar', '#baz'];
+        $this->assertEquals(['#foo', '#bar', '#baz'], $this->arr()->flatten($array));
+
+        // Nested arrays are flattened with existing flat items
+        $array = [['#foo', '#bar'], '#baz'];
+        $this->assertEquals(['#foo', '#bar', '#baz'], $this->arr()->flatten($array));
+
+        // Flattened array includes "null" items
+        $array = [['#foo', null], '#baz', null];
+        $this->assertEquals(['#foo', null, '#baz', null], $this->arr()->flatten($array));
+
+        // Sets of nested arrays are flattened
+        $array = [['#foo', '#bar'], ['#baz']];
+        $this->assertEquals(['#foo', '#bar', '#baz'], $this->arr()->flatten($array));
+
+        // Deeply nested arrays are flattened
+        $array = [['#foo', ['#bar']], ['#baz']];
+        $this->assertEquals(['#foo', '#bar', '#baz'], $this->arr()->flatten($array));
+    }
+
     public function testStoreAsArray()
     {
         $source = [
