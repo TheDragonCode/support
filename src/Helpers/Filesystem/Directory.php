@@ -7,6 +7,7 @@ use FilesystemIterator;
 use Helldar\Support\Exceptions\DirectoryNotFoundException;
 use Helldar\Support\Facades\Helpers\Filesystem\File as FileHelper;
 use Helldar\Support\Facades\Helpers\Instance;
+use Helldar\Support\Facades\Helpers\Str;
 use SplFileInfo;
 
 final class Directory
@@ -34,12 +35,13 @@ final class Directory
      *
      * @param  string  $path
      * @param  callable|null  $callback
+     * @param  bool  $recursive
      *
      * @throws \Helldar\Support\Exceptions\DirectoryNotFoundException
      *
      * @return array
      */
-    public function names(string $path, callable $callback = null): array
+    public function names(string $path, callable $callback = null, bool $recursive = false): array
     {
         $items = [];
 
@@ -50,6 +52,16 @@ final class Directory
 
                 if (! is_callable($callback) || $callback($name)) {
                     $items[] = $name;
+                }
+            }
+
+            if ($recursive && $directory->isDir() && ! $directory->isDot()) {
+                $prefix = (string) Str::of($directory->getRealPath())
+                    ->after(realpath($path))
+                    ->trim('\\/');
+
+                foreach ($this->names($directory->getRealPath(), $callback, $recursive) as $value) {
+                    $items[] = $prefix . '/' . $value;
                 }
             }
         }
@@ -69,7 +81,7 @@ final class Directory
      */
     public function make(string $path, int $mode = 0755): bool
     {
-        return $this->doesntExist($path) ? mkdir($path, $mode, true) : true;
+        return ! $this->doesntExist($path) || mkdir($path, $mode, true);
     }
 
     /**

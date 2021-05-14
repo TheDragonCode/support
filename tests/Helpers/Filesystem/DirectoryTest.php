@@ -13,7 +13,7 @@ final class DirectoryTest extends TestCase
 {
     public function testAll()
     {
-        $available = ['.', '..', 'Contracts', 'Exceptions', 'Facades', 'Instances', 'stubs'];
+        $available = ['.', '..', 'Contracts', 'Exceptions', 'Facades', 'Foo', 'Instances', 'stubs'];
 
         $dirs = $this->directory()->all($this->fixturesDirectory());
 
@@ -27,9 +27,9 @@ final class DirectoryTest extends TestCase
     public function testAllDoesntExists()
     {
         $this->expectException(DirectoryNotFoundException::class);
-        $this->expectExceptionMessage('Directory "foo" does not exist.');
+        $this->expectExceptionMessage('Directory "qwerty" does not exist.');
 
-        $this->directory()->all('foo');
+        $this->directory()->all('qwerty');
     }
 
     public function testAsFile()
@@ -60,9 +60,9 @@ final class DirectoryTest extends TestCase
     public function testDeleteDoesntExists()
     {
         $this->expectException(DirectoryNotFoundException::class);
-        $this->expectExceptionMessage('Directory "foo" does not exist.');
+        $this->expectExceptionMessage('Directory "qwe" does not exist.');
 
-        $this->assertTrue($this->directory()->delete('foo'));
+        $this->assertTrue($this->directory()->delete('qwe'));
     }
 
     public function testDeleteAsFile()
@@ -85,9 +85,26 @@ final class DirectoryTest extends TestCase
 
     public function testNames()
     {
-        $available = ['Contracts', 'Exceptions', 'Facades', 'Instances', 'stubs'];
+        $available = ['Contracts', 'Exceptions', 'Facades', 'Foo', 'Instances', 'stubs'];
 
         $names = $this->directory()->names($this->fixturesDirectory());
+
+        $this->assertSame($available, $names);
+    }
+
+    public function testNamesRecursive()
+    {
+        $available = [
+            'Contracts',
+            'Exceptions',
+            'Facades',
+            'Foo',
+            'Foo/Bar',
+            'Instances',
+            'stubs',
+        ];
+
+        $names = $this->directory()->names($this->fixturesDirectory(), null, true);
 
         $this->assertSame($available, $names);
     }
@@ -141,7 +158,7 @@ final class DirectoryTest extends TestCase
     {
         $this->expectException(DirectoryNotFoundException::class);
 
-        $this->directory()->validate($this->fixturesDirectory('foo/bar'));
+        $this->directory()->validate($this->fixturesDirectory('qwe/rty'));
     }
 
     public function testValidatedSuccess()
@@ -157,7 +174,7 @@ final class DirectoryTest extends TestCase
     {
         $this->expectException(DirectoryNotFoundException::class);
 
-        $this->directory()->validated($this->fixturesDirectory('foo/bar'));
+        $this->directory()->validated($this->fixturesDirectory('qwe/rty'));
     }
 
     protected function directory(): Directory

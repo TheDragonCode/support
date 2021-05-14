@@ -22,6 +22,7 @@ use Helldar\Support\Helpers\Stringable as Helper;
  * @method static Helper studly()
  * @method static Helper substr(int $start, int $length = null)
  * @method static Helper title()
+ * @method static Helper trim(string $characters = " \t\n\r\0\x0B")
  * @method static Helper upper()
  */
 class Stringable extends BaseFacade

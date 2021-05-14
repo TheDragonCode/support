@@ -7,6 +7,7 @@ use Helldar\Support\Exceptions\FileNotFoundException;
 use Helldar\Support\Facades\Helpers\Arr;
 use Helldar\Support\Facades\Helpers\Filesystem\Directory as DirectoryHelper;
 use Helldar\Support\Facades\Helpers\Instance;
+use Helldar\Support\Facades\Helpers\Str;
 use SplFileInfo;
 use Throwable;
 
@@ -17,10 +18,11 @@ class File
      *
      * @param  string  $path
      * @param  callable|null  $callback
+     * @param  bool  $recursive
      *
      * @return array
      */
-    public function names(string $path, callable $callback = null): array
+    public function names(string $path, callable $callback = null, bool $recursive = false): array
     {
         $items = [];
 
@@ -31,6 +33,16 @@ class File
 
                 if (! is_callable($callback) || $callback($name)) {
                     $items[] = $name;
+                }
+            }
+
+            if ($recursive && $item->isDir() && ! $item->isDot()) {
+                $prefix = (string) Str::of($item->getRealPath())
+                    ->after(realpath($path))
+                    ->trim('\\/');
+
+                foreach ($this->names($item->getRealPath(), $callback, $recursive) as $value) {
+                    $items[] = $prefix . '/' . $value;
                 }
             }
         }
