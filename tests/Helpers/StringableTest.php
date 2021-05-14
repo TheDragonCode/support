@@ -193,6 +193,12 @@ class StringableTest extends TestCase
         $this->assertSame('-bar-', (string) $this->str('FoO       -       BaR - BAZ - BAQ')->slug()->after('foo')->before('baz')->before('zzz'));
     }
 
+    public function testTrim()
+    {
+        $this->assertSame('foo', (string) $this->str('  foo  ')->trim());
+        $this->assertSame('foo', (string) $this->str('barfoobar')->trim('bar'));
+    }
+
     public function testMatch()
     {
         $this->assertSame('bar', (string) $this->str('foo bar')->match('/bar/'));

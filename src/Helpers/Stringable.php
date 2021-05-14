@@ -191,6 +191,20 @@ final class Stringable implements StringableContract
     }
 
     /**
+     * Strip whitespace (or other characters) from the beginning and end of a string.
+     *
+     * @see  https://php.net/manual/en/function.trim.php
+     *
+     * @param  string  $characters
+     *
+     * @return $this
+     */
+    public function trim(string $characters = " \t\n\r\0\x0B"): self
+    {
+        return new self(trim($this->value, $characters));
+    }
+
+    /**
      * Get the string matching the given pattern.
      *
      * @param  string  $pattern
