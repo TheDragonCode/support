@@ -77,6 +77,36 @@ final class DirectoryTest extends TestCase
         $this->directory()->delete($path);
     }
 
+    public function testEnsureDirectory()
+    {
+        $path = $this->tempDirectory();
+
+        $path1 = $path . 'foo';
+        $path2 = $path . 'bar';
+
+        $this->assertTrue($this->directory()->doesntExist($path));
+        $this->assertTrue($this->directory()->doesntExist($path1));
+        $this->assertTrue($this->directory()->doesntExist($path2));
+
+        $this->directory()->make($path1);
+
+        $this->assertTrue($this->directory()->exists($path));
+        $this->assertTrue($this->directory()->exists($path1));
+        $this->assertTrue($this->directory()->doesntExist($path2));
+
+        $this->directory()->ensureDirectory($path2);
+
+        $this->assertTrue($this->directory()->exists($path));
+        $this->assertTrue($this->directory()->exists($path1));
+        $this->assertTrue($this->directory()->exists($path2));
+
+        $this->directory()->ensureDirectory($path, 0755, true);
+
+        $this->assertTrue($this->directory()->exists($path));
+        $this->assertTrue($this->directory()->doesntExist($path1));
+        $this->assertTrue($this->directory()->doesntExist($path2));
+    }
+
     public function testDoesntExist()
     {
         $this->assertTrue($this->directory()->doesntExist(__DIR__ . '/../../../Foo'));

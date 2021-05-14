@@ -76,6 +76,36 @@ final class DirectoryTest extends TestCase
         Directory::delete($path);
     }
 
+    public function testEnsureDirectory()
+    {
+        $path = $this->tempDirectory();
+
+        $path1 = $path . 'foo';
+        $path2 = $path . 'bar';
+
+        $this->assertTrue(Directory::doesntExist($path));
+        $this->assertTrue(Directory::doesntExist($path1));
+        $this->assertTrue(Directory::doesntExist($path2));
+
+        Directory::make($path1);
+
+        $this->assertTrue(Directory::exists($path));
+        $this->assertTrue(Directory::exists($path1));
+        $this->assertTrue(Directory::doesntExist($path2));
+
+        Directory::ensureDirectory($path2);
+
+        $this->assertTrue(Directory::exists($path));
+        $this->assertTrue(Directory::exists($path1));
+        $this->assertTrue(Directory::exists($path2));
+
+        Directory::ensureDirectory($path, 0755, true);
+
+        $this->assertTrue(Directory::exists($path));
+        $this->assertTrue(Directory::doesntExist($path1));
+        $this->assertTrue(Directory::doesntExist($path2));
+    }
+
     public function testDoesntExist()
     {
         $this->assertTrue(Directory::doesntExist(__DIR__ . '/../../../Foo'));
