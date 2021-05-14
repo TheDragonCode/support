@@ -12,7 +12,7 @@ final class DirectoryTest extends TestCase
 {
     public function testAll()
     {
-        $available = ['.', '..', 'Contracts', 'Exceptions', 'Facades', 'Instances', 'stubs'];
+        $available = ['.', '..', 'Contracts', 'Exceptions', 'Facades', 'Foo', 'Instances', 'stubs'];
 
         $dirs = Directory::all($this->fixturesDirectory());
 
@@ -84,9 +84,26 @@ final class DirectoryTest extends TestCase
 
     public function testNames()
     {
-        $available = ['Contracts', 'Exceptions', 'Facades', 'Instances', 'stubs'];
+        $available = ['Contracts', 'Exceptions', 'Facades', 'Foo', 'Instances', 'stubs'];
 
         $names = Directory::names($this->fixturesDirectory());
+
+        $this->assertSame($available, $names);
+    }
+
+    public function testNamesRecursive()
+    {
+        $available = [
+            'Contracts',
+            'Exceptions',
+            'Facades',
+            'Foo',
+            'Foo/Bar',
+            'Instances',
+            'stubs',
+        ];
+
+        $names = Directory::names($this->fixturesDirectory(), null, true);
 
         $this->assertSame($available, $names);
     }
@@ -140,7 +157,7 @@ final class DirectoryTest extends TestCase
     {
         $this->expectException(DirectoryNotFoundException::class);
 
-        Directory::validate($this->fixturesDirectory('foo/bar'));
+        Directory::validate($this->fixturesDirectory('qwe/rty'));
     }
 
     public function testValidatedSuccess()
@@ -156,6 +173,6 @@ final class DirectoryTest extends TestCase
     {
         $this->expectException(DirectoryNotFoundException::class);
 
-        Directory::validated($this->fixturesDirectory('foo/bar'));
+        Directory::validated($this->fixturesDirectory('qwe/rty'));
     }
 }

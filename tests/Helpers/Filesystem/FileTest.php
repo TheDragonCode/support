@@ -20,6 +20,31 @@ final class FileTest extends TestCase
         $this->assertSame($available, $names);
     }
 
+    public function testNamesRecursive()
+    {
+        $available = [
+            '.bar',
+            '.beep',
+            '.foo',
+            '.gitkeep',
+            'Contracts/Contract.php',
+            'Exceptions/AnyException.php',
+            'Facades/NotImplement.php',
+            'Facades/Resolve.php',
+            'Foo/Bar/.gitkeep',
+            'Instances/Arrayable.php',
+            'Instances/Baq.php',
+            'Instances/Bar.php',
+            'Instances/Baz.php',
+            'Instances/Foo.php',
+            'stubs/custom.stub',
+        ];
+
+        $names = $this->file()->names($this->fixturesDirectory(), null, true);
+
+        $this->assertSame($available, $names);
+    }
+
     public function testNamesCallback()
     {
         $available = ['.beep', '.gitkeep'];

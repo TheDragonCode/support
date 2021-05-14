@@ -11,9 +11,9 @@ final class DirectoryNotFoundExceptionTest extends TestCase
     public function testPath()
     {
         $this->expectException(DirectoryNotFoundException::class);
-        $this->expectExceptionMessage('Directory "foo/bar" does not exist.');
+        $this->expectExceptionMessage('Directory "qwe/rty" does not exist.');
 
-        throw new DirectoryNotFoundException('foo/bar');
+        throw new DirectoryNotFoundException('qwe/rty');
     }
 
     public function testEmptyPath()
