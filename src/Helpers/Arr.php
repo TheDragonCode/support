@@ -13,7 +13,7 @@ class Arr
     /**
      * Get a new arrayable object from the given array.
      *
-     * @param  array|null|string|ArrayAccess  $value
+     * @param  array|ArrayAccess|string|null  $value
      *
      * @return \Helldar\Support\Helpers\Ables\Arrayable
      */
@@ -376,7 +376,7 @@ class Arr
         foreach ($array as $key => $item) {
             if (! $this->isArrayable($item)) {
                 $ignore_keys
-                    ? $result[] = $item
+                    ? $result[]     = $item
                     : $result[$key] = $item;
 
                 continue;
