@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\Facades\Helpers;
+namespace Tests\Facades\Helpers\Ables;
 
-use Helldar\Support\Facades\Helpers\Stringable;
+use Helldar\Support\Facades\Helpers\Ables\Stringable;
 use Tests\TestCase;
 
 class StringableTest extends TestCase

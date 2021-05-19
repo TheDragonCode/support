@@ -3,7 +3,7 @@
 namespace Tests\Facades\Helpers;
 
 use Helldar\Support\Facades\Helpers\Str;
-use Helldar\Support\Helpers\Stringable;
+use Helldar\Support\Helpers\Ables\Stringable;
 use Tests\Fixtures\Instances\Arrayable;
 use Tests\Fixtures\Instances\Baq;
 use Tests\Fixtures\Instances\Bar;

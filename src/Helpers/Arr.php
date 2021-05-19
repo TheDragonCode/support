@@ -92,7 +92,7 @@ class Arr
             array_push($array, $values);
         }
 
-        return array_values(array_unique($array));
+        return array_unique($array);
     }
 
     /**
@@ -143,7 +143,7 @@ class Arr
 
         usort($array, $callback);
 
-        foreach ($array as $key => &$value) {
+        foreach ($array as &$value) {
             if (is_array($value)) {
                 $value = $this->sort($value, $callback);
             }
@@ -365,6 +365,7 @@ class Arr
      * Flatten a multi-dimensional array into a single level.
      *
      * @param  array  $array
+     * @param  bool  $ignore_keys
      *
      * @return array
      */
@@ -381,9 +382,9 @@ class Arr
                 continue;
             }
 
-            $values = $ignore_keys
-                ? $this->flatten(array_values($item))
-                : $this->flatten($item);
+            $flatten = $this->flatten($item, $ignore_keys);
+
+            $values = $ignore_keys ? array_values($flatten) : $flatten;
 
             $result = array_merge($result, $values);
         }

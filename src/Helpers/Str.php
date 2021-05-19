@@ -43,11 +43,11 @@ class Str
      *
      * @param  string|null  $value
      *
-     * @return \Helldar\Support\Helpers\Stringable
+     * @return \Helldar\Support\Helpers\Ables\Stringable
      */
-    public function of(?string $value): Stringable
+    public function of(?string $value): Ables\Stringable
     {
-        return new Stringable($value);
+        return new Ables\Stringable($value);
     }
 
     /**
