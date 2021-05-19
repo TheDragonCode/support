@@ -368,23 +368,27 @@ class Arr
      *
      * @return array
      */
-    public function flatten(array $array): array
+    public function flatten(array $array, bool $ignore_keys = true): array
     {
         $result = [];
 
-        foreach ($array as $item) {
+        foreach ($array as $key => $item) {
             if (! $this->isArrayable($item)) {
-                $result[] = $item;
+                $ignore_keys
+                    ? $result[] = $item
+                    : $result[$key] = $item;
 
                 continue;
             }
 
-            $values = $this->flatten(array_values($item));
+            $values = $ignore_keys
+                ? $this->flatten(array_values($item))
+                : $this->flatten($item);
 
             $result = array_merge($result, $values);
         }
 
-        return array_values($result);
+        return $ignore_keys ? array_values($result) : $result;
     }
 
     /**
