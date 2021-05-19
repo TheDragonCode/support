@@ -11,6 +11,18 @@ use Helldar\Support\Tools\Stub as StubTool;
 class Arr
 {
     /**
+     * Get a new arrayable object from the given array.
+     *
+     * @param  array|null|string|ArrayAccess  $value
+     *
+     * @return \Helldar\Support\Helpers\Ables\Arrayable
+     */
+    public function of($value = []): Ables\Arrayable
+    {
+        return new Ables\Arrayable($value);
+    }
+
+    /**
      * Renaming array keys.
      * As the second parameter, a callback function is passed, which determines the actions for processing the value.
      * The output of the function must be a string with a name.
@@ -333,6 +345,20 @@ class Arr
     public function filter($array, callable $callback, int $mode = 0): array
     {
         return array_filter($array, $callback, $mode);
+    }
+
+    /**
+     * Return all the values of an array.
+     *
+     * @see  https://php.net/manual/en/function.array-values.php
+     *
+     * @param  mixed  $array
+     *
+     * @return array
+     */
+    public function values($array): array
+    {
+        return array_values($this->toArray($array));
     }
 
     /**

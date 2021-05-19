@@ -261,6 +261,42 @@ final class ArrTest extends TestCase
         $this->assertSame($target, $result);
     }
 
+    public function testValues()
+    {
+        $source = [
+            'foo' => 'Foo',
+            'bar' => 'Bar',
+            'baz' => 'Baz',
+            200   => 'Num 200',
+            400   => 'Num 400',
+        ];
+
+        $expected = [
+            'Foo',
+            'Bar',
+            'Baz',
+            'Num 200',
+            'Num 400',
+        ];
+
+        $this->assertSame($expected, $this->arr()->values($source));
+    }
+
+    public function testValuesArrayable()
+    {
+        $expected_bar = [
+            'Foo',
+            'Bar',
+        ];
+
+        $expected_baz = [
+            'Qwerty',
+        ];
+
+        $this->assertSame($expected_bar, $this->arr()->values(new Bar()));
+        $this->assertSame($expected_baz, $this->arr()->values(new Baz()));
+    }
+
     public function testFlatten()
     {
         // Flat arrays are unaffected
