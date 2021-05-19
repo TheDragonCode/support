@@ -20,6 +20,7 @@ use Helldar\Support\Helpers\Arr as Helper;
  * @method static array sort(array $array, callable $callback = null)
  * @method static array sortByKeys(array $array, array $sorter)
  * @method static array toArray($value = null)
+ * @method static array values($array)
  * @method static array wrap($value = null)
  * @method static bool doesntEmpty($value)
  * @method static bool exists(array|ArrayAccess $array, $key)
