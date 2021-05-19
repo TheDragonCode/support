@@ -2,7 +2,7 @@
 
 namespace Helldar\Support\Helpers;
 
-final class Boolean
+class Boolean
 {
     /**
      * Determines if the value is `true`, otherwise it will return `false`.

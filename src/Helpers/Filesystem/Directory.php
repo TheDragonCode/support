@@ -10,7 +10,7 @@ use Helldar\Support\Facades\Helpers\Instance;
 use Helldar\Support\Facades\Helpers\Str;
 use SplFileInfo;
 
-final class Directory
+class Directory
 {
     /**
      * Get a list of files and folders in a directory.

@@ -5,7 +5,7 @@ namespace Helldar\Support\Helpers;
 use Helldar\Support\Facades\Helpers\Str as Helper;
 use Stringable as StringableContract;
 
-final class Stringable implements StringableContract
+class Stringable implements StringableContract
 {
     protected $value;
 

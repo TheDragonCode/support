@@ -8,7 +8,7 @@ use Illuminate\Contracts\Support\DeferringDisplayableValue;
 use Illuminate\Contracts\Support\Htmlable;
 use voku\helper\ASCII;
 
-final class Str
+class Str
 {
     /**
      * The cache of snake-cased words.

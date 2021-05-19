@@ -34,7 +34,7 @@ use RuntimeException;
  * @method string|null getScheme()
  * @method string|null getUser()
  */
-final class HttpBuilder
+class HttpBuilder
 {
     protected $parsed = [];
 

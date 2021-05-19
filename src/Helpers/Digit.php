@@ -2,7 +2,7 @@
 
 namespace Helldar\Support\Helpers;
 
-final class Digit
+class Digit
 {
     /**
      * Calculating the factorial of a number.
