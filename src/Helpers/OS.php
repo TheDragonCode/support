@@ -7,7 +7,7 @@ use Helldar\Support\Facades\Helpers\Str as StrHelper;
 /**
  * @see https://www.php.net/manual/ru/reserved.constants.php
  */
-final class OS
+class OS
 {
     public function isUnix(): bool
     {

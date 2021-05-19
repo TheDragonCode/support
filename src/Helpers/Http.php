@@ -7,7 +7,7 @@ use Helldar\Support\Exceptions\NotValidUrlException;
 use Helldar\Support\Facades\Helpers\Filesystem\File as FileHelper;
 use Helldar\Support\Facades\Helpers\HttpBuilder as HttpBuilderHelper;
 
-final class Http
+class Http
 {
     /**
      * Check if the string is a valid URL.

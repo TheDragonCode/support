@@ -5,7 +5,7 @@ namespace Helldar\Support\Helpers;
 use Helldar\Support\Facades\Helpers\Is as IsHelper;
 use ReflectionClass;
 
-final class Reflection
+class Reflection
 {
     /**
      * Creates a ReflectionClass object.

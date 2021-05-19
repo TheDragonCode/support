@@ -1,15 +1,27 @@
 <?php
 
-namespace Tests\Helpers;
+namespace Tests\Helpers\Ables;
 
-use Helldar\Support\Helpers\Stringable;
+use Helldar\Support\Helpers\Ables\Stringable;
 use Tests\TestCase;
 
 class StringableTest extends TestCase
 {
+    public function testOf()
+    {
+        $this->assertSame('', (string) $this->str()->of(''));
+        $this->assertInstanceOf(Stringable::class, $this->str()->of(''));
+
+        $this->assertSame('', (string) $this->str()->of(null));
+        $this->assertInstanceOf(Stringable::class, $this->str()->of(null));
+
+        $this->assertSame('foo', (string) $this->str()->of('foo'));
+        $this->assertInstanceOf(Stringable::class, $this->str()->of('foo'));
+    }
+
     public function testAscii()
     {
-        $this->assertSame('', (string) $this->str(null)->ascii());
+        $this->assertSame('', (string) $this->str()->ascii());
 
         $this->assertSame('@', (string) $this->str('@')->ascii());
         $this->assertSame('u', (string) $this->str('ü')->ascii());
@@ -184,15 +196,6 @@ class StringableTest extends TestCase
         $this->assertSame('FOO BAR BAZ', (string) $this->str('fOo Bar bAz')->upper());
     }
 
-    public function testCombine()
-    {
-        $this->assertSame('', (string) $this->str(null)->ascii()->replace([])->slug()->after('')->before('')->camel());
-
-        $this->assertSame('FOO - BAR', (string) $this->str('FoO       -       BaR')->removeSpaces()->upper());
-
-        $this->assertSame('-bar-', (string) $this->str('FoO       -       BaR - BAZ - BAQ')->slug()->after('foo')->before('baz')->before('zzz'));
-    }
-
     public function testTrim()
     {
         $this->assertSame('foo', (string) $this->str('  foo  ')->trim());
@@ -223,7 +226,16 @@ class StringableTest extends TestCase
         $this->assertSame('+71234567890', (string) $this->str('abc 7 (123)  456-78-90')->pregReplace('!(\W|\D)+!', '')->start('+'));
     }
 
-    protected function str(?string $value): Stringable
+    public function testCombine()
+    {
+        $this->assertSame('', (string) $this->str(null)->ascii()->replace([])->slug()->after('')->before('')->camel());
+
+        $this->assertSame('FOO - BAR', (string) $this->str('FoO       -       BaR')->removeSpaces()->upper());
+
+        $this->assertSame('-bar-', (string) $this->str('FoO       -       BaR - BAZ - BAQ')->slug()->after('foo')->before('baz')->before('zzz'));
+    }
+
+    protected function str(?string $value = null): Stringable
     {
         return new Stringable($value);
     }

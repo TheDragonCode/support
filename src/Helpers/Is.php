@@ -11,7 +11,7 @@ use Helldar\Support\Facades\Helpers\Str as StrHelper;
 use ReflectionClass;
 use Throwable;
 
-final class Is
+class Is
 {
     /**
      * Determines if the value is empty.

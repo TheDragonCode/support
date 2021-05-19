@@ -7,7 +7,7 @@ use Helldar\Support\Facades\Helpers\Is as IsHelper;
 use Helldar\Support\Facades\Helpers\Reflection as ReflectionHelper;
 use ReflectionClass;
 
-final class Instance
+class Instance
 {
     /**
      * Checks if the item being checked inherits from other objects and interfaces.

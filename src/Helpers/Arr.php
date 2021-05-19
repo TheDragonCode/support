@@ -11,6 +11,18 @@ use Helldar\Support\Tools\Stub as StubTool;
 class Arr
 {
     /**
+     * Get a new arrayable object from the given array.
+     *
+     * @param  array|ArrayAccess|string|null  $value
+     *
+     * @return \Helldar\Support\Helpers\Ables\Arrayable
+     */
+    public function of($value = []): Ables\Arrayable
+    {
+        return new Ables\Arrayable($value);
+    }
+
+    /**
      * Renaming array keys.
      * As the second parameter, a callback function is passed, which determines the actions for processing the value.
      * The output of the function must be a string with a name.
@@ -80,7 +92,7 @@ class Arr
             array_push($array, $values);
         }
 
-        return array_values(array_unique($array));
+        return array_unique($array);
     }
 
     /**
@@ -131,7 +143,7 @@ class Arr
 
         usort($array, $callback);
 
-        foreach ($array as $key => &$value) {
+        foreach ($array as &$value) {
             if (is_array($value)) {
                 $value = $this->sort($value, $callback);
             }
@@ -287,7 +299,7 @@ class Arr
                 return empty($keys) || ! in_array($key, (array) $keys);
             };
 
-        return array_filter((array) $array, $callback, ARRAY_FILTER_USE_KEY);
+        return $this->filter((array) $array, $callback, ARRAY_FILTER_USE_KEY);
     }
 
     /**
@@ -301,7 +313,7 @@ class Arr
     public function only($array, $keys): array
     {
         if (is_callable($keys)) {
-            return array_filter($array, $keys, ARRAY_FILTER_USE_KEY);
+            return $this->filter($array, $keys, ARRAY_FILTER_USE_KEY);
         }
 
         $result = [];
@@ -318,29 +330,66 @@ class Arr
     }
 
     /**
-     * Flatten a multi-dimensional array into a single level.
+     * Iterates over each value in the <b>array</b> passing them to the <b>callback</b> function.
+     * If the <b>callback</b> function returns true, the current value from <b>array</b> is returned into
+     * the result array. Array keys are preserved.
      *
-     * @param  array  $array
+     * @see https://php.net/manual/en/function.array-filter.php
+     *
+     * @param  array|ArrayAccess  $array
+     * @param  callable  $callback
+     * @param  int  $mode
      *
      * @return array
      */
-    public function flatten(array $array): array
+    public function filter($array, callable $callback, int $mode = 0): array
+    {
+        return array_filter($array, $callback, $mode);
+    }
+
+    /**
+     * Return all the values of an array.
+     *
+     * @see  https://php.net/manual/en/function.array-values.php
+     *
+     * @param  mixed  $array
+     *
+     * @return array
+     */
+    public function values($array): array
+    {
+        return array_values($this->toArray($array));
+    }
+
+    /**
+     * Flatten a multi-dimensional array into a single level.
+     *
+     * @param  array  $array
+     * @param  bool  $ignore_keys
+     *
+     * @return array
+     */
+    public function flatten(array $array, bool $ignore_keys = true): array
     {
         $result = [];
 
-        foreach ($array as $item) {
+        foreach ($array as $key => $item) {
             if (! $this->isArrayable($item)) {
-                $result[] = $item;
+                $ignore_keys
+                    ? $result[]     = $item
+                    : $result[$key] = $item;
 
                 continue;
             }
 
-            $values = $this->flatten(array_values($item));
+            $flatten = $this->flatten($item, $ignore_keys);
+
+            $values = $ignore_keys ? array_values($flatten) : $flatten;
 
             $result = array_merge($result, $values);
         }
 
-        return array_values($result);
+        return $ignore_keys ? array_values($result) : $result;
     }
 
     /**

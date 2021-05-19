@@ -10,7 +10,7 @@ use Helldar\Support\Facades\Helpers\Reflection as ReflectionHelper;
 use InvalidArgumentException;
 use ReflectionClass;
 
-final class Call
+class Call
 {
     /**
      * Gets the result of executing code in the specified class.

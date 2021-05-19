@@ -3,6 +3,7 @@
 namespace Tests\Helpers;
 
 use Helldar\Support\Facades\Helpers\Str;
+use Helldar\Support\Helpers\Ables\Arrayable as Helper;
 use Helldar\Support\Helpers\Arr;
 use Tests\Fixtures\Instances\Arrayable;
 use Tests\Fixtures\Instances\Baq;
@@ -13,6 +14,21 @@ use Tests\TestCase;
 
 final class ArrTest extends TestCase
 {
+    public function testOf()
+    {
+        $this->assertSame([], $this->arr()->of()->get());
+        $this->assertInstanceOf(Helper::class, $this->arr()->of());
+
+        $this->assertSame([], $this->arr()->of(null)->get());
+        $this->assertInstanceOf(Helper::class, $this->arr()->of(null));
+
+        $this->assertSame([], $this->arr()->of([])->get());
+        $this->assertInstanceOf(Helper::class, $this->arr()->of([]));
+
+        $this->assertSame([], $this->arr()->of('')->get());
+        $this->assertInstanceOf(Helper::class, $this->arr()->of(''));
+    }
+
     public function testExcept()
     {
         $array = [
@@ -238,6 +254,65 @@ final class ArrTest extends TestCase
         }));
     }
 
+    public function testFilter()
+    {
+        $source = [
+            'foo' => 'Foo',
+            'bar' => 'Bar',
+            'baz' => 'Baz',
+            200   => 'Num 200',
+            400   => 'Num 400',
+        ];
+
+        $target = [
+            'bar' => 'Bar',
+            'baz' => 'Baz',
+            200   => 'Num 200',
+        ];
+
+        $result = $this->arr()->filter($source, static function ($value, $key) {
+            return Str::contains($value, 200) || Str::startsWith($key, 'b');
+        }, ARRAY_FILTER_USE_BOTH);
+
+        $this->assertSame($target, $result);
+    }
+
+    public function testValues()
+    {
+        $source = [
+            'foo' => 'Foo',
+            'bar' => 'Bar',
+            'baz' => 'Baz',
+            200   => 'Num 200',
+            400   => 'Num 400',
+        ];
+
+        $expected = [
+            'Foo',
+            'Bar',
+            'Baz',
+            'Num 200',
+            'Num 400',
+        ];
+
+        $this->assertSame($expected, $this->arr()->values($source));
+    }
+
+    public function testValuesArrayable()
+    {
+        $expected_bar = [
+            'Foo',
+            'Bar',
+        ];
+
+        $expected_baz = [
+            'Qwerty',
+        ];
+
+        $this->assertSame($expected_bar, $this->arr()->values(new Bar()));
+        $this->assertSame($expected_baz, $this->arr()->values(new Baz()));
+    }
+
     public function testFlatten()
     {
         // Flat arrays are unaffected
@@ -259,6 +334,29 @@ final class ArrTest extends TestCase
         // Deeply nested arrays are flattened
         $array = [['#foo', ['#bar']], ['#baz']];
         $this->assertEquals(['#foo', '#bar', '#baz'], $this->arr()->flatten($array));
+    }
+
+    public function testFlattenDoesntIgnore()
+    {
+        // Flat arrays are unaffected
+        $array = ['#foo', '#bar', '#baz'];
+        $this->assertEquals(['#foo', '#bar', '#baz'], $this->arr()->flatten($array, false));
+
+        // Nested arrays are flattened with existing flat items
+        $array = [['#foo', '#bar'], '#baz'];
+        $this->assertEquals(['#foo', '#baz'], $this->arr()->flatten($array, false));
+
+        // Flattened array includes "null" items
+        $array = [['#foo', null], '#baz', null];
+        $this->assertEquals(['#foo', '#baz', null], $this->arr()->flatten($array, false));
+
+        // Sets of nested arrays are flattened
+        $array = [['#foo', '#bar'], ['#baz']];
+        $this->assertEquals(['#foo', '#bar', '#baz'], $this->arr()->flatten($array, false));
+
+        // Deeply nested arrays are flattened
+        $array = [['#foo', ['#bar']], ['#baz']];
+        $this->assertEquals(['#foo', '#bar', '#baz'], $this->arr()->flatten($array, false));
     }
 
     public function testStoreAsArray()

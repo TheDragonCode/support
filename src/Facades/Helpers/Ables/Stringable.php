@@ -1,8 +1,7 @@
 <?php
 
-namespace Helldar\Support\Facades\Helpers;
+namespace Helldar\Support\Facades\Helpers\Ables;
 
-use Helldar\Support\Concerns\Deprecation;
 use Helldar\Support\Facades\BaseFacade;
 use Helldar\Support\Helpers\Ables\Stringable as Helper;
 
@@ -28,15 +27,6 @@ use Helldar\Support\Helpers\Ables\Stringable as Helper;
  */
 final class Stringable extends BaseFacade
 {
-    use Deprecation;
-
-    public static function __callStatic($method, $args)
-    {
-        self::deprecatedClass(Ables\Stringable::class);
-
-        return parent::__callStatic($method, $args);
-    }
-
     protected static function getFacadeAccessor()
     {
         return Helper::class;
