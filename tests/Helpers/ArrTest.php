@@ -238,6 +238,29 @@ final class ArrTest extends TestCase
         }));
     }
 
+    public function testFilter()
+    {
+        $source = [
+            'foo' => 'Foo',
+            'bar' => 'Bar',
+            'baz' => 'Baz',
+            200   => 'Num 200',
+            400   => 'Num 400',
+        ];
+
+        $target = [
+            'bar' => 'Bar',
+            'baz' => 'Baz',
+            200   => 'Num 200',
+        ];
+
+        $result = $this->arr()->filter($source, static function ($value, $key) {
+            return Str::contains($value, 200) || Str::startsWith($key, 'b');
+        }, ARRAY_FILTER_USE_BOTH);
+
+        $this->assertSame($target, $result);
+    }
+
     public function testFlatten()
     {
         // Flat arrays are unaffected

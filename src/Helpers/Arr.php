@@ -287,7 +287,7 @@ class Arr
                 return empty($keys) || ! in_array($key, (array) $keys);
             };
 
-        return array_filter((array) $array, $callback, ARRAY_FILTER_USE_KEY);
+        return $this->filter((array) $array, $callback, ARRAY_FILTER_USE_KEY);
     }
 
     /**
@@ -301,7 +301,7 @@ class Arr
     public function only($array, $keys): array
     {
         if (is_callable($keys)) {
-            return array_filter($array, $keys, ARRAY_FILTER_USE_KEY);
+            return $this->filter($array, $keys, ARRAY_FILTER_USE_KEY);
         }
 
         $result = [];
@@ -315,6 +315,24 @@ class Arr
         }
 
         return $result;
+    }
+
+    /**
+     * Iterates over each value in the <b>array</b> passing them to the <b>callback</b> function.
+     * If the <b>callback</b> function returns true, the current value from <b>array</b> is returned into
+     * the result array. Array keys are preserved.
+     *
+     * @see https://php.net/manual/en/function.array-filter.php
+     *
+     * @param  array|ArrayAccess  $array
+     * @param  callable  $callback
+     * @param  int  $mode
+     *
+     * @return array
+     */
+    public function filter($array, callable $callback, int $mode = 0): array
+    {
+        return array_filter($array, $callback, $mode);
     }
 
     /**
