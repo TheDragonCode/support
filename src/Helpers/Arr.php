@@ -196,7 +196,7 @@ class Arr
             }
         }
 
-        return $this->ksort($result);
+        return $result;
     }
 
     /**
