@@ -16,7 +16,7 @@ class Arrayable
     /**
      * Creates the current object in case of accessing the Arrayable through the facade.
      *
-     * @param  array|string|\ArrayAccess|null  $value
+     * @param  array|\ArrayAccess|string|null  $value
      *
      * @return \Helldar\Support\Helpers\Ables\Arrayable
      */
