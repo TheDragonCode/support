@@ -376,7 +376,7 @@ class Arr
         foreach ($array as $key => $item) {
             if (! $this->isArrayable($item)) {
                 $ignore_keys
-                    ? $result[] = $item
+                    ? $result[]     = $item
                     : $result[$key] = $item;
 
                 continue;
