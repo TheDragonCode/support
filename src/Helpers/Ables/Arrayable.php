@@ -266,4 +266,24 @@ class Arrayable
     {
         return new self(Arr::remove($this->value, $key));
     }
+
+    /**
+     * Outputs the contents of a variable without terminating the application.
+     *
+     * @return $this
+     */
+    public function dump(): self
+    {
+        dump($this->value);
+
+        return $this;
+    }
+
+    /**
+     * Outputs the contents of a variable, terminating the application.
+     */
+    public function dd(): void
+    {
+        dd($this->value);
+    }
 }
