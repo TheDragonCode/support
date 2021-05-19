@@ -124,9 +124,8 @@ class Arr
     public function sortByKeys(array $array, array $sorter): array
     {
         $sorter = array_intersect($sorter, array_keys($array));
-        $array  = array_merge(array_flip($sorter), $array);
 
-        return $array;
+        return array_merge(array_flip($sorter), $array);
     }
 
     /**
@@ -166,7 +165,7 @@ class Arr
 
         uksort($array, $callback);
 
-        foreach ($array as $key => &$value) {
+        foreach ($array as &$value) {
             if (is_array($value)) {
                 $value = $this->ksort($value, $callback);
             }
@@ -375,9 +374,9 @@ class Arr
 
         foreach ($array as $key => $item) {
             if (! $this->isArrayable($item)) {
-                $ignore_keys
-                    ? $result[]     = $item
-                    : $result[$key] = $item;
+                $result = $ignore_keys
+                    ? $this->push($result, $item)
+                    : $this->set($result, $key, $item);
 
                 continue;
             }
