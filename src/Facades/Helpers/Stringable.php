@@ -7,6 +7,8 @@ use Helldar\Support\Facades\BaseFacade;
 use Helldar\Support\Helpers\Ables\Stringable as Helper;
 
 /**
+ * @deprecated Use \Helldar\Support\Facades\Helpers\Ables\Stringable::class instead.
+ *
  * @method static Helper after(string $search)
  * @method static Helper ascii(string $language = 'en')
  * @method static Helper before(string $search)

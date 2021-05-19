@@ -2,6 +2,7 @@
 
 namespace Tests\Helpers;
 
+use Helldar\Support\Facades\Helpers\Ables\Arrayable as ArrayableHelper;
 use Helldar\Support\Facades\Helpers\Str;
 use Helldar\Support\Helpers\Ables\Arrayable as Helper;
 use Helldar\Support\Helpers\Arr;
@@ -1100,6 +1101,10 @@ final class ArrTest extends TestCase
 
         $this->assertEquals(['first' => 'Foo', 'second' => 'Bar'], $this->arr()->toArray(new Bar()));
         $this->assertEquals(['qwerty' => 'Qwerty'], $this->arr()->toArray(new Baz()));
+
+        $object = ArrayableHelper::of(['first' => 'Foo', 'second' => 'Bar']);
+
+        $this->assertEquals(['first' => 'Foo', 'second' => 'Bar'], $this->arr()->toArray($object));
     }
 
     public function testIsArrayable()

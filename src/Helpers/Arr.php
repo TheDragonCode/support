@@ -4,8 +4,10 @@ namespace Helldar\Support\Helpers;
 
 use ArrayAccess;
 use Helldar\Support\Facades\Helpers\Filesystem\File;
+use Helldar\Support\Facades\Helpers\Instance as InstanceHelper;
 use Helldar\Support\Facades\Tools\Sorter;
 use Helldar\Support\Facades\Tools\Stub;
+use Helldar\Support\Helpers\Ables\Arrayable as ArrayableHelper;
 use Helldar\Support\Tools\Stub as StubTool;
 
 class Arr
@@ -224,6 +226,10 @@ class Arr
      */
     public function toArray($value = null): array
     {
+        if (InstanceHelper::of($value, ArrayableHelper::class)) {
+            $value = $value->get();
+        }
+
         if (is_object($value)) {
             $value = method_exists($value, 'toArray') ? $value->toArray() : get_object_vars($value);
         }
