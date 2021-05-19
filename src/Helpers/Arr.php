@@ -415,6 +415,56 @@ class Arr
     }
 
     /**
+     * Push elements onto the end of array.
+     *
+     * @see  https://php.net/manual/en/function.array-push.php
+     *
+     * @param  array|ArrayAccess  $array
+     * @param  mixed  ...$values
+     *
+     * @return array
+     */
+    public function push($array, ...$values): array
+    {
+        foreach ($values as $value) {
+            array_push($array, $value);
+        }
+
+        return $array;
+    }
+
+    /**
+     * Assigns a value to an array key.
+     *
+     * @param  array|ArrayAccess  $array
+     * @param  mixed  $key
+     * @param  mixed  $value
+     *
+     * @return array
+     */
+    public function set($array, $key, $value): array
+    {
+        $array[$key] = $value;
+
+        return $array;
+    }
+
+    /**
+     * Removes an array key.
+     *
+     * @param  array|ArrayAccess  $array
+     * @param  mixed  $key
+     *
+     * @return array
+     */
+    public function remove($array, $key): array
+    {
+        unset($array[$key]);
+
+        return $array;
+    }
+
+    /**
      * Check if the item is an array.
      *
      * @param  mixed  $value

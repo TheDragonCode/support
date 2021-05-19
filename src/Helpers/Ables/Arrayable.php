@@ -227,4 +227,43 @@ class Arrayable
     {
         return new self(Arr::values($this->value));
     }
+
+    /**
+     * Push elements onto the end of array.
+     *
+     * @see  https://php.net/manual/en/function.array-push.php
+     *
+     * @param  mixed  ...$values
+     *
+     * @return \Helldar\Support\Helpers\Ables\Arrayable
+     */
+    public function push(...$values): self
+    {
+        return new self(Arr::push($this->value, ...$values));
+    }
+
+    /**
+     * Assigns a value to an array key.
+     *
+     * @param  mixed  $key
+     * @param  mixed  $value
+     *
+     * @return \Helldar\Support\Helpers\Ables\Arrayable
+     */
+    public function set($key, $value): self
+    {
+        return new self(Arr::set($this->value, $key, $value));
+    }
+
+    /**
+     * Removes an array key.
+     *
+     * @param  mixed  $key
+     *
+     * @return \Helldar\Support\Helpers\Ables\Arrayable
+     */
+    public function remove($key): self
+    {
+        return new self(Arr::remove($this->value, $key));
+    }
 }

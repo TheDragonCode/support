@@ -901,6 +901,65 @@ final class ArrayableTest extends TestCase
         }, true)->get());
     }
 
+    public function testPush()
+    {
+        $source = [
+            'foo' => 'Foo',
+        ];
+
+        $expected1 = [
+            'foo' => 'Foo',
+            'Bar',
+        ];
+
+        $expected2 = [
+            'foo' => 'Foo',
+            [
+                'Bar',
+                'Baz',
+            ],
+        ];
+
+        $expected3 = [
+            'foo' => 'Foo',
+            'Bar',
+            'Baz',
+        ];
+
+        $this->assertSame($expected1, $this->arr($source)->push('Bar')->get());
+        $this->assertSame($expected2, $this->arr($source)->push(['Bar', 'Baz'])->get());
+        $this->assertSame($expected3, $this->arr($source)->push('Bar', 'Baz')->get());
+    }
+
+    public function testSet()
+    {
+        $source = [
+            'foo' => 'Foo',
+            'bar' => 'Bar',
+        ];
+
+        $expected = [
+            'foo' => 'Foo',
+            'bar' => 'Qwerty',
+        ];
+
+        $this->assertSame($expected, $this->arr($source)->set('bar', 'Qwerty')->get());
+    }
+
+    public function testRemove()
+    {
+        $source = [
+            'foo' => 'Foo',
+            'bar' => 'Bar',
+        ];
+
+        $expected = [
+            'foo' => 'Foo',
+        ];
+
+        $this->assertSame($expected, $this->arr($source)->remove('bar')->get());
+    }
+
     public function testCombine()
     {
         $source = [
@@ -954,6 +1013,19 @@ final class ArrayableTest extends TestCase
             'baz',
         ];
 
+        $expected4 = [
+            'BAZ' => 33,
+
+            'first'  => 'foo',
+            'second' => 'bar',
+
+            'qaz' => 22,
+
+            'WASD' => 'new element',
+
+            1 => 'bat',
+        ];
+
         $array = $this->arr($source)
             ->ksort()
             ->renameKeys(static function ($key) {
@@ -976,6 +1048,7 @@ final class ArrayableTest extends TestCase
         $this->assertSame($expected1, $array->get());
         $this->assertSame($expected2, $array->sort()->get());
         $this->assertSame($expected3, $array->values()->get());
+        $this->assertSame($expected4, $array->push('bat')->remove(0)->set('qaz', 22)->get());
     }
 
     protected function arr($value = []): Arrayable

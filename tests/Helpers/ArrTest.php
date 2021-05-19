@@ -1234,6 +1234,65 @@ final class ArrTest extends TestCase
         }, true));
     }
 
+    public function testPush()
+    {
+        $source = [
+            'foo' => 'Foo',
+        ];
+
+        $expected1 = [
+            'foo' => 'Foo',
+            'Bar',
+        ];
+
+        $expected2 = [
+            'foo' => 'Foo',
+            [
+                'Bar',
+                'Baz',
+            ],
+        ];
+
+        $expected3 = [
+            'foo' => 'Foo',
+            'Bar',
+            'Baz',
+        ];
+
+        $this->assertSame($expected1, $this->arr()->push($source, 'Bar'));
+        $this->assertSame($expected2, $this->arr()->push($source, ['Bar', 'Baz']));
+        $this->assertSame($expected3, $this->arr()->push($source, 'Bar', 'Baz'));
+    }
+
+    public function testSet()
+    {
+        $source = [
+            'foo' => 'Foo',
+            'bar' => 'Bar',
+        ];
+
+        $expected = [
+            'foo' => 'Foo',
+            'bar' => 'Qwerty',
+        ];
+
+        $this->assertSame($expected, $this->arr()->set($source, 'bar', 'Qwerty'));
+    }
+
+    public function testRemove()
+    {
+        $source = [
+            'foo' => 'Foo',
+            'bar' => 'Bar',
+        ];
+
+        $expected = [
+            'foo' => 'Foo',
+        ];
+
+        $this->assertSame($expected, $this->arr()->remove($source, 'bar'));
+    }
+
     protected function arr(): Arr
     {
         return new Arr();

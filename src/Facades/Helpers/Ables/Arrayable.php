@@ -23,6 +23,9 @@ use Helldar\Support\Helpers\Ables\Arrayable as Helper;
  * @method static Helper sortByKeys(array $sorter)
  * @method static Helper toArray()
  * @method static Helper values()
+ * @method static Helper push(...$values)
+ * @method static Helper set($key, $value)
+ * @method static Helper remove($key)
  */
 final class Arrayable extends BaseFacade
 {

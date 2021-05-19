@@ -1194,4 +1194,63 @@ final class ArrTest extends TestCase
             return Str::studly($key) . '_' . ($value * 2);
         }, true));
     }
+
+    public function testPush()
+    {
+        $source = [
+            'foo' => 'Foo',
+        ];
+
+        $expected1 = [
+            'foo' => 'Foo',
+            'Bar',
+        ];
+
+        $expected2 = [
+            'foo' => 'Foo',
+            [
+                'Bar',
+                'Baz',
+            ],
+        ];
+
+        $expected3 = [
+            'foo' => 'Foo',
+            'Bar',
+            'Baz',
+        ];
+
+        $this->assertSame($expected1, Arr::push($source, 'Bar'));
+        $this->assertSame($expected2, Arr::push($source, ['Bar', 'Baz']));
+        $this->assertSame($expected3, Arr::push($source, 'Bar', 'Baz'));
+    }
+
+    public function testSet()
+    {
+        $source = [
+            'foo' => 'Foo',
+            'bar' => 'Bar',
+        ];
+
+        $expected = [
+            'foo' => 'Foo',
+            'bar' => 'Qwerty',
+        ];
+
+        $this->assertSame($expected, Arr::set($source, 'bar', 'Qwerty'));
+    }
+
+    public function testRemove()
+    {
+        $source = [
+            'foo' => 'Foo',
+            'bar' => 'Bar',
+        ];
+
+        $expected = [
+            'foo' => 'Foo',
+        ];
+
+        $this->assertSame($expected, Arr::remove($source, 'bar'));
+    }
 }
