@@ -146,6 +146,13 @@ class StringableTest extends TestCase
         $this->assertSame('/test/string', (string) $this->str('//test/string')->start('/'));
     }
 
+    public function testEnd()
+    {
+        $this->assertSame('test/string/', (string) $this->str('test/string')->end('/'));
+        $this->assertSame('test/string/', (string) $this->str('/test/string')->end('/'));
+        $this->assertSame('test/string/', (string) $this->str('//test/string')->end('/'));
+    }
+
     public function testStudly()
     {
         $this->assertSame('FooBar', (string) $this->str('Foo Bar')->studly());
