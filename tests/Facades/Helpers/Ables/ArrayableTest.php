@@ -944,6 +944,7 @@ final class ArrayableTest extends TestCase
         ];
 
         $this->assertSame($expected, Arrayable::of($source)->set('bar', 'Qwerty')->get());
+        $this->assertSame($expected, Arrayable::of($source)->set(['bar' => 'Qwerty'])->get());
     }
 
     public function testRemove()

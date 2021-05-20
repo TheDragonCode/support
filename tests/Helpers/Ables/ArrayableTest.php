@@ -944,6 +944,7 @@ final class ArrayableTest extends TestCase
         ];
 
         $this->assertSame($expected, $this->arr($source)->set('bar', 'Qwerty')->get());
+        $this->assertSame($expected, $this->arr($source)->set(['bar' => 'Qwerty'])->get());
     }
 
     public function testRemove()

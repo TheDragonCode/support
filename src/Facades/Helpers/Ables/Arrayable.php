@@ -22,7 +22,7 @@ use Helldar\Support\Helpers\Ables\Arrayable as Helper;
  * @method static Helper remove($key)
  * @method static Helper renameKeys(callable $callback)
  * @method static Helper renameKeysMap(array $map)
- * @method static Helper set($key, $value)
+ * @method static Helper set($key, $value = null)
  * @method static Helper sort(callable $callback = null)
  * @method static Helper sortByKeys(array $sorter)
  * @method static Helper toArray()
