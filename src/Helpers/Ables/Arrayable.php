@@ -250,7 +250,7 @@ class Arrayable
      *
      * @return \Helldar\Support\Helpers\Ables\Arrayable
      */
-    public function set($key, $value): self
+    public function set($key, $value = null): self
     {
         return new self(Arr::set($this->value, $key, $value));
     }
