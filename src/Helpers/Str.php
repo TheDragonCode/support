@@ -145,6 +145,21 @@ class Str
     }
 
     /**
+     * End a string with a single instance of a given value.
+     *
+     * @param  string|null  $value
+     * @param  string  $suffix
+     *
+     * @return string
+     */
+    public function end(?string $value, string $suffix): string
+    {
+        $quoted = preg_quote($suffix, '/');
+
+        return preg_replace('/^(?:' . $quoted . ')+/u', '', $value) . $suffix;
+    }
+
+    /**
      * Cap a string with a single instance of a given value.
      *
      * @see https://github.com/illuminate/support/blob/master/Str.php
