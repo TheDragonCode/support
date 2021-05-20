@@ -447,9 +447,13 @@ class Arr
      *
      * @return array
      */
-    public function set($array, $key, $value): array
+    public function set($array, $key, $value = null): array
     {
-        $array[$key] = $value;
+        if ($this->isArrayable($key)) {
+            $array = $this->merge($array, $key);
+        } else {
+            $array[$key] = $value;
+        }
 
         return $array;
     }
