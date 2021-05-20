@@ -54,6 +54,18 @@ class Stringable implements Contract
     }
 
     /**
+     * End a string with a single instance of a given value.
+     *
+     * @param  string  $suffix
+     *
+     * @return $this
+     */
+    public function end(string $suffix): self
+    {
+        return new self(Str::end($this->value, $suffix));
+    }
+
+    /**
      * Cap a string with a single instance of a given value.
      *
      * @param  string  $cap

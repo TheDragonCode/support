@@ -6,7 +6,7 @@ use Helldar\Support\Facades\BaseFacade;
 use Helldar\Support\Helpers\Str as Helper;
 
 /**
- * @method static \Helldar\Support\Helpers\Stringable of(?string $value)
+ * @method static \Helldar\Support\Facades\Helpers\Ables\Stringable of(?string $value)
  * @method static bool contains(string $haystack, $needles)
  * @method static bool doesntEmpty($value)
  * @method static bool endsWith(string $haystack, string|string[] $needles)
@@ -24,6 +24,7 @@ use Helldar\Support\Helpers\Str as Helper;
  * @method static string|null choice(float $number, array $choice = [], string $extra = null)
  * @method static string|null de(?string $value)
  * @method static string|null e(?string $value, bool $double = true)
+ * @method static string|null end(?string $value, string $suffix)
  * @method static string|null finish(string $value, string $cap = '/')
  * @method static string|null lower(?string $value)
  * @method static string|null match(string $value, string $pattern)

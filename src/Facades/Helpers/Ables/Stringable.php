@@ -11,6 +11,7 @@ use Helldar\Support\Helpers\Ables\Stringable as Helper;
  * @method static Helper before(string $search)
  * @method static Helper camel()
  * @method static Helper dump()
+ * @method static Helper end(string $suffix)
  * @method static Helper finish(string $cap = '/')
  * @method static Helper lower()
  * @method static Helper of(?string $value)

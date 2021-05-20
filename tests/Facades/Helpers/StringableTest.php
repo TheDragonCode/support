@@ -1,11 +1,12 @@
 <?php
 
-namespace Tests\Facades\Helpers\Ables;
+namespace Tests\Facades\Helpers;
 
-use Helldar\Support\Facades\Helpers\Ables\Stringable;
+use Helldar\Support\Facades\Helpers\Stringable;
 use Tests\TestCase;
 
-class StringableTest extends TestCase
+/** @deprecated */
+final class StringableTest extends TestCase
 {
     public function testAscii()
     {

@@ -140,6 +140,13 @@ final class StrTest extends TestCase
         $this->assertFalse($this->str()->startsWith('你好', 'a'));
     }
 
+    public function testEnd()
+    {
+        $this->assertSame('test/string/', $this->str()->end('test/string', '/'));
+        $this->assertSame('test/string/', $this->str()->end('/test/string', '/'));
+        $this->assertSame('test/string/', $this->str()->end('//test/string', '/'));
+    }
+
     public function testEndsWith()
     {
         $this->assertTrue($this->str()->endsWith('jason', 'on'));

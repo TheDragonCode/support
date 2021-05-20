@@ -13,6 +13,8 @@ use Helldar\Support\Helpers\Ables\Stringable as Helper;
  * @method static Helper ascii(string $language = 'en')
  * @method static Helper before(string $search)
  * @method static Helper camel()
+ * @method static Helper dump()
+ * @method static Helper end(string $suffix)
  * @method static Helper finish(string $cap = '/')
  * @method static Helper lower()
  * @method static Helper of(?string $value)
@@ -27,6 +29,7 @@ use Helldar\Support\Helpers\Ables\Stringable as Helper;
  * @method static Helper title()
  * @method static Helper trim(string $characters = " \t\n\r\0\x0B")
  * @method static Helper upper()
+ * @method static void dd()
  */
 final class Stringable extends BaseFacade
 {
