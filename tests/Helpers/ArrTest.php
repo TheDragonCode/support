@@ -1282,6 +1282,7 @@ final class ArrTest extends TestCase
         ];
 
         $this->assertSame($expected, $this->arr()->set($source, 'bar', 'Qwerty'));
+        $this->assertSame($expected, $this->arr()->set($source, ['bar' => 'Qwerty']));
     }
 
     public function testRemove()

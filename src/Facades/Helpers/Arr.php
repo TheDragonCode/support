@@ -19,7 +19,7 @@ use Helldar\Support\Helpers\Arr as Helper;
  * @method static array remove(array|ArrayAccess $array, mixed $key)
  * @method static array renameKeys(array $array, callable $callback)
  * @method static array renameKeysMap(array $array, array $map)
- * @method static array set(array|ArrayAccess $array, mixed $key, mixed $value)
+ * @method static array set(array|ArrayAccess $array, array|mixed $key, mixed $value = null)
  * @method static array sort(array $array, callable $callback = null)
  * @method static array sortByKeys(array $array, array $sorter)
  * @method static array toArray($value = null)
