@@ -18,7 +18,7 @@ use Helldar\Support\Helpers\Ables\Arrayable as Helper;
  * @method static Helper ksort(callable $callback = null)
  * @method static Helper map(callable $callback, bool $recursive = false)
  * @method static Helper merge(...$arrays)
- * @method static Helper of(array|ArrayAccess|string|object|null $value = [])
+ * @method static Helper of(array|ArrayAccess|object|string|null $value = [])
  * @method static Helper only(array|callable|string $keys)
  * @method static Helper push(...$values)
  * @method static Helper remove($key)
