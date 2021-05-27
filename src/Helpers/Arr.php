@@ -353,6 +353,20 @@ class Arr
     }
 
     /**
+     * Return all the keys or a subset of the keys of an array.
+     *
+     * @see https://php.net/manual/en/function.array-keys.php
+     *
+     * @param  mixed  $array
+     *
+     * @return array
+     */
+    public function keys($array): array
+    {
+        return array_keys($this->toArray($array));
+    }
+
+    /**
      * Return all the values of an array.
      *
      * @see  https://php.net/manual/en/function.array-values.php
@@ -364,6 +378,20 @@ class Arr
     public function values($array): array
     {
         return array_values($this->toArray($array));
+    }
+
+    /**
+     * Exchanges all keys with their associated values in an array.
+     *
+     * @see  https://php.net/manual/en/function.array-flip.php
+     *
+     * @param  mixed  $array
+     *
+     * @return array
+     */
+    public function flip($array): array
+    {
+        return array_flip($this->toArray($array));
     }
 
     /**

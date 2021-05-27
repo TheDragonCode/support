@@ -262,6 +262,42 @@ final class ArrTest extends TestCase
         $this->assertSame($target, $result);
     }
 
+    public function testFlip()
+    {
+        $source = [
+            'foo' => 'Foo',
+            'bar' => 'Bar',
+            'baz' => 'Baz',
+            200   => 'Num 200',
+            400   => 'Num 400',
+        ];
+
+        $target = [
+            'Foo'     => 'foo',
+            'Bar'     => 'bar',
+            'Baz'     => 'baz',
+            'Num 200' => 200,
+            'Num 400' => 400,
+        ];
+
+        $this->assertSame($target, Arr::flip($source));
+    }
+
+    public function testFlipArrayable()
+    {
+        $expected_bar = [
+            'Foo' => 'first',
+            'Bar' => 'second',
+        ];
+
+        $expected_baz = [
+            'Qwerty' => 'qwerty',
+        ];
+
+        $this->assertSame($expected_bar, Arr::flip(new Bar()));
+        $this->assertSame($expected_baz, Arr::flip(new Baz()));
+    }
+
     public function testValues()
     {
         $source = [
@@ -296,6 +332,42 @@ final class ArrTest extends TestCase
 
         $this->assertSame($expected_bar, Arr::values(new Bar()));
         $this->assertSame($expected_baz, Arr::values(new Baz()));
+    }
+
+    public function testKeys()
+    {
+        $source = [
+            'foo' => 'Foo',
+            'bar' => 'Bar',
+            'baz' => 'Baz',
+            200   => 'Num 200',
+            400   => 'Num 400',
+        ];
+
+        $expected = [
+            'foo',
+            'bar',
+            'baz',
+            200,
+            400,
+        ];
+
+        $this->assertSame($expected, Arr::keys($source));
+    }
+
+    public function testKeysArrayable()
+    {
+        $expected_bar = [
+            'first',
+            'second',
+        ];
+
+        $expected_baz = [
+            'qwerty',
+        ];
+
+        $this->assertSame($expected_bar, Arr::keys(new Bar()));
+        $this->assertSame($expected_baz, Arr::keys(new Baz()));
     }
 
     public function testFlatten()

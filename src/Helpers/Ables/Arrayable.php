@@ -217,6 +217,30 @@ class Arrayable
     }
 
     /**
+     * Exchanges all keys with their associated values in an array.
+     *
+     * @see  https://php.net/manual/en/function.array-flip.php
+     *
+     * @return $this
+     */
+    public function flip(): self
+    {
+        return new self(Arr::flip($this->value));
+    }
+
+    /**
+     * Return all the keys or a subset of the keys of an array.
+     *
+     * @see https://php.net/manual/en/function.array-keys.php
+     *
+     * @return \Helldar\Support\Helpers\Ables\Arrayable
+     */
+    public function keys(): self
+    {
+        return new self(Arr::keys($this->value));
+    }
+
+    /**
      * Return all the values of an array.
      *
      * @see  https://php.net/manual/en/function.array-values.php

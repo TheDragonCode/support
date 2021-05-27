@@ -11,6 +11,8 @@ use Helldar\Support\Helpers\Arr as Helper;
  * @method static array except(array $array, array|callable|string $keys)
  * @method static array filter($array, callable $callback, int $mode = 0)
  * @method static array flatten(array $array, bool $ignore_keys = true)
+ * @method static array flip($array)
+ * @method static array keys($array)
  * @method static array ksort(array $array, callable $callback = null)
  * @method static array map(array|ArrayAccess $array, callable $callback, bool $recursive = false)
  * @method static array merge(...$arrays)
