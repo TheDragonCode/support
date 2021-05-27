@@ -3,7 +3,7 @@
 namespace Helldar\Support\Facades\Helpers;
 
 use ArrayAccess;
-use Helldar\Support\Facades\BaseFacade;
+use Helldar\Support\Facades\Facade;
 use Helldar\Support\Helpers\Arr as Helper;
 
 /**
@@ -36,7 +36,7 @@ use Helldar\Support\Helpers\Arr as Helper;
  * @method static void storeAsArray(string $path, array|ArrayAccess $array, bool $sort_keys = false)
  * @method static void storeAsJson(string $path, array|ArrayAccess $array, bool $sort_keys = false, int $flags = 0)
  */
-final class Arr extends BaseFacade
+final class Arr extends Facade
 {
     protected static function getFacadeAccessor()
     {

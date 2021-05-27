@@ -2,7 +2,7 @@
 
 namespace Helldar\Support\Facades\Helpers;
 
-use Helldar\Support\Facades\BaseFacade;
+use Helldar\Support\Facades\Facade;
 use Helldar\Support\Helpers\Boolean as Helper;
 
 /**
@@ -12,7 +12,7 @@ use Helldar\Support\Helpers\Boolean as Helper;
  * @method static bool|null parse($value)
  * @method static string convertToString(bool $value)
  */
-final class Boolean extends BaseFacade
+final class Boolean extends Facade
 {
     protected static function getFacadeAccessor()
     {

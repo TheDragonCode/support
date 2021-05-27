@@ -3,7 +3,7 @@
 namespace Helldar\Support\Facades\Helpers\Ables;
 
 use ArrayAccess;
-use Helldar\Support\Facades\BaseFacade;
+use Helldar\Support\Facades\Facade;
 use Helldar\Support\Helpers\Ables\Arrayable as Helper;
 
 /**
@@ -29,7 +29,7 @@ use Helldar\Support\Helpers\Ables\Arrayable as Helper;
  * @method static Helper values()
  * @method static void dd()
  */
-final class Arrayable extends BaseFacade
+final class Arrayable extends Facade
 {
     protected static function getFacadeAccessor()
     {

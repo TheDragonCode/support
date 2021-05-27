@@ -2,7 +2,7 @@
 
 namespace Helldar\Support\Facades\Helpers;
 
-use Helldar\Support\Facades\BaseFacade;
+use Helldar\Support\Facades\Facade;
 use Helldar\Support\Helpers\HttpBuilder as Helper;
 
 /**
@@ -30,7 +30,7 @@ use Helldar\Support\Helpers\HttpBuilder as Helper;
  * @method static string|null getScheme()
  * @method static string|null getUser()
  */
-final class HttpBuilder extends BaseFacade
+final class HttpBuilder extends Facade
 {
     protected static function getFacadeAccessor()
     {

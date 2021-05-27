@@ -2,9 +2,9 @@
 
 namespace Tests\Fixtures\Facades;
 
-use Helldar\Support\Facades\BaseFacade;
+use Helldar\Support\Facades\Facade;
 
-class Resolve extends BaseFacade
+class Resolve extends Facade
 {
     protected static function getFacadeAccessor()
     {
