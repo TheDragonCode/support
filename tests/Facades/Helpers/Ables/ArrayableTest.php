@@ -901,6 +901,78 @@ final class ArrayableTest extends TestCase
         }, true)->get());
     }
 
+    public function testFlip()
+    {
+        $source = [
+            'foo' => 'Foo',
+            'bar' => 'Bar',
+            'baz' => 'Baz',
+            200   => 'Num 200',
+            400   => 'Num 400',
+        ];
+
+        $target = [
+            'Foo'     => 'foo',
+            'Bar'     => 'bar',
+            'Baz'     => 'baz',
+            'Num 200' => 200,
+            'Num 400' => 400,
+        ];
+
+        $this->assertSame($target, Arrayable::of($source)->flip()->get());
+    }
+
+    public function testFlipArrayable()
+    {
+        $expected_bar = [
+            'Foo' => 'first',
+            'Bar' => 'second',
+        ];
+
+        $expected_baz = [
+            'Qwerty' => 'qwerty',
+        ];
+
+        $this->assertSame($expected_bar, Arrayable::of(new Bar())->flip()->get());
+        $this->assertSame($expected_baz, Arrayable::of(new Baz())->flip()->get());
+    }
+
+    public function testKeys()
+    {
+        $source = [
+            'foo' => 'Foo',
+            'bar' => 'Bar',
+            'baz' => 'Baz',
+            200   => 'Num 200',
+            400   => 'Num 400',
+        ];
+
+        $expected = [
+            'foo',
+            'bar',
+            'baz',
+            200,
+            400,
+        ];
+
+        $this->assertSame($expected, Arrayable::of($source)->keys()->get());
+    }
+
+    public function testKeysArrayable()
+    {
+        $expected_bar = [
+            'first',
+            'second',
+        ];
+
+        $expected_baz = [
+            'qwerty',
+        ];
+
+        $this->assertSame($expected_bar, Arrayable::of(new Bar())->keys()->get());
+        $this->assertSame($expected_baz, Arrayable::of(new Baz())->keys()->get());
+    }
+
     public function testPush()
     {
         $source = [
@@ -1027,6 +1099,32 @@ final class ArrayableTest extends TestCase
             1 => 'bat',
         ];
 
+        $expected5 = [
+            33 => 'BAZ',
+
+            'foo' => 'first',
+            'bar' => 'second',
+
+            11 => 'qaz',
+
+            'new element' => 'WASD',
+
+            'baz' => 0,
+        ];
+
+        $expected6 = [
+            'BAZ',
+
+            'first',
+            'second',
+
+            'qaz',
+
+            'WASD',
+
+            0,
+        ];
+
         $array = Arrayable::of($source)
             ->ksort()
             ->renameKeys(static function ($key) {
@@ -1050,5 +1148,7 @@ final class ArrayableTest extends TestCase
         $this->assertSame($expected2, $array->sort()->get());
         $this->assertSame($expected3, $array->values()->get());
         $this->assertSame($expected4, $array->push('bat')->remove(0)->set('qaz', 22)->get());
+        $this->assertSame($expected5, $array->flip()->get());
+        $this->assertSame($expected6, $array->keys()->get());
     }
 }

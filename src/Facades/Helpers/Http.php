@@ -2,7 +2,7 @@
 
 namespace Helldar\Support\Facades\Helpers;
 
-use Helldar\Support\Facades\BaseFacade;
+use Helldar\Support\Facades\Facade;
 use Helldar\Support\Helpers\Http as Helper;
 
 /**
@@ -16,7 +16,7 @@ use Helldar\Support\Helpers\Http as Helper;
  * @method static string|null subdomain(?string $url)
  * @method static void validateUrl(?string $url)
  */
-final class Http extends BaseFacade
+final class Http extends Facade
 {
     protected static function getFacadeAccessor()
     {

@@ -3,7 +3,7 @@
 namespace Helldar\Support\Facades\Helpers\Filesystem;
 
 use DirectoryIterator;
-use Helldar\Support\Facades\BaseFacade;
+use Helldar\Support\Facades\Facade;
 use Helldar\Support\Helpers\Filesystem\Directory as Helper;
 use SplFileInfo;
 
@@ -19,7 +19,7 @@ use SplFileInfo;
  * @method static void ensureDirectory(string $path, int $mode = 0755, bool $can_delete = false)
  * @method static void validate(DirectoryIterator|SplFileInfo|string $path)
  */
-final class Directory extends BaseFacade
+final class Directory extends Facade
 {
     protected static function getFacadeAccessor()
     {

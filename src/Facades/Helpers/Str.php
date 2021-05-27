@@ -2,7 +2,7 @@
 
 namespace Helldar\Support\Facades\Helpers;
 
-use Helldar\Support\Facades\BaseFacade;
+use Helldar\Support\Facades\Facade;
 use Helldar\Support\Helpers\Str as Helper;
 
 /**
@@ -37,7 +37,7 @@ use Helldar\Support\Helpers\Str as Helper;
  * @method static string|null title(?string $value)
  * @method static string|null upper(?string $value)
  */
-final class Str extends BaseFacade
+final class Str extends Facade
 {
     protected static function getFacadeAccessor()
     {

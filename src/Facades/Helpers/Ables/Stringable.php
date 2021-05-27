@@ -2,7 +2,7 @@
 
 namespace Helldar\Support\Facades\Helpers\Ables;
 
-use Helldar\Support\Facades\BaseFacade;
+use Helldar\Support\Facades\Facade;
 use Helldar\Support\Helpers\Ables\Stringable as Helper;
 
 /**
@@ -28,7 +28,7 @@ use Helldar\Support\Helpers\Ables\Stringable as Helper;
  * @method static Helper upper()
  * @method static void dd()
  */
-final class Stringable extends BaseFacade
+final class Stringable extends Facade
 {
     protected static function getFacadeAccessor()
     {

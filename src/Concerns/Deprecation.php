@@ -11,9 +11,9 @@ trait Deprecation
 {
     protected static $next_version = '4.0';
 
-    protected static function deprecatedClass(string $new_class): void
+    protected static function deprecatedClass(string $new_class, string $old_class = null): void
     {
-        $old_class = static::getDeprecatedNamespace();
+        $old_class = static::getDeprecatedNamespace($old_class);
 
         static::deprecated(
             'The %s class has been deprecated and will be removed in version %s, use %s instead.',
@@ -37,9 +37,9 @@ trait Deprecation
         );
     }
 
-    protected static function getDeprecatedNamespace(): string
+    protected static function getDeprecatedNamespace(string $old_namespace = null): string
     {
-        return static::class;
+        return $old_namespace ?: static::class;
     }
 
     protected static function deprecated(string $message, ...$args): void

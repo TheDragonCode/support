@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-use Helldar\Support\Facades\BaseFacade;
+use Helldar\Support\Facades\Facade;
 use Helldar\Support\Facades\Helpers\Filesystem\Directory;
 use Helldar\Support\Facades\Helpers\Str;
 use PHPUnit\Framework\TestCase as BaseTestCase;
@@ -11,7 +11,7 @@ abstract class TestCase extends BaseTestCase
 {
     protected function setUp(): void
     {
-        BaseFacade::clearResolvedInstances();
+        Facade::clearResolvedInstances();
 
         parent::setUp();
     }

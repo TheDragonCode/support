@@ -2,7 +2,7 @@
 
 namespace Helldar\Support\Facades\Helpers;
 
-use Helldar\Support\Facades\BaseFacade;
+use Helldar\Support\Facades\Facade;
 use Helldar\Support\Helpers\Is as Helper;
 
 /**
@@ -15,7 +15,7 @@ use Helldar\Support\Helpers\Is as Helper;
  * @method static bool reflectionClass($value)
  * @method static bool string($value)
  */
-final class Is extends BaseFacade
+final class Is extends Facade
 {
     protected static function getFacadeAccessor()
     {

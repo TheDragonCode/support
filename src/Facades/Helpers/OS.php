@@ -2,7 +2,7 @@
 
 namespace Helldar\Support\Facades\Helpers;
 
-use Helldar\Support\Facades\BaseFacade;
+use Helldar\Support\Facades\Facade;
 use Helldar\Support\Helpers\OS as Helper;
 
 /**
@@ -15,7 +15,7 @@ use Helldar\Support\Helpers\OS as Helper;
  * @method static bool isWindows()
  * @method static string family(bool $lower = true)
  */
-final class OS extends BaseFacade
+final class OS extends Facade
 {
     protected static function getFacadeAccessor()
     {

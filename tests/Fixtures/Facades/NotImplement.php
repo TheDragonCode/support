@@ -2,8 +2,8 @@
 
 namespace Tests\Fixtures\Facades;
 
-use Helldar\Support\Facades\BaseFacade;
+use Helldar\Support\Facades\Facade;
 
-class NotImplement extends BaseFacade
+class NotImplement extends Facade
 {
 }
