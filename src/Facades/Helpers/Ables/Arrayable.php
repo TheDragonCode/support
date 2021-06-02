@@ -27,6 +27,7 @@ use Helldar\Support\Helpers\Ables\Arrayable as Helper;
  * @method static Helper set($key, $value = null)
  * @method static Helper sort(callable $callback = null)
  * @method static Helper sortByKeys(array $sorter)
+ * @method static Helper tap(callable $callback)
  * @method static Helper toArray()
  * @method static Helper values()
  * @method static void dd()

@@ -24,6 +24,7 @@ use Helldar\Support\Helpers\Arr as Helper;
  * @method static array set(array|ArrayAccess $array, array|mixed $key, mixed $value = null)
  * @method static array sort(array $array, callable $callback = null)
  * @method static array sortByKeys(array $array, array $sorter)
+ * @method static array tap(array|ArrayAccess $array, callable $callback)
  * @method static array toArray($value = null)
  * @method static array values($array)
  * @method static array wrap($value = null)
