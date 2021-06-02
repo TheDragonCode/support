@@ -292,6 +292,18 @@ class Arrayable
     }
 
     /**
+     * Call the given Closure with the given value then return the value.
+     *
+     * @param  callable  $callback
+     *
+     * @return $this
+     */
+    public function tap(callable $callback): self
+    {
+        return new self(Arr::tap($this->value, $callback));
+    }
+
+    /**
      * Outputs the contents of a variable without terminating the application.
      *
      * @return $this

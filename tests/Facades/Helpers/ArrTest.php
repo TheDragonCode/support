@@ -1331,4 +1331,31 @@ final class ArrTest extends TestCase
 
         $this->assertSame($expected, Arr::remove($source, 'bar'));
     }
+
+    public function testTap()
+    {
+        $source = [
+            'foo' => 'Foo',
+            'bar' => 'Bar',
+        ];
+
+        $expected1 = [
+            'foo' => 'Foo',
+            'bar' => 'Bar',
+        ];
+
+        $expected2 = [
+            'Foo' => 'foo',
+            'Bar' => 'bar',
+        ];
+
+        $tmp = [];
+
+        $result = Arr::tap($source, static function ($value, $key) use (&$tmp) {
+            $tmp[$value] = $key;
+        });
+
+        $this->assertSame($expected1, $result);
+        $this->assertSame($expected2, $tmp);
+    }
 }

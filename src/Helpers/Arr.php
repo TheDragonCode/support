@@ -502,6 +502,23 @@ class Arr
     }
 
     /**
+     * Call the given Closure with the given value then return the value.
+     *
+     * @param  array|ArrayAccess  $array
+     * @param  callable  $callback
+     *
+     * @return array
+     */
+    public function tap($array, callable $callback): array
+    {
+        foreach ($array as $key => &$value) {
+            $callback($value, $key);
+        }
+
+        return $array;
+    }
+
+    /**
      * Check if the item is an array.
      *
      * @param  mixed  $value

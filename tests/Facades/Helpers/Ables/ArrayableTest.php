@@ -1033,6 +1033,33 @@ final class ArrayableTest extends TestCase
         $this->assertSame($expected, Arrayable::of($source)->remove('bar')->get());
     }
 
+    public function testTap()
+    {
+        $source = [
+            'foo' => 'Foo',
+            'bar' => 'Bar',
+        ];
+
+        $expected1 = [
+            'foo' => 'Foo',
+            'bar' => 'Bar',
+        ];
+
+        $expected2 = [
+            'Foo' => 'foo',
+            'Bar' => 'bar',
+        ];
+
+        $tmp = [];
+
+        $result = Arrayable::of($source)->tap(static function ($value, $key) use (&$tmp) {
+            $tmp[$value] = $key;
+        })->get();
+
+        $this->assertSame($expected1, $result);
+        $this->assertSame($expected2, $tmp);
+    }
+
     public function testCombine()
     {
         $source = [
