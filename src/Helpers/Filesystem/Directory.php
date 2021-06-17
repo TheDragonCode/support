@@ -115,6 +115,16 @@ class Directory
     }
 
     /**
+     * Ensure the directory has been deleted.
+     *
+     * @throws \Helldar\Support\Exceptions\DirectoryNotFoundException
+     */
+    public function ensureDelete(string $path): bool
+    {
+        return $this->doesntExist($path) || $this->delete($path);
+    }
+
+    /**
      * Ensure created directory exists.
      *
      * @param  string  $path

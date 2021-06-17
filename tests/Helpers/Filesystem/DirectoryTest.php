@@ -46,7 +46,7 @@ final class DirectoryTest extends TestCase
     {
         $path = $this->tempDirectory();
 
-        $this->assertFalse(DirectoryFacade::exists($path));
+        $this->assertDirectoryDoesNotExist($path);
 
         $this->assertTrue($this->directory()->make($path, 777));
 
@@ -54,7 +54,7 @@ final class DirectoryTest extends TestCase
 
         $this->assertTrue($this->directory()->delete($path));
 
-        $this->assertFalse(DirectoryFacade::exists($path));
+        $this->assertFalse($this->directory()->exists($path));
     }
 
     public function testDeleteDoesntExists()
@@ -75,6 +75,25 @@ final class DirectoryTest extends TestCase
         $this->expectExceptionMessage('Directory "' . $path . '" does not exist.');
 
         $this->directory()->delete($path);
+    }
+
+    public function testEnsureDelete()
+    {
+        $path1 = $this->tempDirectory();
+        $path2 = $this->tempDirectory();
+
+        $this->assertDirectoryDoesNotExist($path1);
+        $this->assertDirectoryDoesNotExist($path2);
+
+        $this->assertTrue($this->directory()->make($path1), 777);
+
+        $this->assertDirectoryExists($path1);
+
+        $this->assertTrue($this->directory()->ensureDelete($path1));
+        $this->assertTrue($this->directory()->ensureDelete($path2));
+
+        $this->assertDirectoryDoesNotExist($path1);
+        $this->assertDirectoryDoesNotExist($path2);
     }
 
     public function testEnsureDirectory()

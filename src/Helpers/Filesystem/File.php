@@ -100,7 +100,30 @@ class File
                 if (! @unlink($path)) {
                     $success = false;
                 }
-            } catch (Throwable $e) {
+            }
+            catch (Throwable $e) {
+                $success = false;
+            }
+        }
+
+        return $success;
+    }
+
+    /**
+     * Ensure the file has been deleted.
+     *
+     * @param  string|array  $paths
+     *
+     * @return bool
+     */
+    public function ensureDelete($paths): bool
+    {
+        $paths = Arr::wrap($paths);
+
+        $success = true;
+
+        foreach ($paths as $path) {
+            if ($this->exists($path) && ! $this->delete($path)) {
                 $success = false;
             }
         }
