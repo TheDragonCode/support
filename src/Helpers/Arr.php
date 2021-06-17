@@ -94,7 +94,28 @@ class Arr
             array_push($array, $values);
         }
 
-        return array_unique($array);
+        return $this->unique($array);
+    }
+
+    /**
+     * Removes duplicate values from an array.
+     *
+     * Sorting type flags:
+     *   SORT_REGULAR       - compare items normally
+     *   SORT_NUMERIC       - compare items numerically
+     *   SORT_STRING        - compare items as strings
+     *   SORT_LOCALE_STRING - compare items as strings, based on the current locale
+     *
+     * @see https://php.net/manual/en/function.array-unique.php
+     *
+     * @param  array  $array
+     * @param  int  $flags
+     *
+     * @return array
+     */
+    public function unique(array $array, int $flags = SORT_STRING): array
+    {
+        return array_unique($array, $flags);
     }
 
     /**
@@ -342,12 +363,12 @@ class Arr
      * @see https://php.net/manual/en/function.array-filter.php
      *
      * @param  array|ArrayAccess  $array
-     * @param  callable  $callback
+     * @param  callable|null  $callback
      * @param  int  $mode
      *
      * @return array
      */
-    public function filter($array, callable $callback, int $mode = 0): array
+    public function filter($array, callable $callback = null, int $mode = 0): array
     {
         return array_filter($array, $callback, $mode);
     }

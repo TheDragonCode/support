@@ -839,6 +839,20 @@ final class ArrayableTest extends TestCase
         $this->assertSame($expected, $array);
     }
 
+    public function testUnique()
+    {
+        $source = ['foo', 'bar', 'baz', 'bar', 'baq', 'baz'];
+
+        $expected = [
+            0 => 'foo',
+            1 => 'bar',
+            2 => 'baz',
+            4 => 'baq',
+        ];
+
+        $this->assertSame($expected, Arrayable::of($source)->unique()->get());
+    }
+
     public function testMap()
     {
         $source = [
