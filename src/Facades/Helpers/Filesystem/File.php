@@ -9,7 +9,7 @@ use SplFileInfo;
 
 /**
  * @method static array names(string $path, callable|null $callback = null, bool $recursive = false)
- * @method static bool ensureDelete(string|array $paths)
+ * @method static bool ensureDelete(array|string $paths)
  * @method static bool exists(string $path)
  * @method static bool isFile(DirectoryIterator|SplFileInfo|string $value)
  * @method static string store(string $path, string $content, int $mode = 0755)
