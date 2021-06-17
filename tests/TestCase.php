@@ -5,10 +5,19 @@ namespace Tests;
 use Helldar\Support\Facades\Facade;
 use Helldar\Support\Facades\Helpers\Filesystem\Directory;
 use Helldar\Support\Facades\Helpers\Str;
+use PHPUnit\Framework\Constraint\DirectoryExists;
+use PHPUnit\Framework\Constraint\LogicalNot;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
+    public static function assertDirectoryDoesNotExist(string $directory, string $message = ''): void
+    {
+        method_exists(get_parent_class(self::class), 'assertDirectoryDoesNotExist')
+            ? parent::assertDirectoryDoesNotExist($directory, $message)
+            : static::assertThat($directory, new LogicalNot(new DirectoryExists), $message);
+    }
+
     protected function setUp(): void
     {
         Facade::clearResolvedInstances();
