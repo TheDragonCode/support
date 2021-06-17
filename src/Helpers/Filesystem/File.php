@@ -100,8 +100,7 @@ class File
                 if (! @unlink($path)) {
                     $success = false;
                 }
-            }
-            catch (Throwable $e) {
+            } catch (Throwable $e) {
                 $success = false;
             }
         }
@@ -112,7 +111,7 @@ class File
     /**
      * Ensure the file has been deleted.
      *
-     * @param  string|array  $paths
+     * @param  array|string  $paths
      *
      * @return bool
      */
