@@ -109,6 +109,28 @@ class File
     }
 
     /**
+     * Ensure the file has been deleted.
+     *
+     * @param  array|string  $paths
+     *
+     * @return bool
+     */
+    public function ensureDelete($paths): bool
+    {
+        $paths = Arr::wrap($paths);
+
+        $success = true;
+
+        foreach ($paths as $path) {
+            if ($this->exists($path) && ! $this->delete($path)) {
+                $success = false;
+            }
+        }
+
+        return $success;
+    }
+
+    /**
      * Checks if an object or link is a file at the specified path.
      *
      * @param  \DirectoryIterator|\SplFileInfo|string  $value
