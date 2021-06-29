@@ -3,6 +3,7 @@
 namespace Helldar\Support\Helpers;
 
 use ArrayAccess;
+use Helldar\Support\Facades\Callbacks\Empties;
 use Helldar\Support\Facades\Helpers\Filesystem\File;
 use Helldar\Support\Facades\Helpers\Instance as InstanceHelper;
 use Helldar\Support\Facades\Tools\Sorter;
@@ -372,12 +373,8 @@ class Arr
     {
         if (empty($callback)) {
             $callback = $mode === ARRAY_FILTER_USE_BOTH
-                ? static function ($value, $key) {
-                    return ! empty($value) && ! empty($key);
-                }
-                : static function ($value) {
-                    return ! empty($value);
-                };
+                ? Empties::notEmptyBoth()
+                : Empties::notEmpty();
         }
 
         return array_filter($array, $callback, $mode);
