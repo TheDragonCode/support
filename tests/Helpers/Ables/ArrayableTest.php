@@ -265,6 +265,30 @@ final class ArrayableTest extends TestCase
         $this->assertSame($target, $result);
     }
 
+    public function testFilterEmpty()
+    {
+        $source = [
+            'Foo',
+            null,
+            'Bar',
+            '',
+            0,
+            0.0,
+            true,
+            false,
+        ];
+
+        $expected = [
+            0 => 'Foo',
+            2 => 'Bar',
+            6 => true,
+        ];
+
+        $result = $this->arr($source)->filter()->get();
+
+        $this->assertSame($expected, $result);
+    }
+
     public function testFlatten()
     {
         // Flat arrays are unaffected
