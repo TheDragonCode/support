@@ -375,9 +375,9 @@ class Arr
                 ? static function ($value, $key) {
                     return ! empty($value) && ! empty($key);
                 }
-                : static function ($value) {
-                    return ! empty($value);
-                };
+            : static function ($value) {
+                return ! empty($value);
+            };
         }
 
         return array_filter($array, $callback, $mode);
