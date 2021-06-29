@@ -201,12 +201,12 @@ class Arrayable
      *
      * @see https://php.net/manual/en/function.array-filter.php
      *
-     * @param  callable  $callback
+     * @param  callable|null  $callback
      * @param  int  $mode
      *
      * @return $this
      */
-    public function filter(callable $callback, int $mode = 0): self
+    public function filter(callable $callback = null, int $mode = 0): self
     {
         return new self(Arr::filter($this->value, $callback, $mode));
     }

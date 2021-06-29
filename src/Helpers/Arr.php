@@ -370,6 +370,16 @@ class Arr
      */
     public function filter($array, callable $callback = null, int $mode = 0): array
     {
+        if (empty($callback)) {
+            $callback = $mode === ARRAY_FILTER_USE_BOTH
+                ? static function ($value, $key) {
+                    return ! empty($value) && ! empty($key);
+                }
+            : static function ($value) {
+                return ! empty($value);
+            };
+        }
+
         return array_filter($array, $callback, $mode);
     }
 
