@@ -6,8 +6,8 @@ use Helldar\Support\Callbacks\Empties as Callbacks;
 use Helldar\Support\Facades\Facade;
 
 /**
- * @method static callable filter()
- * @method static callable filterBoth()
+ * @method static callable notEmpty()
+ * @method static callable notEmptyBoth()
  */
 final class Empties extends Facade
 {

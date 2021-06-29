@@ -9,7 +9,7 @@ final class EmptiesTest extends TestCase
 {
     public function testFilter()
     {
-        $callback = $this->call()->filter();
+        $callback = $this->call()->notEmpty();
 
         $this->assertIsCallable($callback);
 
@@ -19,7 +19,7 @@ final class EmptiesTest extends TestCase
 
     public function testFilterBoth()
     {
-        $callback = $this->call()->filterBoth();
+        $callback = $this->call()->notEmptyBoth();
 
         $this->assertIsCallable($callback);
 
