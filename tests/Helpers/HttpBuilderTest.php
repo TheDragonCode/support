@@ -4,7 +4,10 @@ namespace Tests\Helpers;
 
 use ArgumentCountError;
 use Helldar\Support\Exceptions\NotValidUrlException;
+use Helldar\Support\Helpers\HttpBuilder;
 use Helldar\Support\Helpers\HttpBuilder as Helper;
+use Helldar\Support\Tools\Http\Uri;
+use Psr\Http\Message\UriInterface;
 use RuntimeException;
 use Tests\TestCase;
 
@@ -465,6 +468,46 @@ final class HttpBuilderTest extends TestCase
         $this->expectExceptionMessage('removeUser method not defined.');
 
         $this->builder()->removeUser('foo', 'bar');
+    }
+
+    public function testFromUriInterface()
+    {
+        $source = $this->builder()->parse('https://foo:bar@localhost:8901/foo/bar?id=123&qwe=rty&wa=sd#qwerty');
+
+        $uri = Uri::make($source);
+
+        $builder = $this->builder()->fromUriInterface($uri);
+
+        $this->assertInstanceOf(HttpBuilder::class, $builder);
+
+        $this->assertSame('https', $builder->getScheme());
+        $this->assertSame('foo', $builder->getUser());
+        $this->assertSame('bar', $builder->getPass());
+        $this->assertSame('localhost', $builder->getHost());
+        $this->assertSame(8901, $builder->getPort());
+        $this->assertSame('/foo/bar', $builder->getPath());
+        $this->assertSame('id=123&qwe=rty&wa=sd', $builder->getQuery());
+        $this->assertSame('qwerty', $builder->getFragment());
+    }
+
+    public function testToUriInterface()
+    {
+        $builder = $this->builder()->parse('https://foo:bar@localhost:8901/foo/bar?id=123&qwe=rty&wa=sd#qwerty');
+
+        $uri = $builder->toUriInterface();
+
+        $this->assertInstanceOf(UriInterface::class, $uri);
+
+        $this->assertSame('https', $uri->getScheme());
+        $this->assertSame('foo:bar', $uri->getUserInfo());
+        $this->assertSame('foo:bar@localhost:8901', $uri->getAuthority());
+        $this->assertSame('localhost', $uri->getHost());
+        $this->assertSame(8901, $uri->getPort());
+        $this->assertSame('/foo/bar', $uri->getPath());
+        $this->assertSame('id=123&qwe=rty&wa=sd', $uri->getQuery());
+        $this->assertSame('qwerty', $uri->getFragment());
+
+        $this->assertSame('https://foo:bar@localhost:8901/foo/bar?id=123&qwe=rty&wa=sd#qwerty', (string) $uri);
     }
 
     public function testSetUnknown()
