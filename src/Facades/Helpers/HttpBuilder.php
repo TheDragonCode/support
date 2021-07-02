@@ -4,11 +4,15 @@ namespace Helldar\Support\Facades\Helpers;
 
 use Helldar\Support\Facades\Facade;
 use Helldar\Support\Helpers\HttpBuilder as Helper;
+use Psr\Http\Message\UriInterface;
 
 /**
  * @method static array toArray()
+ * @method static Helper fromUriInterface(UriInterface $uri)
  * @method static Helper parse(?string $url, int $component = -1)
+ * @method static Helper putQuery(string $key, $value)
  * @method static Helper raw(array $parsed)
+ * @method static Helper removeQuery(string $key)
  * @method static Helper same()
  * @method static Helper setFragment(array|string $value)
  * @method static Helper setHost(string $value)
@@ -18,8 +22,7 @@ use Helldar\Support\Helpers\HttpBuilder as Helper;
  * @method static Helper setQuery(array|string $value)
  * @method static Helper setScheme(string $value)
  * @method static Helper setUser(string $value)
- * @method static Helper putQuery(string $key, $value)
- * @method static Helper removeQuery(string $key)
+ * @method static Helper toUriInterface(): UriInterface
  * @method static string compile()
  * @method static string|null getFragment()
  * @method static string|null getHost()

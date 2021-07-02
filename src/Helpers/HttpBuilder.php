@@ -7,7 +7,9 @@ use Helldar\Support\Facades\Helpers\Arr as ArrFacade;
 use Helldar\Support\Facades\Helpers\Http as HttpHelper;
 use Helldar\Support\Facades\Helpers\Instance as InstanceHelper;
 use Helldar\Support\Facades\Helpers\Str as StrFacade;
+use Helldar\Support\Tools\Http\Uri;
 use Helldar\Support\Tools\HttpBuilderPrepare;
+use Psr\Http\Message\UriInterface;
 use RuntimeException;
 
 /**
@@ -185,6 +187,30 @@ class HttpBuilder
             'path'     => $this->getPath(),
             'fragment' => $this->getFragment(),
         ];
+    }
+
+    /**
+     * Converts HttpBuilder from `\Psr\Http\Message\UriInterface` interface.
+     *
+     * @param  \Psr\Http\Message\UriInterface  $uri
+     *
+     * @return $this
+     */
+    public function fromUriInterface(UriInterface $uri): self
+    {
+        $this->parse((string) $uri);
+
+        return $this;
+    }
+
+    /**
+     * Converts `\Psr\Http\Message\UriInterface` from `HttpBuilder` instance.
+     *
+     * @return \Psr\Http\Message\UriInterface
+     */
+    public function toUriInterface(): UriInterface
+    {
+        return Uri::make($this);
     }
 
     /**
