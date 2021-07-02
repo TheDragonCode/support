@@ -19,6 +19,11 @@ class Uri implements UriInterface
         $this->builder = $builder ?: new HttpBuilder();
     }
 
+    public function __toString()
+    {
+        return $this->builder->compile();
+    }
+
     public function getScheme(): ?string
     {
         return $this->builder->getScheme();
@@ -73,14 +78,14 @@ class Uri implements UriInterface
         return $this->builder->getFragment();
     }
 
-    public function withScheme($scheme): Uri
+    public function withScheme($scheme): self
     {
         $this->builder->setScheme($scheme);
 
         return $this;
     }
 
-    public function withUserInfo($user, $password = null): Uri
+    public function withUserInfo($user, $password = null): self
     {
         $this->builder->setUser($user);
         $this->builder->setPass($password);
@@ -88,43 +93,38 @@ class Uri implements UriInterface
         return $this;
     }
 
-    public function withHost($host): Uri
+    public function withHost($host): self
     {
         $this->builder->setHost($host);
 
         return $this;
     }
 
-    public function withPort($port): Uri
+    public function withPort($port): self
     {
         $this->builder->setPort($port);
 
         return $this;
     }
 
-    public function withPath($path): Uri
+    public function withPath($path): self
     {
         $this->builder->setPath($path);
 
         return $this;
     }
 
-    public function withQuery($query): Uri
+    public function withQuery($query): self
     {
         $this->builder->setQuery($query);
 
         return $this;
     }
 
-    public function withFragment($fragment): Uri
+    public function withFragment($fragment): self
     {
         $this->builder->setFragment($fragment);
 
         return $this;
-    }
-
-    public function __toString()
-    {
-        return $this->builder->compile();
     }
 }
