@@ -2,7 +2,7 @@
 
 namespace Tests\Tools;
 
-use Helldar\Support\Tools\Sorter as Tool;
+use Helldar\Support\Callbacks\Sorter as Tool;
 use Tests\TestCase;
 
 class SorterTest extends TestCase
@@ -167,7 +167,7 @@ class SorterTest extends TestCase
 
     public function testDefaultCallback()
     {
-        $callback = $this->sorter()->defaultCallback();
+        $callback = $this->sorter()->default();
 
         $this->assertIsCallable($callback);
 

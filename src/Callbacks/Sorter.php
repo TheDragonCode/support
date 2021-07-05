@@ -1,6 +1,6 @@
 <?php
 
-namespace Helldar\Support\Tools;
+namespace Helldar\Support\Callbacks;
 
 use Helldar\Support\Facades\Helpers\Str;
 
@@ -58,7 +58,7 @@ class Sorter
      *
      * @return callable
      */
-    public function defaultCallback(): callable
+    public function default(): callable
     {
         return function ($current, $next) {
             $current = $this->lower($current);

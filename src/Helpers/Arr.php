@@ -4,9 +4,9 @@ namespace Helldar\Support\Helpers;
 
 use ArrayAccess;
 use Helldar\Support\Facades\Callbacks\Empties;
+use Helldar\Support\Facades\Callbacks\Sorter;
 use Helldar\Support\Facades\Helpers\Filesystem\File;
 use Helldar\Support\Facades\Helpers\Instance as InstanceHelper;
-use Helldar\Support\Facades\Tools\Sorter;
 use Helldar\Support\Facades\Tools\Stub;
 use Helldar\Support\Helpers\Ables\Arrayable as ArrayableHelper;
 use Helldar\Support\Tools\Stub as StubTool;
@@ -160,7 +160,7 @@ class Arr
      */
     public function sort(array $array, callable $callback = null): array
     {
-        $callback = $callback ?: Sorter::defaultCallback();
+        $callback = $callback ?: Sorter::default();
 
         usort($array, $callback);
 
@@ -183,7 +183,7 @@ class Arr
      */
     public function ksort(array $array, callable $callback = null): array
     {
-        $callback = $callback ?: Sorter::defaultCallback();
+        $callback = $callback ?: Sorter::default();
 
         uksort($array, $callback);
 

@@ -1,18 +1,18 @@
 <?php
 
-namespace Helldar\Support\Facades\Tools;
+namespace Helldar\Support\Facades\Callbacks;
 
+use Helldar\Support\Callbacks\Sorter as Callback;
 use Helldar\Support\Facades\Facade;
-use Helldar\Support\Tools\Sorter as Tool;
 
 /**
  * @method static array specialChars()
- * @method static callable defaultCallback()
+ * @method static callable default()
  */
 class Sorter extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return Tool::class;
+        return Callback::class;
     }
 }
