@@ -7,6 +7,7 @@ use Helldar\Support\Exceptions\NotValidUrlException;
 use Helldar\Support\Facades\Helpers\Filesystem\File as FileHelper;
 use Helldar\Support\Facades\Helpers\HttpBuilder as HttpBuilderHelper;
 
+/** @deprecated since 4.0: Namespace will be renamed to `Helldar\Support\Facades\Helpers\Http\Uri`. */
 class Http
 {
     /**
