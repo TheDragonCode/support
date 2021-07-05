@@ -35,6 +35,9 @@ use RuntimeException;
  * @method string|null getQuery()
  * @method string|null getScheme()
  * @method string|null getUser()
+ *
+ * @deprecated since 4.0: Namespace will be renamed to `Helldar\Support\Facades\Helpers\Http\Builder`.
+ * @deprecated since 4.0: The `set` methods will be renamed to `with` for the `Psr\Http\Message\UriInterface` compatibility.
  */
 class HttpBuilder
 {
@@ -128,7 +131,7 @@ class HttpBuilder
         $key       = $this->componentKey($component);
 
         $component === -1 || empty($key)
-            ? $this->parsed       = parse_url($url)
+            ? $this->parsed = parse_url($url)
             : $this->parsed[$key] = parse_url($url, $component);
 
         $this->cast();

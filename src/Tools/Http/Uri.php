@@ -7,6 +7,7 @@ use Helldar\Support\Facades\Helpers\Ables\Stringable;
 use Helldar\Support\Helpers\HttpBuilder;
 use Psr\Http\Message\UriInterface;
 
+/** @deprecated Will be removed from 4.0 */
 class Uri implements UriInterface
 {
     use Makeable;
