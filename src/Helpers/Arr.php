@@ -72,9 +72,7 @@ class Arr
      */
     public function longestStringLength(array $array): int
     {
-        return ! empty($array)
-            ? max(array_map('mb_strlen', $array))
-            : 0;
+        return ! empty($array) ? max(array_map('mb_strlen', $array)) : 0;
     }
 
     /**
