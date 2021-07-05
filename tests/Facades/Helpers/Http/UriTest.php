@@ -1,39 +1,38 @@
 <?php
 
-namespace Tests\Facades\Helpers;
+namespace Tests\Facades\Helpers\Http;
 
 use ArgumentCountError;
 use Helldar\Support\Exceptions\NotValidUrlException;
 use Helldar\Support\Facades\Helpers\Filesystem\File;
-use Helldar\Support\Facades\Helpers\Http;
+use Helldar\Support\Facades\Helpers\Http\Uri;
 use Tests\TestCase;
 
-/** @deprecated */
-final class HttpTest extends TestCase
+final class UriTest extends TestCase
 {
     public function testDomain()
     {
-        $this->assertSame('localhost', Http::domain('http://localhost'));
-        $this->assertSame('localhost', Http::domain('https://localhost'));
-        $this->assertSame('localhost', Http::domain('ftp://localhost'));
-        $this->assertSame('localhost', Http::domain('ftp://localhost'));
+        $this->assertSame('localhost', Uri::domain('http://localhost'));
+        $this->assertSame('localhost', Uri::domain('https://localhost'));
+        $this->assertSame('localhost', Uri::domain('ftp://localhost'));
+        $this->assertSame('localhost', Uri::domain('ftp://localhost'));
 
-        $this->assertSame('example.com', Http::domain('https://example.com'));
-        $this->assertSame('foo.example.com', Http::domain('https://foo.example.com'));
-        $this->assertSame('bar.example.com', Http::domain('https://bar.example.com'));
+        $this->assertSame('example.com', Uri::domain('https://example.com'));
+        $this->assertSame('foo.example.com', Uri::domain('https://foo.example.com'));
+        $this->assertSame('bar.example.com', Uri::domain('https://bar.example.com'));
 
-        $this->assertSame('example.com', Http::domain('https://example.com'));
-        $this->assertSame('foo.example.com', Http::domain('https://foo.example.com'));
-        $this->assertSame('bar.example.com', Http::domain('https://bar.example.com'));
+        $this->assertSame('example.com', Uri::domain('https://example.com'));
+        $this->assertSame('foo.example.com', Uri::domain('https://foo.example.com'));
+        $this->assertSame('bar.example.com', Uri::domain('https://bar.example.com'));
 
-        $this->assertSame('foo.example.com', Http::domain('https://foo.example.com/foo/bar?id=1'));
+        $this->assertSame('foo.example.com', Uri::domain('https://foo.example.com/foo/bar?id=1'));
     }
 
     public function testDomainThrowWithoutArguments()
     {
         $this->expectException(ArgumentCountError::class);
 
-        Http::domain();
+        Uri::domain();
     }
 
     public function testDomainThrowEmpty()
@@ -41,7 +40,7 @@ final class HttpTest extends TestCase
         $this->expectException(NotValidUrlException::class);
         $this->expectExceptionMessage('The "" is not a valid URL.');
 
-        Http::domain('');
+        Uri::domain('');
     }
 
     public function testDomainThrowNull()
@@ -49,7 +48,7 @@ final class HttpTest extends TestCase
         $this->expectException(NotValidUrlException::class);
         $this->expectExceptionMessage('The "" is not a valid URL.');
 
-        Http::domain(null);
+        Uri::domain(null);
     }
 
     public function testDomainThrowIncorrect()
@@ -57,14 +56,14 @@ final class HttpTest extends TestCase
         $this->expectException(NotValidUrlException::class);
         $this->expectExceptionMessage('The "foo.bar" is not a valid URL.');
 
-        Http::domain('foo.bar');
+        Uri::domain('foo.bar');
     }
 
     public function testHost()
     {
-        $this->assertSame('https://localhost', Http::host('https://localhost/foo/bar?id=1'));
-        $this->assertSame('https://foo.bar', Http::host('https://foo.bar/baz/baq?id=1'));
-        $this->assertSame('https://example.com', Http::host('https://example.com'));
+        $this->assertSame('https://localhost', Uri::host('https://localhost/foo/bar?id=1'));
+        $this->assertSame('https://foo.bar', Uri::host('https://foo.bar/baz/baq?id=1'));
+        $this->assertSame('https://example.com', Uri::host('https://example.com'));
     }
 
     public function testHostThrowNull()
@@ -72,7 +71,7 @@ final class HttpTest extends TestCase
         $this->expectException(NotValidUrlException::class);
         $this->expectExceptionMessage('The "" is not a valid URL.');
 
-        Http::host(null);
+        Uri::host(null);
     }
 
     public function testHostThrowIncorrectUri()
@@ -80,16 +79,16 @@ final class HttpTest extends TestCase
         $this->expectException(NotValidUrlException::class);
         $this->expectExceptionMessage('The "foo.bar" is not a valid URL.');
 
-        Http::host('foo.bar');
+        Uri::host('foo.bar');
     }
 
     public function testExists()
     {
-        $this->assertTrue(Http::exists('https://google.com'));
-        $this->assertTrue(Http::exists('https://yandex.com'));
+        $this->assertTrue(Uri::exists('https://google.com'));
+        $this->assertTrue(Uri::exists('https://yandex.com'));
 
-        $this->assertFalse(Http::exists('https://aaa.a'));
-        $this->assertFalse(Http::exists('https://bbb.b'));
+        $this->assertFalse(Uri::exists('https://aaa.a'));
+        $this->assertFalse(Uri::exists('https://bbb.b'));
     }
 
     public function testExistsThrowNull()
@@ -97,7 +96,7 @@ final class HttpTest extends TestCase
         $this->expectException(NotValidUrlException::class);
         $this->expectExceptionMessage('The "" is not a valid URL.');
 
-        Http::exists(null);
+        Uri::exists(null);
     }
 
     public function testExistsThrowIncorrectUri()
@@ -105,22 +104,22 @@ final class HttpTest extends TestCase
         $this->expectException(NotValidUrlException::class);
         $this->expectExceptionMessage('The "foo.bar" is not a valid URL.');
 
-        Http::host('foo.bar');
+        Uri::host('foo.bar');
     }
 
     public function testScheme()
     {
-        $this->assertSame('https', Http::scheme('https://localhost'));
-        $this->assertSame('http', Http::scheme('http://localhost'));
-        $this->assertSame('ftp', Http::scheme('ftp://localhost'));
-        $this->assertSame('ws', Http::scheme('ws://localhost'));
+        $this->assertSame('https', Uri::scheme('https://localhost'));
+        $this->assertSame('http', Uri::scheme('http://localhost'));
+        $this->assertSame('ftp', Uri::scheme('ftp://localhost'));
+        $this->assertSame('ws', Uri::scheme('ws://localhost'));
     }
 
     public function testSchemeThrowWithoutArguments()
     {
         $this->expectException(ArgumentCountError::class);
 
-        Http::scheme();
+        Uri::scheme();
     }
 
     public function testSchemeThrowEmpty()
@@ -128,7 +127,7 @@ final class HttpTest extends TestCase
         $this->expectException(NotValidUrlException::class);
         $this->expectExceptionMessage('The "" is not a valid URL.');
 
-        Http::scheme('');
+        Uri::scheme('');
     }
 
     public function testSchemeThrowNull()
@@ -136,7 +135,7 @@ final class HttpTest extends TestCase
         $this->expectException(NotValidUrlException::class);
         $this->expectExceptionMessage('The "" is not a valid URL.');
 
-        Http::scheme(null);
+        Uri::scheme(null);
     }
 
     public function testSchemeThrowIncorrect()
@@ -144,27 +143,27 @@ final class HttpTest extends TestCase
         $this->expectException(NotValidUrlException::class);
         $this->expectExceptionMessage('The "foo.bar" is not a valid URL.');
 
-        Http::scheme('foo.bar');
+        Uri::scheme('foo.bar');
     }
 
     public function testSubdomain()
     {
-        $this->assertNull(Http::subdomain('http://localhost'));
-        $this->assertNull(Http::subdomain('https://localhost'));
-        $this->assertNull(Http::subdomain('ftp://localhost'));
-        $this->assertNull(Http::subdomain('ftp://localhost'));
+        $this->assertNull(Uri::subdomain('http://localhost'));
+        $this->assertNull(Uri::subdomain('https://localhost'));
+        $this->assertNull(Uri::subdomain('ftp://localhost'));
+        $this->assertNull(Uri::subdomain('ftp://localhost'));
 
-        $this->assertSame('foo', Http::subdomain('https://foo.example.com'));
-        $this->assertSame('bar', Http::subdomain('https://bar.example.com'));
+        $this->assertSame('foo', Uri::subdomain('https://foo.example.com'));
+        $this->assertSame('bar', Uri::subdomain('https://bar.example.com'));
 
-        $this->assertSame('foo', Http::subdomain('https://foo.example.com/foo/bar?id=1'));
+        $this->assertSame('foo', Uri::subdomain('https://foo.example.com/foo/bar?id=1'));
     }
 
     public function testSubdomainThrowWithoutArguments()
     {
         $this->expectException(ArgumentCountError::class);
 
-        Http::subdomain();
+        Uri::subdomain();
     }
 
     public function testSubdomainThrowEmpty()
@@ -172,7 +171,7 @@ final class HttpTest extends TestCase
         $this->expectException(NotValidUrlException::class);
         $this->expectExceptionMessage('The "" is not a valid URL.');
 
-        Http::subdomain('');
+        Uri::subdomain('');
     }
 
     public function testSubdomainThrowNull()
@@ -180,7 +179,7 @@ final class HttpTest extends TestCase
         $this->expectException(NotValidUrlException::class);
         $this->expectExceptionMessage('The "" is not a valid URL.');
 
-        Http::subdomain(null);
+        Uri::subdomain(null);
     }
 
     public function testSubdomainThrowIncorrect()
@@ -188,12 +187,12 @@ final class HttpTest extends TestCase
         $this->expectException(NotValidUrlException::class);
         $this->expectExceptionMessage('The "foo.bar" is not a valid URL.');
 
-        Http::subdomain('foo.bar');
+        Uri::subdomain('foo.bar');
     }
 
     public function testValidateUrlSuccess()
     {
-        Http::validateUrl('https://example.com');
+        Uri::validateUrl('https://example.com');
 
         $this->assertTrue(true);
     }
@@ -203,14 +202,14 @@ final class HttpTest extends TestCase
         $this->expectException(NotValidUrlException::class);
         $this->expectExceptionMessage('The "foo.bar" is not a valid URL.');
 
-        Http::validateUrl('foo.bar');
+        Uri::validateUrl('foo.bar');
     }
 
     public function testValidatedUrlSuccess()
     {
         $url = 'http://example.com/foo/bar';
 
-        $validated = Http::validatedUrl($url);
+        $validated = Uri::validatedUrl($url);
 
         $this->assertSame($url, $validated);
     }
@@ -220,21 +219,21 @@ final class HttpTest extends TestCase
         $this->expectException(NotValidUrlException::class);
         $this->expectExceptionMessage('The "foo.bar" is not a valid URL.');
 
-        Http::validatedUrl('foo.bar');
+        Uri::validatedUrl('foo.bar');
     }
 
     public function testIsUrl()
     {
-        $this->assertTrue(Http::isUrl('https://localhost'));
-        $this->assertTrue(Http::isUrl('https://foo.bar'));
-        $this->assertTrue(Http::isUrl('https://example.com'));
-        $this->assertTrue(Http::isUrl('http://example.com'));
-        $this->assertTrue(Http::isUrl('ftp://example.com'));
-        $this->assertTrue(Http::isUrl('ws://example.com'));
+        $this->assertTrue(Uri::isUrl('https://localhost'));
+        $this->assertTrue(Uri::isUrl('https://foo.bar'));
+        $this->assertTrue(Uri::isUrl('https://example.com'));
+        $this->assertTrue(Uri::isUrl('http://example.com'));
+        $this->assertTrue(Uri::isUrl('ftp://example.com'));
+        $this->assertTrue(Uri::isUrl('ws://example.com'));
 
-        $this->assertFalse(Http::isUrl('localhost'));
-        $this->assertFalse(Http::isUrl('://foo.bar'));
-        $this->assertFalse(Http::isUrl('//example.com'));
+        $this->assertFalse(Uri::isUrl('localhost'));
+        $this->assertFalse(Uri::isUrl('://foo.bar'));
+        $this->assertFalse(Uri::isUrl('//example.com'));
     }
 
     public function testImage()
@@ -244,15 +243,15 @@ final class HttpTest extends TestCase
 
         File::store($path, 'foo', 777);
 
-        $this->assertSame($image, Http::image($image));
-        $this->assertSame($image, Http::image($image, 'https://example.com/foo.jpg'));
-        $this->assertNull(Http::image('https://aaa.a'));
+        $this->assertSame($image, Uri::image($image));
+        $this->assertSame($image, Uri::image($image, 'https://example.com/foo.jpg'));
+        $this->assertNull(Uri::image('https://aaa.a'));
 
-        $this->assertSame('https://example.com/foo.jpg', Http::image('https://example.com/bar.jpg', 'https://example.com/foo.jpg'));
+        $this->assertSame('https://example.com/foo.jpg', Uri::image('https://example.com/bar.jpg', 'https://example.com/foo.jpg'));
 
-        $this->assertSame($path, Http::image($path));
-        $this->assertSame($path, Http::image($path, '/foo/bar.jpg'));
-        $this->assertSame('/foo/bar.jpg', Http::image('foo.jpg', '/foo/bar.jpg'));
-        $this->assertNull(Http::image('foo.jpg'));
+        $this->assertSame($path, Uri::image($path));
+        $this->assertSame($path, Uri::image($path, '/foo/bar.jpg'));
+        $this->assertSame('/foo/bar.jpg', Uri::image('foo.jpg', '/foo/bar.jpg'));
+        $this->assertNull(Uri::image('foo.jpg'));
     }
 }

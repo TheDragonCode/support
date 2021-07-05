@@ -2,7 +2,9 @@
 
 namespace Helldar\Support\Facades\Helpers;
 
+use Helldar\Support\Concerns\Deprecation;
 use Helldar\Support\Facades\Facade;
+use Helldar\Support\Facades\Helpers\Http\Builder;
 use Helldar\Support\Helpers\HttpBuilder as Helper;
 use Psr\Http\Message\UriInterface;
 
@@ -32,9 +34,20 @@ use Psr\Http\Message\UriInterface;
  * @method static string|null getQuery()
  * @method static string|null getScheme()
  * @method static string|null getUser()
+ *
+ * @deprecated since 4.0: Use `Helldar\Support\Facades\Helpers\Http\Builder` instead.
  */
 final class HttpBuilder extends Facade
 {
+    use Deprecation;
+
+    public static function __callStatic($method, $args)
+    {
+        self::deprecatedClass(Builder::class);
+
+        return parent::__callStatic($method, $args);
+    }
+
     protected static function getFacadeAccessor()
     {
         return Helper::class;

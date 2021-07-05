@@ -1,28 +1,26 @@
 <?php
 
-namespace Tests\Facades\Helpers;
+namespace Tests\Helpers\Http;
 
 use ArgumentCountError;
 use Helldar\Support\Exceptions\NotValidUrlException;
-use Helldar\Support\Facades\Helpers\HttpBuilder;
-use Helldar\Support\Helpers\HttpBuilder as Helper;
+use Helldar\Support\Helpers\Http\Builder;
 use Helldar\Support\Tools\Http\Uri;
 use Psr\Http\Message\UriInterface;
 use RuntimeException;
 use Tests\TestCase;
 
-/** @deprecated */
-final class HttpBuilderTest extends TestCase
+final class BuilderTest extends TestCase
 {
     public function testInstance()
     {
-        $this->assertInstanceOf(Helper::class, HttpBuilder::parse('http://localhost'));
-        $this->assertInstanceOf(Helper::class, HttpBuilder::same());
+        $this->assertInstanceOf(Builder::class, $this->builder()->parse('http://localhost'));
+        $this->assertInstanceOf(Builder::class, $this->builder()->same());
     }
 
     public function testParseShort()
     {
-        $builder = HttpBuilder::parse('https://localhost/foo/bar');
+        $builder = $this->builder()->parse('https://localhost/foo/bar');
 
         $this->assertSame('https', $builder->getScheme());
         $this->assertSame('localhost', $builder->getHost());
@@ -37,7 +35,7 @@ final class HttpBuilderTest extends TestCase
 
     public function testParseFull()
     {
-        $builder = HttpBuilder::parse('https://foo:bar@localhost/foo/bar?id=123#qwerty', PHP_URL_HOST);
+        $builder = $this->builder()->parse('https://foo:bar@localhost/foo/bar?id=123#qwerty', PHP_URL_HOST);
 
         $this->assertSame('localhost', $builder->getHost());
 
@@ -51,7 +49,7 @@ final class HttpBuilderTest extends TestCase
 
     public function testParseComponent()
     {
-        $builder = HttpBuilder::parse('https://foo:bar@localhost/foo/bar?id=123#qwerty');
+        $builder = $this->builder()->parse('https://foo:bar@localhost/foo/bar?id=123#qwerty');
 
         $this->assertSame('https', $builder->getScheme());
         $this->assertSame('foo', $builder->getUser());
@@ -67,7 +65,7 @@ final class HttpBuilderTest extends TestCase
         $this->expectException(NotValidUrlException::class);
         $this->expectExceptionMessage('The "foo.bar" is not a valid URL.');
 
-        HttpBuilder::parse('foo.bar');
+        $this->builder()->parse('foo.bar');
     }
 
     public function testParseEmpty()
@@ -75,7 +73,7 @@ final class HttpBuilderTest extends TestCase
         $this->expectException(NotValidUrlException::class);
         $this->expectExceptionMessage('The "" is not a valid URL.');
 
-        HttpBuilder::parse('');
+        $this->builder()->parse('');
     }
 
     public function testParseNull()
@@ -83,14 +81,14 @@ final class HttpBuilderTest extends TestCase
         $this->expectException(NotValidUrlException::class);
         $this->expectExceptionMessage('The "" is not a valid URL.');
 
-        HttpBuilder::parse(null);
+        $this->builder()->parse(null);
     }
 
     public function testRawShort()
     {
         $parsed = parse_url('https://localhost/foo/bar');
 
-        $builder = HttpBuilder::raw($parsed);
+        $builder = $this->builder()->raw($parsed);
 
         $this->assertSame('https', $builder->getScheme());
         $this->assertSame('localhost', $builder->getHost());
@@ -107,7 +105,7 @@ final class HttpBuilderTest extends TestCase
     {
         $parsed = parse_url('https://foo:bar@localhost/foo/bar?id=123#qwerty');
 
-        $builder = HttpBuilder::raw($parsed);
+        $builder = $this->builder()->raw($parsed);
 
         $this->assertSame('https', $builder->getScheme());
         $this->assertSame('foo', $builder->getUser());
@@ -120,7 +118,7 @@ final class HttpBuilderTest extends TestCase
 
     public function testRawCompile()
     {
-        $builder = HttpBuilder::parse('https://foo:bar@localhost/foo/bar?id=123#qwerty');
+        $builder = $this->builder()->parse('https://foo:bar@localhost/foo/bar?id=123#qwerty');
 
         $this->assertSame('https://foo:bar@localhost/foo/bar?id=123#qwerty', $builder->compile());
     }
@@ -132,26 +130,26 @@ final class HttpBuilderTest extends TestCase
 
         $parsed = ['foo' => 'bar'];
 
-        HttpBuilder::raw($parsed);
+        $this->builder()->raw($parsed);
     }
 
     public function testCompileShort()
     {
-        $builder = HttpBuilder::parse('https://localhost/foo/bar');
+        $builder = $this->builder()->parse('https://localhost/foo/bar');
 
         $this->assertSame('https://localhost/foo/bar', $builder->compile());
     }
 
     public function testCompileFull()
     {
-        $builder = HttpBuilder::parse('https://foo:bar@localhost/foo/bar?id=123#qwerty');
+        $builder = $this->builder()->parse('https://foo:bar@localhost/foo/bar?id=123#qwerty');
 
         $this->assertSame('https://foo:bar@localhost/foo/bar?id=123#qwerty', $builder->compile());
     }
 
     public function testCompileManual()
     {
-        $builder = HttpBuilder::same()
+        $builder = $this->builder()->same()
             ->setScheme('https')
             ->setUser('foo')
             ->setPass('bar')
@@ -166,7 +164,7 @@ final class HttpBuilderTest extends TestCase
 
     public function testCompileOverride()
     {
-        $builder = HttpBuilder::same()
+        $builder = $this->builder()->same()
             ->setScheme('https')
             ->setScheme('http')
             ->setUser('foo')
@@ -183,7 +181,7 @@ final class HttpBuilderTest extends TestCase
 
     public function testFullToArray()
     {
-        $builder = HttpBuilder::parse('https://foo:bar@example.com/foo/bar?id=123#qwerty');
+        $builder = $this->builder()->parse('https://foo:bar@example.com/foo/bar?id=123#qwerty');
 
         $this->assertIsArray($builder->toArray());
 
@@ -201,7 +199,7 @@ final class HttpBuilderTest extends TestCase
 
     public function testShortToArray()
     {
-        $builder = HttpBuilder::parse('https://example.com');
+        $builder = $this->builder()->parse('https://example.com');
 
         $this->assertIsArray($builder->toArray());
 
@@ -222,7 +220,7 @@ final class HttpBuilderTest extends TestCase
         $this->expectException(ArgumentCountError::class);
         $this->expectExceptionMessage('setScheme expects at most 1 parameter, 3 given.');
 
-        HttpBuilder::setScheme('foo', 'bar', 'baz');
+        $this->builder()->setScheme('foo', 'bar', 'baz');
     }
 
     public function testArgumentCountTwo()
@@ -230,79 +228,95 @@ final class HttpBuilderTest extends TestCase
         $this->expectException(ArgumentCountError::class);
         $this->expectExceptionMessage('setScheme expects at most 1 parameter, 2 given.');
 
-        HttpBuilder::setScheme('foo', 'bar');
+        $this->builder()->setScheme('foo', 'bar');
     }
 
     public function testSetScheme()
     {
-        $this->assertNull(HttpBuilder::getScheme());
+        $builder = $this->builder();
 
-        HttpBuilder::setScheme('foo');
+        $this->assertNull($builder->getScheme());
 
-        $this->assertSame('foo', HttpBuilder::getScheme());
+        $builder->setScheme('foo');
+
+        $this->assertSame('foo', $builder->getScheme());
     }
 
     public function testSetFragment()
     {
-        $this->assertNull(HttpBuilder::getFragment());
+        $builder = $this->builder();
 
-        HttpBuilder::setFragment('foo');
+        $this->assertNull($builder->getFragment());
 
-        $this->assertSame('foo', HttpBuilder::getFragment());
+        $builder->setFragment('foo');
+
+        $this->assertSame('foo', $builder->getFragment());
     }
 
     public function testSetHost()
     {
-        $this->assertNull(HttpBuilder::getHost());
+        $builder = $this->builder();
 
-        HttpBuilder::setHost('foo');
+        $this->assertNull($builder->getHost());
 
-        $this->assertSame('foo', HttpBuilder::getHost());
+        $builder->setHost('foo');
+
+        $this->assertSame('foo', $builder->getHost());
     }
 
     public function testSetPass()
     {
-        $this->assertNull(HttpBuilder::getPass());
+        $builder = $this->builder();
 
-        HttpBuilder::setPass('foo');
+        $this->assertNull($builder->getPass());
 
-        $this->assertSame('foo', HttpBuilder::getPass());
+        $builder->setPass('foo');
+
+        $this->assertSame('foo', $builder->getPass());
     }
 
     public function testSetPath()
     {
-        $this->assertNull(HttpBuilder::getPath());
+        $builder = $this->builder();
 
-        HttpBuilder::setPath('foo');
+        $this->assertNull($builder->getPath());
 
-        $this->assertSame('foo', HttpBuilder::getPath());
+        $builder->setPath('foo');
+
+        $this->assertSame('foo', $builder->getPath());
     }
 
     public function testSetPort()
     {
-        $this->assertNull(HttpBuilder::getPort());
+        $builder = $this->builder();
 
-        HttpBuilder::setPort('foo');
+        $this->assertNull($builder->getPort());
 
-        $this->assertSame('foo', HttpBuilder::getPort());
+        $builder->setPort('foo');
+
+        $this->assertSame('foo', $builder->getPort());
     }
 
     public function testSetQuery()
     {
-        $this->assertNull(HttpBuilder::getQuery());
+        $builder = $this->builder();
 
-        HttpBuilder::setQuery('foo');
+        $this->assertNull($builder->getQuery());
 
-        $this->assertSame('0=foo', HttpBuilder::getQuery());
+        $builder->setQuery('foo');
+
+        $this->assertSame('0=foo', $builder->getQuery());
     }
 
     public function testSetUser()
     {
-        $this->assertNull(HttpBuilder::getUser());
+        $builder = $this->builder();
 
-        HttpBuilder::setUser('foo');
+        $this->assertNull($builder->getUser());
 
-        $this->assertSame('foo', HttpBuilder::getUser());
+        $builder->setUser('foo');
+
+        $this->assertSame('foo', $builder->getUser());
     }
 
     public function testPutFragment()
@@ -310,7 +324,7 @@ final class HttpBuilderTest extends TestCase
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('putFragment method not defined.');
 
-        HttpBuilder::putFragment('foo', 'bar');
+        $this->builder()->putFragment('foo', 'bar');
     }
 
     public function testPutHost()
@@ -318,7 +332,7 @@ final class HttpBuilderTest extends TestCase
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('putHost method not defined.');
 
-        HttpBuilder::putHost('foo', 'bar');
+        $this->builder()->putHost('foo', 'bar');
     }
 
     public function testPutPass()
@@ -326,7 +340,7 @@ final class HttpBuilderTest extends TestCase
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('putPass method not defined.');
 
-        HttpBuilder::putPass('foo', 'bar');
+        $this->builder()->putPass('foo', 'bar');
     }
 
     public function testPutPath()
@@ -334,7 +348,7 @@ final class HttpBuilderTest extends TestCase
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('putPath method not defined.');
 
-        HttpBuilder::putPath('foo', 'bar');
+        $this->builder()->putPath('foo', 'bar');
     }
 
     public function testPutPort()
@@ -342,12 +356,12 @@ final class HttpBuilderTest extends TestCase
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('putPort method not defined.');
 
-        HttpBuilder::putPort('foo', 'bar');
+        $this->builder()->putPort('foo', 'bar');
     }
 
     public function testPutQuery()
     {
-        $builder = HttpBuilder::parse('https://foo:bar@localhost/foo/bar?id=123#qwerty');
+        $builder = $this->builder()->parse('https://foo:bar@localhost/foo/bar?id=123#qwerty');
 
         $this->assertSame('https', $builder->getScheme());
         $this->assertSame('foo', $builder->getUser());
@@ -369,7 +383,7 @@ final class HttpBuilderTest extends TestCase
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('putScheme method not defined.');
 
-        HttpBuilder::putScheme('foo', 'bar');
+        $this->builder()->putScheme('foo', 'bar');
     }
 
     public function testPutUser()
@@ -377,7 +391,7 @@ final class HttpBuilderTest extends TestCase
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('putUser method not defined.');
 
-        HttpBuilder::putUser('foo', 'bar');
+        $this->builder()->putUser('foo', 'bar');
     }
 
     public function testRemoveFragment()
@@ -385,7 +399,7 @@ final class HttpBuilderTest extends TestCase
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('removeFragment method not defined.');
 
-        HttpBuilder::removeFragment('foo');
+        $this->builder()->removeFragment('foo');
     }
 
     public function testRemoveHost()
@@ -393,7 +407,7 @@ final class HttpBuilderTest extends TestCase
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('removeHost method not defined.');
 
-        HttpBuilder::removeHost('foo');
+        $this->builder()->removeHost('foo');
     }
 
     public function testRemovePass()
@@ -401,7 +415,7 @@ final class HttpBuilderTest extends TestCase
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('removePass method not defined.');
 
-        HttpBuilder::removePass('foo');
+        $this->builder()->removePass('foo');
     }
 
     public function testRemovePath()
@@ -409,7 +423,7 @@ final class HttpBuilderTest extends TestCase
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('removePath method not defined.');
 
-        HttpBuilder::removePath('foo');
+        $this->builder()->removePath('foo');
     }
 
     public function testRemovePort()
@@ -417,12 +431,12 @@ final class HttpBuilderTest extends TestCase
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('removePort method not defined.');
 
-        HttpBuilder::removePort('foo');
+        $this->builder()->removePort('foo');
     }
 
     public function testRemoveQuery()
     {
-        $builder = HttpBuilder::parse('https://foo:bar@localhost/foo/bar?id=123&qwe=rty&wa=sd#qwerty');
+        $builder = $this->builder()->parse('https://foo:bar@localhost/foo/bar?id=123&qwe=rty&wa=sd#qwerty');
 
         $this->assertSame('https', $builder->getScheme());
         $this->assertSame('foo', $builder->getUser());
@@ -439,15 +453,31 @@ final class HttpBuilderTest extends TestCase
         $this->assertNotSame('https://foo:bar@localhost/foo/bar?id=123&qwe=rty&wa=sd#qwerty', $builder->compile());
     }
 
+    public function testRemoveScheme()
+    {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('removeScheme method not defined.');
+
+        $this->builder()->removeScheme('foo');
+    }
+
+    public function testRemoveUser()
+    {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('removeUser method not defined.');
+
+        $this->builder()->removeUser('foo', 'bar');
+    }
+
     public function testFromUriInterface()
     {
-        $source = HttpBuilder::parse('https://foo:bar@localhost:8901/foo/bar?id=123&qwe=rty&wa=sd#qwerty');
+        $source = $this->builder()->parse('https://foo:bar@localhost:8901/foo/bar?id=123&qwe=rty&wa=sd#qwerty');
 
         $uri = Uri::make($source);
 
-        $builder = HttpBuilder::fromUriInterface($uri);
+        $builder = $this->builder()->fromUriInterface($uri);
 
-        $this->assertInstanceOf(Helper::class, $builder);
+        $this->assertInstanceOf(Builder::class, $builder);
 
         $this->assertSame('https', $builder->getScheme());
         $this->assertSame('foo', $builder->getUser());
@@ -461,7 +491,7 @@ final class HttpBuilderTest extends TestCase
 
     public function testToUriInterface()
     {
-        $builder = HttpBuilder::parse('https://foo:bar@localhost:8901/foo/bar?id=123&qwe=rty&wa=sd#qwerty');
+        $builder = $this->builder()->parse('https://foo:bar@localhost:8901/foo/bar?id=123&qwe=rty&wa=sd#qwerty');
 
         $uri = $builder->toUriInterface();
 
@@ -479,28 +509,12 @@ final class HttpBuilderTest extends TestCase
         $this->assertSame('https://foo:bar@localhost:8901/foo/bar?id=123&qwe=rty&wa=sd#qwerty', (string) $uri);
     }
 
-    public function testRemoveScheme()
-    {
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('removeScheme method not defined.');
-
-        HttpBuilder::removeScheme('foo');
-    }
-
-    public function testRemoveUser()
-    {
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('removeUser method not defined.');
-
-        HttpBuilder::removeUser('foo', 'bar');
-    }
-
     public function testSetUnknown()
     {
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('setUnknown method not defined.');
 
-        HttpBuilder::setUnknown('foo');
+        $this->builder()->setUnknown('foo');
     }
 
     public function testGetUnknown()
@@ -508,6 +522,11 @@ final class HttpBuilderTest extends TestCase
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('getUnknown method not defined.');
 
-        HttpBuilder::getUnknown('foo');
+        $this->builder()->getUnknown('foo');
+    }
+
+    protected function builder(): Builder
+    {
+        return new Builder();
     }
 }

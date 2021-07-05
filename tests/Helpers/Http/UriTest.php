@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Helpers;
+namespace Tests\Helpers\Http;
 
 use ArgumentCountError;
 use Helldar\Support\Exceptions\NotValidUrlException;
@@ -8,8 +8,7 @@ use Helldar\Support\Facades\Helpers\Filesystem\File;
 use Helldar\Support\Helpers\Http;
 use Tests\TestCase;
 
-/** @deprecated */
-final class HttpTest extends TestCase
+final class UriTest extends TestCase
 {
     public function testDomain()
     {
@@ -256,8 +255,8 @@ final class HttpTest extends TestCase
         $this->assertNull($this->http()->image('foo.jpg'));
     }
 
-    protected function http(): Http
+    protected function http(): Http\Uri
     {
-        return new Http();
+        return new Http\Uri();
     }
 }

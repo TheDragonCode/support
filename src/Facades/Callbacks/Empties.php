@@ -9,7 +9,7 @@ use Helldar\Support\Facades\Facade;
  * @method static callable notEmpty()
  * @method static callable notEmptyBoth()
  */
-final class Empties extends Facade
+class Empties extends Facade
 {
     protected static function getFacadeAccessor()
     {

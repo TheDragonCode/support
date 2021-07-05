@@ -3,10 +3,12 @@
 namespace Helldar\Support\Helpers;
 
 use ArgumentCountError;
+use Helldar\Support\Concerns\Deprecation;
 use Helldar\Support\Facades\Helpers\Arr as ArrFacade;
 use Helldar\Support\Facades\Helpers\Http as HttpHelper;
 use Helldar\Support\Facades\Helpers\Instance as InstanceHelper;
 use Helldar\Support\Facades\Helpers\Str as StrFacade;
+use Helldar\Support\Helpers\Http\Builder;
 use Helldar\Support\Tools\Http\Uri;
 use Helldar\Support\Tools\HttpBuilderPrepare;
 use Psr\Http\Message\UriInterface;
@@ -35,9 +37,13 @@ use RuntimeException;
  * @method string|null getQuery()
  * @method string|null getScheme()
  * @method string|null getUser()
+ *
+ * @deprecated since 4.0: Use `Helldar\Support\Helpers\Http\Builder` instead
  */
 class HttpBuilder
 {
+    use Deprecation;
+
     protected $parsed = [];
 
     protected $components = [
@@ -56,6 +62,11 @@ class HttpBuilder
     protected $casts = [
         'query' => 'array',
     ];
+
+    public function __construct()
+    {
+        self::deprecatedClass(Builder::class);
+    }
 
     /**
      * Calling magic methods.
@@ -128,7 +139,7 @@ class HttpBuilder
         $key       = $this->componentKey($component);
 
         $component === -1 || empty($key)
-            ? $this->parsed       = parse_url($url)
+            ? $this->parsed = parse_url($url)
             : $this->parsed[$key] = parse_url($url, $component);
 
         $this->cast();
