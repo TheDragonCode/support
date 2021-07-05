@@ -131,7 +131,7 @@ class HttpBuilder
         $key       = $this->componentKey($component);
 
         $component === -1 || empty($key)
-            ? $this->parsed = parse_url($url)
+            ? $this->parsed       = parse_url($url)
             : $this->parsed[$key] = parse_url($url, $component);
 
         $this->cast();
