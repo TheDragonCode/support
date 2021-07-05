@@ -46,11 +46,21 @@ class Builder implements UriInterface
     ];
 
     /**
+     * Return the string representation as a URI reference.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->toUrl();
+    }
+
+    /**
      * Gets the current instance of the object.
      *
      * @return \Helldar\Support\Helpers\Http\Builder
      */
-    public function same(): Builder
+    public function same(): self
     {
         return $this;
     }
@@ -63,7 +73,7 @@ class Builder implements UriInterface
      *
      * @return \Helldar\Support\Helpers\Http\Builder
      */
-    public function parse($url, int $component = self::PHP_URL_ALL): Builder
+    public function parse($url, int $component = self::PHP_URL_ALL): self
     {
         if ($component === self::PHP_URL_ALL) {
             UrlHelper::validate($url);
@@ -72,7 +82,7 @@ class Builder implements UriInterface
         $key = $this->componentNameByIndex($component);
 
         $component === self::PHP_URL_ALL || empty($key)
-            ? $this->parsed = parse_url($url)
+            ? $this->parsed       = parse_url($url)
             : $this->parsed[$key] = parse_url($url, $component);
 
         $this->cast();
@@ -87,7 +97,7 @@ class Builder implements UriInterface
      *
      * @return \Helldar\Support\Helpers\Http\Builder
      */
-    public function parsed(array $parsed): Builder
+    public function parsed(array $parsed): self
     {
         $components = array_values($this->components);
 
@@ -249,7 +259,7 @@ class Builder implements UriInterface
      *
      * @return \Helldar\Support\Helpers\Http\Builder
      */
-    public function withScheme($scheme): Builder
+    public function withScheme($scheme): self
     {
         return $this->set(PHP_URL_SCHEME, $scheme);
     }
@@ -262,7 +272,7 @@ class Builder implements UriInterface
      *
      * @return \Helldar\Support\Helpers\Http\Builder
      */
-    public function withUserInfo($user, $password = null): Builder
+    public function withUserInfo($user, $password = null): self
     {
         return $this
             ->set(PHP_URL_USER, $user)
@@ -276,7 +286,7 @@ class Builder implements UriInterface
      *
      * @return \Helldar\Support\Helpers\Http\Builder
      */
-    public function withHost($host): Builder
+    public function withHost($host): self
     {
         return $this->set(PHP_URL_HOST, $host);
     }
@@ -288,7 +298,7 @@ class Builder implements UriInterface
      *
      * @return \Helldar\Support\Helpers\Http\Builder
      */
-    public function withPort($port): Builder
+    public function withPort($port): self
     {
         return $this->set(PHP_URL_PORT, $port);
     }
@@ -300,7 +310,7 @@ class Builder implements UriInterface
      *
      * @return \Helldar\Support\Helpers\Http\Builder
      */
-    public function withPath($path): Builder
+    public function withPath($path): self
     {
         return $this->set(PHP_URL_PATH, $path);
     }
@@ -312,7 +322,7 @@ class Builder implements UriInterface
      *
      * @return \Helldar\Support\Helpers\Http\Builder
      */
-    public function withQuery($query): Builder
+    public function withQuery($query): self
     {
         return $this->set(PHP_URL_QUERY, $query);
     }
@@ -325,7 +335,7 @@ class Builder implements UriInterface
      *
      * @return \Helldar\Support\Helpers\Http\Builder
      */
-    public function putQuery(string $key, $value): Builder
+    public function putQuery(string $key, $value): self
     {
         $query = $this->get(PHP_URL_QUERY);
 
@@ -341,7 +351,7 @@ class Builder implements UriInterface
      *
      * @return \Helldar\Support\Helpers\Http\Builder
      */
-    public function removeQuery(string $key): Builder
+    public function removeQuery(string $key): self
     {
         unset($this->parsed[$key]);
 
@@ -355,7 +365,7 @@ class Builder implements UriInterface
      *
      * @return \Helldar\Support\Helpers\Http\Builder
      */
-    public function withFragment($fragment): Builder
+    public function withFragment($fragment): self
     {
         return $this->set(PHP_URL_FRAGMENT, $fragment);
     }
@@ -367,7 +377,7 @@ class Builder implements UriInterface
      *
      * @return $this
      */
-    public function fromPsrUrl(UriInterface $uri): Builder
+    public function fromPsrUrl(UriInterface $uri): self
     {
         return $this->parse($uri);
     }
@@ -398,16 +408,6 @@ class Builder implements UriInterface
     public function toUrl(): string
     {
         return (string) $this->toPsrUrl();
-    }
-
-    /**
-     * Return the string representation as a URI reference.
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->toUrl();
     }
 
     protected function componentNameByIndex(int $component): ?string
@@ -476,7 +476,7 @@ class Builder implements UriInterface
         return $value ?: null;
     }
 
-    protected function set(int $component, $value): Builder
+    protected function set(int $component, $value): self
     {
         $this->validate($component, $value);
 

@@ -7,12 +7,12 @@ use Helldar\Support\Helpers\Http\Url as Helper;
 use Psr\Http\Message\UriInterface;
 
 /**
- * @method static \Helldar\Support\Helpers\Http\Builder parse(UriInterface|string|null $url)
- * @method static bool exists(UriInterface|string|null $url)
- * @method static bool is(UriInterface|string|null $url)
- * @method static string validated(UriInterface|string|null $url)
- * @method static string|null default(UriInterface|string|null $url, UriInterface|string|null $default)
- * @method static void validate(UriInterface|string|null $url)
+ * @method static \Helldar\Support\Helpers\Http\Builder parse(string|UriInterface|null $url)
+ * @method static bool exists(string|UriInterface|null $url)
+ * @method static bool is(string|UriInterface|null $url)
+ * @method static string validated(string|UriInterface|null $url)
+ * @method static string|null default(string|UriInterface|null $url, string|UriInterface|null $default)
+ * @method static void validate(string|UriInterface|null $url)
  */
 class Url extends Facade
 {

@@ -9,7 +9,7 @@ use Throwable;
 class Url
 {
     /**
-     * Parsing URL into components
+     * Parsing URL into components.
      *
      * @param  \Psr\Http\Message\UriInterface|string|null  $url
      *
@@ -85,8 +85,7 @@ class Url
             preg_match('/HTTP\/\d{1}\.?\d?\s[2-3]\d{2}/i', $value, $matches);
 
             return count($matches) > 0;
-        }
-        catch (Throwable $e) {
+        } catch (Throwable $e) {
             return false;
         }
     }
@@ -98,6 +97,7 @@ class Url
      * @param  \Psr\Http\Message\UriInterface|string  $default
      *
      * @throws \Helldar\Support\Exceptions\NotValidUrlException
+     *
      * @return string|null
      */
     public function default($url, $default): string
