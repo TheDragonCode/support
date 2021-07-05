@@ -9,7 +9,7 @@ use ReflectionClass;
 /**
  * @method static ReflectionClass resolve(object|ReflectionClass|string $class)
  */
-final class Reflection extends Facade
+class Reflection extends Facade
 {
     protected static function getFacadeAccessor()
     {

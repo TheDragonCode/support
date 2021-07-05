@@ -7,7 +7,7 @@ use Helldar\Support\Facades\Helpers\Str;
 use Helldar\Support\Tools\Stub as Tool;
 use Tests\TestCase;
 
-final class StubTest extends TestCase
+class StubTest extends TestCase
 {
     public function testReplacePhp()
     {

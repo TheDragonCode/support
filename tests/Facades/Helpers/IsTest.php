@@ -13,7 +13,7 @@ use Tests\Fixtures\Instances\Baz;
 use Tests\Fixtures\Instances\Foo;
 use Tests\TestCase;
 
-final class IsTest extends TestCase
+class IsTest extends TestCase
 {
     public function testReflectionClass()
     {

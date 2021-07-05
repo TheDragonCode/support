@@ -4,7 +4,7 @@ namespace Helldar\Support\Tools;
 
 use Helldar\Support\Facades\Helpers\Str;
 
-final class Sorter
+class Sorter
 {
     protected $special_chars = [
         ' ',

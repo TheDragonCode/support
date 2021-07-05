@@ -11,7 +11,7 @@ use Helldar\Support\Helpers\Instance as Helper;
  * @method static string|null basename(object|string $class)
  * @method static string|null classname(object|string $class = null)
  */
-final class Instance extends Facade
+class Instance extends Facade
 {
     protected static function getFacadeAccessor()
     {

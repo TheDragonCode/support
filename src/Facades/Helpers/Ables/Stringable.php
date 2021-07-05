@@ -28,7 +28,7 @@ use Helldar\Support\Helpers\Ables\Stringable as Helper;
  * @method static Helper upper()
  * @method static void dd()
  */
-final class Stringable extends Facade
+class Stringable extends Facade
 {
     protected static function getFacadeAccessor()
     {

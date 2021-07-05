@@ -5,7 +5,7 @@ namespace Helldar\Support\Tools;
 use Helldar\Support\Exceptions\UnknownStubFileException;
 use Helldar\Support\Facades\Helpers\Str;
 
-final class Stub
+class Stub
 {
     public const PHP_ARRAY = 'php_array.stub';
 

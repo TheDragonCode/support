@@ -2,7 +2,7 @@
 
 namespace Helldar\Support\Tools;
 
-final class Replace
+class Replace
 {
     public function toFormat(string $value, string $format = null): string
     {

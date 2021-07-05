@@ -20,7 +20,7 @@ use SplFileInfo;
  * @method static void ensureDirectory(string $path, int $mode = 0755, bool $can_delete = false)
  * @method static void validate(DirectoryIterator|SplFileInfo|string $path)
  */
-final class Directory extends Facade
+class Directory extends Facade
 {
     protected static function getFacadeAccessor()
     {

@@ -6,7 +6,7 @@ use ArgumentCountError;
 use Helldar\Support\Exceptions\NotValidUrlException;
 use Tests\TestCase;
 
-final class NotValidUrlExceptionTest extends TestCase
+class NotValidUrlExceptionTest extends TestCase
 {
     public function testPath()
     {

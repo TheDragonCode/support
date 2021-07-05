@@ -4,7 +4,7 @@ namespace Helldar\Support\Tools;
 
 use Helldar\Support\Concerns\Makeable;
 
-final class HttpBuilderPrepare
+class HttpBuilderPrepare
 {
     use Makeable;
 

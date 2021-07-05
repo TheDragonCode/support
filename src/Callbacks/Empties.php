@@ -2,7 +2,7 @@
 
 namespace Helldar\Support\Callbacks;
 
-final class Empties
+class Empties
 {
     public function notEmpty(): callable
     {

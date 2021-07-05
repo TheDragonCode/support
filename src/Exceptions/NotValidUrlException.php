@@ -4,7 +4,7 @@ namespace Helldar\Support\Exceptions;
 
 use Exception;
 
-final class NotValidUrlException extends Exception
+class NotValidUrlException extends Exception
 {
     public function __construct(?string $url)
     {

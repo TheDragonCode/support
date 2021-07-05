@@ -33,7 +33,7 @@ use Helldar\Support\Helpers\Ables\Arrayable as Helper;
  * @method static Helper values()
  * @method static void dd()
  */
-final class Arrayable extends Facade
+class Arrayable extends Facade
 {
     protected static function getFacadeAccessor()
     {

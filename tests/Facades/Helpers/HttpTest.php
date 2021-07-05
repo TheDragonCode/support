@@ -9,7 +9,7 @@ use Helldar\Support\Facades\Helpers\Http;
 use Tests\TestCase;
 
 /** @deprecated */
-final class HttpTest extends TestCase
+class HttpTest extends TestCase
 {
     public function testDomain()
     {

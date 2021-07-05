@@ -9,7 +9,7 @@ use Helldar\Support\Helpers\Filesystem\File;
 use SplFileInfo;
 use Tests\TestCase;
 
-final class FileTest extends TestCase
+class FileTest extends TestCase
 {
     public function testNames()
     {

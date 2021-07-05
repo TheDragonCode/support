@@ -5,7 +5,7 @@ namespace Tests\Facades\Tools;
 use Helldar\Support\Facades\Tools\Sorter;
 use Tests\TestCase;
 
-final class SorterTest extends TestCase
+class SorterTest extends TestCase
 {
     public function testSpecialCharsStrict()
     {

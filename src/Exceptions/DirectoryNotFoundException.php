@@ -4,7 +4,7 @@ namespace Helldar\Support\Exceptions;
 
 use Exception;
 
-final class DirectoryNotFoundException extends Exception
+class DirectoryNotFoundException extends Exception
 {
     public function __construct(?string $path)
     {

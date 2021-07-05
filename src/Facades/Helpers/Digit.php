@@ -12,7 +12,7 @@ use Helldar\Support\Helpers\Digit as Helper;
  * @method static string shortKey(int $number, string $chars = 'abcdefghijklmnopqrstuvwxyz')
  * @method static string toShort(float $number, int $precision = 1)
  */
-final class Digit extends Facade
+class Digit extends Facade
 {
     protected static function getFacadeAccessor()
     {

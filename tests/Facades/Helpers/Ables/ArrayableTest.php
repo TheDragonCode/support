@@ -10,7 +10,7 @@ use Tests\Fixtures\Instances\Baz;
 use Tests\Fixtures\Instances\Foo;
 use Tests\TestCase;
 
-final class ArrayableTest extends TestCase
+class ArrayableTest extends TestCase
 {
     public function testOf()
     {

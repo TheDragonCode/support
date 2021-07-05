@@ -8,7 +8,7 @@ use Helldar\Support\Facades\Helpers\Filesystem\File;
 use Helldar\Support\Facades\Helpers\Str;
 use Tests\TestCase;
 
-final class DirectoryTest extends TestCase
+class DirectoryTest extends TestCase
 {
     public function testAll()
     {

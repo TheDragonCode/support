@@ -5,7 +5,7 @@ namespace Tests\Callbacks;
 use Helldar\Support\Callbacks\Empties;
 use Tests\TestCase;
 
-final class EmptiesTest extends TestCase
+class EmptiesTest extends TestCase
 {
     public function testFilter()
     {

@@ -5,7 +5,7 @@ namespace Tests\Helpers;
 use Helldar\Support\Helpers\OS;
 use Tests\TestCase;
 
-final class OSTest extends TestCase
+class OSTest extends TestCase
 {
     public function testIsLinux()
     {

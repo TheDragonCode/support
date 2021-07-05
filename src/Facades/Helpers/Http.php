@@ -19,7 +19,7 @@ use Helldar\Support\Helpers\Http as Helper;
  *
  * @deprecated since 4.0: Namespace will be renamed to `Helldar\Support\Facades\Helpers\Http\Uri`.
  */
-final class Http extends Facade
+class Http extends Facade
 {
     use Deprecation;
 

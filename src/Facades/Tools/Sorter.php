@@ -9,7 +9,7 @@ use Helldar\Support\Tools\Sorter as Tool;
  * @method static array specialChars()
  * @method static callable defaultCallback()
  */
-final class Sorter extends Facade
+class Sorter extends Facade
 {
     protected static function getFacadeAccessor()
     {

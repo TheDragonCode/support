@@ -9,7 +9,7 @@ use Helldar\Support\Tools\Replace as Tool;
  * @method static string toFormat(string $value, string $format = null)
  * @method static string toFormatArray(array $values, string $format = null)
  */
-final class Replace extends Facade
+class Replace extends Facade
 {
     protected static function getFacadeAccessor()
     {

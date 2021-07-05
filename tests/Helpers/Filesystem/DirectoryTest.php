@@ -9,7 +9,7 @@ use Helldar\Support\Facades\Helpers\Str;
 use Helldar\Support\Helpers\Filesystem\Directory;
 use Tests\TestCase;
 
-final class DirectoryTest extends TestCase
+class DirectoryTest extends TestCase
 {
     public function testAll()
     {

@@ -36,7 +36,7 @@ use Psr\Http\Message\UriInterface;
  * @deprecated since 4.0: Namespace will be renamed to `Helldar\Support\Facades\Helpers\Http\Builder`.
  * @deprecated since 4.0: The `set` methods will be renamed to `with` for the `Psr\Http\Message\UriInterface` compatibility.
  */
-final class HttpBuilder extends Facade
+class HttpBuilder extends Facade
 {
     protected static function getFacadeAccessor()
     {

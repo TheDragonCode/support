@@ -6,7 +6,7 @@ use ArgumentCountError;
 use Helldar\Support\Exceptions\FileNotFoundException;
 use Tests\TestCase;
 
-final class FileNotFoundExceptionTest extends TestCase
+class FileNotFoundExceptionTest extends TestCase
 {
     public function testPath()
     {

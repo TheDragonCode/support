@@ -4,7 +4,7 @@ namespace Helldar\Support\Exceptions;
 
 use Exception;
 
-final class UnknownStubFileException extends Exception
+class UnknownStubFileException extends Exception
 {
     public function __construct(?string $filename)
     {

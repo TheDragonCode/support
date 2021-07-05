@@ -12,7 +12,7 @@ use RuntimeException;
 use Tests\TestCase;
 
 /** @deprecated */
-final class HttpBuilderTest extends TestCase
+class HttpBuilderTest extends TestCase
 {
     public function testInstance()
     {

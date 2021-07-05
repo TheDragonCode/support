@@ -6,7 +6,7 @@ use Helldar\Support\Facades\Helpers\Stringable;
 use Tests\TestCase;
 
 /** @deprecated */
-final class StringableTest extends TestCase
+class StringableTest extends TestCase
 {
     public function testAscii()
     {

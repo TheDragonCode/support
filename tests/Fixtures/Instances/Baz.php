@@ -2,7 +2,7 @@
 
 namespace Tests\Fixtures\Instances;
 
-final class Baz
+class Baz
 {
     public $first = 'foo';
 

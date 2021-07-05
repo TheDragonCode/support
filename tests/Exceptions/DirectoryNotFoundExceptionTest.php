@@ -6,7 +6,7 @@ use ArgumentCountError;
 use Helldar\Support\Exceptions\DirectoryNotFoundException;
 use Tests\TestCase;
 
-final class DirectoryNotFoundExceptionTest extends TestCase
+class DirectoryNotFoundExceptionTest extends TestCase
 {
     public function testPath()
     {
