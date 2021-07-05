@@ -34,6 +34,11 @@ class Builder implements UriInterface
         'fragment' => 'string',
     ];
 
+    public function __toString()
+    {
+        return $this->toUrl();
+    }
+
     /**
      * Gets the current instance of the object.
      *
@@ -47,7 +52,7 @@ class Builder implements UriInterface
     /**
      * Parse a URL.
      *
-     * @param  UriInterface|string|null  $url
+     * @param  string|UriInterface|null  $url
      * @param  int  $component
      *
      * @return $this
@@ -62,7 +67,7 @@ class Builder implements UriInterface
         $key   = $this->componentKey($component);
 
         $index === -1 || empty($key)
-            ? $this->parsed = parse_url((string) $url)
+            ? $this->parsed       = parse_url((string) $url)
             : $this->parsed[$key] = parse_url((string) $url, $index);
 
         $this->cast();
@@ -200,11 +205,6 @@ class Builder implements UriInterface
     public function toUrl(): string
     {
         return (string) $this;
-    }
-
-    public function __toString()
-    {
-        return $this->toUrl();
     }
 
     /**

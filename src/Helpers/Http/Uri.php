@@ -13,7 +13,7 @@ class Uri
     /**
      * Check if the string is a valid URL.
      *
-     * @param  UriInterface|string|null  $url
+     * @param  string|UriInterface|null  $url
      *
      * @return bool
      */
@@ -25,7 +25,7 @@ class Uri
     /**
      * Validate if the value is a valid URL or throw an error.
      *
-     * @param  UriInterface|string|null  $url
+     * @param  string|UriInterface|null  $url
      *
      * @throws \Helldar\Support\Exceptions\NotValidUrlException
      */
@@ -39,7 +39,7 @@ class Uri
     /**
      * Returns the URL after validation, or throws an error.
      *
-     * @param  UriInterface|string|null  $url
+     * @param  string|UriInterface|null  $url
      *
      * @throws \Helldar\Support\Exceptions\NotValidUrlException
      *
@@ -55,7 +55,7 @@ class Uri
     /**
      * Check if the specified URL exists.
      *
-     * @param  UriInterface|string|null  $url
+     * @param  string|UriInterface|null  $url
      *
      * @throws \Helldar\Support\Exceptions\NotValidUrlException
      *
@@ -74,8 +74,7 @@ class Uri
             preg_match('/HTTP\/\d{1}\.?\d?\s[2-3]\d{2}/i', $value, $matches);
 
             return count($matches) > 0;
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             return false;
         }
     }
@@ -83,7 +82,7 @@ class Uri
     /**
      * Get the domain name from the URL.
      *
-     * @param  UriInterface|string|null  $url
+     * @param  string|UriInterface|null  $url
      *
      * @throws \Helldar\Support\Exceptions\NotValidUrlException
      *
@@ -99,7 +98,7 @@ class Uri
     /**
      * Get the subdomain name from the URL.
      *
-     * @param  UriInterface|string|null  $url
+     * @param  string|UriInterface|null  $url
      *
      * @throws \Helldar\Support\Exceptions\NotValidUrlException
      *
@@ -117,7 +116,7 @@ class Uri
     /**
      * Get the scheme and host from the URL.
      *
-     * @param  UriInterface|string|null  $url
+     * @param  string|UriInterface|null  $url
      *
      * @throws \Helldar\Support\Exceptions\NotValidUrlException
      *
@@ -136,7 +135,7 @@ class Uri
     /**
      * Get the scheme name from the URL.
      *
-     * @param  UriInterface|string|null  $url
+     * @param  string|UriInterface|null  $url
      *
      * @throws \Helldar\Support\Exceptions\NotValidUrlException
      *
@@ -152,8 +151,8 @@ class Uri
     /**
      * Check the existence of the file and return the default value if it is missing.
      *
-     * @param  UriInterface|string  $url
-     * @param  UriInterface|string|null  $default
+     * @param  string|UriInterface  $url
+     * @param  string|UriInterface|null  $default
      *
      * @throws \Helldar\Support\Exceptions\NotValidUrlException
      *
