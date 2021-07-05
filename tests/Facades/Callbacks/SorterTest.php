@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Facades\Tools;
+namespace Tests\Facades\Callbacks;
 
 use Helldar\Support\Facades\Callbacks\Sorter;
 use Tests\TestCase;
