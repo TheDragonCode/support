@@ -82,13 +82,14 @@ class UrlTest extends TestCase
         $this->assertSame($url, $validated);
     }
 
-    public function testValidatedUriInterface()
+    public function testValidatedPsr()
     {
         $builder = $this->builder();
 
         $validated = Url::validated($builder);
 
-        $this->assertSame($this->builder_url, $validated);
+        $this->assertInstanceOf(UriInterface::class, $validated);
+        $this->assertSame($this->builder_url, (string) $validated);
     }
 
     public function testValidate()
@@ -98,7 +99,7 @@ class UrlTest extends TestCase
         $this->assertTrue(true);
     }
 
-    public function testValidateUriInterface()
+    public function testValidatePsr()
     {
         Url::validate($this->builder());
 

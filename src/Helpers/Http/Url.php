@@ -53,13 +53,13 @@ class Url
      *
      * @throws \Helldar\Support\Exceptions\NotValidUrlException
      *
-     * @return string
+     * @return \Helldar\Support\Helpers\Http\Builder|\Psr\Http\Message\UriInterface|string
      */
-    public function validated($url): string
+    public function validated($url)
     {
         $this->validate($url);
 
-        return (string) $url;
+        return $url;
     }
 
     /**
