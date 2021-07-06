@@ -45,7 +45,7 @@ class UrlTest extends TestCase
     public function testExistsNull()
     {
         $this->expectException(NotValidUrlException::class);
-        $this->expectExceptionMessage('The "" is not a valid URL.');
+        $this->expectExceptionMessage('Empty string is not a valid URL.');
 
         Url::exists(null);
     }

@@ -37,6 +37,7 @@ class FileTest extends TestCase
             'Instances/Bar.php',
             'Instances/Baz.php',
             'Instances/Foo.php',
+            'Instances/Psr.php',
             'stubs/custom.stub',
         ];
 

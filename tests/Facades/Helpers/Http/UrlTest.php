@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Helpers\Http;
+namespace Tests\Facades\Helpers\Http;
 
 use Helldar\Support\Exceptions\NotValidUrlException;
 use Helldar\Support\Helpers\Http\Builder;
@@ -22,7 +22,7 @@ class UrlTest extends TestCase
         $this->assertInstanceOf(UriInterface::class, $parsed);
     }
 
-    public function testParseUriInterface()
+    public function testParsePsr()
     {
         $builder = $this->builder();
 

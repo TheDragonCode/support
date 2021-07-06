@@ -19,7 +19,7 @@ class NotValidUrlExceptionTest extends TestCase
     public function testEmptyPath()
     {
         $this->expectException(NotValidUrlException::class);
-        $this->expectExceptionMessage('The "" is not a valid URL.');
+        $this->expectExceptionMessage('Empty string is not a valid URL.');
 
         throw new NotValidUrlException(null);
     }
