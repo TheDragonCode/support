@@ -4,10 +4,10 @@ namespace Tests\Facades\Helpers\Http\Builder;
 
 use Helldar\Support\Facades\Http\Builder as BuilderFacade;
 use Helldar\Support\Helpers\Http\Builder;
-use Tests\Facades\Helpers\Http\Base;
-use TypeError;
-
 use const PHP_VERSION_ID;
+use Tests\Facades\Helpers\Http\Base;
+
+use TypeError;
 
 class RemoveQueryMethodTest extends Base
 {
