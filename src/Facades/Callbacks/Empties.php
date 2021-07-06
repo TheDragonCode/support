@@ -2,17 +2,17 @@
 
 namespace Helldar\Support\Facades\Callbacks;
 
-use Helldar\Support\Callbacks\Empties as Callbacks;
+use Helldar\Support\Callbacks\Empties as Callback;
 use Helldar\Support\Facades\Facade;
 
 /**
  * @method static callable notEmpty()
  * @method static callable notEmptyBoth()
  */
-final class Empties extends Facade
+class Empties extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return Callbacks::class;
+        return Callback::class;
     }
 }

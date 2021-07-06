@@ -9,7 +9,7 @@ use Tests\Fixtures\Instances\Baz;
 use Tests\Fixtures\Instances\Foo;
 use Tests\TestCase;
 
-final class InstanceTest extends TestCase
+class InstanceTest extends TestCase
 {
     public function testOf()
     {

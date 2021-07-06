@@ -6,7 +6,7 @@ use ArgumentCountError;
 use Helldar\Support\Exceptions\UnknownStubFileException;
 use Tests\TestCase;
 
-final class UnknownStubFileExceptionTest extends TestCase
+class UnknownStubFileExceptionTest extends TestCase
 {
     public function testPath()
     {

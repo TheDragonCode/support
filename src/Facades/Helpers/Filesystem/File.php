@@ -17,7 +17,7 @@ use SplFileInfo;
  * @method static void delete(string|string[] $paths)
  * @method static void validate(DirectoryIterator|SplFileInfo|string $path)
  */
-final class File extends Facade
+class File extends Facade
 {
     protected static function getFacadeAccessor()
     {

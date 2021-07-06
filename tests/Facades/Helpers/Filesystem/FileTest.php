@@ -9,7 +9,7 @@ use Helldar\Support\Facades\Helpers\Str;
 use SplFileInfo;
 use Tests\TestCase;
 
-final class FileTest extends TestCase
+class FileTest extends TestCase
 {
     public function testNames()
     {
@@ -37,6 +37,7 @@ final class FileTest extends TestCase
             'Instances/Bar.php',
             'Instances/Baz.php',
             'Instances/Foo.php',
+            'Instances/Psr.php',
             'stubs/custom.stub',
         ];
 

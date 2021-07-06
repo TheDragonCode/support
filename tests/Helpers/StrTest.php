@@ -11,7 +11,7 @@ use Tests\Fixtures\Instances\Baz;
 use Tests\Fixtures\Instances\Foo;
 use Tests\TestCase;
 
-final class StrTest extends TestCase
+class StrTest extends TestCase
 {
     public function testOf()
     {

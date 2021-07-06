@@ -12,7 +12,7 @@ use Helldar\Support\Helpers\Boolean as Helper;
  * @method static bool|null parse($value)
  * @method static string convertToString(bool $value)
  */
-final class Boolean extends Facade
+class Boolean extends Facade
 {
     protected static function getFacadeAccessor()
     {

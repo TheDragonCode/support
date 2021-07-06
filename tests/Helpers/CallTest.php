@@ -9,7 +9,7 @@ use Tests\Fixtures\Exceptions\AnyException;
 use Tests\Fixtures\Instances\Foo;
 use Tests\TestCase;
 
-final class CallTest extends TestCase
+class CallTest extends TestCase
 {
     public function testRun()
     {

@@ -4,12 +4,28 @@ namespace Helldar\Support\Exceptions;
 
 use Exception;
 
-final class NotValidUrlException extends Exception
+class NotValidUrlException extends Exception
 {
     public function __construct(?string $url)
     {
-        $message = 'The "' . $url . '" is not a valid URL.';
+        $value = $this->value($url);
+
+        $message = $this->message($value);
 
         parent::__construct($message, 412);
+    }
+
+    protected function value(?string $url): string
+    {
+        if (! empty($url)) {
+            return 'The "' . $url . '"';
+        }
+
+        return 'Empty string';
+    }
+
+    protected function message(string $value): string
+    {
+        return $value . ' is not a valid URL.';
     }
 }

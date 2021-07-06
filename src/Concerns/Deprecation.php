@@ -9,7 +9,7 @@ namespace Helldar\Support\Concerns;
  */
 trait Deprecation
 {
-    protected static $next_version = '4.0';
+    protected static $next_version = '5.0';
 
     protected static function deprecatedClass(string $new_class, string $old_class = null): void
     {

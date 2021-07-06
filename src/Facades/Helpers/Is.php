@@ -15,7 +15,7 @@ use Helldar\Support\Helpers\Is as Helper;
  * @method static bool reflectionClass($value)
  * @method static bool string($value)
  */
-final class Is extends Facade
+class Is extends Facade
 {
     protected static function getFacadeAccessor()
     {

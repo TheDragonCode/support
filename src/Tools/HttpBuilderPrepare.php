@@ -3,8 +3,10 @@
 namespace Helldar\Support\Tools;
 
 use Helldar\Support\Concerns\Makeable;
+use Helldar\Support\Facades\Helpers\Str;
+use Stringable;
 
-final class HttpBuilderPrepare
+class HttpBuilderPrepare implements Stringable
 {
     use Makeable;
 
@@ -15,6 +17,15 @@ final class HttpBuilderPrepare
     protected $suffix = '';
 
     protected $default = '';
+
+    public function __toString(): string
+    {
+        if (! empty($this->of)) {
+            return $this->prefixed();
+        }
+
+        return $this->default;
+    }
 
     public function of(?string $value): self
     {
@@ -37,24 +48,11 @@ final class HttpBuilderPrepare
         return $this;
     }
 
-    public function get(): ?string
+    protected function prefixed(): ?string
     {
-        if (! empty($this->of)) {
-            return $this->prefexible();
-        }
-
-        return $this->default;
-    }
-
-    protected function getValue(): ?string
-    {
-        $characters = " \t\n\r\0\x0B" . $this->prefix . $this->suffix;
-
-        return ! empty($this->of) ? trim($this->of, $characters) : null;
-    }
-
-    protected function prefexible(): ?string
-    {
-        return $this->prefix . $this->getValue() . $this->suffix;
+        return (string) Str::of($this->of)
+            ->start($this->prefix)
+            ->finish($this->suffix)
+            ->trim();
     }
 }

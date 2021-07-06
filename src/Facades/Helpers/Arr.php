@@ -40,7 +40,7 @@ use Helldar\Support\Helpers\Arr as Helper;
  * @method static void storeAsArray(string $path, array|ArrayAccess $array, bool $sort_keys = false)
  * @method static void storeAsJson(string $path, array|ArrayAccess $array, bool $sort_keys = false, int $flags = 0)
  */
-final class Arr extends Facade
+class Arr extends Facade
 {
     protected static function getFacadeAccessor()
     {

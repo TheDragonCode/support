@@ -5,7 +5,7 @@ namespace Tests\Facades\Tools;
 use Helldar\Support\Facades\Tools\Replace;
 use Tests\TestCase;
 
-final class ReplaceTest extends TestCase
+class ReplaceTest extends TestCase
 {
     public function testToFormat()
     {

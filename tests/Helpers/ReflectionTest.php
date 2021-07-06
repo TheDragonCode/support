@@ -7,7 +7,7 @@ use ReflectionClass;
 use Tests\Fixtures\Instances\Foo;
 use Tests\TestCase;
 
-final class ReflectionTest extends TestCase
+class ReflectionTest extends TestCase
 {
     public function testResolve()
     {

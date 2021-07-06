@@ -13,7 +13,7 @@ use Helldar\Support\Helpers\Call as Helper;
  * @method static mixed|null runOf(array $map, $value, ...$parameters)
  * @method static mixed|null when(bool $when, callable|Closure|string $class, string $method, ...$parameters)
  */
-final class Call extends Facade
+class Call extends Facade
 {
     protected static function getFacadeAccessor()
     {

@@ -15,7 +15,7 @@ use Helldar\Support\Helpers\OS as Helper;
  * @method static bool isWindows()
  * @method static string family(bool $lower = true)
  */
-final class OS extends Facade
+class OS extends Facade
 {
     protected static function getFacadeAccessor()
     {

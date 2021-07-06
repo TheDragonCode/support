@@ -9,7 +9,7 @@ use Helldar\Support\Tools\Stub as Tool;
  * @method static string replace(string $stub_file, array $replace)
  * @method static string get(string $filename)
  */
-final class Stub extends Facade
+class Stub extends Facade
 {
     protected static function getFacadeAccessor()
     {

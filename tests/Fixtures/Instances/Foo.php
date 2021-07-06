@@ -4,7 +4,7 @@ namespace Tests\Fixtures\Instances;
 
 use Tests\Fixtures\Contracts\Contract;
 
-final class Foo implements Contract
+class Foo implements Contract
 {
     public static function callStatic()
     {

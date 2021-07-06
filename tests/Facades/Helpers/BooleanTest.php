@@ -5,7 +5,7 @@ namespace Tests\Facades\Helpers;
 use Helldar\Support\Facades\Helpers\Boolean;
 use Tests\TestCase;
 
-final class BooleanTest extends TestCase
+class BooleanTest extends TestCase
 {
     public function testIsTrue(): void
     {

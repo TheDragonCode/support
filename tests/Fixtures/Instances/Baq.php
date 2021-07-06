@@ -2,7 +2,7 @@
 
 namespace Tests\Fixtures\Instances;
 
-final class Baq
+class Baq
 {
     public function toArray(): array
     {
