@@ -28,6 +28,18 @@ class Psr implements UriInterface
 
     protected $fragment = '';
 
+    public function __toString()
+    {
+        $items = Arrayable::of($this->prepare())
+            ->map(function ($value) {
+                return (string) $value;
+            })
+            ->filter()
+            ->get();
+
+        return implode('', $items);
+    }
+
     public function getScheme(): string
     {
         return $this->scheme;
@@ -75,14 +87,14 @@ class Psr implements UriInterface
         return $this->fragment;
     }
 
-    public function withScheme($scheme): Psr
+    public function withScheme($scheme): self
     {
         $this->scheme = $scheme;
 
         return $this;
     }
 
-    public function withUserInfo($user, $password = null): Psr
+    public function withUserInfo($user, $password = null): self
     {
         $this->user     = $user;
         $this->password = $password;
@@ -90,51 +102,39 @@ class Psr implements UriInterface
         return $this;
     }
 
-    public function withHost($host): Psr
+    public function withHost($host): self
     {
         $this->host = $host;
 
         return $this;
     }
 
-    public function withPort($port): Psr
+    public function withPort($port): self
     {
         $this->port = $port;
 
         return $this;
     }
 
-    public function withPath($path): Psr
+    public function withPath($path): self
     {
         $this->path = $path;
 
         return $this;
     }
 
-    public function withQuery($query): Psr
+    public function withQuery($query): self
     {
         $this->query = $query;
 
         return $this;
     }
 
-    public function withFragment($fragment): Psr
+    public function withFragment($fragment): self
     {
         $this->fragment = $fragment;
 
         return $this;
-    }
-
-    public function __toString()
-    {
-        $items = Arrayable::of($this->prepare())
-            ->map(function ($value) {
-                return (string) $value;
-            })
-            ->filter()
-            ->get();
-
-        return implode('', $items);
     }
 
     protected function prepare(): array

@@ -18,6 +18,15 @@ class HttpBuilderPrepare implements Stringable
 
     protected $default = '';
 
+    public function __toString(): string
+    {
+        if (! empty($this->of)) {
+            return $this->prefixed();
+        }
+
+        return $this->default;
+    }
+
     public function of(?string $value): self
     {
         $this->of = $value;
@@ -37,15 +46,6 @@ class HttpBuilderPrepare implements Stringable
         $this->suffix = $value;
 
         return $this;
-    }
-
-    public function __toString(): string
-    {
-        if (! empty($this->of)) {
-            return $this->prefixed();
-        }
-
-        return $this->default;
     }
 
     protected function prefixed(): ?string
