@@ -99,7 +99,7 @@ class Builder implements UriInterface
         $key = $this->componentNameByIndex($component);
 
         $component === self::PHP_URL_ALL || empty($key)
-            ? $this->parsed = parse_url($url)
+            ? $this->parsed       = parse_url($url)
             : $this->parsed[$key] = parse_url($url, $component);
 
         $this->cast($this->parsed);
