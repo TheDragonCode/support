@@ -2,16 +2,19 @@
 
 namespace Helldar\Support\Helpers\Http;
 
+use Helldar\Support\Concerns\Castable;
 use Helldar\Support\Concerns\Validation;
 use Helldar\Support\Exceptions\UnknownUrlComponentIndexException;
 use Helldar\Support\Facades\Helpers\Ables\Arrayable;
 use Helldar\Support\Facades\Helpers\Arr;
 use Helldar\Support\Facades\Helpers\Str;
 use Helldar\Support\Facades\Http\Url as UrlHelper;
+use Helldar\Support\Tools\HttpBuilderPrepare;
 use Psr\Http\Message\UriInterface;
 
 class Builder implements UriInterface
 {
+    use Castable;
     use Validation;
 
     public const PHP_URL_ALL = -1;
@@ -35,14 +38,14 @@ class Builder implements UriInterface
     ];
 
     protected $validate = [
-        PHP_URL_SCHEME   => ['string'],
-        PHP_URL_HOST     => ['string'],
-        PHP_URL_PORT     => ['integer'],
-        PHP_URL_USER     => ['string'],
-        PHP_URL_PASS     => ['string'],
-        PHP_URL_QUERY    => ['string', 'array'],
-        PHP_URL_PATH     => ['string'],
-        PHP_URL_FRAGMENT => ['string'],
+        PHP_URL_SCHEME   => ['null', 'string'],
+        PHP_URL_HOST     => ['null', 'string'],
+        PHP_URL_PORT     => ['null', 'integer'],
+        PHP_URL_USER     => ['null', 'string'],
+        PHP_URL_PASS     => ['null', 'string'],
+        PHP_URL_QUERY    => ['null', 'string', 'array'],
+        PHP_URL_PATH     => ['null', 'string'],
+        PHP_URL_FRAGMENT => ['null', 'string'],
     ];
 
     /**
@@ -82,10 +85,10 @@ class Builder implements UriInterface
         $key = $this->componentNameByIndex($component);
 
         $component === self::PHP_URL_ALL || empty($key)
-            ? $this->parsed       = parse_url($url)
+            ? $this->parsed = parse_url($url)
             : $this->parsed[$key] = parse_url($url, $component);
 
-        $this->cast();
+        $this->cast($this->parsed);
 
         return $this;
     }
@@ -103,7 +106,7 @@ class Builder implements UriInterface
 
         $this->parsed = Arr::only($parsed, $components);
 
-        $this->cast();
+        $this->cast($this->parsed);
 
         return $this;
     }
@@ -150,7 +153,7 @@ class Builder implements UriInterface
      */
     public function getScheme(): string
     {
-        return $this->get(PHP_URL_SCHEME);
+        return (string) $this->get(PHP_URL_SCHEME);
     }
 
     /**
@@ -187,7 +190,7 @@ class Builder implements UriInterface
      */
     public function getUser(): string
     {
-        return $this->get(PHP_URL_USER);
+        return (string) $this->get(PHP_URL_USER);
     }
 
     /**
@@ -197,7 +200,7 @@ class Builder implements UriInterface
      */
     public function getPassword(): string
     {
-        return $this->get(PHP_URL_PASS);
+        return (string) $this->get(PHP_URL_PASS);
     }
 
     /**
@@ -207,7 +210,7 @@ class Builder implements UriInterface
      */
     public function getHost(): string
     {
-        return $this->get(PHP_URL_HOST);
+        return (string) $this->get(PHP_URL_HOST);
     }
 
     /**
@@ -229,7 +232,7 @@ class Builder implements UriInterface
     {
         $value = $this->get(PHP_URL_PATH);
 
-        return (string) Str::start($value, '/');
+        return ! empty($value) ? Str::start($value, '/') : '';
     }
 
     /**
@@ -239,7 +242,11 @@ class Builder implements UriInterface
      */
     public function getQuery(): string
     {
-        return $this->get(PHP_URL_QUERY);
+        if ($value = $this->get(PHP_URL_QUERY)) {
+            return is_string($value) ? $value : http_build_query($value);
+        }
+
+        return '';
     }
 
     /**
@@ -249,7 +256,7 @@ class Builder implements UriInterface
      */
     public function getFragment(): string
     {
-        return $this->get(PHP_URL_FRAGMENT);
+        return (string) $this->get(PHP_URL_FRAGMENT);
     }
 
     /**
@@ -339,7 +346,7 @@ class Builder implements UriInterface
     {
         $query = $this->get(PHP_URL_QUERY);
 
-        $query[$key] = $value;
+        $query = Arr::set($query, $key, $value);
 
         return $this->set(PHP_URL_QUERY, $query);
     }
@@ -377,9 +384,27 @@ class Builder implements UriInterface
      *
      * @return $this
      */
-    public function fromPsrUrl(UriInterface $uri): self
+    public function fromPsr(UriInterface $uri): self
     {
-        return $this->parse($uri);
+        $this->parsed = [];
+
+        $this->withScheme($uri->getScheme());
+        $this->withHost($uri->getHost());
+        $this->withPort($uri->getPort());
+        $this->withPath($uri->getPath());
+        $this->withQuery($uri->getQuery());
+        $this->withFragment($uri->getFragment());
+
+        $auth = explode(':', $uri->getUserInfo());
+
+        $this->withUserInfo(
+            $auth[0] ?? null,
+            $auth[1] ?? null
+        );
+
+        $this->cast($this->parsed);
+
+        return $this;
     }
 
     /**
@@ -387,17 +412,28 @@ class Builder implements UriInterface
      *
      * @return \Psr\Http\Message\UriInterface
      */
-    public function toPsrUrl(): UriInterface
+    public function toPsr(): UriInterface
     {
-        $url = clone $this->same();
+        return $this->same();
+    }
 
-        $key = $this->componentNameByIndex(PHP_URL_QUERY);
-
-        if (isset($url->parsed[$key])) {
-            $url->parsed[$key] = http_build_query($url->parsed[$key]);
-        }
-
-        return $url;
+    /**
+     * Returns parsed data.
+     *
+     * @return null[]|string[]
+     */
+    public function toArray(): array
+    {
+        return [
+            'scheme'   => $this->getScheme(),
+            'user'     => $this->getUser(),
+            'pass'     => $this->getPassword(),
+            'host'     => $this->getHost(),
+            'port'     => $this->getPort(),
+            'path'     => $this->getPath(),
+            'query'    => $this->getQuery(),
+            'fragment' => $this->getFragment(),
+        ];
     }
 
     /**
@@ -407,7 +443,14 @@ class Builder implements UriInterface
      */
     public function toUrl(): string
     {
-        return (string) $this->toPsrUrl();
+        $items = Arrayable::of($this->prepare())
+            ->map(function ($value) {
+                return (string) $value;
+            })
+            ->filter()
+            ->get();
+
+        return implode('', $items);
     }
 
     protected function componentNameByIndex(int $component): ?string
@@ -426,65 +469,13 @@ class Builder implements UriInterface
         }
     }
 
-    protected function cast(): void
-    {
-        Arrayable::of($this->parsed)
-            ->map(function (&$value, string $key) {
-                switch ($this->casts[$key] ?? null) {
-                    case 'array':
-                        $value = $this->castToArray($value);
-                        break;
-
-                    case 'integer':
-                        $value = $this->castToInteger($value);
-                        break;
-
-                    default:
-                        $value = $this->castToString($value);
-                }
-            });
-    }
-
-    protected function castToArray($value): array
-    {
-        if (empty($value)) {
-            return [];
-        }
-
-        if (is_array($value)) {
-            return $value;
-        }
-
-        $items = [];
-
-        foreach (explode('&', $value) as $index => $item) {
-            [$key, $value] = Str::contains($item, '=') ? explode('=', $item) : [$index, $item];
-
-            $items[$key] = $value;
-        }
-
-        return $items;
-    }
-
-    protected function castToInteger($value): ?int
-    {
-        return empty($value) && ! is_numeric($value) ? null : $value;
-    }
-
-    protected function castToString(?string $value): ?string
-    {
-        return $value ?: null;
-    }
-
     protected function set(int $component, $value): self
     {
         $this->validate($component, $value);
 
         $name = $this->componentNameByIndex($component);
 
-        $this->parsed[$name] = $value;
-
-        $this->cast();
+        $this->parsed[$name] = $this->castValue($name, $value);
 
         return $this;
     }
@@ -498,7 +489,7 @@ class Builder implements UriInterface
 
     protected function getValidationType(int $component): array
     {
-        return $this->validate[$component] ?? [];
+        return Arr::get($this->validate, $component, []);
     }
 
     protected function validate(int $component, $value): void
@@ -506,5 +497,25 @@ class Builder implements UriInterface
         $type = $this->getValidationType($component);
 
         $this->validateType($value, $type);
+    }
+
+    protected function prepare(): array
+    {
+        return [
+            HttpBuilderPrepare::make()->of($this->getScheme())->suffix(':'),
+
+            '//',
+
+            HttpBuilderPrepare::make()->of($this->getUser()),
+            HttpBuilderPrepare::make()->of($this->getPassword())->prefix(':'),
+
+            $this->getUser() || $this->getPassword() ? '@' : '',
+
+            HttpBuilderPrepare::make()->of($this->getHost()),
+            HttpBuilderPrepare::make()->of($this->getPort())->prefix(':'),
+            HttpBuilderPrepare::make()->of($this->getPath()),
+            HttpBuilderPrepare::make()->of($this->getQuery())->prefix('?'),
+            HttpBuilderPrepare::make()->of($this->getFragment())->prefix('#'),
+        ];
     }
 }

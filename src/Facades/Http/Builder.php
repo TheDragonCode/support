@@ -21,7 +21,7 @@ use Psr\Http\Message\UriInterface;
  * @method static string getUser()
  * @method static string getUserInfo()
  * @method static string toUrl()
- * @method static Support fromPsrUrl(UriInterface $uri)
+ * @method static Support fromPsr(UriInterface $uri)
  * @method static Support parse($url, int $component = Support::PHP_URL_ALL)
  * @method static Support parsed(array $parsed)
  * @method static Support putQuery(string $key, mixed $value)
@@ -34,7 +34,7 @@ use Psr\Http\Message\UriInterface;
  * @method static Support withQuery(array|string $path)
  * @method static Support withScheme(string $scheme)
  * @method static Support withUserInfo(string $user, string $password = null)
- * @method static UriInterface toPsrUrl()
+ * @method static UriInterface toPsr()
  */
 class Builder extends Facade
 {
