@@ -63,7 +63,7 @@ class Builder implements UriInterface
      *
      * @return \Helldar\Support\Helpers\Http\Builder
      */
-    public function same(): self
+    public function same(): Builder
     {
         return $this;
     }
@@ -76,7 +76,7 @@ class Builder implements UriInterface
      *
      * @return \Helldar\Support\Helpers\Http\Builder
      */
-    public function parse($url, int $component = self::PHP_URL_ALL): self
+    public function parse($url, int $component = self::PHP_URL_ALL): Builder
     {
         if ($component === self::PHP_URL_ALL) {
             UrlHelper::validate($url);
@@ -100,7 +100,7 @@ class Builder implements UriInterface
      *
      * @return \Helldar\Support\Helpers\Http\Builder
      */
-    public function parsed(array $parsed): self
+    public function parsed(array $parsed): Builder
     {
         $components = array_values($this->components);
 
@@ -232,7 +232,9 @@ class Builder implements UriInterface
     {
         $value = $this->get(PHP_URL_PATH);
 
-        return ! empty($value) ? Str::start($value, '/') : '';
+        $path = (string) Str::of($value)->trim('/')->start('/');
+
+        return $path !== '/' ? $path : '';
     }
 
     /**
@@ -260,13 +262,23 @@ class Builder implements UriInterface
     }
 
     /**
+     * Remove the fragment component from the URI.
+     *
+     * @return \Helldar\Support\Helpers\Http\Builder
+     */
+    public function removeFragment(): Builder
+    {
+        return $this->set(PHP_URL_FRAGMENT, null);
+    }
+
+    /**
      * Return an instance with the specified scheme.
      *
      * @param  string  $scheme
      *
      * @return \Helldar\Support\Helpers\Http\Builder
      */
-    public function withScheme($scheme): self
+    public function withScheme($scheme): Builder
     {
         return $this->set(PHP_URL_SCHEME, $scheme);
     }
@@ -279,7 +291,7 @@ class Builder implements UriInterface
      *
      * @return \Helldar\Support\Helpers\Http\Builder
      */
-    public function withUserInfo($user, $password = null): self
+    public function withUserInfo($user, $password = null): Builder
     {
         return $this
             ->set(PHP_URL_USER, $user)
@@ -293,7 +305,7 @@ class Builder implements UriInterface
      *
      * @return \Helldar\Support\Helpers\Http\Builder
      */
-    public function withHost($host): self
+    public function withHost($host): Builder
     {
         return $this->set(PHP_URL_HOST, $host);
     }
@@ -305,7 +317,7 @@ class Builder implements UriInterface
      *
      * @return \Helldar\Support\Helpers\Http\Builder
      */
-    public function withPort($port): self
+    public function withPort($port): Builder
     {
         return $this->set(PHP_URL_PORT, $port);
     }
@@ -317,7 +329,7 @@ class Builder implements UriInterface
      *
      * @return \Helldar\Support\Helpers\Http\Builder
      */
-    public function withPath($path): self
+    public function withPath($path): Builder
     {
         return $this->set(PHP_URL_PATH, $path);
     }
@@ -325,11 +337,11 @@ class Builder implements UriInterface
     /**
      * Return an instance with the specified query string.
      *
-     * @param  string  $query
+     * @param  array|string  $query
      *
      * @return \Helldar\Support\Helpers\Http\Builder
      */
-    public function withQuery($query): self
+    public function withQuery($query): Builder
     {
         return $this->set(PHP_URL_QUERY, $query);
     }
@@ -342,9 +354,14 @@ class Builder implements UriInterface
      *
      * @return \Helldar\Support\Helpers\Http\Builder
      */
-    public function putQuery(string $key, $value): self
+    public function putQuery(string $key, $value): Builder
     {
         $query = $this->get(PHP_URL_QUERY);
+
+        if (empty($value)) {
+            $value = is_array($value) ? []
+                : (! is_numeric($value) ? null : $value);
+        }
 
         $query = Arr::set($query, $key, $value);
 
@@ -358,11 +375,13 @@ class Builder implements UriInterface
      *
      * @return \Helldar\Support\Helpers\Http\Builder
      */
-    public function removeQuery(string $key): self
+    public function removeQuery(string $key): Builder
     {
-        unset($this->parsed[$key]);
+        $query = $this->get(PHP_URL_QUERY);
 
-        return $this;
+        unset($query[$key]);
+
+        return $this->set(PHP_URL_QUERY, $query);
     }
 
     /**
@@ -372,7 +391,7 @@ class Builder implements UriInterface
      *
      * @return \Helldar\Support\Helpers\Http\Builder
      */
-    public function withFragment($fragment): self
+    public function withFragment($fragment): Builder
     {
         return $this->set(PHP_URL_FRAGMENT, $fragment);
     }
@@ -382,9 +401,9 @@ class Builder implements UriInterface
      *
      * @param  \Psr\Http\Message\UriInterface  $uri
      *
-     * @return $this
+     * @return \Helldar\Support\Helpers\Http\Builder
      */
-    public function fromPsr(UriInterface $uri): self
+    public function fromPsr(UriInterface $uri): Builder
     {
         $this->parsed = [];
 
@@ -450,7 +469,9 @@ class Builder implements UriInterface
             ->filter()
             ->get();
 
-        return implode('', $items);
+        $url = implode('', $items);
+
+        return $url === '//' ? '' : $url;
     }
 
     protected function componentNameByIndex(int $component): ?string
@@ -469,7 +490,7 @@ class Builder implements UriInterface
         }
     }
 
-    protected function set(int $component, $value): self
+    protected function set(int $component, $value): Builder
     {
         $this->validate($component, $value);
 

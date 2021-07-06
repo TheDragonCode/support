@@ -10,7 +10,7 @@ class Arrayable
 
     public function __construct($value = [])
     {
-        $this->value = Arr::wrap($value);
+        $this->value = $value;
     }
 
     /**

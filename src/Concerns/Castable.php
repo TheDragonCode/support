@@ -35,7 +35,7 @@ trait Castable
         return (string) Str::of($key)->start('castTo_')->camel();
     }
 
-    protected function castToArray($value)
+    protected function castToArray($value): array
     {
         if (empty($value)) {
             return [];
@@ -55,8 +55,8 @@ trait Castable
         return empty($value) && ! is_numeric($value) ? null : $value;
     }
 
-    protected function castToString(?string $value): ?string
+    protected function castToString(?string $value): string
     {
-        return $value ?: null;
+        return (string) $value;
     }
 }
