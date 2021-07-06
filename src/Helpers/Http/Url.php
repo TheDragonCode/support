@@ -85,8 +85,7 @@ class Url
             preg_match('/HTTP\/\d{1}\.?\d?\s[2-3]\d{2}/i', $value, $matches);
 
             return count($matches) > 0;
-        }
-        catch (Throwable $e) {
+        } catch (Throwable $e) {
             return false;
         }
     }
