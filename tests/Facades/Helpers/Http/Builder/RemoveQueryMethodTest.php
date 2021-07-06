@@ -7,6 +7,8 @@ use Helldar\Support\Helpers\Http\Builder;
 use Tests\Facades\Helpers\Http\Base;
 use TypeError;
 
+use const PHP_VERSION_ID;
+
 class RemoveQueryMethodTest extends Base
 {
     public function testWith()
@@ -77,7 +79,10 @@ class RemoveQueryMethodTest extends Base
     public function testNull()
     {
         $this->expectException(TypeError::class);
-        $this->expectExceptionMessage('Argument 1 passed to ' . Builder::class . '::removeQuery() must be of the type string, null given');
+
+        PHP_VERSION_ID < 80000
+            ? $this->expectExceptionMessage('Argument 1 passed to ' . Builder::class . '::removeQuery() must be of the type string, null given')
+            : $this->expectExceptionMessage(Builder::class . '::removeQuery(): Argument #1 ($key) must be of type string, null given');
 
         BuilderFacade::removeQuery(null);
 
