@@ -1,4 +1,18 @@
 <?php
+/******************************************************************************
+ * This file is part of the "andrey-helldar/support" project.                 *
+ *                                                                            *
+ * @author Andrey Helldar <helldar@ai-rus.com>                                *
+ *                                                                            *
+ * @copyright 2021 Andrey Helldar                                             *
+ *                                                                            *
+ * @license MIT                                                               *
+ *                                                                            *
+ * @see https://github.com/andrey-helldar/support                             *
+ *                                                                            *
+ * For the full copyright and license information, please view the LICENSE    *
+ * file that was distributed with this source code.                           *
+ ******************************************************************************/
 
 namespace Helldar\Support\Helpers\Http;
 
@@ -520,6 +534,13 @@ class Builder implements UriInterface
         $this->validateType($value, $type);
     }
 
+    /**
+     * Based on code by Maksim (Ellrion) Platonov.
+     *
+     * @see https://gist.github.com/Ellrion/f51ba0d40ae1d62eeae44fd1adf7b704
+     *
+     * @return array
+     */
     protected function prepare(): array
     {
         return [
