@@ -2,17 +2,18 @@
 /******************************************************************************
  * This file is part of the "andrey-helldar/support" project.                 *
  *                                                                            *
- * @author Andrey Helldar <helldar@ai-rus.com>                                *
- *                                                                            *
- * @copyright 2021 Andrey Helldar                                             *
- *                                                                            *
- * @license MIT                                                               *
- *                                                                            *
+ *
  * @see https://github.com/andrey-helldar/support                             *
  *                                                                            *
  * For the full copyright and license information, please view the LICENSE    *
  * file that was distributed with this source code.                           *
- ******************************************************************************/
+ ******************************************************************************@author Andrey Helldar <helldar@ai-rus.com>                                *
+ *                                                                            *
+ * @license MIT                                                               *
+ *                                                                            *
+ * @copyright 2021 Andrey Helldar                                             *
+ *                                                                            *
+ */
 
 namespace Tests\Helpers\Http\Builder;
 
@@ -86,6 +87,70 @@ class ParseMethodTest extends Base
         $this->assertSame($this->psr_path, $builder->getPath());
         $this->assertSame($this->psr_query, $builder->getQuery());
         $this->assertSame($this->psr_fragment, $builder->getFragment());
+    }
+
+    public function testDoubleSlashes()
+    {
+        $url = 'https://example.com//foo/bar?id=123#qwerty';
+
+        $builder = $this->builder()->parse($url);
+
+        $this->assertSame('https', $builder->getScheme());
+        $this->assertSame('example.com', $builder->getHost());
+        $this->assertSame('/foo/bar', $builder->getPath());
+        $this->assertSame('id=123', $builder->getQuery());
+        $this->assertSame('qwerty', $builder->getFragment());
+
+        $this->assertEmpty($builder->getUser());
+        $this->assertEmpty($builder->getPassword());
+        $this->assertEmpty($builder->getPort());
+    }
+
+    public function testDoubleCallingToSame()
+    {
+        $first  = $this->builder()->parse('https://foo.example.com/foo');
+        $second = $this->builder()->parse('http://bar.example.com/bar');
+
+        $this->assertSame('https', $first->getScheme());
+        $this->assertSame('foo.example.com', $first->getHost());
+        $this->assertSame('/foo', $first->getPath());
+
+        $this->assertSame('http', $second->getScheme());
+        $this->assertSame('bar.example.com', $second->getHost());
+        $this->assertSame('/bar', $second->getPath());
+    }
+
+    public function testDoubleCallingToDiff()
+    {
+        $first  = $this->builder()->parse('https://foo.example.com/foo');
+        $second = $this->builder()->parse('http://bar.example.com/bar');
+
+        $this->assertSame('https', $first->getScheme());
+        $this->assertSame('foo.example.com', $first->getHost());
+        $this->assertSame('/foo', $first->getPath());
+
+        $this->assertSame('http', $second->getScheme());
+        $this->assertSame('bar.example.com', $second->getHost());
+        $this->assertSame('/bar', $second->getPath());
+    }
+
+    public function testComponents()
+    {
+        $builder = $this->builder()
+            ->parse('https://example.com')
+            ->parse($this->psr_url, PHP_URL_SCHEME)
+            ->parse($this->psr_url, PHP_URL_HOST)
+            ->parse($this->psr_url, PHP_URL_PATH);
+
+        $this->assertSame($this->psr_scheme, $builder->getScheme());
+        $this->assertSame($this->psr_host, $builder->getHost());
+        $this->assertSame($this->psr_path, $builder->getPath());
+
+        $this->assertEmpty($builder->getPort());
+        $this->assertEmpty($builder->getUser());
+        $this->assertEmpty($builder->getPassword());
+        $this->assertEmpty($builder->getQuery());
+        $this->assertEmpty($builder->getFragment());
     }
 
     public function testIncorrectUrl()
