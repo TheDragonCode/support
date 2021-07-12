@@ -18,6 +18,7 @@
 namespace Tests\Facades\Helpers\Http;
 
 use Helldar\Support\Exceptions\NotValidUrlException;
+use Helldar\Support\Facades\Http\Url as UrlFacade;
 use Helldar\Support\Helpers\Http\Builder;
 use Helldar\Support\Helpers\Http\Url;
 use Psr\Http\Message\UriInterface;
@@ -31,7 +32,7 @@ class UrlTest extends TestCase
     {
         $url = 'https://github.githubassets.com/pinned-octocat.svg';
 
-        $parsed = $this->url()->parse($url);
+        $parsed = UrlFacade::parse($url);
 
         $this->assertInstanceOf(Builder::class, $parsed);
         $this->assertInstanceOf(UriInterface::class, $parsed);
@@ -41,7 +42,7 @@ class UrlTest extends TestCase
     {
         $builder = $this->builder();
 
-        $parsed = $this->url()->parse($builder);
+        $parsed = UrlFacade::parse($builder);
 
         $this->assertInstanceOf(Builder::class, $parsed);
         $this->assertInstanceOf(UriInterface::class, $parsed);
@@ -49,11 +50,11 @@ class UrlTest extends TestCase
 
     public function testExists()
     {
-        $this->assertTrue($this->url()->exists('https://google.com'));
-        $this->assertTrue($this->url()->exists('https://yandex.com'));
+        $this->assertTrue(UrlFacade::exists('https://google.com'));
+        $this->assertTrue(UrlFacade::exists('https://yandex.com'));
 
-        $this->assertFalse($this->url()->exists('https://a.a'));
-        $this->assertFalse($this->url()->exists('https://b.b'));
+        $this->assertFalse(UrlFacade::exists('https://a.a'));
+        $this->assertFalse(UrlFacade::exists('https://b.b'));
     }
 
     public function testExistsNull()
@@ -61,37 +62,37 @@ class UrlTest extends TestCase
         $this->expectException(NotValidUrlException::class);
         $this->expectExceptionMessage('Empty string is not a valid URL.');
 
-        $this->url()->exists(null);
+        UrlFacade::exists(null);
     }
 
     public function testExistsUriInterface()
     {
         $uri = $this->builder();
 
-        $this->assertTrue($this->url()->exists($uri));
+        $this->assertTrue(UrlFacade::exists($uri));
     }
 
     public function testIs()
     {
-        $this->assertTrue($this->url()->is('https://localhost'));
-        $this->assertTrue($this->url()->is('https://foo.bar'));
-        $this->assertTrue($this->url()->is('https://example.com'));
-        $this->assertTrue($this->url()->is('http://example.com'));
-        $this->assertTrue($this->url()->is('ftp://example.com'));
-        $this->assertTrue($this->url()->is('ws://example.com'));
+        $this->assertTrue(UrlFacade::is('https://localhost'));
+        $this->assertTrue(UrlFacade::is('https://foo.bar'));
+        $this->assertTrue(UrlFacade::is('https://example.com'));
+        $this->assertTrue(UrlFacade::is('http://example.com'));
+        $this->assertTrue(UrlFacade::is('ftp://example.com'));
+        $this->assertTrue(UrlFacade::is('ws://example.com'));
 
-        $this->assertTrue($this->url()->is($this->builder()));
+        $this->assertTrue(UrlFacade::is($this->builder()));
 
-        $this->assertFalse($this->url()->is('localhost'));
-        $this->assertFalse($this->url()->is('://foo.bar'));
-        $this->assertFalse($this->url()->is('//example.com'));
+        $this->assertFalse(UrlFacade::is('localhost'));
+        $this->assertFalse(UrlFacade::is('://foo.bar'));
+        $this->assertFalse(UrlFacade::is('//example.com'));
     }
 
     public function testValidated()
     {
         $url = 'https://example.com';
 
-        $validated = $this->url()->validated($url);
+        $validated = UrlFacade::validated($url);
 
         $this->assertSame($url, $validated);
     }
@@ -100,7 +101,7 @@ class UrlTest extends TestCase
     {
         $builder = $this->builder();
 
-        $validated = $this->url()->validated($builder);
+        $validated = UrlFacade::validated($builder);
 
         $this->assertInstanceOf(UriInterface::class, $validated);
         $this->assertSame($this->test_url, (string) $validated);
@@ -108,17 +109,17 @@ class UrlTest extends TestCase
 
     public function testValidate()
     {
-        $this->url()->validate('https://example.com');
+        UrlFacade::validate('https://example.com');
 
         $this->assertTrue(true);
     }
 
     public function testValidateDuplicateSlashes()
     {
-        $this->url()->validate('https://example.com/foo');
-        $this->url()->validate('https://example.com//foo');
-        $this->url()->validate('https://example.com///foo');
-        $this->url()->validate('https://example.com////foo');
+        UrlFacade::validate('https://example.com/foo');
+        UrlFacade::validate('https://example.com//foo');
+        UrlFacade::validate('https://example.com///foo');
+        UrlFacade::validate('https://example.com////foo');
 
         $this->assertTrue(true);
     }
@@ -128,12 +129,12 @@ class UrlTest extends TestCase
         $this->expectException(NotValidUrlException::class);
         $this->expectExceptionMessage('The "//example.com/foo" is not a valid URL.');
 
-        $this->url()->validate('//example.com/foo');
+        UrlFacade::validate('//example.com/foo');
     }
 
     public function testValidateUriInterface()
     {
-        $this->url()->validate($this->builder());
+        UrlFacade::validate($this->builder());
 
         $this->assertTrue(true);
     }
@@ -143,16 +144,16 @@ class UrlTest extends TestCase
         $this->expectException(NotValidUrlException::class);
         $this->expectExceptionMessage('The "foo.bar" is not a valid URL.');
 
-        $this->url()->validate('foo.bar');
+        UrlFacade::validate('foo.bar');
     }
 
     public function testDefault()
     {
         $first = 'https://github.githubassets.com/pinned-octocat.svg';
 
-        $this->assertSame($first, $this->url()->default($first, 'https://example.com/foo.jpg'));
+        $this->assertSame($first, UrlFacade::default($first, 'https://example.com/foo.jpg'));
 
-        $this->assertSame('https://example.com/foo.jpg', $this->url()->default('https://example.com/bar.jpg', 'https://example.com/foo.jpg'));
+        $this->assertSame('https://example.com/foo.jpg', UrlFacade::default('https://example.com/bar.jpg', 'https://example.com/foo.jpg'));
     }
 
     protected function url(): Url
