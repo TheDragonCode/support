@@ -49,6 +49,7 @@ class FileTest extends TestCase
             'Instances/Arrayable.php',
             'Instances/Baq.php',
             'Instances/Bar.php',
+            'Instances/Bat.php',
             'Instances/Baz.php',
             'Instances/Foo.php',
             'Instances/Psr.php',

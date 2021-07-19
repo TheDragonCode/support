@@ -19,6 +19,7 @@ namespace Tests\Helpers;
 use Helldar\Support\Helpers\Instance;
 use Tests\Fixtures\Contracts\Contract;
 use Tests\Fixtures\Instances\Bar;
+use Tests\Fixtures\Instances\Bat;
 use Tests\Fixtures\Instances\Baz;
 use Tests\Fixtures\Instances\Foo;
 use Tests\TestCase;
@@ -44,6 +45,12 @@ class InstanceTest extends TestCase
         $this->assertTrue($this->instance()->of(new Bar(), Bar::class));
         $this->assertFalse($this->instance()->of(new Bar(), Foo::class));
         $this->assertFalse($this->instance()->of(new Bar(), Contract::class));
+
+        // Baz
+        $this->assertTrue($this->instance()->of(Baz::class, Bat::class));
+        $this->assertTrue($this->instance()->of(Baz::class, Contract::class));
+        $this->assertTrue($this->instance()->of(new Baz(), Bat::class));
+        $this->assertTrue($this->instance()->of(new Baz(), Contract::class));
     }
 
     public function testClassname()
