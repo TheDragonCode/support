@@ -2,17 +2,18 @@
 /******************************************************************************
  * This file is part of the "andrey-helldar/support" project.                 *
  *                                                                            *
- * @author Andrey Helldar <helldar@ai-rus.com>                                *
- *                                                                            *
- * @copyright 2021 Andrey Helldar                                             *
- *                                                                            *
- * @license MIT                                                               *
- *                                                                            *
+ *
  * @see https://github.com/andrey-helldar/support                             *
  *                                                                            *
  * For the full copyright and license information, please view the LICENSE    *
  * file that was distributed with this source code.                           *
- ******************************************************************************/
+ ******************************************************************************@author Andrey Helldar <helldar@ai-rus.com>                                *
+ *                                                                            *
+ * @license MIT                                                               *
+ *                                                                            *
+ * @copyright 2021 Andrey Helldar                                             *
+ *                                                                            *
+ */
 
 namespace Tests\Helpers\Http;
 
@@ -110,6 +111,24 @@ class UrlTest extends TestCase
         $this->url()->validate('https://example.com');
 
         $this->assertTrue(true);
+    }
+
+    public function testValidateDuplicateSlashes()
+    {
+        $this->url()->validate('https://example.com/foo');
+        $this->url()->validate('https://example.com//foo');
+        $this->url()->validate('https://example.com///foo');
+        $this->url()->validate('https://example.com////foo');
+
+        $this->assertTrue(true);
+    }
+
+    public function testValidateWithoutSchema()
+    {
+        $this->expectException(NotValidUrlException::class);
+        $this->expectExceptionMessage('The "//example.com/foo" is not a valid URL.');
+
+        $this->url()->validate('//example.com/foo');
     }
 
     public function testValidatePsr()
