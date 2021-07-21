@@ -67,7 +67,7 @@ class Url
      *
      * @throws \Helldar\Support\Exceptions\NotValidUrlException
      *
-     * @return \Helldar\Support\Helpers\Http\Builder|\Helldar\Contracts\Http\Builder|string
+     * @return \Helldar\Contracts\Http\Builder|\Helldar\Support\Helpers\Http\Builder|string
      */
     public function validated($url)
     {
@@ -99,8 +99,7 @@ class Url
             preg_match('/HTTP\/\d{1}\.?\d?\s[2-3]\d{2}/i', $value, $matches);
 
             return count($matches) > 0;
-        }
-        catch (Throwable $e) {
+        } catch (Throwable $e) {
             return false;
         }
     }
