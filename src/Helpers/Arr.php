@@ -17,6 +17,7 @@
 namespace Helldar\Support\Helpers;
 
 use ArrayAccess;
+use Helldar\Contracts\Support\Arrayable;
 use Helldar\Support\Facades\Callbacks\Empties;
 use Helldar\Support\Facades\Callbacks\Sorter;
 use Helldar\Support\Facades\Helpers\Filesystem\File;
@@ -567,7 +568,11 @@ class Arr
      */
     public function isArrayable($value = null): bool
     {
-        return is_array($value) || is_object($value) || $value instanceof ArrayAccess;
+        if (is_array($value) || is_object($value)) {
+            return true;
+        }
+
+        return InstanceHelper::of($value, [ArrayAccess::class, Arrayable::class]);
     }
 
     /**

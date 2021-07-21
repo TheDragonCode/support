@@ -18,15 +18,14 @@ namespace Helldar\Support\Facades\Http;
 
 use Helldar\Support\Facades\Facade;
 use Helldar\Support\Helpers\Http\Url as Helper;
-use Psr\Http\Message\UriInterface;
 
 /**
- * @method static \Helldar\Support\Helpers\Http\Builder parse(string|UriInterface|null $url)
- * @method static bool exists(string|UriInterface|null $url)
- * @method static bool is(string|UriInterface|null $url)
- * @method static \Helldar\Support\Helpers\Http\Builder|UriInterface|string validated(string|UriInterface|null $url)
- * @method static string|null default(string|UriInterface|null $url, string|UriInterface|null $default)
- * @method static void validate(string|UriInterface|null $url)
+ * @method static \Helldar\Support\Helpers\Http\Builder parse(string|\Helldar\Contracts\Http\Builder|null $url)
+ * @method static bool exists(string|\Helldar\Contracts\Http\Builder|null $url)
+ * @method static bool is(string|\Helldar\Contracts\Http\Builder|null $url)
+ * @method static \Helldar\Support\Helpers\Http\Builder|\Helldar\Contracts\Http\Builder|string validated(string|\Helldar\Contracts\Http\Builder|null $url)
+ * @method static string|null default(string|\Helldar\Contracts\Http\Builder|null $url, string|\Helldar\Contracts\Http\Builder|null $default)
+ * @method static void validate(string|\Helldar\Contracts\Http\Builder|null $url)
  */
 class Url extends Facade
 {

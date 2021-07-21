@@ -16,9 +16,9 @@
 
 namespace Helldar\Support\Tools;
 
+use Helldar\Contracts\Support\Stringable;
 use Helldar\Support\Concerns\Makeable;
 use Helldar\Support\Facades\Helpers\Str;
-use Stringable;
 
 class HttpBuilderPrepare implements Stringable
 {
@@ -32,7 +32,7 @@ class HttpBuilderPrepare implements Stringable
 
     protected $default = '';
 
-    public function __toString(): string
+    public function __toString()
     {
         if (! empty($this->of)) {
             return $this->prefixed();

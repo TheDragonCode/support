@@ -18,7 +18,6 @@ namespace Helldar\Support\Facades\Http;
 
 use Helldar\Support\Facades\Facade;
 use Helldar\Support\Helpers\Http\Builder as Support;
-use Psr\Http\Message\UriInterface;
 
 /**
  * @method static int|null getPort()
@@ -35,7 +34,7 @@ use Psr\Http\Message\UriInterface;
  * @method static string getUser()
  * @method static string getUserInfo()
  * @method static string toUrl()
- * @method static Support fromPsr(UriInterface $uri)
+ * @method static Support fromPsr(\Helldar\Contracts\Http\Builder $uri)
  * @method static Support parse($url, int $component = Support::PHP_URL_ALL)
  * @method static Support parsed(array $parsed)
  * @method static Support putQuery(string $key, mixed $value)
@@ -48,7 +47,7 @@ use Psr\Http\Message\UriInterface;
  * @method static Support withQuery(array|string $path)
  * @method static Support withScheme(string $scheme)
  * @method static Support withUserInfo(string $user, string $password = null)
- * @method static UriInterface toPsr()
+ * @method static \Helldar\Contracts\Http\Builder toPsr()
  */
 class Builder extends Facade
 {

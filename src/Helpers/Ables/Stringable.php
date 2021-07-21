@@ -16,8 +16,8 @@
 
 namespace Helldar\Support\Helpers\Ables;
 
+use Helldar\Contracts\Support\Stringable as Contract;
 use Helldar\Support\Facades\Helpers\Str;
-use Stringable as Contract;
 
 class Stringable implements Contract
 {
@@ -28,7 +28,7 @@ class Stringable implements Contract
         $this->value = (string) $value;
     }
 
-    public function __toString(): string
+    public function __toString()
     {
         return $this->value;
     }

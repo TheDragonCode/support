@@ -25,7 +25,7 @@ class Url
     /**
      * Parsing URL into components.
      *
-     * @param  \Psr\Http\Message\UriInterface|string|null  $url
+     * @param  \Helldar\Contracts\Http\Builder|string|null  $url
      *
      * @return \Helldar\Support\Helpers\Http\Builder
      */
@@ -37,7 +37,7 @@ class Url
     /**
      * Check if the string is a valid URL.
      *
-     * @param  \Psr\Http\Message\UriInterface|string|null  $url
+     * @param  \Helldar\Contracts\Http\Builder|string|null  $url
      *
      * @return bool
      */
@@ -49,7 +49,7 @@ class Url
     /**
      * Validate if the value is a valid URL or throw an error.
      *
-     * @param  \Psr\Http\Message\UriInterface|string|null  $url
+     * @param  \Helldar\Contracts\Http\Builder|string|null  $url
      *
      * @throws \Helldar\Support\Exceptions\NotValidUrlException
      */
@@ -63,11 +63,11 @@ class Url
     /**
      * Returns the URL after validation, or throws an error.
      *
-     * @param  \Psr\Http\Message\UriInterface|string|null  $url
+     * @param  \Helldar\Contracts\Http\Builder|string|null  $url
      *
      * @throws \Helldar\Support\Exceptions\NotValidUrlException
      *
-     * @return \Helldar\Support\Helpers\Http\Builder|\Psr\Http\Message\UriInterface|string
+     * @return \Helldar\Support\Helpers\Http\Builder|\Helldar\Contracts\Http\Builder|string
      */
     public function validated($url)
     {
@@ -79,7 +79,7 @@ class Url
     /**
      * Check if the specified URL exists.
      *
-     * @param  \Psr\Http\Message\UriInterface|string|null  $url
+     * @param  \Helldar\Contracts\Http\Builder|string|null  $url
      *
      * @throws \Helldar\Support\Exceptions\NotValidUrlException
      *
@@ -99,7 +99,8 @@ class Url
             preg_match('/HTTP\/\d{1}\.?\d?\s[2-3]\d{2}/i', $value, $matches);
 
             return count($matches) > 0;
-        } catch (Throwable $e) {
+        }
+        catch (Throwable $e) {
             return false;
         }
     }
@@ -107,8 +108,8 @@ class Url
     /**
      * Check the existence of the URL and return the default value if it is missing.
      *
-     * @param  \Psr\Http\Message\UriInterface|string  $url
-     * @param  \Psr\Http\Message\UriInterface|string  $default
+     * @param  \Helldar\Contracts\Http\Builder|string  $url
+     * @param  \Helldar\Contracts\Http\Builder|string  $default
      *
      * @throws \Helldar\Support\Exceptions\NotValidUrlException
      *
