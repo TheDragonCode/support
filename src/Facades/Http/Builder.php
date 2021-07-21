@@ -16,10 +16,13 @@
 
 namespace Helldar\Support\Facades\Http;
 
+use Helldar\Contracts\Http\Builder as BuilderContract;
 use Helldar\Support\Facades\Facade;
 use Helldar\Support\Helpers\Http\Builder as Support;
+use Psr\Http\Message\UriInterface;
 
 /**
+ * @method static array toArray()
  * @method static int|null getPort()
  * @method static string getAuthority()
  * @method static string getBaseUrl()
@@ -34,10 +37,11 @@ use Helldar\Support\Helpers\Http\Builder as Support;
  * @method static string getUser()
  * @method static string getUserInfo()
  * @method static string toUrl()
- * @method static Support fromPsr(\Helldar\Contracts\Http\Builder $uri)
- * @method static Support parse($url, int $component = Support::PHP_URL_ALL)
+ * @method static Support fromPsr(BuilderContract $uri)
+ * @method static Support parse(BuilderContract|string $url, int $component = Support::PHP_URL_ALL)
  * @method static Support parsed(array $parsed)
  * @method static Support putQuery(string $key, mixed $value)
+ * @method static Support removeFragment()
  * @method static Support removeQuery(string $key)
  * @method static Support same()
  * @method static Support withFragment(string $fragment)
@@ -47,7 +51,7 @@ use Helldar\Support\Helpers\Http\Builder as Support;
  * @method static Support withQuery(array|string $path)
  * @method static Support withScheme(string $scheme)
  * @method static Support withUserInfo(string $user, string $password = null)
- * @method static \Helldar\Contracts\Http\Builder toPsr()
+ * @method static UriInterface toPsr()
  */
 class Builder extends Facade
 {
