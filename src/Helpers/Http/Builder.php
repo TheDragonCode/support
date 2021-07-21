@@ -2,18 +2,17 @@
 /******************************************************************************
  * This file is part of the "andrey-helldar/support" project.                 *
  *                                                                            *
- *
+ * @author Andrey Helldar <helldar@ai-rus.com>                                *
+ *                                                                            *
+ * @copyright 2021 Andrey Helldar                                             *
+ *                                                                            *
+ * @license MIT                                                               *
+ *                                                                            *
  * @see https://github.com/andrey-helldar/support                             *
  *                                                                            *
  * For the full copyright and license information, please view the LICENSE    *
  * file that was distributed with this source code.                           *
- ******************************************************************************@author Andrey Helldar <helldar@ai-rus.com>                                *
- *                                                                            *
- * @license MIT                                                               *
- *                                                                            *
- * @copyright 2021 Andrey Helldar                                             *
- *                                                                            *
- */
+ ******************************************************************************/
 
 namespace Helldar\Support\Helpers\Http;
 
@@ -282,7 +281,7 @@ class Builder implements BuilderContract
      *
      * @return \Helldar\Support\Helpers\Http\Builder
      */
-    public function removeFragment(): self
+    public function removeFragment(): BuilderContract
     {
         return $this->set(PHP_URL_FRAGMENT, null);
     }
@@ -370,7 +369,7 @@ class Builder implements BuilderContract
      *
      * @return \Helldar\Support\Helpers\Http\Builder
      */
-    public function putQuery(string $key, $value): self
+    public function putQuery(string $key, $value): BuilderContract
     {
         $query = $this->get(PHP_URL_QUERY);
 
@@ -391,7 +390,7 @@ class Builder implements BuilderContract
      *
      * @return \Helldar\Support\Helpers\Http\Builder
      */
-    public function removeQuery(string $key): self
+    public function removeQuery(string $key): BuilderContract
     {
         $query = $this->get(PHP_URL_QUERY);
 
