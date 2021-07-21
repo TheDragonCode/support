@@ -2,17 +2,18 @@
 /******************************************************************************
  * This file is part of the "andrey-helldar/support" project.                 *
  *                                                                            *
- * @author Andrey Helldar <helldar@ai-rus.com>                                *
- *                                                                            *
- * @copyright 2021 Andrey Helldar                                             *
- *                                                                            *
- * @license MIT                                                               *
- *                                                                            *
+ *
  * @see https://github.com/andrey-helldar/support                             *
  *                                                                            *
  * For the full copyright and license information, please view the LICENSE    *
  * file that was distributed with this source code.                           *
- ******************************************************************************/
+ ******************************************************************************@author Andrey Helldar <helldar@ai-rus.com>                                *
+ *                                                                            *
+ * @license MIT                                                               *
+ *                                                                            *
+ * @copyright 2021 Andrey Helldar                                             *
+ *                                                                            *
+ */
 
 namespace Helldar\Support\Helpers\Http;
 
@@ -95,15 +96,13 @@ class Builder implements BuilderContract
             UrlHelper::validate($url);
         }
 
+        $instance = $this->resolveSame($component);
+
         $key = $this->componentNameByIndex($component);
 
-        $component === self::PHP_URL_ALL || empty($key)
-            ? $this->parsed = parse_url($url)
-            : $this->parsed[$key] = parse_url($url, $component);
-
-        $this->cast($this->parsed);
-
-        return $this;
+        return $component === self::PHP_URL_ALL || empty($key)
+            ? $instance->parsed(parse_url($url))
+            : $instance->parsed([$key => parse_url($url, $component)]);
     }
 
     /**
@@ -117,7 +116,11 @@ class Builder implements BuilderContract
     {
         $components = array_values($this->components);
 
-        $this->parsed = Arr::only($parsed, $components);
+        $filtered = Arr::only($parsed, $components);
+
+        $this->parsed = Arrayable::of($this->parsed)
+            ->merge($filtered)
+            ->get();
 
         $this->cast($this->parsed);
 
@@ -558,5 +561,10 @@ class Builder implements BuilderContract
             HttpBuilderPrepare::make()->of($this->getQuery())->prefix('?'),
             HttpBuilderPrepare::make()->of($this->getFragment())->prefix('#'),
         ];
+    }
+
+    protected function resolveSame(int $component = self::PHP_URL_ALL): self
+    {
+        return $component === self::PHP_URL_ALL ? new self() : $this;
     }
 }
