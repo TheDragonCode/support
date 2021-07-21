@@ -2,21 +2,21 @@
 /******************************************************************************
  * This file is part of the "andrey-helldar/support" project.                 *
  *                                                                            *
- *
+ * @author Andrey Helldar <helldar@ai-rus.com>                                *
+ *                                                                            *
+ * @copyright 2021 Andrey Helldar                                             *
+ *                                                                            *
+ * @license MIT                                                               *
+ *                                                                            *
  * @see https://github.com/andrey-helldar/support                             *
  *                                                                            *
  * For the full copyright and license information, please view the LICENSE    *
  * file that was distributed with this source code.                           *
- ******************************************************************************@author Andrey Helldar <helldar@ai-rus.com>                                *
- *                                                                            *
- * @license MIT                                                               *
- *                                                                            *
- * @copyright 2021 Andrey Helldar                                             *
- *                                                                            *
- */
+ ******************************************************************************/
 
 namespace Helldar\Support\Helpers\Http;
 
+use Helldar\Contracts\Http\Builder as BuilderContract;
 use Helldar\Support\Concerns\Castable;
 use Helldar\Support\Concerns\Validation;
 use Helldar\Support\Exceptions\UnknownUrlComponentIndexException;
@@ -27,12 +27,10 @@ use Helldar\Support\Facades\Http\Url as UrlHelper;
 use Helldar\Support\Tools\HttpBuilderPrepare;
 use Psr\Http\Message\UriInterface;
 
-class Builder implements UriInterface
+class Builder implements BuilderContract
 {
     use Castable;
     use Validation;
-
-    public const PHP_URL_ALL = -1;
 
     protected $parsed = [];
 
@@ -86,12 +84,12 @@ class Builder implements UriInterface
     /**
      * Parse a URL.
      *
-     * @param  \Psr\Http\Message\UriInterface|string|null  $url
+     * @param  \Helldar\Contracts\Http\Builder|string|null  $url
      * @param  int  $component
      *
      * @return \Helldar\Support\Helpers\Http\Builder
      */
-    public function parse($url, int $component = self::PHP_URL_ALL): self
+    public function parse($url, int $component = self::PHP_URL_ALL): BuilderContract
     {
         if ($component === self::PHP_URL_ALL) {
             UrlHelper::validate($url);
@@ -113,7 +111,7 @@ class Builder implements UriInterface
      *
      * @return \Helldar\Support\Helpers\Http\Builder
      */
-    public function parsed(array $parsed): self
+    public function parsed(array $parsed): BuilderContract
     {
         $components = array_values($this->components);
 
@@ -283,7 +281,7 @@ class Builder implements UriInterface
      *
      * @return \Helldar\Support\Helpers\Http\Builder
      */
-    public function removeFragment(): self
+    public function removeFragment(): BuilderContract
     {
         return $this->set(PHP_URL_FRAGMENT, null);
     }
@@ -371,7 +369,7 @@ class Builder implements UriInterface
      *
      * @return \Helldar\Support\Helpers\Http\Builder
      */
-    public function putQuery(string $key, $value): self
+    public function putQuery(string $key, $value): BuilderContract
     {
         $query = $this->get(PHP_URL_QUERY);
 
@@ -392,7 +390,7 @@ class Builder implements UriInterface
      *
      * @return \Helldar\Support\Helpers\Http\Builder
      */
-    public function removeQuery(string $key): self
+    public function removeQuery(string $key): BuilderContract
     {
         $query = $this->get(PHP_URL_QUERY);
 
@@ -420,7 +418,7 @@ class Builder implements UriInterface
      *
      * @return \Helldar\Support\Helpers\Http\Builder
      */
-    public function fromPsr(UriInterface $uri): self
+    public function fromPsr(UriInterface $uri): BuilderContract
     {
         $this->parsed = [];
 

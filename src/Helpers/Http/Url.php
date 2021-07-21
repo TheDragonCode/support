@@ -2,18 +2,17 @@
 /******************************************************************************
  * This file is part of the "andrey-helldar/support" project.                 *
  *                                                                            *
- *
+ * @author Andrey Helldar <helldar@ai-rus.com>                                *
+ *                                                                            *
+ * @copyright 2021 Andrey Helldar                                             *
+ *                                                                            *
+ * @license MIT                                                               *
+ *                                                                            *
  * @see https://github.com/andrey-helldar/support                             *
  *                                                                            *
  * For the full copyright and license information, please view the LICENSE    *
  * file that was distributed with this source code.                           *
- ******************************************************************************@author Andrey Helldar <helldar@ai-rus.com>                                *
- *                                                                            *
- * @license MIT                                                               *
- *                                                                            *
- * @copyright 2021 Andrey Helldar                                             *
- *                                                                            *
- */
+ ******************************************************************************/
 
 namespace Helldar\Support\Helpers\Http;
 
@@ -26,7 +25,7 @@ class Url
     /**
      * Parsing URL into components.
      *
-     * @param  \Psr\Http\Message\UriInterface|string|null  $url
+     * @param  \Helldar\Contracts\Http\Builder|string|null  $url
      *
      * @return \Helldar\Support\Helpers\Http\Builder
      */
@@ -38,7 +37,7 @@ class Url
     /**
      * Check if the string is a valid URL.
      *
-     * @param  \Psr\Http\Message\UriInterface|string|null  $url
+     * @param  \Helldar\Contracts\Http\Builder|string|null  $url
      *
      * @return bool
      */
@@ -50,7 +49,7 @@ class Url
     /**
      * Validate if the value is a valid URL or throw an error.
      *
-     * @param  \Psr\Http\Message\UriInterface|string|null  $url
+     * @param  \Helldar\Contracts\Http\Builder|string|null  $url
      *
      * @throws \Helldar\Support\Exceptions\NotValidUrlException
      */
@@ -64,11 +63,11 @@ class Url
     /**
      * Returns the URL after validation, or throws an error.
      *
-     * @param  \Psr\Http\Message\UriInterface|string|null  $url
+     * @param  \Helldar\Contracts\Http\Builder|string|null  $url
      *
      * @throws \Helldar\Support\Exceptions\NotValidUrlException
      *
-     * @return \Psr\Http\Message\UriInterface|string
+     * @return \Helldar\Contracts\Http\Builder|\Helldar\Support\Helpers\Http\Builder|string
      */
     public function validated($url)
     {
@@ -80,7 +79,7 @@ class Url
     /**
      * Check if the specified URL exists.
      *
-     * @param  \Psr\Http\Message\UriInterface|string|null  $url
+     * @param  \Helldar\Contracts\Http\Builder|string|null  $url
      *
      * @throws \Helldar\Support\Exceptions\NotValidUrlException
      *
@@ -108,8 +107,8 @@ class Url
     /**
      * Check the existence of the URL and return the default value if it is missing.
      *
-     * @param  \Psr\Http\Message\UriInterface|string  $url
-     * @param  \Psr\Http\Message\UriInterface|string  $default
+     * @param  \Helldar\Contracts\Http\Builder|string  $url
+     * @param  \Helldar\Contracts\Http\Builder|string  $default
      *
      * @throws \Helldar\Support\Exceptions\NotValidUrlException
      *
