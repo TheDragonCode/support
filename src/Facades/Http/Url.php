@@ -20,12 +20,12 @@ use Helldar\Support\Facades\Facade;
 use Helldar\Support\Helpers\Http\Url as Helper;
 
 /**
- * @method static \Helldar\Support\Helpers\Http\Builder parse(string|\Helldar\Contracts\Http\Builder|null $url)
- * @method static bool exists(string|\Helldar\Contracts\Http\Builder|null $url)
- * @method static bool is(string|\Helldar\Contracts\Http\Builder|null $url)
- * @method static \Helldar\Support\Helpers\Http\Builder|\Helldar\Contracts\Http\Builder|string validated(string|\Helldar\Contracts\Http\Builder|null $url)
- * @method static string|null default(string|\Helldar\Contracts\Http\Builder|null $url, string|\Helldar\Contracts\Http\Builder|null $default)
- * @method static void validate(string|\Helldar\Contracts\Http\Builder|null $url)
+ * @method static \Helldar\Support\Helpers\Http\Builder parse(\Helldar\Contracts\Http\Builder|string|null $url)
+ * @method static bool exists(\Helldar\Contracts\Http\Builder|string|null $url)
+ * @method static bool is(\Helldar\Contracts\Http\Builder|string|null $url)
+ * @method static \Helldar\Support\Helpers\Http\Builder|\Helldar\Contracts\Http\Builder|string validated(\Helldar\Contracts\Http\Builder|string|null $url)
+ * @method static string|null default(\Helldar\Contracts\Http\Builder|string|null $url, \Helldar\Contracts\Http\Builder|string|null $default)
+ * @method static void validate(\Helldar\Contracts\Http\Builder|string|null $url)
  */
 class Url extends Facade
 {
