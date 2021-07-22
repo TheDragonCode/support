@@ -16,7 +16,6 @@
 
 namespace Helldar\Support\Facades\Http;
 
-use Helldar\Contracts\Http\Builder as BuilderContract;
 use Helldar\Support\Facades\Facade;
 use Helldar\Support\Helpers\Http\Builder as Support;
 use Psr\Http\Message\UriInterface;
@@ -37,8 +36,8 @@ use Psr\Http\Message\UriInterface;
  * @method static string getUser()
  * @method static string getUserInfo()
  * @method static string toUrl()
- * @method static Support fromPsr(BuilderContract $uri)
- * @method static Support parse(BuilderContract|string $url, int $component = Support::PHP_URL_ALL)
+ * @method static Support fromPsr(UriInterface $uri)
+ * @method static Support parse(string|UriInterface $url, int $component = Support::PHP_URL_ALL)
  * @method static Support parsed(array $parsed)
  * @method static Support putQuery(string $key, mixed $value)
  * @method static Support removeFragment()

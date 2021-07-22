@@ -84,7 +84,7 @@ class Builder implements BuilderContract
     /**
      * Parse a URL.
      *
-     * @param  \Helldar\Contracts\Http\Builder|string|null  $url
+     * @param  \Psr\Http\Message\UriInterface|string|null  $url
      * @param  int  $component
      *
      * @return \Helldar\Support\Helpers\Http\Builder
