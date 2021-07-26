@@ -14,39 +14,36 @@
  * file that was distributed with this source code.                           *
  ******************************************************************************/
 
-namespace Helldar\Support\Facades;
+namespace Helldar\Support\Concerns;
 
-use Helldar\Support\Concerns\Resolvable;
-use RuntimeException;
-
-abstract class Facade
+trait Resolvable
 {
-    use Resolvable;
+    protected static $resolved = [];
 
-    public static function __callStatic($method, $args)
+    protected static function resolveInstance($instance, ...$parameters)
     {
-        if ($instance = self::getFacadeRoot()) {
-            return $instance->$method(...$args);
+        $class = is_object($instance) ? get_class($instance) : $instance;
+
+        if (isset(self::$resolved[$class])) {
+            return self::$resolved[$class];
         }
 
-        throw new RuntimeException('A facade root has not been set.');
+        return self::$resolved[$class] = is_object($instance) ? $instance : new $instance(...$parameters);
     }
 
-    public static function getFacadeRoot(): object
+    protected static function resolveCallback(string $value, callable $callback)
     {
-        return self::resolveInstance(static::getFacadeAccessor());
+        $class = static::getSameClass();
+
+        if (isset(static::$resolved[$class][$value])) {
+            return static::$resolved[$class][$value];
+        }
+
+        return static::$resolved[$class][$value] = $callback($value);
     }
 
-    public static function clearResolvedInstances()
+    protected static function getSameClass(): string
     {
-        self::$resolved = [];
-    }
-
-    /**
-     * @return object|string
-     */
-    protected static function getFacadeAccessor()
-    {
-        throw new RuntimeException('Facade does not implement getFacadeAccessor method.');
+        return static::class;
     }
 }
