@@ -60,7 +60,7 @@ class FacadeTest extends TestCase
     public function testResolve()
     {
         $this->expectException(Error::class);
-        $this->expectExceptionMessage('Class \'foo\' not found');
+        $this->expectExceptionMessageMatches('/^Class (\'|")foo(\'|") not found$/');
 
         Resolve::bar();
     }
