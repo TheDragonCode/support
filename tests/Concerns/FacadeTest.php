@@ -2,17 +2,18 @@
 /******************************************************************************
  * This file is part of the "andrey-helldar/support" project.                 *
  *                                                                            *
- * @author Andrey Helldar <helldar@ai-rus.com>                                *
- *                                                                            *
- * @copyright 2021 Andrey Helldar                                             *
- *                                                                            *
- * @license MIT                                                               *
- *                                                                            *
+ *
  * @see https://github.com/andrey-helldar/support                             *
  *                                                                            *
  * For the full copyright and license information, please view the LICENSE    *
  * file that was distributed with this source code.                           *
- ******************************************************************************/
+ ******************************************************************************@author Andrey Helldar <helldar@ai-rus.com>                                *
+ *                                                                            *
+ * @license MIT                                                               *
+ *                                                                            *
+ * @copyright 2021 Andrey Helldar                                             *
+ *                                                                            *
+ */
 
 namespace Tests\Concerns;
 
@@ -21,20 +22,20 @@ use Helldar\Support\Facades\Helpers\Arr as ArrFacade;
 use Helldar\Support\Facades\Helpers\Digit as DigitFacade;
 use Helldar\Support\Facades\Helpers\Filesystem\Directory as DirectoryFacade;
 use Helldar\Support\Facades\Helpers\Filesystem\File as FileFacade;
-use Helldar\Support\Facades\Helpers\Http as HttpFacade;
-use Helldar\Support\Facades\Helpers\HttpBuilder as HttpBuilderFacade;
 use Helldar\Support\Facades\Helpers\Instance as InstanceFacade;
 use Helldar\Support\Facades\Helpers\Is as IsFacade;
 use Helldar\Support\Facades\Helpers\OS as OSFacade;
 use Helldar\Support\Facades\Helpers\Reflection as ReflectionFacade;
 use Helldar\Support\Facades\Helpers\Str as StrFacade;
+use Helldar\Support\Facades\Http\Builder as BuilderFacade;
+use Helldar\Support\Facades\Http\Url as UrlFacade;
 use Helldar\Support\Facades\Tools\Stub as StubFacade;
 use Helldar\Support\Helpers\Arr;
 use Helldar\Support\Helpers\Digit;
 use Helldar\Support\Helpers\Filesystem\Directory;
 use Helldar\Support\Helpers\Filesystem\File;
-use Helldar\Support\Helpers\Http;
-use Helldar\Support\Helpers\HttpBuilder;
+use Helldar\Support\Helpers\Http\Builder;
+use Helldar\Support\Helpers\Http\Url;
 use Helldar\Support\Helpers\Instance;
 use Helldar\Support\Helpers\Is;
 use Helldar\Support\Helpers\OS;
@@ -46,7 +47,7 @@ use Tests\Fixtures\Facades\NotImplement;
 use Tests\Fixtures\Facades\Resolve;
 use Tests\TestCase;
 
-class Facade extends TestCase
+class FacadeTest extends TestCase
 {
     public function testNotImplementMethod()
     {
@@ -59,7 +60,7 @@ class Facade extends TestCase
     public function testResolve()
     {
         $this->expectException(Error::class);
-        $this->expectExceptionMessage('Class \'foo\' not found');
+        $this->expectExceptionMessageMatches('/^Class (\'|")foo(\'|") not found$/');
 
         Resolve::bar();
     }
@@ -70,8 +71,8 @@ class Facade extends TestCase
         $this->assertTrue(FileFacade::getFacadeRoot() instanceof File);
         $this->assertTrue(ArrFacade::getFacadeRoot() instanceof Arr);
         $this->assertTrue(DigitFacade::getFacadeRoot() instanceof Digit);
-        $this->assertTrue(HttpFacade::getFacadeRoot() instanceof Http);
-        $this->assertTrue(HttpBuilderFacade::getFacadeRoot() instanceof HttpBuilder);
+        $this->assertTrue(BuilderFacade::getFacadeRoot() instanceof Builder);
+        $this->assertTrue(UrlFacade::getFacadeRoot() instanceof Url);
         $this->assertTrue(InstanceFacade::getFacadeRoot() instanceof Instance);
         $this->assertTrue(IsFacade::getFacadeRoot() instanceof Is);
         $this->assertTrue(OSFacade::getFacadeRoot() instanceof OS);
