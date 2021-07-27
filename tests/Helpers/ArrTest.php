@@ -16,6 +16,7 @@
 
 namespace Tests\Helpers;
 
+use ArrayObject;
 use Helldar\Support\Facades\Helpers\Ables\Arrayable as ArrayableHelper;
 use Helldar\Support\Facades\Helpers\Str;
 use Helldar\Support\Helpers\Ables\Arrayable as Helper;
@@ -158,6 +159,84 @@ class ArrTest extends TestCase
         $this->assertSame('Baz', $this->arr()->get(new Arrayable(), 'baz'));
 
         $this->assertNull($this->arr()->get(new Arrayable(), 'qwerty'));
+
+        $array = ['products.desk' => ['price' => 100]];
+        $this->assertEquals(['price' => 100], $this->arr()->get($array, 'products.desk'));
+
+        $array = ['products' => ['desk' => ['price' => 100]]];
+        $value = $this->arr()->get($array, 'products.desk');
+        $this->assertEquals(['price' => 100], $value);
+
+        // Test null array values
+        $array = ['foo' => null, 'bar' => ['baz' => null]];
+        $this->assertNull($this->arr()->get($array, 'foo', 'default'));
+        $this->assertNull($this->arr()->get($array, 'bar.baz', 'default'));
+
+        // Test direct ArrayAccess object
+        $array             = ['products' => ['desk' => ['price' => 100]]];
+        $arrayAccessObject = new ArrayObject($array);
+        $value             = $this->arr()->get($arrayAccessObject, 'products.desk');
+        $this->assertEquals(['price' => 100], $value);
+
+        // Test array containing ArrayAccess object
+        $arrayAccessChild = new ArrayObject(['products' => ['desk' => ['price' => 100]]]);
+        $array            = ['child' => $arrayAccessChild];
+        $value            = $this->arr()->get($array, 'child.products.desk');
+        $this->assertEquals(['price' => 100], $value);
+
+        // Test array containing multiple nested ArrayAccess objects
+        $arrayAccessChild  = new ArrayObject(['products' => ['desk' => ['price' => 100]]]);
+        $arrayAccessParent = new ArrayObject(['child' => $arrayAccessChild]);
+        $array             = ['parent' => $arrayAccessParent];
+        $value             = $this->arr()->get($array, 'parent.child.products.desk');
+        $this->assertEquals(['price' => 100], $value);
+
+        // Test missing ArrayAccess object field
+        $arrayAccessChild  = new ArrayObject(['products' => ['desk' => ['price' => 100]]]);
+        $arrayAccessParent = new ArrayObject(['child' => $arrayAccessChild]);
+        $array             = ['parent' => $arrayAccessParent];
+        $value             = $this->arr()->get($array, 'parent.child.desk');
+        $this->assertNull($value);
+
+        // Test missing ArrayAccess object field
+        $arrayAccessObject = new ArrayObject(['products' => ['desk' => null]]);
+        $array             = ['parent' => $arrayAccessObject];
+        $value             = $this->arr()->get($array, 'parent.products.desk.price');
+        $this->assertNull($value);
+
+        // Test null ArrayAccess object fields
+        $array = new ArrayObject(['foo' => null, 'bar' => new ArrayObject(['baz' => null])]);
+        $this->assertNull($this->arr()->get($array, 'foo', 'default'));
+        $this->assertNull($this->arr()->get($array, 'bar.baz', 'default'));
+
+        // Test null key returns the whole array
+        $array = ['foo', 'bar'];
+        $this->assertEquals($array, $this->arr()->get($array, null));
+
+        // Test $array not an array
+        $this->assertSame('default', $this->arr()->get(null, 'foo', 'default'));
+        $this->assertSame('default', $this->arr()->get(false, 'foo', 'default'));
+
+        // Test $array not an array and key is null
+        $this->assertSame('default', $this->arr()->get(null, null, 'default'));
+
+        // Test $array is empty and key is null
+        $this->assertEmpty($this->arr()->get([], null));
+        $this->assertEmpty($this->arr()->get([], null, 'default'));
+
+        // Test numeric keys
+        $array = [
+            'products' => [
+                ['name' => 'desk'],
+                ['name' => 'chair'],
+            ],
+        ];
+        $this->assertSame('desk', $this->arr()->get($array, 'products.0.name'));
+        $this->assertSame('chair', $this->arr()->get($array, 'products.1.name'));
+
+        // Test return default value for non-existing key.
+        $array = ['names' => ['developer' => 'taylor']];
+        $this->assertSame('dayle', $this->arr()->get($array, 'names.otherDeveloper', 'dayle'));
     }
 
     public function testMerge()

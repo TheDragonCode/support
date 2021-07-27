@@ -292,11 +292,13 @@ class Arr
             return $array->offsetExists($key);
         }
 
-        return isset($array[$key]);
+        return array_key_exists($key, $array);
     }
 
     /**
      * Get an item from an array.
+     *
+     * @see https://github.com/illuminate/collections/blob/master/Arr.php
      *
      * @param  array|ArrayAccess  $array
      * @param  mixed  $key
@@ -306,7 +308,31 @@ class Arr
      */
     public function get($array, $key, $default = null)
     {
-        return $array[$key] ?? $default;
+        if (! $this->isArrayable($array)) {
+            return $default;
+        }
+
+        if (is_null($key)) {
+            return $array;
+        }
+
+        if ($this->exists($array, $key)) {
+            return $array[$key];
+        }
+
+        if (strpos($key, '.') === false) {
+            return $array[$key] ?? $default;
+        }
+
+        foreach (explode('.', $key) as $segment) {
+            if ($this->isArrayable($array) && $this->exists($array, $segment)) {
+                $array = $array[$segment];
+            } else {
+                return $default;
+            }
+        }
+
+        return $array;
     }
 
     /**
