@@ -14,7 +14,7 @@
  * @see https://github.com/andrey-helldar/support
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Tests\Fixtures\Concerns;
 
