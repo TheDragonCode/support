@@ -49,7 +49,8 @@ class Instance
                 $haystack instanceof $needle ||
                 $classname === $this->classname($needle) ||
                 $reflection->isSubclassOf($needle) ||
-                ($reflection->isInterface() && $reflection->implementsInterface($needle))
+                ($reflection->isInterface() && $reflection->implementsInterface($needle)) ||
+                in_array($needle, $reflection->getTraitNames(), true)
             ) {
                 return true;
             }
@@ -101,7 +102,7 @@ class Instance
             return true;
         }
 
-        return IsHelper::string($haystack) ? class_exists($haystack) || interface_exists($haystack) : false;
+        return IsHelper::string($haystack) && (class_exists($haystack) || interface_exists($haystack) || trait_exists($haystack));
     }
 
     /**

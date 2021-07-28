@@ -26,7 +26,7 @@ class DirectoryTest extends TestCase
 {
     public function testAll()
     {
-        $available = ['.', '..', 'Contracts', 'Exceptions', 'Facades', 'Foo', 'Instances', 'stubs'];
+        $available = ['.', '..', 'Concerns', 'Contracts', 'Exceptions', 'Facades', 'Foo', 'Instances', 'stubs'];
 
         $dirs = Directory::all($this->fixturesDirectory());
 
@@ -147,7 +147,7 @@ class DirectoryTest extends TestCase
 
     public function testNames()
     {
-        $available = ['Contracts', 'Exceptions', 'Facades', 'Foo', 'Instances', 'stubs'];
+        $available = ['Concerns', 'Contracts', 'Exceptions', 'Facades', 'Foo', 'Instances', 'stubs'];
 
         $names = Directory::names($this->fixturesDirectory());
 
@@ -157,6 +157,7 @@ class DirectoryTest extends TestCase
     public function testNamesRecursive()
     {
         $available = [
+            'Concerns',
             'Contracts',
             'Exceptions',
             'Facades',
