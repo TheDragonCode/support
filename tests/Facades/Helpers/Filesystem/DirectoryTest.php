@@ -1,18 +1,18 @@
 <?php
-/******************************************************************************
- * This file is part of the "andrey-helldar/support" project.                 *
- *                                                                            *
- * @author Andrey Helldar <helldar@ai-rus.com>                                *
- *                                                                            *
- * @copyright 2021 Andrey Helldar                                             *
- *                                                                            *
- * @license MIT                                                               *
- *                                                                            *
- * @see https://github.com/andrey-helldar/support                             *
- *                                                                            *
- * For the full copyright and license information, please view the LICENSE    *
- * file that was distributed with this source code.                           *
- ******************************************************************************/
+/*
+ * This file is part of the "andrey-helldar/support" project.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author Andrey Helldar <helldar@ai-rus.com>
+ *
+ * @copyright 2021 Andrey Helldar
+ *
+ * @license MIT
+ *
+ * @see https://github.com/andrey-helldar/support
+ */
 
 namespace Tests\Facades\Helpers\Filesystem;
 
@@ -26,7 +26,7 @@ class DirectoryTest extends TestCase
 {
     public function testAll()
     {
-        $available = ['.', '..', 'Contracts', 'Exceptions', 'Facades', 'Foo', 'Instances', 'stubs'];
+        $available = ['.', '..', 'Concerns', 'Contracts', 'Exceptions', 'Facades', 'Foo', 'Instances', 'stubs'];
 
         $dirs = Directory::all($this->fixturesDirectory());
 
@@ -147,7 +147,7 @@ class DirectoryTest extends TestCase
 
     public function testNames()
     {
-        $available = ['Contracts', 'Exceptions', 'Facades', 'Foo', 'Instances', 'stubs'];
+        $available = ['Concerns', 'Contracts', 'Exceptions', 'Facades', 'Foo', 'Instances', 'stubs'];
 
         $names = Directory::names($this->fixturesDirectory());
 
@@ -157,6 +157,7 @@ class DirectoryTest extends TestCase
     public function testNamesRecursive()
     {
         $available = [
+            'Concerns',
             'Contracts',
             'Exceptions',
             'Facades',

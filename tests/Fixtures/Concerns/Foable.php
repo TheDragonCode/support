@@ -14,14 +14,10 @@
  * @see https://github.com/andrey-helldar/support
  */
 
-namespace Tests\Fixtures\Facades;
+declare(strict_types=1);
 
-use Helldar\Support\Facades\Facade;
+namespace Tests\Fixtures\Concerns;
 
-class Resolve extends Facade
+trait Foable
 {
-    protected static function getFacadeAccessor()
-    {
-        return 'foo';
-    }
 }

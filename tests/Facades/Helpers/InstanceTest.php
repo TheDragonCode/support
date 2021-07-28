@@ -1,22 +1,23 @@
 <?php
-/******************************************************************************
- * This file is part of the "andrey-helldar/support" project.                 *
- *                                                                            *
- * @author Andrey Helldar <helldar@ai-rus.com>                                *
- *                                                                            *
- * @copyright 2021 Andrey Helldar                                             *
- *                                                                            *
- * @license MIT                                                               *
- *                                                                            *
- * @see https://github.com/andrey-helldar/support                             *
- *                                                                            *
- * For the full copyright and license information, please view the LICENSE    *
- * file that was distributed with this source code.                           *
- ******************************************************************************/
+/*
+ * This file is part of the "andrey-helldar/support" project.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author Andrey Helldar <helldar@ai-rus.com>
+ *
+ * @copyright 2021 Andrey Helldar
+ *
+ * @license MIT
+ *
+ * @see https://github.com/andrey-helldar/support
+ */
 
 namespace Tests\Facades\Helpers;
 
 use Helldar\Support\Facades\Helpers\Instance;
+use Tests\Fixtures\Concerns\Foable;
 use Tests\Fixtures\Contracts\Contract;
 use Tests\Fixtures\Instances\Bar;
 use Tests\Fixtures\Instances\Bat;
@@ -32,25 +33,30 @@ class InstanceTest extends TestCase
         $this->assertTrue(Instance::of(Foo::class, Foo::class));
         $this->assertFalse(Instance::of(Foo::class, Bar::class));
         $this->assertTrue(Instance::of(Foo::class, Contract::class));
+        $this->assertTrue(Instance::of(Foo::class, Foable::class));
 
         $this->assertTrue(Instance::of(new Foo(), Foo::class));
         $this->assertFalse(Instance::of(new Foo(), Bar::class));
         $this->assertTrue(Instance::of(new Foo(), Contract::class));
+        $this->assertTrue(Instance::of(new Foo(), Foable::class));
 
         // Bar
         $this->assertTrue(Instance::of(Bar::class, Bar::class));
         $this->assertFalse(Instance::of(Bar::class, Foo::class));
         $this->assertFalse(Instance::of(Bar::class, Contract::class));
+        $this->assertFalse(Instance::of(Bar::class, Foable::class));
 
         $this->assertTrue(Instance::of(new Bar(), Bar::class));
         $this->assertFalse(Instance::of(new Bar(), Foo::class));
         $this->assertFalse(Instance::of(new Bar(), Contract::class));
+        $this->assertFalse(Instance::of(new Bar(), Foable::class));
 
         // Baz
         $this->assertTrue(Instance::of(Baz::class, Bat::class));
         $this->assertTrue(Instance::of(Baz::class, Contract::class));
         $this->assertTrue(Instance::of(new Baz(), Bat::class));
         $this->assertTrue(Instance::of(new Baz(), Contract::class));
+        $this->assertTrue(Instance::of(new Baz(), Foable::class));
     }
 
     public function testClassname()
@@ -92,6 +98,8 @@ class InstanceTest extends TestCase
         $this->assertTrue(Instance::exists(Baz::class));
 
         $this->assertTrue(Instance::exists(Contract::class));
+
+        $this->assertTrue(Instance::exists(Foable::class));
 
         $this->assertFalse(Instance::exists('foo'));
     }

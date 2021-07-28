@@ -1,18 +1,18 @@
 <?php
-/******************************************************************************
- * This file is part of the "andrey-helldar/support" project.                 *
- *                                                                            *
- * @author Andrey Helldar <helldar@ai-rus.com>                                *
- *                                                                            *
- * @copyright 2021 Andrey Helldar                                             *
- *                                                                            *
- * @license MIT                                                               *
- *                                                                            *
- * @see https://github.com/andrey-helldar/support                             *
- *                                                                            *
- * For the full copyright and license information, please view the LICENSE    *
- * file that was distributed with this source code.                           *
- ******************************************************************************/
+/*
+ * This file is part of the "andrey-helldar/support" project.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author Andrey Helldar <helldar@ai-rus.com>
+ *
+ * @copyright 2021 Andrey Helldar
+ *
+ * @license MIT
+ *
+ * @see https://github.com/andrey-helldar/support
+ */
 
 namespace Helldar\Support\Helpers;
 
@@ -49,7 +49,8 @@ class Instance
                 $haystack instanceof $needle ||
                 $classname === $this->classname($needle) ||
                 $reflection->isSubclassOf($needle) ||
-                ($reflection->isInterface() && $reflection->implementsInterface($needle))
+                ($reflection->isInterface() && $reflection->implementsInterface($needle)) ||
+                in_array($needle, $reflection->getTraitNames(), true)
             ) {
                 return true;
             }
@@ -101,7 +102,7 @@ class Instance
             return true;
         }
 
-        return IsHelper::string($haystack) ? class_exists($haystack) || interface_exists($haystack) : false;
+        return IsHelper::string($haystack) && (class_exists($haystack) || interface_exists($haystack) || trait_exists($haystack));
     }
 
     /**
