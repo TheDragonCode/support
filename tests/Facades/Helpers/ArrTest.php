@@ -1211,6 +1211,9 @@ class ArrTest extends TestCase
         $this->assertTrue(Arr::exists(new Arrayable(), 'bar'));
         $this->assertFalse(Arr::exists(new Arrayable(), 'qwe'));
         $this->assertFalse(Arr::exists(new Arrayable(), 'rty'));
+
+        $this->assertTrue(Arr::exists(['foo' => ['bar' => ['baz' => 'value']]], 'foo.bar.baz'));
+        $this->assertFalse(Arr::exists(['foo' => ['bar' => ['baz' => 'value']]], 'foo.bar.qwerty'));
     }
 
     public function testWrap()

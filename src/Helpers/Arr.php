@@ -292,7 +292,27 @@ class Arr
             return $array->offsetExists($key);
         }
 
-        return array_key_exists($key, $array);
+        if (! $this->isArrayable($array) || empty($array)) {
+            return false;
+        }
+
+        if (array_key_exists($key, $array)) {
+            return true;
+        }
+
+        if (strpos($key, '.') === false) {
+            return array_key_exists($key, $array);
+        }
+
+        foreach (explode('.', $key) as $segment) {
+            if ($this->isArrayable($array) && $this->exists($array, $segment)) {
+                $array = $array[$segment];
+            } else {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -316,7 +336,7 @@ class Arr
             return $array;
         }
 
-        if ($this->exists($array, $key)) {
+        if (array_key_exists($key, $array)) {
             return $array[$key];
         }
 
