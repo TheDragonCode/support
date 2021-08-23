@@ -1248,6 +1248,23 @@ class ArrTest extends TestCase
         $this->assertTrue($this->arr()->exists(new Arrayable(), 'bar'));
         $this->assertFalse($this->arr()->exists(new Arrayable(), 'qwe'));
         $this->assertFalse($this->arr()->exists(new Arrayable(), 'rty'));
+
+        $this->assertTrue($this->arr()->exists(['foo' => ['bar' => ['baz' => 'value']]], 'foo.bar.baz'));
+        $this->assertFalse($this->arr()->exists(['foo' => ['bar' => ['baz' => 'value']]], 'foo.bar.qwerty'));
+    }
+
+    public function testExistsWithoutDot()
+    {
+        $this->assertTrue($this->arr()->existsWithoutDot(['foo' => 'bar'], 'foo'));
+        $this->assertFalse($this->arr()->existsWithoutDot(['foo' => 'bar'], 'bar'));
+
+        $this->assertTrue($this->arr()->existsWithoutDot(new Arrayable(), 'foo'));
+        $this->assertTrue($this->arr()->existsWithoutDot(new Arrayable(), 'bar'));
+        $this->assertFalse($this->arr()->existsWithoutDot(new Arrayable(), 'qwe'));
+        $this->assertFalse($this->arr()->existsWithoutDot(new Arrayable(), 'rty'));
+
+        $this->assertFalse($this->arr()->existsWithoutDot(['foo' => ['bar' => ['baz' => 'value']]], 'foo.bar.baz'));
+        $this->assertFalse($this->arr()->existsWithoutDot(['foo' => ['bar' => ['baz' => 'value']]], 'foo.bar.qwerty'));
     }
 
     public function testWrap()

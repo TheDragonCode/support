@@ -17,9 +17,11 @@
 namespace Helldar\Support\Helpers;
 
 use ArrayAccess;
+use ArrayObject;
 use Helldar\Contracts\Support\Arrayable;
 use Helldar\Support\Facades\Callbacks\Empties;
 use Helldar\Support\Facades\Callbacks\Sorter;
+use Helldar\Support\Facades\Helpers\Call as CallHelper;
 use Helldar\Support\Facades\Helpers\Filesystem\File;
 use Helldar\Support\Facades\Helpers\Instance as InstanceHelper;
 use Helldar\Support\Facades\Tools\Stub;
@@ -261,8 +263,8 @@ class Arr
      */
     public function toArray($value = null): array
     {
-        if (InstanceHelper::of($value, ArrayableHelper::class)) {
-            $value = $value->get();
+        if (InstanceHelper::of($value, [ArrayObject::class, ArrayableHelper::class])) {
+            $value = CallHelper::runMethods($value, ['getArrayCopy', 'get']);
         }
 
         if (is_object($value)) {
@@ -287,6 +289,35 @@ class Arr
      * @return bool
      */
     public function exists($array, $key): bool
+    {
+        if ($this->existsWithoutDot($array, $key)) {
+            return true;
+        }
+
+        if (strpos($key, '.') === false) {
+            return $this->existsWithoutDot($array, $key);
+        }
+
+        foreach (explode('.', $key) as $segment) {
+            if ($this->isArrayable($array) && $this->exists($array, $segment)) {
+                $array = $array[$segment];
+            } else {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Determine if the given key exists in the provided array without dot divider.
+     *
+     * @param  array|\ArrayAccess  $array
+     * @param  mixed  $key
+     *
+     * @return bool
+     */
+    public function existsWithoutDot($array, $key): bool
     {
         if ($array instanceof ArrayAccess) {
             return $array->offsetExists($key);
@@ -316,7 +347,7 @@ class Arr
             return $array;
         }
 
-        if ($this->exists($array, $key)) {
+        if ($this->existsWithoutDot($array, $key)) {
             return $array[$key];
         }
 
@@ -325,7 +356,7 @@ class Arr
         }
 
         foreach (explode('.', $key) as $segment) {
-            if ($this->isArrayable($array) && $this->exists($array, $segment)) {
+            if ($this->isArrayable($array) && $this->existsWithoutDot($array, $segment)) {
                 $array = $array[$segment];
             } else {
                 return $default;
