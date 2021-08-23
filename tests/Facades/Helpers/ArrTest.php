@@ -1216,6 +1216,20 @@ class ArrTest extends TestCase
         $this->assertFalse(Arr::exists(['foo' => ['bar' => ['baz' => 'value']]], 'foo.bar.qwerty'));
     }
 
+    public function testExistsWithoutDot()
+    {
+        $this->assertTrue(Arr::existsWithoutDot(['foo' => 'bar'], 'foo'));
+        $this->assertFalse(Arr::existsWithoutDot(['foo' => 'bar'], 'bar'));
+
+        $this->assertTrue(Arr::existsWithoutDot(new Arrayable(), 'foo'));
+        $this->assertTrue(Arr::existsWithoutDot(new Arrayable(), 'bar'));
+        $this->assertFalse(Arr::existsWithoutDot(new Arrayable(), 'qwe'));
+        $this->assertFalse(Arr::existsWithoutDot(new Arrayable(), 'rty'));
+
+        $this->assertFalse(Arr::existsWithoutDot(['foo' => ['bar' => ['baz' => 'value']]], 'foo.bar.baz'));
+        $this->assertFalse(Arr::existsWithoutDot(['foo' => ['bar' => ['baz' => 'value']]], 'foo.bar.qwerty'));
+    }
+
     public function testWrap()
     {
         $this->assertEquals(['data'], Arr::wrap('data'));
