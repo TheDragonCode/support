@@ -1,18 +1,18 @@
 <?php
-/*
- * This file is part of the "andrey-helldar/support" project.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- *
- * @author Andrey Helldar <helldar@ai-rus.com>
- *
- * @copyright 2021 Andrey Helldar
- *
- * @license MIT
- *
- * @see https://github.com/andrey-helldar/support
- */
+/******************************************************************************
+ * This file is part of the "andrey-helldar/support" project.                 *
+ *                                                                            *
+ * @author Andrey Helldar <helldar@ai-rus.com>                                *
+ *                                                                            *
+ * @copyright 2021 Andrey Helldar                                             *
+ *                                                                            *
+ * @license MIT                                                               *
+ *                                                                            *
+ * @see https://github.com/andrey-helldar/support                             *
+ *                                                                            *
+ * For the full copyright and license information, please view the LICENSE    *
+ * file that was distributed with this source code.                           *
+ ******************************************************************************/
 
 namespace Tests\Fixtures\Instances;
 
@@ -22,6 +22,12 @@ use Tests\Fixtures\Contracts\Contract;
 class Foo implements Contract
 {
     use Foable;
+
+    public const FOO = 'Foo';
+
+    public const BAR = 'Bar';
+
+    public const BAZ = 'Baz';
 
     public static function callStatic()
     {
