@@ -77,7 +77,7 @@ class File
      */
     public function store(string $path, string $content, int $mode = 0755): string
     {
-        DirectoryHelper::make(pathinfo($path, PATHINFO_DIRNAME), $mode);
+        DirectoryHelper::ensureDirectory(pathinfo($path, PATHINFO_DIRNAME), $mode);
 
         file_put_contents($path, $content);
 
