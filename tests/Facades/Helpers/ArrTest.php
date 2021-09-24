@@ -311,6 +311,42 @@ class ArrTest extends TestCase
         $this->assertSame([], Arr::only($arr, null));
     }
 
+    public function testOnlyDiffKeys()
+    {
+        $arr = [
+            'foo'    => 'Foo',
+            'bar'    => 'Bar',
+            'baz'    => 'Baz',
+            'qwerty' => [
+                'q' => 'Q',
+                'w' => 'W',
+                'e' => 'E',
+            ],
+            200      => 'Num 200',
+            400      => 'Num 400',
+            500      => [
+                'r' => 'R',
+                't' => 'T',
+                'y' => 'Y',
+            ],
+        ];
+
+        $this->assertSame([
+            'foo'    => 'Foo',
+            'bar'    => 'Bar',
+            'qwerty' => [
+                'q' => 'Q',
+                'e' => 'E',
+            ],
+        ], Arr::only($arr, [
+            'foo',
+            'bar',
+            'qwerty'        => ['q', 'e'],
+            'unknown_key',
+            'unknown_array' => ['foo', 'bar'],
+        ]));
+    }
+
     public function testOnlyCallback()
     {
         $arr = [
