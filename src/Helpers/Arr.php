@@ -424,11 +424,11 @@ class Arr
                 } elseif (isset($array[$key])) {
                     $result[$key] = $array[$key];
                 }
-            }
-            catch (\Throwable$e) {
+            } catch (\Throwable$e) {
                 dd(
                     $e->getMessage(),
-                    $index, $key
+                    $index,
+                    $key
                 );
             }
         }
