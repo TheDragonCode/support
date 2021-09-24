@@ -418,6 +418,8 @@ class Arr
         foreach ((array) $keys as $index => $key) {
             if (is_array($key) && isset($array[$index])) {
                 $result[$index] = $this->only($array[$index], $key);
+            } elseif (is_array($key) && ! isset($array[$index])) {
+                continue;
             } elseif (isset($array[$key])) {
                 $result[$key] = $array[$key];
             }
