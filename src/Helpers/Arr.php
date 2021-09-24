@@ -416,10 +416,20 @@ class Arr
         $result = [];
 
         foreach ((array) $keys as $index => $key) {
-            if (is_array($key) && isset($array[$index])) {
-                $result[$index] = $this->only($array[$index], $key);
-            } elseif (isset($array[$key])) {
-                $result[$key] = $array[$key];
+            try {
+                if (is_array($key) && isset($array[$index])) {
+                    $result[$index] = $this->only($array[$index], $key);
+                } elseif (is_array($key) && ! isset($array[$index])) {
+                    continue;
+                } elseif (isset($array[$key])) {
+                    $result[$key] = $array[$key];
+                }
+            }
+            catch (\Throwable$e) {
+                dd(
+                    $e->getMessage(),
+                    $index, $key
+                );
             }
         }
 
