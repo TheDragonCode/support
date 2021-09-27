@@ -561,6 +561,64 @@ class ArrTest extends TestCase
         $this->assertEquals(['#foo', '#bar', '#baz'], $this->arr()->flatten($array, false));
     }
 
+    public function testFlattenKeys()
+    {
+        $array = ['foo', 'bar', 'baz'];
+        $this->assertEquals($array, $this->arr()->flattenKeys($array));
+
+        $array = ['f' => ['foo', 'bar', 'baz'], 'b' => ['q', 'w', 'e']];
+        $this->assertEquals([
+            'f.0' => 'foo',
+            'f.1' => 'bar',
+            'f.2' => 'baz',
+            'b.0' => 'q',
+            'b.1' => 'w',
+            'b.2' => 'e',
+        ], $this->arr()->flattenKeys($array));
+
+        $array = [
+            'f' => ['q' => 'Q', 'w' => 'W', 'e' => 'E'],
+            'b' => ['a' => 'A', 's' => 'S', 'd' => 'D'],
+        ];
+        $this->assertEquals([
+            'f.q' => 'Q',
+            'f.w' => 'W',
+            'f.e' => 'E',
+            'b.a' => 'A',
+            'b.s' => 'S',
+            'b.d' => 'D',
+        ], $this->arr()->flattenKeys($array));
+    }
+
+    public function testFlattenKeysCustomDelimiter()
+    {
+        $array = ['foo', 'bar', 'baz'];
+        $this->assertEquals($array, $this->arr()->flattenKeys($array, '_'));
+
+        $array = ['f' => ['foo', 'bar', 'baz'], 'b' => ['q', 'w', 'e']];
+        $this->assertEquals([
+            'f_0' => 'foo',
+            'f_1' => 'bar',
+            'f_2' => 'baz',
+            'b_0' => 'q',
+            'b_1' => 'w',
+            'b_2' => 'e',
+        ], $this->arr()->flattenKeys($array, '_'));
+
+        $array = [
+            'f' => ['q' => 'Q', 'w' => 'W', 'e' => 'E'],
+            'b' => ['a' => 'A', 's' => 'S', 'd' => 'D'],
+        ];
+        $this->assertEquals([
+            'f_q' => 'Q',
+            'f_w' => 'W',
+            'f_e' => 'E',
+            'b_a' => 'A',
+            'b_s' => 'S',
+            'b_d' => 'D',
+        ], $this->arr()->flattenKeys($array, '_'));
+    }
+
     public function testStoreAsArray()
     {
         $source = [
