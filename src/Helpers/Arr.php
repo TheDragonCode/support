@@ -525,6 +525,27 @@ class Arr
         return $ignore_keys ? array_values($result) : $result;
     }
 
+    public function flattenKeys(array $array, string $delimiter = '.', string $prefix = null): array
+    {
+        $result = [];
+
+        foreach ($array as $key => $value) {
+            if (is_array($value)) {
+                foreach ($this->flattenKeys($value, $delimiter, $key) as $k => $v) {
+                    $result[$k] = $v;
+                }
+
+                continue;
+            }
+
+            $key = ! empty($prefix) ? $prefix . $delimiter . $key : $key;
+
+            $result[$key] = $value;
+        }
+
+        return $result;
+    }
+
     /**
      * Applies the callback to the elements of the given arrays.
      *
