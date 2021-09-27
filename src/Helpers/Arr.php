@@ -531,16 +531,16 @@ class Arr
 
         foreach ($array as $key => $value) {
             if (is_array($value)) {
-                foreach ($this->flattenKeys($value, $delimiter, $key) as $k => $v) {
-                    $result[$k] = $v;
-                }
+                $values = $this->flattenKeys($value, $delimiter, $key);
+
+                $result = array_merge($result, $values);
 
                 continue;
             }
 
-            $key = ! empty($prefix) ? $prefix . $delimiter . $key : $key;
+            $new_key = ! empty($prefix) ? $prefix . $delimiter . $key : $key;
 
-            $result[$key] = $value;
+            $result[$new_key] = $value;
         }
 
         return $result;
