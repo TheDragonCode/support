@@ -2,7 +2,7 @@
 
 Support package is a collection of helpers and tools for any project.
 
-<img src="https://preview.dragon-code.pro/TheDragonCode/support.svg?brand=php" width="100%" height="320" alt="Support"/>
+<img src="https://preview.dragon-code.pro/TheDragonCode/support.svg?brand=php" alt="Support"/>
 
 [![StyleCI Status][badge_styleci]][link_styleci]
 [![Github Workflow Status][badge_build]][link_build]
@@ -52,13 +52,6 @@ If no, then:
 ## License
 
 This package is licensed under the [MIT License](LICENSE).
-
-
-## For Enterprise
-
-Available as part of the Tidelift Subscription.
-
-The maintainers of `andrey-helldar/support` and thousands of other packages are working with Tidelift to deliver commercial support and maintenance for the open source packages you use to build your applications. Save time, reduce risk, and improve code health, while paying the maintainers of the exact packages you use. [Learn more](https://tidelift.com/subscription/pkg/packagist-andrey-helldar-support?utm_source=packagist-andrey-helldar-support&utm_medium=referral&utm_campaign=enterprise&utm_term=repo).
 
 
 [badge_build]:          https://img.shields.io/github/workflow/status/andrey-helldar/support/phpunit?style=flat-square
