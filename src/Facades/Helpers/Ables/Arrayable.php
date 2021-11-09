@@ -23,6 +23,7 @@ use Helldar\Support\Helpers\Ables\Arrayable as Helper;
 /**
  * @method static array get()
  * @method static Helper addUnique($values)
+ * @method static Helper combine(...$arrays)
  * @method static Helper dump()
  * @method static Helper except(array|callable|string $keys)
  * @method static Helper filter(callable $callback = null, int $mode = 0)

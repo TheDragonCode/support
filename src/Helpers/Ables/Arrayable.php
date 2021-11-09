@@ -175,6 +175,18 @@ class Arrayable
     }
 
     /**
+     * Combining arrays without preserving keys.
+     *
+     * @param ...$arrays
+     *
+     * @return $this
+     */
+    public function combine(...$arrays): self
+    {
+        return new self(Arr::combine($this->value, ...$arrays));
+    }
+
+    /**
      * Get the instance as an array.
      *
      * @return \Helldar\Support\Helpers\Ables\Arrayable
