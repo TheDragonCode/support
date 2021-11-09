@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of the "andrey-helldar/support" project.
+ * This file is part of the "dragon-code/support" project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,17 +11,17 @@
  *
  * @license MIT
  *
- * @see https://github.com/andrey-helldar/support
+ * @see https://github.com/TheDragonCode/support
  */
 
-namespace Helldar\Support\Helpers\Filesystem;
+namespace DragonCode\Support\Helpers\Filesystem;
 
 use DirectoryIterator;
 use FilesystemIterator;
-use Helldar\Support\Exceptions\DirectoryNotFoundException;
-use Helldar\Support\Facades\Helpers\Filesystem\File as FileHelper;
-use Helldar\Support\Facades\Helpers\Instance;
-use Helldar\Support\Facades\Helpers\Str;
+use DragonCode\Support\Exceptions\DirectoryNotFoundException;
+use DragonCode\Support\Facades\Helpers\Filesystem\File as FileHelper;
+use DragonCode\Support\Facades\Helpers\Instance;
+use DragonCode\Support\Facades\Helpers\Str;
 use SplFileInfo;
 
 class Directory
@@ -31,7 +31,7 @@ class Directory
      *
      * @param  string  $path
      *
-     * @throws \Helldar\Support\Exceptions\DirectoryNotFoundException
+     * @throws \DragonCode\Support\Exceptions\DirectoryNotFoundException
      *
      * @return DirectoryIterator
      */
@@ -51,7 +51,7 @@ class Directory
      * @param  callable|null  $callback
      * @param  bool  $recursive
      *
-     * @throws \Helldar\Support\Exceptions\DirectoryNotFoundException
+     * @throws \DragonCode\Support\Exceptions\DirectoryNotFoundException
      *
      * @return array
      */
@@ -103,7 +103,7 @@ class Directory
      *
      * @param  string  $path
      *
-     * @throws \Helldar\Support\Exceptions\DirectoryNotFoundException
+     * @throws \DragonCode\Support\Exceptions\DirectoryNotFoundException
      *
      * @return bool
      */
@@ -131,7 +131,7 @@ class Directory
     /**
      * Ensure the directory has been deleted.
      *
-     * @throws \Helldar\Support\Exceptions\DirectoryNotFoundException
+     * @throws \DragonCode\Support\Exceptions\DirectoryNotFoundException
      */
     public function ensureDelete(string $path): bool
     {
@@ -145,7 +145,7 @@ class Directory
      * @param  int  $mode
      * @param  bool  $can_delete
      *
-     * @throws \Helldar\Support\Exceptions\DirectoryNotFoundException
+     * @throws \DragonCode\Support\Exceptions\DirectoryNotFoundException
      */
     public function ensureDirectory(string $path, int $mode = 0755, bool $can_delete = false): void
     {
@@ -203,7 +203,7 @@ class Directory
      *
      * @param  DirectoryIterator|\SplFileInfo|string  $path
      *
-     * @throws \Helldar\Support\Exceptions\DirectoryNotFoundException
+     * @throws \DragonCode\Support\Exceptions\DirectoryNotFoundException
      */
     public function validate($path): void
     {
@@ -217,7 +217,7 @@ class Directory
      *
      * @param  DirectoryIterator|\SplFileInfo|string  $path
      *
-     * @throws \Helldar\Support\Exceptions\DirectoryNotFoundException
+     * @throws \DragonCode\Support\Exceptions\DirectoryNotFoundException
      *
      * @return string
      */

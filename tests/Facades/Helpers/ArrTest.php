@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of the "andrey-helldar/support" project.
+ * This file is part of the "dragon-code/support" project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,15 +11,15 @@
  *
  * @license MIT
  *
- * @see https://github.com/andrey-helldar/support
+ * @see https://github.com/TheDragonCode/support
  */
 
 namespace Tests\Facades\Helpers;
 
 use ArrayObject;
-use Helldar\Support\Facades\Helpers\Ables\Arrayable as ArrayableHelper;
-use Helldar\Support\Facades\Helpers\Arr;
-use Helldar\Support\Facades\Helpers\Str;
+use DragonCode\Support\Facades\Helpers\Ables\Arrayable as ArrayableHelper;
+use DragonCode\Support\Facades\Helpers\Arr;
+use DragonCode\Support\Facades\Helpers\Str;
 use Tests\Fixtures\Instances\Arrayable;
 use Tests\Fixtures\Instances\Baq;
 use Tests\Fixtures\Instances\Bar;

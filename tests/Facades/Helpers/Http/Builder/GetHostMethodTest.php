@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of the "andrey-helldar/support" project.
+ * This file is part of the "dragon-code/support" project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,12 +11,12 @@
  *
  * @license MIT
  *
- * @see https://github.com/andrey-helldar/support
+ * @see https://github.com/TheDragonCode/support
  */
 
 namespace Tests\Facades\Helpers\Http\Builder;
 
-use Helldar\Support\Facades\Http\Builder as BuilderFacade;
+use DragonCode\Support\Facades\Http\Builder as BuilderFacade;
 use Tests\Facades\Helpers\Http\Base;
 
 class GetHostMethodTest extends Base

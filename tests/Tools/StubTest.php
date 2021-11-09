@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of the "andrey-helldar/support" project.
+ * This file is part of the "dragon-code/support" project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,14 +11,14 @@
  *
  * @license MIT
  *
- * @see https://github.com/andrey-helldar/support
+ * @see https://github.com/TheDragonCode/support
  */
 
 namespace Tests\Tools;
 
-use Helldar\Support\Exceptions\UnknownStubFileException;
-use Helldar\Support\Facades\Helpers\Str;
-use Helldar\Support\Tools\Stub as Tool;
+use DragonCode\Support\Exceptions\UnknownStubFileException;
+use DragonCode\Support\Facades\Helpers\Str;
+use DragonCode\Support\Tools\Stub as Tool;
 use Tests\TestCase;
 
 class StubTest extends TestCase

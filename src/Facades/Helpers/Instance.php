@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of the "andrey-helldar/support" project.
+ * This file is part of the "dragon-code/support" project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,13 +11,13 @@
  *
  * @license MIT
  *
- * @see https://github.com/andrey-helldar/support
+ * @see https://github.com/TheDragonCode/support
  */
 
-namespace Helldar\Support\Facades\Helpers;
+namespace DragonCode\Support\Facades\Helpers;
 
-use Helldar\Support\Facades\Facade;
-use Helldar\Support\Helpers\Instance as Helper;
+use DragonCode\Support\Facades\Facade;
+use DragonCode\Support\Helpers\Instance as Helper;
 
 /**
  * @method static bool exists(object|string $haystack)

@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of the "andrey-helldar/support" project.
+ * This file is part of the "dragon-code/support" project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,20 +11,20 @@
  *
  * @license MIT
  *
- * @see https://github.com/andrey-helldar/support
+ * @see https://github.com/TheDragonCode/support
  */
 
-namespace Helldar\Support\Helpers\Http;
+namespace DragonCode\Support\Helpers\Http;
 
-use Helldar\Contracts\Http\Builder as BuilderContract;
-use Helldar\Support\Concerns\Castable;
-use Helldar\Support\Concerns\Validation;
-use Helldar\Support\Exceptions\UnknownUrlComponentIndexException;
-use Helldar\Support\Facades\Helpers\Ables\Arrayable;
-use Helldar\Support\Facades\Helpers\Arr;
-use Helldar\Support\Facades\Helpers\Str;
-use Helldar\Support\Facades\Http\Url as UrlHelper;
-use Helldar\Support\Tools\HttpBuilderPrepare;
+use DragonCode\Contracts\Http\Builder as BuilderContract;
+use DragonCode\Support\Concerns\Castable;
+use DragonCode\Support\Concerns\Validation;
+use DragonCode\Support\Exceptions\UnknownUrlComponentIndexException;
+use DragonCode\Support\Facades\Helpers\Ables\Arrayable;
+use DragonCode\Support\Facades\Helpers\Arr;
+use DragonCode\Support\Facades\Helpers\Str;
+use DragonCode\Support\Facades\Http\Url as UrlHelper;
+use DragonCode\Support\Tools\HttpBuilderPrepare;
 use Psr\Http\Message\UriInterface;
 
 class Builder implements BuilderContract
@@ -74,7 +74,7 @@ class Builder implements BuilderContract
     /**
      * Gets the current instance of the object.
      *
-     * @return \Helldar\Support\Helpers\Http\Builder
+     * @return \DragonCode\Support\Helpers\Http\Builder
      */
     public function same(): self
     {
@@ -87,7 +87,7 @@ class Builder implements BuilderContract
      * @param  \Psr\Http\Message\UriInterface|string|null  $url
      * @param  int  $component
      *
-     * @return \Helldar\Support\Helpers\Http\Builder
+     * @return \DragonCode\Support\Helpers\Http\Builder
      */
     public function parse($url, int $component = self::PHP_URL_ALL): BuilderContract
     {
@@ -109,7 +109,7 @@ class Builder implements BuilderContract
      *
      * @param  array  $parsed
      *
-     * @return \Helldar\Support\Helpers\Http\Builder
+     * @return \DragonCode\Support\Helpers\Http\Builder
      */
     public function parsed(array $parsed): BuilderContract
     {
@@ -279,7 +279,7 @@ class Builder implements BuilderContract
     /**
      * Remove the fragment component from the URI.
      *
-     * @return \Helldar\Support\Helpers\Http\Builder
+     * @return \DragonCode\Support\Helpers\Http\Builder
      */
     public function removeFragment(): BuilderContract
     {
@@ -291,7 +291,7 @@ class Builder implements BuilderContract
      *
      * @param  string  $scheme
      *
-     * @return \Helldar\Support\Helpers\Http\Builder
+     * @return \DragonCode\Support\Helpers\Http\Builder
      */
     public function withScheme($scheme): self
     {
@@ -304,7 +304,7 @@ class Builder implements BuilderContract
      * @param  string  $user
      * @param  string|null  $password
      *
-     * @return \Helldar\Support\Helpers\Http\Builder
+     * @return \DragonCode\Support\Helpers\Http\Builder
      */
     public function withUserInfo($user, $password = null): self
     {
@@ -318,7 +318,7 @@ class Builder implements BuilderContract
      *
      * @param  string  $host
      *
-     * @return \Helldar\Support\Helpers\Http\Builder
+     * @return \DragonCode\Support\Helpers\Http\Builder
      */
     public function withHost($host): self
     {
@@ -330,7 +330,7 @@ class Builder implements BuilderContract
      *
      * @param  int|null  $port
      *
-     * @return \Helldar\Support\Helpers\Http\Builder
+     * @return \DragonCode\Support\Helpers\Http\Builder
      */
     public function withPort($port): self
     {
@@ -342,7 +342,7 @@ class Builder implements BuilderContract
      *
      * @param  string  $path
      *
-     * @return \Helldar\Support\Helpers\Http\Builder
+     * @return \DragonCode\Support\Helpers\Http\Builder
      */
     public function withPath($path): self
     {
@@ -354,7 +354,7 @@ class Builder implements BuilderContract
      *
      * @param  array|string  $query
      *
-     * @return \Helldar\Support\Helpers\Http\Builder
+     * @return \DragonCode\Support\Helpers\Http\Builder
      */
     public function withQuery($query): self
     {
@@ -367,7 +367,7 @@ class Builder implements BuilderContract
      * @param  string  $key
      * @param  mixed  $value
      *
-     * @return \Helldar\Support\Helpers\Http\Builder
+     * @return \DragonCode\Support\Helpers\Http\Builder
      */
     public function putQuery(string $key, $value): BuilderContract
     {
@@ -388,7 +388,7 @@ class Builder implements BuilderContract
      *
      * @param  string  $key
      *
-     * @return \Helldar\Support\Helpers\Http\Builder
+     * @return \DragonCode\Support\Helpers\Http\Builder
      */
     public function removeQuery(string $key): BuilderContract
     {
@@ -404,7 +404,7 @@ class Builder implements BuilderContract
      *
      * @param  string  $fragment
      *
-     * @return \Helldar\Support\Helpers\Http\Builder
+     * @return \DragonCode\Support\Helpers\Http\Builder
      */
     public function withFragment($fragment): self
     {
@@ -416,7 +416,7 @@ class Builder implements BuilderContract
      *
      * @param  \Psr\Http\Message\UriInterface  $uri
      *
-     * @return \Helldar\Support\Helpers\Http\Builder
+     * @return \DragonCode\Support\Helpers\Http\Builder
      */
     public function fromPsr(UriInterface $uri): BuilderContract
     {

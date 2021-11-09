@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of the "andrey-helldar/support" project.
+ * This file is part of the "dragon-code/support" project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,13 +11,13 @@
  *
  * @license MIT
  *
- * @see https://github.com/andrey-helldar/support
+ * @see https://github.com/TheDragonCode/support
  */
 
-namespace Helldar\Support\Helpers;
+namespace DragonCode\Support\Helpers;
 
-use Helldar\Support\Facades\Helpers\Call as CallHelper;
-use Helldar\Support\Facades\Tools\Replace;
+use DragonCode\Support\Facades\Helpers\Call as CallHelper;
+use DragonCode\Support\Facades\Tools\Replace;
 use Illuminate\Contracts\Support\DeferringDisplayableValue;
 use Illuminate\Contracts\Support\Htmlable;
 use voku\helper\ASCII;
@@ -57,7 +57,7 @@ class Str
      *
      * @param  string|null  $value
      *
-     * @return \Helldar\Support\Helpers\Ables\Stringable
+     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function of(?string $value): Ables\Stringable
     {

@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of the "andrey-helldar/support" project.
+ * This file is part of the "dragon-code/support" project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,13 +11,13 @@
  *
  * @license MIT
  *
- * @see https://github.com/andrey-helldar/support
+ * @see https://github.com/TheDragonCode/support
  */
 
-namespace Helldar\Support\Tools;
+namespace DragonCode\Support\Tools;
 
-use Helldar\Support\Exceptions\UnknownStubFileException;
-use Helldar\Support\Facades\Helpers\Str;
+use DragonCode\Support\Exceptions\UnknownStubFileException;
+use DragonCode\Support\Facades\Helpers\Str;
 
 class Stub
 {
@@ -31,7 +31,7 @@ class Stub
      * @param  string  $stub_file
      * @param  array  $replace
      *
-     * @throws \Helldar\Support\Exceptions\UnknownStubFileException
+     * @throws \DragonCode\Support\Exceptions\UnknownStubFileException
      *
      * @return string
      */
@@ -47,7 +47,7 @@ class Stub
      *
      * @param  string  $filename
      *
-     * @throws \Helldar\Support\Exceptions\UnknownStubFileException
+     * @throws \DragonCode\Support\Exceptions\UnknownStubFileException
      *
      * @return string
      */

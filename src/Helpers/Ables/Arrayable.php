@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of the "andrey-helldar/support" project.
+ * This file is part of the "dragon-code/support" project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,12 +11,12 @@
  *
  * @license MIT
  *
- * @see https://github.com/andrey-helldar/support
+ * @see https://github.com/TheDragonCode/support
  */
 
-namespace Helldar\Support\Helpers\Ables;
+namespace DragonCode\Support\Helpers\Ables;
 
-use Helldar\Support\Facades\Helpers\Arr;
+use DragonCode\Support\Facades\Helpers\Arr;
 
 class Arrayable
 {
@@ -32,7 +32,7 @@ class Arrayable
      *
      * @param  array|\ArrayAccess|string|null  $value
      *
-     * @return \Helldar\Support\Helpers\Ables\Arrayable
+     * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
     public function of($value = []): self
     {
@@ -56,7 +56,7 @@ class Arrayable
      *
      * @param  callable  $callback
      *
-     * @return \Helldar\Support\Helpers\Ables\Arrayable
+     * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
     public function renameKeys(callable $callback): self
     {
@@ -68,7 +68,7 @@ class Arrayable
      *
      * @param  array  $map
      *
-     * @return \Helldar\Support\Helpers\Ables\Arrayable
+     * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
     public function renameKeysMap(array $map): self
     {
@@ -80,7 +80,7 @@ class Arrayable
      *
      * @param  mixed  $values
      *
-     * @return \Helldar\Support\Helpers\Ables\Arrayable
+     * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
     public function addUnique($values): self
     {
@@ -130,7 +130,7 @@ class Arrayable
      *
      * @param  array  $sorter
      *
-     * @return \Helldar\Support\Helpers\Ables\Arrayable
+     * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
     public function sortByKeys(array $sorter): self
     {
@@ -142,7 +142,7 @@ class Arrayable
      *
      * @param  callable|null  $callback
      *
-     * @return \Helldar\Support\Helpers\Ables\Arrayable
+     * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
     public function sort(callable $callback = null): self
     {
@@ -154,7 +154,7 @@ class Arrayable
      *
      * @param  callable|null  $callback
      *
-     * @return \Helldar\Support\Helpers\Ables\Arrayable
+     * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
     public function ksort(callable $callback = null): self
     {
@@ -167,7 +167,7 @@ class Arrayable
      *
      * @param  array  ...$arrays
      *
-     * @return \Helldar\Support\Helpers\Ables\Arrayable
+     * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
     public function merge(...$arrays): self
     {
@@ -189,7 +189,7 @@ class Arrayable
     /**
      * Get the instance as an array.
      *
-     * @return \Helldar\Support\Helpers\Ables\Arrayable
+     * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
     public function toArray(): self
     {
@@ -201,7 +201,7 @@ class Arrayable
      *
      * @param  array|callable|string  $keys
      *
-     * @return \Helldar\Support\Helpers\Ables\Arrayable
+     * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
     public function except($keys): self
     {
@@ -213,7 +213,7 @@ class Arrayable
      *
      * @param  array|callable|string  $keys
      *
-     * @return \Helldar\Support\Helpers\Ables\Arrayable
+     * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
     public function only($keys): self
     {
@@ -242,7 +242,7 @@ class Arrayable
      *
      * @param  bool  $ignore_keys
      *
-     * @return \Helldar\Support\Helpers\Ables\Arrayable
+     * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
     public function flatten(bool $ignore_keys = true): self
     {
@@ -255,7 +255,7 @@ class Arrayable
      * @param  callable  $callback
      * @param  bool  $recursive
      *
-     * @return \Helldar\Support\Helpers\Ables\Arrayable
+     * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
     public function map(callable $callback, bool $recursive = false): self
     {
@@ -279,7 +279,7 @@ class Arrayable
      *
      * @see https://php.net/manual/en/function.array-keys.php
      *
-     * @return \Helldar\Support\Helpers\Ables\Arrayable
+     * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
     public function keys(): self
     {
@@ -291,7 +291,7 @@ class Arrayable
      *
      * @see  https://php.net/manual/en/function.array-values.php
      *
-     * @return \Helldar\Support\Helpers\Ables\Arrayable
+     * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
     public function values(): self
     {
@@ -305,7 +305,7 @@ class Arrayable
      *
      * @param  mixed  ...$values
      *
-     * @return \Helldar\Support\Helpers\Ables\Arrayable
+     * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
     public function push(...$values): self
     {
@@ -318,7 +318,7 @@ class Arrayable
      * @param  mixed  $key
      * @param  mixed  $value
      *
-     * @return \Helldar\Support\Helpers\Ables\Arrayable
+     * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
     public function set($key, $value = null): self
     {
@@ -330,7 +330,7 @@ class Arrayable
      *
      * @param  mixed  $key
      *
-     * @return \Helldar\Support\Helpers\Ables\Arrayable
+     * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
     public function remove($key): self
     {

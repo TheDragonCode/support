@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of the "andrey-helldar/support" project.
+ * This file is part of the "dragon-code/support" project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,14 +11,14 @@
  *
  * @license MIT
  *
- * @see https://github.com/andrey-helldar/support
+ * @see https://github.com/TheDragonCode/support
  */
 
-namespace Helldar\Support\Helpers;
+namespace DragonCode\Support\Helpers;
 
-use Helldar\Support\Facades\Helpers\Arr as ArrHelper;
-use Helldar\Support\Facades\Helpers\Is as IsHelper;
-use Helldar\Support\Facades\Helpers\Reflection as ReflectionHelper;
+use DragonCode\Support\Facades\Helpers\Arr as ArrHelper;
+use DragonCode\Support\Facades\Helpers\Is as IsHelper;
+use DragonCode\Support\Facades\Helpers\Reflection as ReflectionHelper;
 use ReflectionClass;
 
 class Instance

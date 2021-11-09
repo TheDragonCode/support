@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of the "andrey-helldar/support" project.
+ * This file is part of the "dragon-code/support" project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,13 +11,13 @@
  *
  * @license MIT
  *
- * @see https://github.com/andrey-helldar/support
+ * @see https://github.com/TheDragonCode/support
  */
 
-namespace Helldar\Support\Helpers\Http;
+namespace DragonCode\Support\Helpers\Http;
 
-use Helldar\Support\Exceptions\NotValidUrlException;
-use Helldar\Support\Facades\Http\Builder as UrlBuilder;
+use DragonCode\Support\Exceptions\NotValidUrlException;
+use DragonCode\Support\Facades\Http\Builder as UrlBuilder;
 use Throwable;
 
 class Url
@@ -25,9 +25,9 @@ class Url
     /**
      * Parsing URL into components.
      *
-     * @param  \Helldar\Contracts\Http\Builder|string|null  $url
+     * @param  \DragonCode\Contracts\Http\Builder|string|null  $url
      *
-     * @return \Helldar\Support\Helpers\Http\Builder
+     * @return \DragonCode\Support\Helpers\Http\Builder
      */
     public function parse($url): Builder
     {
@@ -37,7 +37,7 @@ class Url
     /**
      * Check if the string is a valid URL.
      *
-     * @param  \Helldar\Contracts\Http\Builder|string|null  $url
+     * @param  \DragonCode\Contracts\Http\Builder|string|null  $url
      *
      * @return bool
      */
@@ -49,9 +49,9 @@ class Url
     /**
      * Validate if the value is a valid URL or throw an error.
      *
-     * @param  \Helldar\Contracts\Http\Builder|string|null  $url
+     * @param  \DragonCode\Contracts\Http\Builder|string|null  $url
      *
-     * @throws \Helldar\Support\Exceptions\NotValidUrlException
+     * @throws \DragonCode\Support\Exceptions\NotValidUrlException
      */
     public function validate($url): void
     {
@@ -63,11 +63,11 @@ class Url
     /**
      * Returns the URL after validation, or throws an error.
      *
-     * @param  \Helldar\Contracts\Http\Builder|string|null  $url
+     * @param  \DragonCode\Contracts\Http\Builder|string|null  $url
      *
-     * @throws \Helldar\Support\Exceptions\NotValidUrlException
+     * @throws \DragonCode\Support\Exceptions\NotValidUrlException
      *
-     * @return \Helldar\Contracts\Http\Builder|\Helldar\Support\Helpers\Http\Builder|string
+     * @return \DragonCode\Contracts\Http\Builder|\DragonCode\Support\Helpers\Http\Builder|string
      */
     public function validated($url)
     {
@@ -79,9 +79,9 @@ class Url
     /**
      * Check if the specified URL exists.
      *
-     * @param  \Helldar\Contracts\Http\Builder|string|null  $url
+     * @param  \DragonCode\Contracts\Http\Builder|string|null  $url
      *
-     * @throws \Helldar\Support\Exceptions\NotValidUrlException
+     * @throws \DragonCode\Support\Exceptions\NotValidUrlException
      *
      * @return bool
      */
@@ -107,10 +107,10 @@ class Url
     /**
      * Check the existence of the URL and return the default value if it is missing.
      *
-     * @param  \Helldar\Contracts\Http\Builder|string  $url
-     * @param  \Helldar\Contracts\Http\Builder|string  $default
+     * @param  \DragonCode\Contracts\Http\Builder|string  $url
+     * @param  \DragonCode\Contracts\Http\Builder|string  $default
      *
-     * @throws \Helldar\Support\Exceptions\NotValidUrlException
+     * @throws \DragonCode\Support\Exceptions\NotValidUrlException
      *
      * @return string|null
      */
