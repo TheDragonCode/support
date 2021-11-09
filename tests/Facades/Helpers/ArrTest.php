@@ -233,6 +233,7 @@ class ArrTest extends TestCase
             '2'   => 'Bar',
             '400' => 'Baz',
             600   => ['foo' => 'Foo', 'bar' => 'Bar'],
+            700   => 'Qwerty',
         ];
 
         $arr2 = [
@@ -240,6 +241,7 @@ class ArrTest extends TestCase
             '500' => 'Foo bar',
             '600' => ['baz' => 'Baz'],
             '700' => ['aaa' => 'AAA'],
+            800   => ['bbb' => 'BBB'],
         ];
 
         $expected = [
@@ -248,8 +250,9 @@ class ArrTest extends TestCase
             2     => 'Bar bar',
             400   => 'Baz',
             600   => ['foo' => 'Foo', 'bar' => 'Bar', 'baz' => 'Baz'],
-            500   => 'Foo bar',
             700   => ['aaa' => 'AAA'],
+            500   => 'Foo bar',
+            800   => ['bbb' => 'BBB'],
         ];
 
         $result = Arr::merge($arr1, $arr2);
