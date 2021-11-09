@@ -1,8 +1,8 @@
 # Support
 
-Support package is a collection of helpers and tools for any project.
-
 <img src="https://preview.dragon-code.pro/TheDragonCode/support.svg?brand=php" alt="Support"/>
+
+Support package is a collection of helpers and tools for any project.
 
 [![Stable Version][badge_stable]][link_packagist]
 [![Unstable Version][badge_unstable]][link_packagist]
