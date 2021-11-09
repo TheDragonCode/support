@@ -23,6 +23,7 @@ use Helldar\Support\Helpers\Arr as Helper;
 
 /**
  * @method static array addUnique(array $array, $values)
+ * @method static array combine(...$arrays)
  * @method static array except(array $array, array|callable|string $keys)
  * @method static array filter($array, callable $callback = null, int $mode = 0)
  * @method static array flatten(array $array, bool $ignore_keys = true)

@@ -245,6 +245,26 @@ class Arr
     }
 
     /**
+     * Combining arrays without preserving keys.
+     *
+     * @param ...$arrays
+     *
+     * @return array
+     */
+    public function combine(...$arrays): array
+    {
+        $result = [];
+
+        foreach ($arrays as $array) {
+            foreach ($array as $value) {
+                array_push($result, $value);
+            }
+        }
+
+        return $result;
+    }
+
+    /**
      * If the given value is not an array and not null, wrap it in one.
      *
      * @param  mixed  $value
