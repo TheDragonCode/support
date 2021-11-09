@@ -228,7 +228,13 @@ class Arr
         foreach ($arrays as $array) {
             foreach ($array as $key => $value) {
                 if (is_array($value)) {
-                    $value = $this->merge($result[$key] ?? [], $value);
+                    $prev_value = $result[$key] ?? [];
+
+                    if (gettype($prev_value) !== 'array') {
+                        $prev_value = [];
+                    }
+
+                    $value = $this->merge($prev_value, $value);
                 }
 
                 $result[$key] = $value;
