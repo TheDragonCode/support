@@ -186,6 +186,44 @@ class ArrayableTest extends TestCase
         $this->assertSame($expected, $result3);
     }
 
+    public function testCombine()
+    {
+        $arr1 = [
+            'Bar',
+            'Foo',
+            'Bar',
+            'Baz',
+            ['foo' => 'Foo', 'bar' => 'Bar'],
+            'Qwerty',
+        ];
+
+        $arr2 = [
+            'Bar bar',
+            'Foo bar',
+            ['baz' => 'Baz'],
+            ['aaa' => 'AAA'],
+            ['bbb' => 'BBB'],
+        ];
+
+        $expected = [
+            'Bar',
+            'Foo',
+            'Bar',
+            'Baz',
+            ['foo' => 'Foo', 'bar' => 'Bar'],
+            'Qwerty',
+            'Bar bar',
+            'Foo bar',
+            ['baz' => 'Baz'],
+            ['aaa' => 'AAA'],
+            ['bbb' => 'BBB'],
+        ];
+
+        $result = Arrayable::of($arr1)->combine($arr2)->get();
+
+        $this->assertSame($expected, $result);
+    }
+
     public function testOnly()
     {
         $array = [
@@ -1112,7 +1150,7 @@ class ArrayableTest extends TestCase
         $this->assertSame($expected2, $tmp);
     }
 
-    public function testCombine()
+    public function testMulti()
     {
         $source = [
             'OBJ' => new Bar(),
