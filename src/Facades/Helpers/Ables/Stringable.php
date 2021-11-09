@@ -14,10 +14,10 @@
  * @see https://github.com/andrey-helldar/support
  */
 
-namespace Helldar\Support\Facades\Helpers\Ables;
+namespace DragonCode\Support\Facades\Helpers\Ables;
 
-use Helldar\Support\Facades\Facade;
-use Helldar\Support\Helpers\Ables\Stringable as Helper;
+use DragonCode\Support\Facades\Facade;
+use DragonCode\Support\Helpers\Ables\Stringable as Helper;
 
 /**
  * @method static Helper after(string $search)

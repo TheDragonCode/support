@@ -14,10 +14,10 @@
  * file that was distributed with this source code.                           *
  ******************************************************************************/
 
-namespace Helldar\Support\Facades\Helpers;
+namespace DragonCode\Support\Facades\Helpers;
 
-use Helldar\Support\Facades\Facade;
-use Helldar\Support\Helpers\Reflection as Helper;
+use DragonCode\Support\Facades\Facade;
+use DragonCode\Support\Helpers\Reflection as Helper;
 use ReflectionClass;
 
 /**

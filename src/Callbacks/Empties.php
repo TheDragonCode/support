@@ -14,7 +14,7 @@
  * @see https://github.com/andrey-helldar/support
  */
 
-namespace Helldar\Support\Callbacks;
+namespace DragonCode\Support\Callbacks;
 
 class Empties
 {

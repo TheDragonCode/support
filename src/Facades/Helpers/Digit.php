@@ -14,10 +14,10 @@
  * @see https://github.com/andrey-helldar/support
  */
 
-namespace Helldar\Support\Facades\Helpers;
+namespace DragonCode\Support\Facades\Helpers;
 
-use Helldar\Support\Facades\Facade;
-use Helldar\Support\Helpers\Digit as Helper;
+use DragonCode\Support\Facades\Facade;
+use DragonCode\Support\Helpers\Digit as Helper;
 
 /**
  * @method static float rounded(float $number, int $length = 4, int $precision = 1)

@@ -15,10 +15,10 @@
  * file that was distributed with this source code.                           *
  ******************************************************************************/
 
-namespace Helldar\Support\Facades\Http;
+namespace DragonCode\Support\Facades\Http;
 
-use Helldar\Support\Facades\Facade;
-use Helldar\Support\Helpers\Http\Builder as Support;
+use DragonCode\Support\Facades\Facade;
+use DragonCode\Support\Helpers\Http\Builder as Support;
 use Psr\Http\Message\UriInterface;
 
 /**

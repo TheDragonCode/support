@@ -16,7 +16,7 @@
 
 namespace Tests\Fixtures\Facades;
 
-use Helldar\Support\Facades\Facade;
+use DragonCode\Support\Facades\Facade;
 
 class Resolve extends Facade
 {

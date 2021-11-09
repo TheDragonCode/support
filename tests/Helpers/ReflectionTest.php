@@ -16,7 +16,7 @@
 
 namespace Tests\Helpers;
 
-use Helldar\Support\Helpers\Reflection;
+use DragonCode\Support\Helpers\Reflection;
 use ReflectionClass;
 use Tests\Fixtures\Instances\Foo;
 use Tests\TestCase;

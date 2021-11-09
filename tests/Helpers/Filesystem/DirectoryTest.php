@@ -16,11 +16,11 @@
 
 namespace Tests\Helpers\Filesystem;
 
-use Helldar\Support\Exceptions\DirectoryNotFoundException;
-use Helldar\Support\Facades\Helpers\Filesystem\Directory as DirectoryFacade;
-use Helldar\Support\Facades\Helpers\Filesystem\File;
-use Helldar\Support\Facades\Helpers\Str;
-use Helldar\Support\Helpers\Filesystem\Directory;
+use DragonCode\Support\Exceptions\DirectoryNotFoundException;
+use DragonCode\Support\Facades\Helpers\Filesystem\Directory as DirectoryFacade;
+use DragonCode\Support\Facades\Helpers\Filesystem\File;
+use DragonCode\Support\Facades\Helpers\Str;
+use DragonCode\Support\Helpers\Filesystem\Directory;
 use Tests\TestCase;
 
 class DirectoryTest extends TestCase

@@ -16,7 +16,7 @@
 
 namespace Tests\Facades\Helpers;
 
-use Helldar\Support\Facades\Helpers\Call;
+use DragonCode\Support\Facades\Helpers\Call;
 use InvalidArgumentException;
 use Tests\Fixtures\Contracts\Contract;
 use Tests\Fixtures\Exceptions\AnyException;

@@ -14,14 +14,14 @@
  * @see https://github.com/andrey-helldar/support
  */
 
-namespace Helldar\Support\Helpers;
+namespace DragonCode\Support\Helpers;
 
 use Exception;
-use Helldar\Support\Facades\Helpers\Arr as ArrHelper;
-use Helldar\Support\Facades\Helpers\Boolean as BooleanHelper;
-use Helldar\Support\Facades\Helpers\Instance as InstanceHelper;
-use Helldar\Support\Facades\Helpers\Reflection as ReflectionHelper;
-use Helldar\Support\Facades\Helpers\Str as StrHelper;
+use DragonCode\Support\Facades\Helpers\Arr as ArrHelper;
+use DragonCode\Support\Facades\Helpers\Boolean as BooleanHelper;
+use DragonCode\Support\Facades\Helpers\Instance as InstanceHelper;
+use DragonCode\Support\Facades\Helpers\Reflection as ReflectionHelper;
+use DragonCode\Support\Facades\Helpers\Str as StrHelper;
 use ReflectionClass;
 use Throwable;
 

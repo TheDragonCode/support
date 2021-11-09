@@ -14,9 +14,9 @@
  * @see https://github.com/andrey-helldar/support
  */
 
-namespace Helldar\Support\Callbacks;
+namespace DragonCode\Support\Callbacks;
 
-use Helldar\Support\Facades\Helpers\Str;
+use DragonCode\Support\Facades\Helpers\Str;
 
 class Sorter
 {

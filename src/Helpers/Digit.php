@@ -14,7 +14,7 @@
  * @see https://github.com/andrey-helldar/support
  */
 
-namespace Helldar\Support\Helpers;
+namespace DragonCode\Support\Helpers;
 
 class Digit
 {

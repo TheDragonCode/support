@@ -14,14 +14,14 @@
  * @see https://github.com/andrey-helldar/support
  */
 
-namespace Helldar\Support\Helpers\Filesystem;
+namespace DragonCode\Support\Helpers\Filesystem;
 
 use DirectoryIterator;
-use Helldar\Support\Exceptions\FileNotFoundException;
-use Helldar\Support\Facades\Helpers\Arr;
-use Helldar\Support\Facades\Helpers\Filesystem\Directory as DirectoryHelper;
-use Helldar\Support\Facades\Helpers\Instance;
-use Helldar\Support\Facades\Helpers\Str;
+use DragonCode\Support\Exceptions\FileNotFoundException;
+use DragonCode\Support\Facades\Helpers\Arr;
+use DragonCode\Support\Facades\Helpers\Filesystem\Directory as DirectoryHelper;
+use DragonCode\Support\Facades\Helpers\Instance;
+use DragonCode\Support\Facades\Helpers\Str;
 use SplFileInfo;
 use Throwable;
 
@@ -165,7 +165,7 @@ class File
      *
      * @param  \DirectoryIterator|\SplFileInfo|string  $path
      *
-     * @throws \Helldar\Support\Exceptions\FileNotFoundException
+     * @throws \DragonCode\Support\Exceptions\FileNotFoundException
      */
     public function validate($path): void
     {
@@ -179,7 +179,7 @@ class File
      *
      * @param  \DirectoryIterator|\SplFileInfo|string  $path
      *
-     * @throws \Helldar\Support\Exceptions\FileNotFoundException
+     * @throws \DragonCode\Support\Exceptions\FileNotFoundException
      *
      * @return string
      */

@@ -16,7 +16,7 @@
 
 namespace Tests\Facades\Callbacks;
 
-use Helldar\Support\Facades\Callbacks\Empties;
+use DragonCode\Support\Facades\Callbacks\Empties;
 use Tests\TestCase;
 
 class EmptiesTest extends TestCase

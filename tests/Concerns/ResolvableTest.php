@@ -16,8 +16,8 @@
 
 namespace Tests\Concerns;
 
-use Helldar\Support\Concerns\Resolvable;
-use Helldar\Support\Facades\Helpers\Str;
+use DragonCode\Support\Concerns\Resolvable;
+use DragonCode\Support\Facades\Helpers\Str;
 use PHPUnit\Framework\TestCase;
 use Tests\Fixtures\Instances\Bat;
 

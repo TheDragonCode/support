@@ -16,7 +16,7 @@
 
 namespace Tests\Tools;
 
-use Helldar\Support\Tools\Replace as Tool;
+use DragonCode\Support\Tools\Replace as Tool;
 use Tests\TestCase;
 
 class ReplaceTest extends TestCase

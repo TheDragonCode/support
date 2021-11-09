@@ -14,13 +14,13 @@
  * @see https://github.com/andrey-helldar/support
  */
 
-namespace Helldar\Support\Facades\Helpers;
+namespace DragonCode\Support\Facades\Helpers;
 
-use Helldar\Support\Facades\Facade;
-use Helldar\Support\Helpers\Str as Helper;
+use DragonCode\Support\Facades\Facade;
+use DragonCode\Support\Helpers\Str as Helper;
 
 /**
- * @method static \Helldar\Support\Facades\Helpers\Ables\Stringable of(?string $value)
+ * @method static \DragonCode\Support\Facades\Helpers\Ables\Stringable of(?string $value)
  * @method static bool contains(string $haystack, $needles)
  * @method static bool doesntEmpty($value)
  * @method static bool endsWith(string $haystack, string|string[] $needles)

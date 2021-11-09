@@ -14,11 +14,11 @@
  * @see https://github.com/andrey-helldar/support
  */
 
-namespace Helldar\Support\Tools;
+namespace DragonCode\Support\Tools;
 
-use Helldar\Contracts\Support\Stringable;
-use Helldar\Support\Concerns\Makeable;
-use Helldar\Support\Facades\Helpers\Str;
+use DragonCode\Contracts\Support\Stringable;
+use DragonCode\Support\Concerns\Makeable;
+use DragonCode\Support\Facades\Helpers\Str;
 
 class HttpBuilderPrepare implements Stringable
 {

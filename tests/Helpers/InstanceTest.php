@@ -16,7 +16,7 @@
 
 namespace Tests\Helpers;
 
-use Helldar\Support\Helpers\Instance;
+use DragonCode\Support\Helpers\Instance;
 use Tests\Fixtures\Concerns\Foable;
 use Tests\Fixtures\Contracts\Contract;
 use Tests\Fixtures\Instances\Bar;

@@ -17,9 +17,9 @@
 namespace Tests\Facades\Helpers\Filesystem;
 
 use DirectoryIterator;
-use Helldar\Support\Exceptions\FileNotFoundException;
-use Helldar\Support\Facades\Helpers\Filesystem\File;
-use Helldar\Support\Facades\Helpers\Str;
+use DragonCode\Support\Exceptions\FileNotFoundException;
+use DragonCode\Support\Facades\Helpers\Filesystem\File;
+use DragonCode\Support\Facades\Helpers\Str;
 use SplFileInfo;
 use Tests\TestCase;
 

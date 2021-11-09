@@ -15,11 +15,11 @@
  * @see https://github.com/andrey-helldar/support
  */
 
-namespace Helldar\Support\Facades\Helpers;
+namespace DragonCode\Support\Facades\Helpers;
 
 use ArrayAccess;
-use Helldar\Support\Facades\Facade;
-use Helldar\Support\Helpers\Arr as Helper;
+use DragonCode\Support\Facades\Facade;
+use DragonCode\Support\Helpers\Arr as Helper;
 
 /**
  * @method static array addUnique(array $array, $values)

@@ -16,7 +16,7 @@
 
 namespace Tests\Facades\Helpers;
 
-use Helldar\Support\Facades\Helpers\Digit;
+use DragonCode\Support\Facades\Helpers\Digit;
 use Tests\TestCase;
 
 class DigitTest extends TestCase

@@ -17,7 +17,7 @@
 namespace Tests\Helpers;
 
 use Exception;
-use Helldar\Support\Helpers\Is;
+use DragonCode\Support\Helpers\Is;
 use ReflectionClass;
 use Tests\Fixtures\Contracts\Contract;
 use Tests\Fixtures\Instances\Arrayable;

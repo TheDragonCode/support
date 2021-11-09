@@ -14,7 +14,7 @@
  * @see https://github.com/andrey-helldar/support
  */
 
-namespace Helldar\Support\Concerns;
+namespace DragonCode\Support\Concerns;
 
 /**
  * If you use this trait, you need to install the dependency:.

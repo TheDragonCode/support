@@ -16,7 +16,7 @@
 
 namespace Tests\Helpers\Http\Builder;
 
-use Helldar\Support\Helpers\Http\Builder;
+use DragonCode\Support\Helpers\Http\Builder;
 use Psr\Http\Message\UriInterface;
 use Tests\Helpers\Http\Base;
 

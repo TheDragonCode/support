@@ -14,9 +14,9 @@
  * file that was distributed with this source code.                           *
  ******************************************************************************/
 
-namespace Helldar\Support\Helpers;
+namespace DragonCode\Support\Helpers;
 
-use Helldar\Support\Facades\Helpers\Is as IsHelper;
+use DragonCode\Support\Facades\Helpers\Is as IsHelper;
 use ReflectionClass;
 
 class Reflection

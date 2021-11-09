@@ -14,10 +14,10 @@
  * @see https://github.com/andrey-helldar/support
  */
 
-namespace Helldar\Support\Facades\Helpers;
+namespace DragonCode\Support\Facades\Helpers;
 
-use Helldar\Support\Facades\Facade;
-use Helldar\Support\Helpers\Instance as Helper;
+use DragonCode\Support\Facades\Facade;
+use DragonCode\Support\Helpers\Instance as Helper;
 
 /**
  * @method static bool exists(object|string $haystack)

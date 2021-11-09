@@ -14,18 +14,18 @@
  * @see https://github.com/andrey-helldar/support
  */
 
-namespace Helldar\Support\Facades\Http;
+namespace DragonCode\Support\Facades\Http;
 
-use Helldar\Support\Facades\Facade;
-use Helldar\Support\Helpers\Http\Url as Helper;
+use DragonCode\Support\Facades\Facade;
+use DragonCode\Support\Helpers\Http\Url as Helper;
 
 /**
- * @method static \Helldar\Support\Helpers\Http\Builder parse(\Helldar\Contracts\Http\Builder|string|null $url)
- * @method static bool exists(\Helldar\Contracts\Http\Builder|string|null $url)
- * @method static bool is(\Helldar\Contracts\Http\Builder|string|null $url)
- * @method static \Helldar\Support\Helpers\Http\Builder|\Helldar\Contracts\Http\Builder|string validated(\Helldar\Contracts\Http\Builder|string|null $url)
- * @method static string|null default(\Helldar\Contracts\Http\Builder|string|null $url, \Helldar\Contracts\Http\Builder|string|null $default)
- * @method static void validate(\Helldar\Contracts\Http\Builder|string|null $url)
+ * @method static \DragonCode\Support\Helpers\Http\Builder parse(\DragonCode\Contracts\Http\Builder|string|null $url)
+ * @method static bool exists(\DragonCode\Contracts\Http\Builder|string|null $url)
+ * @method static bool is(\DragonCode\Contracts\Http\Builder|string|null $url)
+ * @method static \DragonCode\Support\Helpers\Http\Builder|\DragonCode\Contracts\Http\Builder|string validated(\DragonCode\Contracts\Http\Builder|string|null $url)
+ * @method static string|null default(\DragonCode\Contracts\Http\Builder|string|null $url, \DragonCode\Contracts\Http\Builder|string|null $default)
+ * @method static void validate(\DragonCode\Contracts\Http\Builder|string|null $url)
  */
 class Url extends Facade
 {

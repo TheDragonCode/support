@@ -14,10 +14,10 @@
  * @see https://github.com/andrey-helldar/support
  */
 
-namespace Helldar\Support\Facades\Tools;
+namespace DragonCode\Support\Facades\Tools;
 
-use Helldar\Support\Facades\Facade;
-use Helldar\Support\Tools\Replace as Tool;
+use DragonCode\Support\Facades\Facade;
+use DragonCode\Support\Tools\Replace as Tool;
 
 /**
  * @method static string toFormat(string $value, string $format = null)

@@ -17,7 +17,7 @@
 namespace Tests\Exceptions;
 
 use ArgumentCountError;
-use Helldar\Support\Exceptions\NotValidUrlException;
+use DragonCode\Support\Exceptions\NotValidUrlException;
 use Tests\TestCase;
 
 class NotValidUrlExceptionTest extends TestCase

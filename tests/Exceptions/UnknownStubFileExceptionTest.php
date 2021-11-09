@@ -17,7 +17,7 @@
 namespace Tests\Exceptions;
 
 use ArgumentCountError;
-use Helldar\Support\Exceptions\UnknownStubFileException;
+use DragonCode\Support\Exceptions\UnknownStubFileException;
 use Tests\TestCase;
 
 class UnknownStubFileExceptionTest extends TestCase

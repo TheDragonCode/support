@@ -14,10 +14,10 @@
  * @see https://github.com/andrey-helldar/support
  */
 
-namespace Helldar\Support\Helpers\Ables;
+namespace DragonCode\Support\Helpers\Ables;
 
-use Helldar\Contracts\Support\Stringable as Contract;
-use Helldar\Support\Facades\Helpers\Str;
+use DragonCode\Contracts\Support\Stringable as Contract;
+use DragonCode\Support\Facades\Helpers\Str;
 
 class Stringable implements Contract
 {
@@ -38,7 +38,7 @@ class Stringable implements Contract
      *
      * @param  string|null  $value
      *
-     * @return \Helldar\Support\Helpers\Ables\Stringable
+     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function of(?string $value): self
     {
@@ -48,7 +48,7 @@ class Stringable implements Contract
     /**
      * Replacing multiple spaces with a single space.
      *
-     * @return \Helldar\Support\Helpers\Ables\Stringable
+     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function removeSpaces(): self
     {
@@ -60,7 +60,7 @@ class Stringable implements Contract
      *
      * @param  string  $prefix
      *
-     * @return \Helldar\Support\Helpers\Ables\Stringable
+     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function start(string $prefix): self
     {
@@ -84,7 +84,7 @@ class Stringable implements Contract
      *
      * @param  string  $cap
      *
-     * @return \Helldar\Support\Helpers\Ables\Stringable
+     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function finish(string $cap = '/'): self
     {
@@ -94,7 +94,7 @@ class Stringable implements Contract
     /**
      * Convert the given string to lower-case.
      *
-     * @return \Helldar\Support\Helpers\Ables\Stringable
+     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function lower(): self
     {
@@ -104,7 +104,7 @@ class Stringable implements Contract
     /**
      * Convert the given string to upper-case.
      *
-     * @return \Helldar\Support\Helpers\Ables\Stringable
+     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function upper(): self
     {
@@ -114,7 +114,7 @@ class Stringable implements Contract
     /**
      * Convert a value to studly caps case.
      *
-     * @return \Helldar\Support\Helpers\Ables\Stringable
+     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function studly(): self
     {
@@ -124,7 +124,7 @@ class Stringable implements Contract
     /**
      * Convert a value to camel case.
      *
-     * @return \Helldar\Support\Helpers\Ables\Stringable
+     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function camel(): self
     {
@@ -136,7 +136,7 @@ class Stringable implements Contract
      *
      * @param  string|null  $delimiter
      *
-     * @return \Helldar\Support\Helpers\Ables\Stringable
+     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function snake(?string $delimiter = '_'): self
     {
@@ -149,7 +149,7 @@ class Stringable implements Contract
      * @param  string  $separator
      * @param  string|null  $language
      *
-     * @return \Helldar\Support\Helpers\Ables\Stringable
+     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function slug(string $separator = '-', ?string $language = 'en'): self
     {
@@ -159,7 +159,7 @@ class Stringable implements Contract
     /**
      * Convert the given string to title case.
      *
-     * @return \Helldar\Support\Helpers\Ables\Stringable
+     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function title(): self
     {
@@ -172,7 +172,7 @@ class Stringable implements Contract
      * @param  int  $start
      * @param  int|null  $length
      *
-     * @return \Helldar\Support\Helpers\Ables\Stringable
+     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function substr(int $start, int $length = null): self
     {
@@ -185,7 +185,7 @@ class Stringable implements Contract
      * @param  array  $values
      * @param  string|null  $key_format
      *
-     * @return \Helldar\Support\Helpers\Ables\Stringable
+     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function replace(array $values, string $key_format = null): self
     {
@@ -197,7 +197,7 @@ class Stringable implements Contract
      *
      * @param  string  $search
      *
-     * @return \Helldar\Support\Helpers\Ables\Stringable
+     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function before(string $search): self
     {
@@ -209,7 +209,7 @@ class Stringable implements Contract
      *
      * @param  string  $search
      *
-     * @return \Helldar\Support\Helpers\Ables\Stringable
+     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function after(string $search): self
     {
@@ -235,7 +235,7 @@ class Stringable implements Contract
      *
      * @param  string  $pattern
      *
-     * @return \Helldar\Support\Helpers\Ables\Stringable
+     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function match(string $pattern): self
     {
@@ -248,7 +248,7 @@ class Stringable implements Contract
      * @param  string  $pattern
      * @param  string  $replacement
      *
-     * @return \Helldar\Support\Helpers\Ables\Stringable
+     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function pregReplace(string $pattern, string $replacement): self
     {
@@ -260,7 +260,7 @@ class Stringable implements Contract
      *
      * @param  string|null  $language
      *
-     * @return \Helldar\Support\Helpers\Ables\Stringable
+     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function ascii(?string $language = 'en'): self
     {

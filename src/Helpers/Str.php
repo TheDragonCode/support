@@ -14,10 +14,10 @@
  * @see https://github.com/andrey-helldar/support
  */
 
-namespace Helldar\Support\Helpers;
+namespace DragonCode\Support\Helpers;
 
-use Helldar\Support\Facades\Helpers\Call as CallHelper;
-use Helldar\Support\Facades\Tools\Replace;
+use DragonCode\Support\Facades\Helpers\Call as CallHelper;
+use DragonCode\Support\Facades\Tools\Replace;
 use Illuminate\Contracts\Support\DeferringDisplayableValue;
 use Illuminate\Contracts\Support\Htmlable;
 use voku\helper\ASCII;
@@ -57,7 +57,7 @@ class Str
      *
      * @param  string|null  $value
      *
-     * @return \Helldar\Support\Helpers\Ables\Stringable
+     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function of(?string $value): Ables\Stringable
     {

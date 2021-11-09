@@ -16,7 +16,7 @@
 
 namespace Tests\Helpers;
 
-use Helldar\Support\Helpers\OS;
+use DragonCode\Support\Helpers\OS;
 use Tests\TestCase;
 
 class OSTest extends TestCase

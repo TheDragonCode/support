@@ -14,9 +14,9 @@
  * @see https://github.com/andrey-helldar/support
  */
 
-namespace Helldar\Support\Concerns;
+namespace DragonCode\Support\Concerns;
 
-use Helldar\Support\Facades\Helpers\Str;
+use DragonCode\Support\Facades\Helpers\Str;
 
 /**
  * @property array $casts

@@ -14,10 +14,10 @@
  * @see https://github.com/andrey-helldar/support
  */
 
-namespace Helldar\Support\Facades\Callbacks;
+namespace DragonCode\Support\Facades\Callbacks;
 
-use Helldar\Support\Callbacks\Empties as Callback;
-use Helldar\Support\Facades\Facade;
+use DragonCode\Support\Callbacks\Empties as Callback;
+use DragonCode\Support\Facades\Facade;
 
 /**
  * @method static callable notEmpty()

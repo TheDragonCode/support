@@ -17,7 +17,7 @@
 namespace Tests\Exceptions;
 
 use ArgumentCountError;
-use Helldar\Support\Exceptions\FileNotFoundException;
+use DragonCode\Support\Exceptions\FileNotFoundException;
 use Tests\TestCase;
 
 class FileNotFoundExceptionTest extends TestCase

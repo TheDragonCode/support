@@ -16,7 +16,7 @@
 
 namespace Tests\Helpers;
 
-use Helldar\Support\Helpers\Call;
+use DragonCode\Support\Helpers\Call;
 use InvalidArgumentException;
 use Tests\Fixtures\Contracts\Contract;
 use Tests\Fixtures\Exceptions\AnyException;

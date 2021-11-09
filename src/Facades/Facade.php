@@ -14,9 +14,9 @@
  * @see https://github.com/andrey-helldar/support
  */
 
-namespace Helldar\Support\Facades;
+namespace DragonCode\Support\Facades;
 
-use Helldar\Support\Concerns\Resolvable;
+use DragonCode\Support\Concerns\Resolvable;
 use RuntimeException;
 
 abstract class Facade

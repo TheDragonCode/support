@@ -16,7 +16,7 @@
 
 namespace Tests\Facades\Helpers\Ables;
 
-use Helldar\Support\Facades\Helpers\Ables\Stringable;
+use DragonCode\Support\Facades\Helpers\Ables\Stringable;
 use Tests\TestCase;
 
 class StringableTest extends TestCase

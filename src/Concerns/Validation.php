@@ -14,11 +14,11 @@
  * @see https://github.com/andrey-helldar/support
  */
 
-namespace Helldar\Support\Concerns;
+namespace DragonCode\Support\Concerns;
 
-use Helldar\Support\Exceptions\ForbiddenVariableTypeException;
-use Helldar\Support\Facades\Helpers\Ables\Arrayable;
-use Helldar\Support\Facades\Helpers\Str;
+use DragonCode\Support\Exceptions\ForbiddenVariableTypeException;
+use DragonCode\Support\Facades\Helpers\Ables\Arrayable;
+use DragonCode\Support\Facades\Helpers\Str;
 
 trait Validation
 {

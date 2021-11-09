@@ -16,7 +16,7 @@
 
 namespace Tests\Helpers\Http\Builder;
 
-use Helldar\Support\Exceptions\NotValidUrlException;
+use DragonCode\Support\Exceptions\NotValidUrlException;
 use Tests\Helpers\Http\Base;
 
 class ParseMethodTest extends Base

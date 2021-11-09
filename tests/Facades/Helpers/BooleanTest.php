@@ -16,7 +16,7 @@
 
 namespace Tests\Facades\Helpers;
 
-use Helldar\Support\Facades\Helpers\Boolean;
+use DragonCode\Support\Facades\Helpers\Boolean;
 use Tests\TestCase;
 
 class BooleanTest extends TestCase

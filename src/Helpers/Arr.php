@@ -14,19 +14,19 @@
  * @see https://github.com/andrey-helldar/support
  */
 
-namespace Helldar\Support\Helpers;
+namespace DragonCode\Support\Helpers;
 
 use ArrayAccess;
 use ArrayObject;
-use Helldar\Contracts\Support\Arrayable;
-use Helldar\Support\Facades\Callbacks\Empties;
-use Helldar\Support\Facades\Callbacks\Sorter;
-use Helldar\Support\Facades\Helpers\Call as CallHelper;
-use Helldar\Support\Facades\Helpers\Filesystem\File;
-use Helldar\Support\Facades\Helpers\Instance as InstanceHelper;
-use Helldar\Support\Facades\Tools\Stub;
-use Helldar\Support\Helpers\Ables\Arrayable as ArrayableHelper;
-use Helldar\Support\Tools\Stub as StubTool;
+use DragonCode\Contracts\Support\Arrayable;
+use DragonCode\Support\Facades\Callbacks\Empties;
+use DragonCode\Support\Facades\Callbacks\Sorter;
+use DragonCode\Support\Facades\Helpers\Call as CallHelper;
+use DragonCode\Support\Facades\Helpers\Filesystem\File;
+use DragonCode\Support\Facades\Helpers\Instance as InstanceHelper;
+use DragonCode\Support\Facades\Tools\Stub;
+use DragonCode\Support\Helpers\Ables\Arrayable as ArrayableHelper;
+use DragonCode\Support\Tools\Stub as StubTool;
 
 class Arr
 {
@@ -35,7 +35,7 @@ class Arr
      *
      * @param  array|ArrayAccess|string|null  $value
      *
-     * @return \Helldar\Support\Helpers\Ables\Arrayable
+     * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
     public function of($value = []): Ables\Arrayable
     {

@@ -16,7 +16,7 @@
 
 namespace Tests\Facades\Callbacks;
 
-use Helldar\Support\Facades\Callbacks\Sorter;
+use DragonCode\Support\Facades\Callbacks\Sorter;
 use Tests\TestCase;
 
 class SorterTest extends TestCase

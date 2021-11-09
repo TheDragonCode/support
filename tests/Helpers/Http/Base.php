@@ -16,7 +16,7 @@
 
 namespace Tests\Helpers\Http;
 
-use Helldar\Support\Helpers\Http\Builder;
+use DragonCode\Support\Helpers\Http\Builder;
 use Tests\Fixtures\Instances\Psr;
 use Tests\TestCase;
 

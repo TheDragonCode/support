@@ -17,7 +17,7 @@
 namespace Tests\Exceptions;
 
 use ArgumentCountError;
-use Helldar\Support\Exceptions\DirectoryNotFoundException;
+use DragonCode\Support\Exceptions\DirectoryNotFoundException;
 use Tests\TestCase;
 
 class DirectoryNotFoundExceptionTest extends TestCase

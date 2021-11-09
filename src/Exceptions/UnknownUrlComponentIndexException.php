@@ -14,7 +14,7 @@
  * @see https://github.com/andrey-helldar/support
  */
 
-namespace Helldar\Support\Exceptions;
+namespace DragonCode\Support\Exceptions;
 
 use LogicException;
 

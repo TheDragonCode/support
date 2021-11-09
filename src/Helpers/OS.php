@@ -14,9 +14,9 @@
  * @see https://github.com/andrey-helldar/support
  */
 
-namespace Helldar\Support\Helpers;
+namespace DragonCode\Support\Helpers;
 
-use Helldar\Support\Facades\Helpers\Str as StrHelper;
+use DragonCode\Support\Facades\Helpers\Str as StrHelper;
 
 /**
  * @see https://www.php.net/manual/ru/reserved.constants.php

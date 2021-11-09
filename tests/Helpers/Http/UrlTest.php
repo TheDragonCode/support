@@ -16,9 +16,9 @@
 
 namespace Tests\Helpers\Http;
 
-use Helldar\Support\Exceptions\NotValidUrlException;
-use Helldar\Support\Helpers\Http\Builder;
-use Helldar\Support\Helpers\Http\Url;
+use DragonCode\Support\Exceptions\NotValidUrlException;
+use DragonCode\Support\Helpers\Http\Builder;
+use DragonCode\Support\Helpers\Http\Url;
 use Psr\Http\Message\UriInterface;
 use Tests\TestCase;
 
