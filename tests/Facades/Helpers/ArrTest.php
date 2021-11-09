@@ -260,6 +260,44 @@ class ArrTest extends TestCase
         $this->assertSame($expected, $result);
     }
 
+    public function testCombine()
+    {
+        $arr1 = [
+            'Bar',
+            'Foo',
+            'Bar',
+            'Baz',
+            ['foo' => 'Foo', 'bar' => 'Bar'],
+            'Qwerty',
+        ];
+
+        $arr2 = [
+            'Bar bar',
+            'Foo bar',
+            ['baz' => 'Baz'],
+            ['aaa' => 'AAA'],
+            ['bbb' => 'BBB'],
+        ];
+
+        $expected = [
+            'Bar',
+            'Foo',
+            'Bar',
+            'Baz',
+            ['foo' => 'Foo', 'bar' => 'Bar'],
+            'Qwerty',
+            'Bar bar',
+            'Foo bar',
+            ['baz' => 'Baz'],
+            ['aaa' => 'AAA'],
+            ['bbb' => 'BBB'],
+        ];
+
+        $result = Arr::combine($arr1, $arr2);
+
+        $this->assertSame($expected, $result);
+    }
+
     public function testLongestStringLength()
     {
         $array = ['foo', 'bar', 'foobar', 'baz'];
