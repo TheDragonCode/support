@@ -256,7 +256,23 @@ class Arr
         $result = [];
 
         foreach ($arrays as $array) {
-            foreach ($array as $value) {
+            foreach ($array as $key => $value) {
+                if (is_array($value) && (! is_numeric($key) || ! isset($result[$key]))) {
+                    $prev_value = $result[$key] ?? [];
+
+                    if (gettype($prev_value) !== 'array') {
+                        $prev_value = [];
+                    }
+
+                    $result[$key] = $this->combine($prev_value, $value);
+
+                    continue;
+                }
+
+                if (is_array($value)) {
+                    $value = $this->combine($value);
+                }
+
                 array_push($result, $value);
             }
         }

@@ -288,9 +288,9 @@ class ArrTest extends TestCase
         $arr2 = [
             'Bar bar',
             'Foo bar',
-            ['baz' => 'Baz'],
-            ['aaa' => 'AAA'],
-            ['bbb' => 'BBB'],
+            ['baz' => 'AAA'],
+            ['aaa' => 'BBB'],
+            ['bbb' => 'CCC'],
         ];
 
         $expected = [
@@ -298,13 +298,51 @@ class ArrTest extends TestCase
             'Foo',
             'Bar',
             'Baz',
-            ['foo' => 'Foo', 'bar' => 'Bar'],
+            ['Foo', 'Bar'],
             'Qwerty',
             'Bar bar',
             'Foo bar',
-            ['baz' => 'Baz'],
-            ['aaa' => 'AAA'],
-            ['bbb' => 'BBB'],
+            ['AAA'],
+            ['BBB'],
+            ['CCC'],
+        ];
+
+        $result = $this->arr()->combine($arr1, $arr2);
+
+        $this->assertSame($expected, $result);
+    }
+
+    public function testCombineWithArrayKeys()
+    {
+        $arr1 = [
+            'a' => 'Bar',
+            'b' => 'Foo',
+            'c' => 'Bar',
+            'd' => 'Baz',
+            'e' => ['foo' => 'Foo', 'bar' => 'Bar'],
+            'f' => 'Qwerty',
+        ];
+
+        $arr2 = [
+            'g' => 'Bar bar',
+            'h' => 'Foo bar',
+            'i' => ['baz' => 'Baz'],
+            'j' => ['aaa' => 'AAA'],
+            'k' => ['bbb' => 'BBB'],
+        ];
+
+        $expected = [
+            'Bar',
+            'Foo',
+            'Bar',
+            'Baz',
+            'e' => ['Foo', 'Bar'],
+            'Qwerty',
+            'Bar bar',
+            'Foo bar',
+            'i' => ['Baz'],
+            'j' => ['AAA'],
+            'k' => ['BBB'],
         ];
 
         $result = $this->arr()->combine($arr1, $arr2);

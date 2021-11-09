@@ -200,9 +200,9 @@ class ArrayableTest extends TestCase
         $arr2 = [
             'Bar bar',
             'Foo bar',
-            ['baz' => 'Baz'],
-            ['aaa' => 'AAA'],
-            ['bbb' => 'BBB'],
+            ['baz' => 'AAA'],
+            ['aaa' => 'BBB'],
+            ['bbb' => 'CCC'],
         ];
 
         $expected = [
@@ -210,13 +210,51 @@ class ArrayableTest extends TestCase
             'Foo',
             'Bar',
             'Baz',
-            ['foo' => 'Foo', 'bar' => 'Bar'],
+            ['Foo', 'Bar'],
             'Qwerty',
             'Bar bar',
             'Foo bar',
-            ['baz' => 'Baz'],
-            ['aaa' => 'AAA'],
-            ['bbb' => 'BBB'],
+            ['AAA'],
+            ['BBB'],
+            ['CCC'],
+        ];
+
+        $result = Arrayable::of($arr1)->combine($arr2)->get();
+
+        $this->assertSame($expected, $result);
+    }
+
+    public function testCombineWithArrayKeys()
+    {
+        $arr1 = [
+            'a' => 'Bar',
+            'b' => 'Foo',
+            'c' => 'Bar',
+            'd' => 'Baz',
+            'e' => ['foo' => 'Foo', 'bar' => 'Bar'],
+            'f' => 'Qwerty',
+        ];
+
+        $arr2 = [
+            'g' => 'Bar bar',
+            'h' => 'Foo bar',
+            'i' => ['baz' => 'Baz'],
+            'j' => ['aaa' => 'AAA'],
+            'k' => ['bbb' => 'BBB'],
+        ];
+
+        $expected = [
+            'Bar',
+            'Foo',
+            'Bar',
+            'Baz',
+            'e' => ['Foo', 'Bar'],
+            'Qwerty',
+            'Bar bar',
+            'Foo bar',
+            'i' => ['Baz'],
+            'j' => ['AAA'],
+            'k' => ['BBB'],
         ];
 
         $result = Arrayable::of($arr1)->combine($arr2)->get();
