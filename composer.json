@@ -30,16 +30,10 @@
         "phpunit/phpunit": "^8.0|^9.0"
     },
     "conflict": {
-        "andrey-helldar/api-response": "<8.0",
-        "andrey-helldar/contracts": "*",
-        "andrey-helldar/laravel-lang-publisher": "<8.0",
-        "andrey-helldar/laravel-routes-core": "<2.0",
-        "andrey-helldar/pretty-array": "<2.0",
-        "andrey-helldar/pretty-routes": "<2.0",
         "andrey-helldar/support": "*"
     },
     "suggest": {
-        "andrey-helldar/laravel-support": "Various helper files for the Laravel and Lumen frameworks",
+        "dragon-code/laravel-support": "Various helper files for the Laravel and Lumen frameworks",
         "symfony/thanks": "Give thanks (in the form of a GitHub) to your fellow PHP package maintainers",
         "ext-bcmath": "Require the extension if you will be using DragonCode\\Support\\Facades\\Helpers\\Digit."
     },
