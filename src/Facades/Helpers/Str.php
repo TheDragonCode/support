@@ -17,13 +17,15 @@
 namespace DragonCode\Support\Facades\Helpers;
 
 use DragonCode\Support\Facades\Facade;
+use DragonCode\Support\Facades\Helpers\Ables\Stringable;
 use DragonCode\Support\Helpers\Str as Helper;
 
 /**
- * @method static \DragonCode\Support\Facades\Helpers\Ables\Stringable of(?string $value)
+ * @method static Stringable of(?string $value)
  * @method static bool contains(string $haystack, $needles)
  * @method static bool doesntEmpty($value)
  * @method static bool endsWith(string $haystack, string|string[] $needles)
+ * @method static bool is(string|array $pattern, mixed $value)
  * @method static bool isEmpty($value)
  * @method static bool startsWith(string $haystack, string|string[] $needles)
  * @method static int length(?string $value, string $encoding = null)

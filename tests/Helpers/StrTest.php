@@ -230,6 +230,41 @@ class StrTest extends TestCase
         $this->assertSame('abcbbc', $this->str()->finish('abcbbcbc', 'bc'));
     }
 
+    public function testIs()
+    {
+        $this->assertTrue($this->str()->is('/', '/'));
+        $this->assertFalse($this->str()->is('/', ' /'));
+        $this->assertFalse($this->str()->is('/', '/a'));
+        $this->assertTrue($this->str()->is('foo/*', 'foo/bar/baz'));
+
+        $this->assertTrue($this->str()->is('*@*', 'App\Class@method'));
+        $this->assertTrue($this->str()->is('*@*', 'app\Class@'));
+        $this->assertTrue($this->str()->is('*@*', '@method'));
+
+        // is case sensitive
+        $this->assertFalse($this->str()->is('*BAZ*', 'foo/bar/baz'));
+        $this->assertFalse($this->str()->is('*FOO*', 'foo/bar/baz'));
+        $this->assertFalse($this->str()->is('A', 'a'));
+
+        // Accepts array of patterns
+        $this->assertTrue($this->str()->is(['a*', 'b*'], 'a/'));
+        $this->assertTrue($this->str()->is(['a*', 'b*'], 'b/'));
+        $this->assertFalse($this->str()->is(['a*', 'b*'], 'f/'));
+
+        // numeric values and patterns
+        $this->assertFalse($this->str()->is(['a*', 'b*'], 123));
+        $this->assertTrue($this->str()->is(['*2*', 'b*'], 11211));
+
+        $this->assertTrue($this->str()->is('*/foo', 'blah/baz/foo'));
+
+        // empty patterns
+        $this->assertFalse($this->str()->is([], 'test'));
+
+        $this->assertFalse($this->str()->is('', 0));
+        $this->assertFalse($this->str()->is([null], 0));
+        $this->assertTrue($this->str()->is([null], null));
+    }
+
     public function testStudly()
     {
         $this->assertSame('FooBar', $this->str()->studly('Foo Bar'));
