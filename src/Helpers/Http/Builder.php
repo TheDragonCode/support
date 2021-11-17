@@ -267,6 +267,20 @@ class Builder implements BuilderContract
     }
 
     /**
+     * Retrieve the query array of the URI.
+     *
+     * @return array
+     */
+    public function getQueryArray(): array
+    {
+        if ($value = $this->get(PHP_URL_QUERY)) {
+            return $value;
+        }
+
+        return [];
+    }
+
+    /**
      * Retrieve the fragment component of the URI.
      *
      * @return string

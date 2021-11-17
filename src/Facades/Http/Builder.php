@@ -22,6 +22,7 @@ use DragonCode\Support\Helpers\Http\Builder as Support;
 use Psr\Http\Message\UriInterface;
 
 /**
+ * @method static array getQueryArray()
  * @method static array toArray()
  * @method static int|null getPort()
  * @method static string getAuthority()
