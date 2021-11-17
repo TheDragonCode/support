@@ -40,6 +40,11 @@ abstract class Base extends TestCase
 
     protected $psr_query = 'id=123&name=hey';
 
+    protected $psr_query_array = [
+        'id'   => '123',
+        'name' => 'hey',
+    ];
+
     protected $psr_fragment = 'qwerty';
 
     protected function builder(): Builder
