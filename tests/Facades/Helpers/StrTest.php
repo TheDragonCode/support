@@ -227,6 +227,41 @@ class StrTest extends TestCase
         $this->assertSame('abcbbc', Str::finish('abcbbcbc', 'bc'));
     }
 
+    public function testIs()
+    {
+        $this->assertTrue(Str::is('/', '/'));
+        $this->assertFalse(Str::is('/', ' /'));
+        $this->assertFalse(Str::is('/', '/a'));
+        $this->assertTrue(Str::is('foo/*', 'foo/bar/baz'));
+
+        $this->assertTrue(Str::is('*@*', 'App\Class@method'));
+        $this->assertTrue(Str::is('*@*', 'app\Class@'));
+        $this->assertTrue(Str::is('*@*', '@method'));
+
+        // is case sensitive
+        $this->assertFalse(Str::is('*BAZ*', 'foo/bar/baz'));
+        $this->assertFalse(Str::is('*FOO*', 'foo/bar/baz'));
+        $this->assertFalse(Str::is('A', 'a'));
+
+        // Accepts array of patterns
+        $this->assertTrue(Str::is(['a*', 'b*'], 'a/'));
+        $this->assertTrue(Str::is(['a*', 'b*'], 'b/'));
+        $this->assertFalse(Str::is(['a*', 'b*'], 'f/'));
+
+        // numeric values and patterns
+        $this->assertFalse(Str::is(['a*', 'b*'], 123));
+        $this->assertTrue(Str::is(['*2*', 'b*'], 11211));
+
+        $this->assertTrue(Str::is('*/foo', 'blah/baz/foo'));
+
+        // empty patterns
+        $this->assertFalse(Str::is([], 'test'));
+
+        $this->assertFalse(Str::is('', 0));
+        $this->assertFalse(Str::is([null], 0));
+        $this->assertTrue(Str::is([null], null));
+    }
+
     public function testStudly()
     {
         $this->assertSame('FooBar', Str::studly('Foo Bar'));

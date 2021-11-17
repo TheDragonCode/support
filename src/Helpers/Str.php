@@ -16,6 +16,7 @@
 
 namespace DragonCode\Support\Helpers;
 
+use DragonCode\Support\Facades\Helpers\Arr as ArrHelper;
 use DragonCode\Support\Facades\Helpers\Call as CallHelper;
 use DragonCode\Support\Facades\Tools\Replace;
 use Illuminate\Contracts\Support\DeferringDisplayableValue;
@@ -188,6 +189,51 @@ class Str
         $quoted = preg_quote($cap, '/');
 
         return preg_replace('/(?:' . $quoted . ')+$/u', '', $value) . $cap;
+    }
+
+    /**
+     * Determine if a given string matches a given pattern.
+     *
+     * @see https://github.com/illuminate/support/blob/master/Str.php
+     *
+     * @param  string|array  $pattern
+     * @param  mixed  $value
+     *
+     * @return bool
+     */
+    public function is($pattern, $value): bool
+    {
+        $patterns = ArrHelper::wrap($pattern);
+
+        $value = (string) $value;
+
+        if (empty($patterns)) {
+            return false;
+        }
+
+        foreach ($patterns as $pattern) {
+            $pattern = (string) $pattern;
+
+            // If the given value is an exact match we can of course return true right
+            // from the beginning. Otherwise, we will translate asterisks and do an
+            // actual pattern match against the two strings to see if they match.
+            if ($pattern == $value) {
+                return true;
+            }
+
+            $pattern = preg_quote($pattern, '#');
+
+            // Asterisks are translated into zero-or-more regular expression wildcards
+            // to make it convenient to check if the strings starts with the given
+            // pattern such as "library/*", making any string check convenient.
+            $pattern = str_replace('\*', '.*', $pattern);
+
+            if (preg_match('#^' . $pattern . '\z#u', $value) === 1) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
