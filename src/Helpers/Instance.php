@@ -70,7 +70,7 @@ class Instance
     {
         $class = $this->classname($class);
 
-        return basename(str_replace('\\', '/', $class)) ?: null;
+        return basename(str_replace('\\', '/', (string) $class)) ?: null;
     }
 
     /**
