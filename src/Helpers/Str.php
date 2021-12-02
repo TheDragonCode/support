@@ -571,7 +571,7 @@ class Str
      */
     public function pregReplace(?string $value, string $pattern, string $replacement): ?string
     {
-        return preg_replace($pattern, $replacement, $value);
+        return preg_replace($pattern, $replacement, (string) $value);
     }
 
     /**
