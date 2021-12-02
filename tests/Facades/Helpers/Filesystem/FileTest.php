@@ -114,6 +114,27 @@ class FileTest extends TestCase
         $this->assertSame('qwerty', file_get_contents($target));
     }
 
+    public function testMove()
+    {
+        $source = $this->tempDirectory('/foo/bar.txt');
+        $target = $this->tempDirectory('/foo/baz.txt');
+
+        $this->assertFalse(File::exists($source));
+        $this->assertFalse(File::exists($target));
+
+        File::store($source, 'foo');
+
+        $this->assertTrue(File::exists($source));
+        $this->assertFalse(File::exists($target));
+
+        File::move($source, $target);
+
+        $this->assertFalse(File::exists($source));
+        $this->assertTrue(File::exists($target));
+
+        $this->assertSame('foo', file_get_contents($target));
+    }
+
     public function testExists()
     {
         $this->assertFalse(File::exists($this->fixturesDirectory()));

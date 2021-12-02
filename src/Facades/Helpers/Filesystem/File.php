@@ -30,6 +30,7 @@ use SplFileInfo;
  * @method static string validated(DirectoryIterator|SplFileInfo|string $path)
  * @method static void copy(string $source, string $target, int $mode = 0755)
  * @method static void delete(string|string[] $paths)
+ * @method static void move(string $source, string $target, int $mode = 0755)
  * @method static void validate(DirectoryIterator|SplFileInfo|string $path)
  */
 class File extends Facade
