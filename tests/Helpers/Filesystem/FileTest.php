@@ -93,7 +93,7 @@ class FileTest extends TestCase
         $this->assertFalse($this->file()->exists($source));
         $this->assertFalse($this->file()->exists($target));
 
-        $this->file()->store($source, 'qwerty');
+        $this->file()->store($source, 'foo');
 
         $this->assertTrue($this->file()->exists($source));
         $this->assertFalse($this->file()->exists($target));
@@ -102,6 +102,16 @@ class FileTest extends TestCase
 
         $this->assertTrue($this->file()->exists($source));
         $this->assertTrue($this->file()->exists($target));
+
+        $this->assertSame('foo', file_get_contents($target));
+
+        $this->file()->store($source, 'qwerty');
+        $this->file()->copy($source, $target);
+
+        $this->assertTrue($this->file()->exists($source));
+        $this->assertTrue($this->file()->exists($target));
+
+        $this->assertSame('qwerty', file_get_contents($target));
     }
 
     public function testExists()

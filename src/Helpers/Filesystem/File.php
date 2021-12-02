@@ -95,6 +95,10 @@ class File
     {
         DirectoryHelper::ensureDirectory(pathinfo($target, PATHINFO_DIRNAME), $mode);
 
+        if ($this->exists($target)) {
+            $this->delete($target);
+        }
+
         copy($source, $target);
     }
 
@@ -128,8 +132,7 @@ class File
                 if (! @unlink($path)) {
                     $success = false;
                 }
-            }
-            catch (Throwable $e) {
+            } catch (Throwable $e) {
                 $success = false;
             }
         }
