@@ -85,6 +85,20 @@ class File
     }
 
     /**
+     * Copies file.
+     *
+     * @param  string  $source
+     * @param  string  $target
+     * @param  int  $mode
+     */
+    public function copy(string $source, string $target, int $mode = 0755): void
+    {
+        DirectoryHelper::ensureDirectory(pathinfo($target, PATHINFO_DIRNAME), $mode);
+
+        copy($source, $target);
+    }
+
+    /**
      * Checks if the file exists.
      *
      * @param  string  $path
@@ -114,7 +128,8 @@ class File
                 if (! @unlink($path)) {
                     $success = false;
                 }
-            } catch (Throwable $e) {
+            }
+            catch (Throwable $e) {
                 $success = false;
             }
         }
