@@ -103,6 +103,24 @@ class File
     }
 
     /**
+     * Moving a file to a new path.
+     *
+     * @param  string  $source
+     * @param  string  $target
+     * @param  int  $mode
+     */
+    public function move(string $source, string $target, int $mode = 0755): void
+    {
+        DirectoryHelper::ensureDirectory(pathinfo($target, PATHINFO_DIRNAME), $mode);
+
+        if ($this->exists($target)) {
+            $this->delete($target);
+        }
+
+        rename($source, $target);
+    }
+
+    /**
      * Checks if the file exists.
      *
      * @param  string  $path
