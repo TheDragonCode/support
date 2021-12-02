@@ -416,7 +416,7 @@ class Str
             return $value;
         }
 
-        return mb_convert_case($value, MB_CASE_TITLE, 'UTF-8') ?: null;
+        return mb_convert_case((string) $value, MB_CASE_TITLE, 'UTF-8') ?: null;
     }
 
     /**
