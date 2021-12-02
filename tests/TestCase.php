@@ -52,7 +52,7 @@ abstract class TestCase extends BaseTestCase
 
         $time = Str::camel(microtime());
 
-        $path = ltrim($path, '/');
+        $path = ltrim((string) $path, '/');
 
         return implode(DIRECTORY_SEPARATOR, [$prefix, $time, $path]);
     }
