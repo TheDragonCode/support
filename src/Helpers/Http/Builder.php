@@ -136,6 +136,13 @@ class Builder implements BuilderContract
         return $this->getHost();
     }
 
+    /**
+     * Retrieve the domain level name of the URI.
+     *
+     * @param  int  $level
+     *
+     * @return string
+     */
     public function getDomainLevel(int $level = 0): string
     {
         $host = explode('.', $this->getHost());
@@ -145,6 +152,11 @@ class Builder implements BuilderContract
         return $reverse[$level - 1] ?? '';
     }
 
+    /**
+     * Retrieve the base domain name of the URI.
+     *
+     * @return string
+     */
     public function getBaseDomain(): string
     {
         $first  = $this->getDomainLevel(1);
