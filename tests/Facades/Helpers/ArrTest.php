@@ -1657,4 +1657,15 @@ class ArrTest extends TestCase
         $this->assertSame($expected1, $result);
         $this->assertSame($expected2, $tmp);
     }
+
+    public function testReverse()
+    {
+        $source = ['foo', 'bar', 'baz'];
+
+        $expected1 = ['baz', 'bar', 'foo'];
+        $expected2 = [2 => 'baz', 1 => 'bar', 0 => 'foo'];
+
+        $this->assertSame($expected1, Arr::reverse($source));
+        $this->assertSame($expected2, Arr::reverse($source, true));
+    }
 }

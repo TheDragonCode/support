@@ -350,6 +350,18 @@ class Arrayable
     }
 
     /**
+     * Return an array with elements in reverse order.
+     *
+     * @param  bool  $preserve_keys
+     *
+     * @return \DragonCode\Support\Helpers\Ables\Arrayable
+     */
+    public function reverse(bool $preserve_keys = false): self
+    {
+        return new self(Arr::reverse($this->value, $preserve_keys));
+    }
+
+    /**
      * Outputs the contents of a variable without terminating the application.
      *
      * @return $this

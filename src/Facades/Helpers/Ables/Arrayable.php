@@ -39,6 +39,7 @@ use DragonCode\Support\Helpers\Ables\Arrayable as Helper;
  * @method static Helper remove($key)
  * @method static Helper renameKeys(callable $callback)
  * @method static Helper renameKeysMap(array $map)
+ * @method static Helper reverse(bool $preserve_keys = false)
  * @method static Helper set($key, $value = null)
  * @method static Helper sort(callable $callback = null)
  * @method static Helper sortByKeys(array $sorter)

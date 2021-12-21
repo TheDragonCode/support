@@ -1188,6 +1188,17 @@ class ArrayableTest extends TestCase
         $this->assertSame($expected2, $tmp);
     }
 
+    public function testReverse()
+    {
+        $source = ['foo', 'bar', 'baz'];
+
+        $expected1 = ['baz', 'bar', 'foo'];
+        $expected2 = [2 => 'baz', 1 => 'bar', 0 => 'foo'];
+
+        $this->assertSame($expected1, $this->arr($source)->reverse()->get());
+        $this->assertSame($expected2, $this->arr($source)->reverse(true)->get());
+    }
+
     public function testMulti()
     {
         $source = [

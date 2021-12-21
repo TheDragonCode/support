@@ -725,6 +725,19 @@ class Arr
     }
 
     /**
+     * Return an array with elements in reverse order.
+     *
+     * @param  array  $array
+     * @param  bool  $preserve_keys
+     *
+     * @return array
+     */
+    public function reverse(array $array, bool $preserve_keys = false): array
+    {
+        return array_reverse($array, $preserve_keys);
+    }
+
+    /**
      * Save array to php or json file.
      *
      * @param  array|ArrayAccess  $array
