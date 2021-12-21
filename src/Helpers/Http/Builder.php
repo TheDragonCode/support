@@ -136,6 +136,17 @@ class Builder implements BuilderContract
         return $this->getHost();
     }
 
+    public function getDomainLevel(int $level = 2): string
+    {
+        $host = explode('.', $this->getHost());
+        // [en, example, com]
+        // [ 3,       2,   1]
+
+        $index = $level - 1;
+
+
+    }
+
     /**
      * Retrieve the subdomain name of the URI.
      *

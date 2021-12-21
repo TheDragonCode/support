@@ -38,6 +38,7 @@ use DragonCode\Support\Helpers\Arr as Helper;
  * @method static array remove(array|ArrayAccess $array, mixed $key)
  * @method static array renameKeys(array $array, callable $callback)
  * @method static array renameKeysMap(array $array, array $map)
+ * @method static array reverse(array $array, bool $preserve_keys = false)
  * @method static array set(array|ArrayAccess $array, array|mixed $key, mixed $value = null)
  * @method static array sort(array $array, callable $callback = null)
  * @method static array sortByKeys(array $array, array $sorter)
@@ -60,7 +61,7 @@ use DragonCode\Support\Helpers\Arr as Helper;
  */
 class Arr extends Facade
 {
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
         return Helper::class;
     }
