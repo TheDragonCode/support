@@ -437,6 +437,20 @@ class Str
     }
 
     /**
+     * Count the number of substring occurrences.
+     *
+     * @param  string|null  $value
+     * @param  string  $needle
+     * @param  int  $offset
+     *
+     * @return int
+     */
+    public function count(?string $value, string $needle, int $offset = 0): int
+    {
+        return substr_count((string) $value, $needle, $offset);
+    }
+
+    /**
      * Returns the portion of string specified by the start and length parameters.
      *
      * @see https://github.com/illuminate/support/blob/master/Str.php

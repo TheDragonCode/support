@@ -199,6 +199,21 @@ class StrTest extends TestCase
         $this->assertSame(11, $this->str()->length('foo bar baz', 'UTF-8'));
     }
 
+    public function testCount()
+    {
+        $this->assertSame(2, $this->str()->count('foo bar baz', ' '));
+        $this->assertSame(2, $this->str()->count('foo bar baz', 'b'));
+        $this->assertSame(1, $this->str()->count('foo bar baz', 'f'));
+        $this->assertSame(1, $this->str()->count('foo bar baz', 'bar'));
+        $this->assertSame(1, $this->str()->count('foo bar baz', 'foo'));
+
+        $this->assertSame(1, $this->str()->count('foo bar baz', ' ', 4));
+        $this->assertSame(2, $this->str()->count('foo bar baz', 'b', 4));
+        $this->assertSame(0, $this->str()->count('foo bar baz', 'f', 4));
+        $this->assertSame(1, $this->str()->count('foo bar baz', 'bar', 4));
+        $this->assertSame(0, $this->str()->count('foo bar baz', 'foo', 4));
+    }
+
     public function testRemoveSpaces()
     {
         $this->assertEquals('foo bar', $this->str()->removeSpaces('foo bar'));
