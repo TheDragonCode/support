@@ -19,8 +19,6 @@ namespace Tests;
 use DragonCode\Support\Facades\Facade;
 use DragonCode\Support\Facades\Helpers\Filesystem\Directory;
 use DragonCode\Support\Facades\Helpers\Str;
-use PHPUnit\Framework\Constraint\DirectoryExists;
-use PHPUnit\Framework\Constraint\LogicalNot;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
@@ -39,14 +37,7 @@ abstract class TestCase extends BaseTestCase
         parent::tearDown();
     }
 
-    public static function assertDirectoryDoesNotExist(string $directory, string $message = ''): void
-    {
-        method_exists(get_parent_class(self::class), 'assertDirectoryDoesNotExist')
-            ? parent::assertDirectoryDoesNotExist($directory, $message)
-            : static::assertThat($directory, new LogicalNot(new DirectoryExists()), $message);
-    }
-
-    protected function tempDirectory(?string $path = null): string
+    protected function tempDirectory(string $path = null): string
     {
         $prefix = $this->tempDirectoryPrefix();
 
@@ -57,7 +48,7 @@ abstract class TestCase extends BaseTestCase
         return implode(DIRECTORY_SEPARATOR, [$prefix, $time, $path]);
     }
 
-    protected function fixturesDirectory(?string $path = null): string
+    protected function fixturesDirectory(string $path = null): string
     {
         $path = ! empty($path) ? ltrim($path, '/') : '';
 
@@ -68,9 +59,7 @@ abstract class TestCase extends BaseTestCase
     {
         $path = $this->tempDirectoryPrefix();
 
-        if (Directory::exists($path)) {
-            Directory::delete($path);
-        }
+        Directory::ensureDelete($path);
     }
 
     protected function tempDirectoryPrefix(): string
