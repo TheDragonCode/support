@@ -20,6 +20,9 @@ use DragonCode\Support\Facades\Helpers\Arr;
 
 class Arrayable
 {
+    /**
+     * @var  array|\ArrayAccess|string|null
+     */
     protected $value;
 
     public function __construct($value = [])

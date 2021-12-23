@@ -31,7 +31,7 @@ use DragonCode\Support\Helpers\Is as Helper;
  */
 class Is extends Facade
 {
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
         return Helper::class;
     }

@@ -113,15 +113,11 @@ class ResolvableTest extends TestCase
     {
         $this->clean();
 
-        $resolved = self::resolveCallback('foo', static function (string $value) {
-            return Str::upper($value);
-        });
+        $resolved = self::resolveCallback('foo', static fn (string $value) => Str::upper($value));
 
         $this->assertSame('FOO', $resolved);
 
-        $resolved = self::resolveCallback('foo', static function () {
-            return 123;
-        });
+        $resolved = self::resolveCallback('foo', static fn () => 123);
 
         $this->assertSame('FOO', $resolved);
     }

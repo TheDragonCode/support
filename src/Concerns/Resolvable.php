@@ -18,7 +18,7 @@ namespace DragonCode\Support\Concerns;
 
 trait Resolvable
 {
-    protected static $resolved = [];
+    protected static array $resolved = [];
 
     protected static function resolveInstance($instance, ...$parameters)
     {

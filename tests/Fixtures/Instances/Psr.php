@@ -45,9 +45,7 @@ class Psr implements UriInterface
     public function __toString()
     {
         $items = Arrayable::of($this->prepare())
-            ->map(function ($value) {
-                return (string) $value;
-            })
+            ->map(static fn ($value): string => (string) $value)
             ->filter()
             ->get();
 
