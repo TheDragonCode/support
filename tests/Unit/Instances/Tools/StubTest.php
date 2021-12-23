@@ -47,7 +47,7 @@ class StubTest extends TestCase
 
     public function testCustomStubSee()
     {
-        $path = __DIR__ . '/../Fixtures/stubs/custom.stub';
+        $path = __DIR__ . '/../../../Fixtures/stubs/custom.stub';
 
         $this->assertTrue(Str::contains($this->stub()->get($path), '// Foo'));
         $this->assertTrue(Str::contains($this->stub()->get($path), '// Bar'));
