@@ -44,6 +44,7 @@ use DragonCode\Support\Helpers\Str as Helper;
  * @method static string|null end(?string $value, string $suffix)
  * @method static string|null finish(string $value, string $cap = '/')
  * @method static string|null lower(?string $value)
+ * @method static string|null map(?string $value, callable $callback)
  * @method static string|null match(string $value, string $pattern)
  * @method static string|null pregReplace(?string $value, string $pattern, string $replacement)
  * @method static string|null removeSpaces(?string $value)
