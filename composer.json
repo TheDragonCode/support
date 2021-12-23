@@ -27,7 +27,7 @@
     "require-dev": {
         "ext-bcmath": "*",
         "symfony/var-dumper": "^5.2",
-        "phpunit/phpunit": "^8.0|^9.0"
+        "phpunit/phpunit": "^9.5"
     },
     "conflict": {
         "andrey-helldar/support": "*"
