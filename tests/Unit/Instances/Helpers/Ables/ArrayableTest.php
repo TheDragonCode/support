@@ -23,9 +23,6 @@ use Tests\Fixtures\Instances\Baz;
 use Tests\Fixtures\Instances\Foo;
 use Tests\TestCase;
 
-use function Tests\Unit\Helpers\Ables\mb_strtolower;
-use function Tests\Unit\Helpers\Ables\mb_strtoupper;
-
 class ArrayableTest extends TestCase
 {
     public function testOf()
@@ -923,13 +920,13 @@ class ArrayableTest extends TestCase
 
     public function testToArray()
     {
-        $this->assertEquals(['foo', 'bar'], $this->arr(['foo', 'bar'])->toArray()->toArray());
-        $this->assertEquals(['foo' => 'Foo', 'bar' => 'Bar'], $this->arr(['foo' => 'Foo', 'bar' => 'Bar'])->toArray()->toArray());
-        $this->assertEquals(['foo' => 'Foo', 'bar' => 'Bar'], $this->arr((object) ['foo' => 'Foo', 'bar' => 'Bar'])->toArray()->toArray());
-        $this->assertEquals(['foo'], $this->arr('foo')->toArray()->toArray());
+        $this->assertEquals(['foo', 'bar'], $this->arr(['foo', 'bar'])->resolve()->toArray());
+        $this->assertEquals(['foo' => 'Foo', 'bar' => 'Bar'], $this->arr(['foo' => 'Foo', 'bar' => 'Bar'])->resolve()->toArray());
+        $this->assertEquals(['foo' => 'Foo', 'bar' => 'Bar'], $this->arr((object) ['foo' => 'Foo', 'bar' => 'Bar'])->resolve()->toArray());
+        $this->assertEquals(['foo'], $this->arr('foo')->resolve()->toArray());
 
-        $this->assertEquals(['first' => 'Foo', 'second' => 'Bar'], $this->arr(new Bar())->toArray()->toArray());
-        $this->assertEquals(['qwerty' => 'Qwerty'], $this->arr(new Baz())->toArray()->toArray());
+        $this->assertEquals(['first' => 'Foo', 'second' => 'Bar'], $this->arr(new Bar())->resolve()->toArray());
+        $this->assertEquals(['qwerty' => 'Qwerty'], $this->arr(new Baz())->resolve()->toArray());
     }
 
     public function testAddUnique()

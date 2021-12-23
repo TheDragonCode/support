@@ -34,7 +34,7 @@ class Psr implements UriInterface
 
     protected string $host = '';
 
-    protected ?int $port;
+    protected ?int $port = null;
 
     protected string $path = '';
 

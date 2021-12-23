@@ -27,9 +27,6 @@ use Tests\Fixtures\Instances\Baz;
 use Tests\Fixtures\Instances\Foo;
 use Tests\TestCase;
 
-use function Tests\Unit\Helpers\mb_strtolower;
-use function Tests\Unit\Helpers\mb_strtoupper;
-
 class ArrTest extends TestCase
 {
     public function testOf()
