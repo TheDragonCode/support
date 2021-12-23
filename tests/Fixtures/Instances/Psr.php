@@ -26,30 +26,28 @@ class Psr implements UriInterface
 {
     use Makeable;
 
-    protected $scheme = '';
+    protected string $scheme = '';
 
-    protected $user = '';
+    protected string $user = '';
 
-    protected $password = '';
+    protected string $password = '';
 
-    protected $host = '';
+    protected string $host = '';
 
-    protected $port;
+    protected ?int $port;
 
-    protected $path = '';
+    protected string $path = '';
 
-    protected $query = '';
+    protected string $query = '';
 
-    protected $fragment = '';
+    protected string $fragment = '';
 
-    public function __toString()
+    public function __toString(): string
     {
-        $items = Arr::of($this->prepare())
+        return (string) Arr::of($this->prepare())
             ->map(static fn ($value): string => (string) $value)
             ->filter()
-            ->get();
-
-        return implode('', $items);
+            ->implode('');
     }
 
     public function getScheme(): string

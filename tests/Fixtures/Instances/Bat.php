@@ -20,9 +20,9 @@ use Tests\Fixtures\Contracts\Contract;
 
 class Bat implements Contract
 {
-    public $foo;
+    public ?string $foo;
 
-    public $bar;
+    public ?string $bar;
 
     public function __construct(?string $foo = null, ?string $bar = null)
     {

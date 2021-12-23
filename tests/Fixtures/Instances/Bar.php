@@ -18,7 +18,7 @@ namespace Tests\Fixtures\Instances;
 
 class Bar
 {
-    public $first = 'Foo';
+    public string $first = 'Foo';
 
-    public $second = 'Bar';
+    public string $second = 'Bar';
 }

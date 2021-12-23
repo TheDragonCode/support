@@ -21,7 +21,7 @@ use ReturnTypeWillChange;
 
 class Arrayable implements ArrayAccess
 {
-    protected $values = [
+    protected array $values = [
         'foo' => 'Foo',
         'bar' => 'Bar',
         'baz' => 'Baz',
@@ -32,7 +32,6 @@ class Arrayable implements ArrayAccess
         return isset($this->values[$offset]);
     }
 
-    #[ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return $this->values[$offset];

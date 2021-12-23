@@ -29,17 +29,17 @@ class Foo implements Contract
 
     public const BAZ = 'Baz';
 
-    public static function callStatic()
+    public static function callStatic(): string
     {
         return 'ok';
     }
 
-    public function callDymamic()
+    public function callDymamic(): string
     {
         return 'ok';
     }
 
-    public function callEmpty()
+    public function callEmpty(): bool
     {
         return false;
     }

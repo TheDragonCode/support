@@ -22,11 +22,11 @@ class Baz extends Bat
 {
     use Foable;
 
-    public $first = 'foo';
+    public string $first = 'foo';
 
-    public $second = 'bar';
+    public string $second = 'bar';
 
-    public function toArray()
+    public function toArray(): array
     {
         return ['qwerty' => 'Qwerty'];
     }
