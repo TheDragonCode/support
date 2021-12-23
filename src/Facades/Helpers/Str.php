@@ -17,7 +17,7 @@
 namespace DragonCode\Support\Facades\Helpers;
 
 use DragonCode\Support\Facades\Facade;
-use DragonCode\Support\Facades\Helpers\Ables\Stringable;
+use DragonCode\Support\Helpers\Ables\Stringable;
 use DragonCode\Support\Helpers\Str as Helper;
 
 /**

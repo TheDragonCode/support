@@ -17,7 +17,6 @@
 namespace Tests\Helpers;
 
 use ArrayObject;
-use DragonCode\Support\Facades\Helpers\Ables\Arrayable as ArrayableHelper;
 use DragonCode\Support\Facades\Helpers\Str;
 use DragonCode\Support\Helpers\Ables\Arrayable as Helper;
 use DragonCode\Support\Helpers\Arr;
@@ -1442,7 +1441,7 @@ class ArrTest extends TestCase
         $this->assertEquals(['first' => 'Foo', 'second' => 'Bar'], $this->arr()->toArray(new Bar()));
         $this->assertEquals(['qwerty' => 'Qwerty'], $this->arr()->toArray(new Baz()));
 
-        $object = ArrayableHelper::of(['first' => 'Foo', 'second' => 'Bar']);
+        $object = $this->arr()->of(['first' => 'Foo', 'second' => 'Bar']);
 
         $this->assertEquals(['first' => 'Foo', 'second' => 'Bar'], $this->arr()->toArray($object));
 

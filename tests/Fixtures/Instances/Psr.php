@@ -17,7 +17,7 @@
 namespace Tests\Fixtures\Instances;
 
 use DragonCode\Support\Concerns\Makeable;
-use DragonCode\Support\Facades\Helpers\Ables\Arrayable;
+use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\Support\Facades\Helpers\Str;
 use DragonCode\Support\Tools\HttpBuilderPrepare;
 use Psr\Http\Message\UriInterface;
@@ -44,7 +44,7 @@ class Psr implements UriInterface
 
     public function __toString()
     {
-        $items = Arrayable::of($this->prepare())
+        $items = Arr::of($this->prepare())
             ->map(static fn ($value): string => (string) $value)
             ->filter()
             ->get();

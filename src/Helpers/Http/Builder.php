@@ -20,7 +20,6 @@ use DragonCode\Contracts\Http\Builder as BuilderContract;
 use DragonCode\Support\Concerns\Castable;
 use DragonCode\Support\Concerns\Validation;
 use DragonCode\Support\Exceptions\UnknownUrlComponentIndexException;
-use DragonCode\Support\Facades\Helpers\Ables\Arrayable;
 use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\Support\Facades\Helpers\Str;
 use DragonCode\Support\Facades\Http\Url as UrlHelper;
@@ -117,7 +116,7 @@ class Builder implements BuilderContract
 
         $filtered = Arr::only($parsed, $components);
 
-        $this->parsed = Arrayable::of($this->parsed)
+        $this->parsed = Arr::of($this->parsed)
             ->merge($filtered)
             ->get();
 
@@ -530,7 +529,7 @@ class Builder implements BuilderContract
      */
     public function toUrl(): string
     {
-        $items = Arrayable::of($this->prepare())
+        $items = Arr::of($this->prepare())
             ->map(static fn ($value) => (string) $value)
             ->filter()
             ->get();
