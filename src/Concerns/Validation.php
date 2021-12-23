@@ -38,9 +38,7 @@ trait Validation
 
     protected function validateNeedles($values): array
     {
-        return Arr::of($values)
-            ->map(static fn ($value) => Str::lower($value))
-            ->get();
+        return Arr::map($values, static fn ($value) => Str::lower($value));
     }
 
     protected function validateGetType($haystack): string

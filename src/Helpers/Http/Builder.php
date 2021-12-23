@@ -118,7 +118,7 @@ class Builder implements BuilderContract
 
         $this->parsed = Arr::of($this->parsed)
             ->merge($filtered)
-            ->get();
+            ->toArray();
 
         $this->cast($this->parsed);
 
@@ -532,7 +532,7 @@ class Builder implements BuilderContract
         $items = Arr::of($this->prepare())
             ->map(static fn ($value) => (string) $value)
             ->filter()
-            ->get();
+            ->toArray();
 
         $url = implode('', $items);
 
