@@ -28,15 +28,17 @@ class Arrayable
     }
 
     /**
-     * Creates the current object in case of accessing the Arrayable through the facade.
+     * Join array elements with a string.
      *
-     * @param  array|\ArrayAccess|string|null  $value
+     * @param  string  $separator
      *
-     * @return \DragonCode\Support\Helpers\Ables\Arrayable
+     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
-    public function of($value = []): self
+    public function implode(string $separator): Stringable
     {
-        return new self($value);
+        return new Stringable(
+            implode($separator, $this->value)
+        );
     }
 
     /**
