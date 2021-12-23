@@ -66,17 +66,17 @@ class FacadeTest extends TestCase
 
     public function testInstance()
     {
-        $this->assertTrue(DirectoryFacade::getFacadeRoot() instanceof Directory);
-        $this->assertTrue(FileFacade::getFacadeRoot() instanceof File);
-        $this->assertTrue(ArrFacade::getFacadeRoot() instanceof Arr);
-        $this->assertTrue(DigitFacade::getFacadeRoot() instanceof Digit);
-        $this->assertTrue(BuilderFacade::getFacadeRoot() instanceof Builder);
-        $this->assertTrue(UrlFacade::getFacadeRoot() instanceof Url);
-        $this->assertTrue(InstanceFacade::getFacadeRoot() instanceof Instance);
-        $this->assertTrue(IsFacade::getFacadeRoot() instanceof Is);
-        $this->assertTrue(OSFacade::getFacadeRoot() instanceof OS);
-        $this->assertTrue(ReflectionFacade::getFacadeRoot() instanceof Reflection);
-        $this->assertTrue(StrFacade::getFacadeRoot() instanceof Str);
-        $this->assertTrue(StubFacade::getFacadeRoot() instanceof Stub);
+        $this->assertInstanceOf(Directory::class, DirectoryFacade::getFacadeRoot());
+        $this->assertInstanceOf(File::class, FileFacade::getFacadeRoot());
+        $this->assertInstanceOf(Arr::class, ArrFacade::getFacadeRoot());
+        $this->assertInstanceOf(Digit::class, DigitFacade::getFacadeRoot());
+        $this->assertInstanceOf(Builder::class, BuilderFacade::getFacadeRoot());
+        $this->assertInstanceOf(Url::class, UrlFacade::getFacadeRoot());
+        $this->assertInstanceOf(Instance::class, InstanceFacade::getFacadeRoot());
+        $this->assertInstanceOf(Is::class, IsFacade::getFacadeRoot());
+        $this->assertInstanceOf(OS::class, OSFacade::getFacadeRoot());
+        $this->assertInstanceOf(Reflection::class, ReflectionFacade::getFacadeRoot());
+        $this->assertInstanceOf(Str::class, StrFacade::getFacadeRoot());
+        $this->assertInstanceOf(Stub::class, StubFacade::getFacadeRoot());
     }
 }
