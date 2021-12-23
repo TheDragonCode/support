@@ -323,6 +323,18 @@ class Stringable implements Contract
     }
 
     /**
+     * Using a call-back function to process a value.
+     *
+     * @param  callable  $callback
+     *
+     * @return $this
+     */
+    public function map(callable $callback): self
+    {
+        return new self(Str::map($this->value, $callback));
+    }
+
+    /**
      * Outputs the contents of a variable without terminating the application.
      *
      * @return $this
