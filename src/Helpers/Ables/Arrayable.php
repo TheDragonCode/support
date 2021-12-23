@@ -16,9 +16,10 @@
 
 namespace DragonCode\Support\Helpers\Ables;
 
+use DragonCode\Contracts\Support\Arrayable as ArrayableContract;
 use DragonCode\Support\Facades\Helpers\Arr;
 
-class Arrayable
+class Arrayable implements ArrayableContract
 {
     /**
      * @var  array|\ArrayAccess|string|null
@@ -56,7 +57,7 @@ class Arrayable
      *
      * @return array
      */
-    public function get(): array
+    public function toArray(): array
     {
         return $this->value ?: [];
     }
@@ -199,13 +200,13 @@ class Arrayable
     }
 
     /**
-     * Get the instance as an array.
+     * Make the instance as an array recursively.
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
-    public function toArray(): self
+    public function resolve(): self
     {
-        return new self(Arr::toArray($this->value));
+        return new self(Arr::resolve($this->value));
     }
 
     /**
