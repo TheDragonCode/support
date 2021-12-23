@@ -105,7 +105,7 @@ class Arr
                 $array = $this->addUnique($array, $value);
             }
         } else {
-            array_push($array, $values);
+            $array[] = $values;
         }
 
         return $this->unique($array);
@@ -301,7 +301,7 @@ class Arr
      *
      * @return array
      */
-    public function toArray($value = null): array
+    public function resolve($value = null): array
     {
         if (InstanceHelper::of($value, [ArrayObject::class, ArrayableHelper::class])) {
             $value = CallHelper::runMethods($value, ['getArrayCopy', 'get']);
@@ -314,7 +314,7 @@ class Arr
         $array = $this->wrap($value);
 
         foreach ($array as &$item) {
-            $item = $this->isArrayable($item) ? $this->toArray($item) : $item;
+            $item = $this->isArrayable($item) ? $this->resolve($item) : $item;
         }
 
         return $array;
