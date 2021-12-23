@@ -17,10 +17,13 @@
 namespace DragonCode\Support\Helpers\Ables;
 
 use DragonCode\Contracts\Support\Arrayable as ArrayableContract;
+use DragonCode\Support\Concerns\Dumpable;
 use DragonCode\Support\Facades\Helpers\Arr;
 
 class Arrayable implements ArrayableContract
 {
+    use Dumpable;
+
     /**
      * @var  array|\ArrayAccess|string|null
      */
@@ -372,25 +375,5 @@ class Arrayable implements ArrayableContract
     public function reverse(bool $preserve_keys = false): self
     {
         return new self(Arr::reverse($this->value, $preserve_keys));
-    }
-
-    /**
-     * Outputs the contents of a variable without terminating the application.
-     *
-     * @return $this
-     */
-    public function dump(): self
-    {
-        dump($this->value);
-
-        return $this;
-    }
-
-    /**
-     * Outputs the contents of a variable, terminating the application.
-     */
-    public function dd(): void
-    {
-        dd($this->value);
     }
 }
