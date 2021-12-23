@@ -34,15 +34,25 @@ class Stringable implements Contract
     }
 
     /**
-     * Creates the current object in case of accessing the Stringable through the facade.
+     * Escape HTML special characters in a string.
      *
-     * @param  string|null  $value
+     * @param  bool  $double
      *
-     * @return \DragonCode\Support\Helpers\Ables\Stringable
+     * @return $this
      */
-    public function of(?string $value): self
+    public function e(bool $double = true): self
     {
-        return new self($value);
+        return new self(Str::e($this->value, $double));
+    }
+
+    /**
+     * Convert special HTML entities back to characters.
+     *
+     * @return string|null
+     */
+    public function de(): ?string
+    {
+        return new self(Str::de($this->value));
     }
 
     /**
