@@ -640,4 +640,17 @@ class Str
     {
         return is_null($value) ? 'null' : $value;
     }
+
+    /**
+     * Using a call-back function to process a value.
+     *
+     * @param  string|null  $value
+     * @param  callable  $callback
+     *
+     * @return string|null
+     */
+    public function map(?string $value, callable $callback): ?string
+    {
+        return $callback($value);
+    }
 }
