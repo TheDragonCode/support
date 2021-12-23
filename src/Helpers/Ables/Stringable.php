@@ -55,6 +55,20 @@ class Stringable implements Contract
     }
 
     /**
+     * Split a string by a string.
+     *
+     * @param  string  $separator
+     *
+     * @return \DragonCode\Support\Helpers\Ables\Arrayable
+     */
+    public function explode(string $separator): Arrayable
+    {
+        return new Arrayable(
+            explode($separator, $this->value)
+        );
+    }
+
+    /**
      * Escape HTML special characters in a string.
      *
      * @param bool $double
