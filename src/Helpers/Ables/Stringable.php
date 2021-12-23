@@ -17,10 +17,13 @@
 namespace DragonCode\Support\Helpers\Ables;
 
 use DragonCode\Contracts\Support\Stringable as Contract;
+use DragonCode\Support\Concerns\Dumpable;
 use DragonCode\Support\Facades\Helpers\Str;
 
 class Stringable implements Contract
 {
+    use Dumpable;
+
     protected string $value;
 
     public function __construct(?string $value = null)
@@ -313,25 +316,5 @@ class Stringable implements Contract
     public function map(callable $callback): self
     {
         return new self(Str::map($this->value, $callback));
-    }
-
-    /**
-     * Outputs the contents of a variable without terminating the application.
-     *
-     * @return $this
-     */
-    public function dump(): self
-    {
-        dump($this->value);
-
-        return $this;
-    }
-
-    /**
-     * Outputs the contents of a variable, terminating the application.
-     */
-    public function dd(): void
-    {
-        dd($this->value);
     }
 }
