@@ -217,6 +217,18 @@ class Stringable implements Contract
     }
 
     /**
+     * Generate a more truly "random" alpha-numeric string.
+     *
+     * @param  int  $length
+     *
+     * @return $this
+     */
+    public function random(int $length = 16): self
+    {
+        return new self(Str::random($length));
+    }
+
+    /**
      * Strip whitespace (or other characters) from the beginning and end of a string.
      *
      * @see  https://php.net/manual/en/function.trim.php
