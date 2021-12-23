@@ -81,17 +81,17 @@ class ArrayableTest extends TestCase
             400   => 'Num 400',
         ];
 
-        $this->assertSame(['baz' => 'Baz', 200 => 'Num 200', 400 => 'Num 400'], $this->arr($array)->except(static function ($key) {
-            return ! Str::startsWith($key, ['foo', 'bar']);
-        })->get());
+        $this->assertSame(['baz' => 'Baz', 200 => 'Num 200', 400 => 'Num 400'], $this->arr($array)->except(
+            static fn ($key): bool => ! Str::startsWith($key, ['foo', 'bar']))->get()
+        );
 
-        $this->assertSame(['foo' => 'Foo', 200 => 'Num 200', 400 => 'Num 400'], $this->arr($array)->except(static function ($key) {
-            return ! Str::startsWith($key, 'ba');
-        })->get());
+        $this->assertSame(['foo' => 'Foo', 200 => 'Num 200', 400 => 'Num 400'], $this->arr($array)->except(
+            static fn ($key): bool => ! Str::startsWith($key, 'ba'))->get()
+        );
 
-        $this->assertSame(['foo' => 'Foo', 'bar' => 'Bar', 'baz' => 'Baz'], $this->arr($array)->except(static function ($key) {
-            return ! is_numeric($key);
-        })->get());
+        $this->assertSame(['foo' => 'Foo', 'bar' => 'Bar', 'baz' => 'Baz'], $this->arr($array)->except(
+            static fn ($key): bool => ! is_numeric($key))->get()
+        );
     }
 
     public function testRenameKeys()
@@ -114,13 +114,9 @@ class ArrayableTest extends TestCase
             'baz_789' => 789,
         ];
 
-        $renamed = $this->arr($source)->renameKeys(static function ($key) {
-            return mb_strtoupper($key);
-        })->get();
+        $renamed = $this->arr($source)->renameKeys(static fn ($key): string => mb_strtoupper($key))->get();
 
-        $modified = $this->arr($source)->renameKeys(static function ($key, $value) {
-            return mb_strtolower($key) . '_' . $value;
-        })->get();
+        $modified = $this->arr($source)->renameKeys(static fn ($key, $value): string => mb_strtolower($key) . '_' . $value)->get();
 
         $this->assertSame($expected_renamed, $renamed);
         $this->assertSame($expected_modified, $modified);
@@ -319,17 +315,11 @@ class ArrayableTest extends TestCase
             400   => 'Num 400',
         ];
 
-        $this->assertSame(['foo' => 'Foo', 'bar' => 'Bar'], $this->arr($array)->only(static function ($key) {
-            return Str::startsWith($key, ['foo', 'bar']);
-        })->get());
+        $this->assertSame(['foo' => 'Foo', 'bar' => 'Bar'], $this->arr($array)->only(static fn ($key): bool => Str::startsWith($key, ['foo', 'bar']))->get());
 
-        $this->assertSame(['bar' => 'Bar', 'baz' => 'Baz'], $this->arr($array)->only(static function ($key) {
-            return Str::startsWith($key, 'ba');
-        })->get());
+        $this->assertSame(['bar' => 'Bar', 'baz' => 'Baz'], $this->arr($array)->only(static fn ($key): bool => Str::startsWith($key, 'ba'))->get());
 
-        $this->assertSame([200 => 'Num 200', 400 => 'Num 400'], $this->arr($array)->only(static function ($key) {
-            return is_numeric($key);
-        })->get());
+        $this->assertSame([200 => 'Num 200', 400 => 'Num 400'], $this->arr($array)->only(static fn ($key): bool => is_numeric($key))->get());
     }
 
     public function testFilter()
@@ -348,9 +338,10 @@ class ArrayableTest extends TestCase
             200   => 'Num 200',
         ];
 
-        $result = $this->arr($source)->filter(static function ($value, $key) {
-            return Str::contains($value, 200) || Str::startsWith($key, 'b');
-        }, ARRAY_FILTER_USE_BOTH)->get();
+        $result = $this->arr($source)->filter(
+            static fn ($value, $key): bool => Str::contains($value, 200) || Str::startsWith($key, 'b'),
+            ARRAY_FILTER_USE_BOTH
+        )->get();
 
         $this->assertSame($target, $result);
     }
@@ -993,9 +984,7 @@ class ArrayableTest extends TestCase
             ],
         ];
 
-        $this->assertSame($expected, $this->arr($source)->map(static function ($value, $key) {
-            return Str::studly($key) . '_' . ($value * 2);
-        })->get());
+        $this->assertSame($expected, $this->arr($source)->map(static fn ($value, $key): string => Str::studly($key) . '_' . ($value * 2))->get());
     }
 
     public function testMapRecursive()
@@ -1024,9 +1013,7 @@ class ArrayableTest extends TestCase
             ],
         ];
 
-        $this->assertSame($expected, $this->arr($source)->map(static function ($value, $key) {
-            return Str::studly($key) . '_' . ($value * 2);
-        }, true)->get());
+        $this->assertSame($expected, $this->arr($source)->map(static fn ($value, $key): string => Str::studly($key) . '_' . ($value * 2), true)->get());
     }
 
     public function testFlip()
@@ -1293,22 +1280,14 @@ class ArrayableTest extends TestCase
 
         $array = $this->arr($source)
             ->ksort()
-            ->renameKeys(static function ($key) {
-                return Str::upper($key);
-            })
+            ->renameKeys(static fn ($key): string => Str::upper($key))
             ->merge(['WASD' => 'New element'])
             ->toArray()
-            ->except(static function ($key) {
-                return ! Str::startsWith($key, ['F', 'E']);
-            })
+            ->except(static fn ($key): bool => ! Str::startsWith($key, ['F', 'E']))
             ->flatten(false)
-            ->map(static function ($value) {
-                return is_numeric($value) ? $value : Str::lower($value);
-            })
+            ->map(static fn ($value) => is_numeric($value) ? $value : Str::lower($value))
             ->addUnique(['foo', 'baz'])
-            ->filter(static function ($value) {
-                return $value !== 22;
-            });
+            ->filter(static fn ($value): bool => $value !== 22);
 
         $this->assertSame($expected1, $array->get());
         $this->assertSame($expected2, $array->sort()->get());

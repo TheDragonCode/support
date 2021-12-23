@@ -60,8 +60,6 @@ class OS
 
     public function family(bool $lower = true): string
     {
-        $family = version_compare(PHP_VERSION, '7.2', '<') ? PHP_OS : PHP_OS_FAMILY;
-
-        return $lower ? StrHelper::lower($family) : $family;
+        return $lower ? StrHelper::lower(PHP_OS_FAMILY) : PHP_OS_FAMILY;
     }
 }

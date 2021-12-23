@@ -51,7 +51,7 @@ use DragonCode\Support\Helpers\Ables\Arrayable as Helper;
  */
 class Arrayable extends Facade
 {
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
         return Helper::class;
     }

@@ -21,14 +21,14 @@ use DragonCode\Support\Facades\Helpers\Str;
 
 class Stringable implements Contract
 {
-    protected $value;
+    protected string $value;
 
     public function __construct(?string $value = null)
     {
         $this->value = (string) $value;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->value;
     }

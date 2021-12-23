@@ -17,11 +17,11 @@
 namespace DragonCode\Support\Helpers\Filesystem;
 
 use DirectoryIterator;
-use FilesystemIterator;
 use DragonCode\Support\Exceptions\DirectoryNotFoundException;
 use DragonCode\Support\Facades\Helpers\Filesystem\File as FileHelper;
 use DragonCode\Support\Facades\Helpers\Instance;
 use DragonCode\Support\Facades\Helpers\Str;
+use FilesystemIterator;
 use SplFileInfo;
 
 class Directory

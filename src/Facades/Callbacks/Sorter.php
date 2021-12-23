@@ -25,7 +25,7 @@ use DragonCode\Support\Facades\Facade;
  */
 class Sorter extends Facade
 {
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
         return Callback::class;
     }

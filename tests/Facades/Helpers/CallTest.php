@@ -33,13 +33,9 @@ class CallTest extends TestCase
         $this->assertSame('ok', Call::run(new Foo(), 'callStatic'));
         $this->assertSame('foo_bar', Call::run(new Foo(), 'callParameter', 'bar'));
 
-        $this->assertSame('foo', Call::run(static function ($value) {
-            return $value;
-        }, 'foo'));
+        $this->assertSame('foo', Call::run(static fn ($value) => $value, 'foo'));
 
-        $this->assertSame(['foo', 'bar', 'baz'], Call::run(static function ($value, ...$values) {
-            return array_merge([$value], $values);
-        }, 'foo', 'bar', 'baz'));
+        $this->assertSame(['foo', 'bar', 'baz'], Call::run(static fn ($value, ...$values) => array_merge([$value], $values), 'foo', 'bar', 'baz'));
     }
 
     public function testExists()
@@ -50,13 +46,9 @@ class CallTest extends TestCase
         $this->assertSame('ok', Call::runExists(new Foo(), 'callStatic'));
         $this->assertSame('foo_bar', Call::runExists(new Foo(), 'callParameter', 'bar'));
 
-        $this->assertSame('foo', Call::runExists(static function ($value) {
-            return $value;
-        }, 'foo'));
+        $this->assertSame('foo', Call::runExists(static fn ($value) => $value, 'foo'));
 
-        $this->assertSame(['foo', 'bar', 'baz'], Call::runExists(static function ($value, ...$values) {
-            return array_merge([$value], $values);
-        }, 'foo', 'bar', 'baz'));
+        $this->assertSame(['foo', 'bar', 'baz'], Call::runExists(static fn ($value, ...$values) => array_merge([$value], $values), 'foo', 'bar', 'baz'));
     }
 
     public function testRunMethods()
@@ -73,13 +65,9 @@ class CallTest extends TestCase
         $this->assertSame('foo_bar', Call::runMethods(new Foo(), 'callParameter', 'bar'));
         $this->assertSame('foo_bar', Call::runMethods(new Foo(), ['qwe', 'rty', 'callParameter'], 'bar'));
 
-        $this->assertSame('foo', Call::runMethods(static function ($value) {
-            return $value;
-        }, 'foo'));
+        $this->assertSame('foo', Call::runMethods(static fn ($value) => $value, 'foo'));
 
-        $this->assertSame(['foo', 'bar', 'baz'], Call::runMethods(static function ($value, ...$values) {
-            return array_merge([$value], $values);
-        }, 'foo', 'bar', 'baz'));
+        $this->assertSame(['foo', 'bar', 'baz'], Call::runMethods(static fn ($value, ...$values) => array_merge([$value], $values), 'foo', 'bar', 'baz'));
 
         $this->assertSame('Foo Bar', Call::runMethods(new AnyException(), 'getMessage'));
     }
@@ -116,13 +104,9 @@ class CallTest extends TestCase
         $this->assertSame('ok', Call::when(true, new Foo(), 'callStatic'));
         $this->assertSame('foo_bar', Call::when(true, new Foo(), 'callParameter', 'bar'));
 
-        $this->assertSame('foo', Call::when(true, static function ($value) {
-            return $value;
-        }, 'foo'));
+        $this->assertSame('foo', Call::when(true, static fn ($value) => $value, 'foo'));
 
-        $this->assertSame(['foo', 'bar', 'baz'], Call::when(true, static function ($value, ...$values) {
-            return array_merge([$value], $values);
-        }, 'foo', 'bar', 'baz'));
+        $this->assertSame(['foo', 'bar', 'baz'], Call::when(true, static fn ($value, ...$values) => array_merge([$value], $values), 'foo', 'bar', 'baz'));
     }
 
     public function testWhenFalse()
@@ -133,13 +117,9 @@ class CallTest extends TestCase
         $this->assertNull(Call::when(false, new Foo(), 'callStatic'));
         $this->assertNull(Call::when(false, new Foo(), 'callParameter', 'bar'));
 
-        $this->assertNull(Call::when(false, static function ($value) {
-            return $value;
-        }, 'foo'));
+        $this->assertNull(Call::when(false, static fn ($value) => $value, 'foo'));
 
-        $this->assertNull(Call::when(false, static function ($value, ...$values) {
-            return array_merge([$value], $values);
-        }, 'foo', 'bar', 'baz'));
+        $this->assertNull(Call::when(false, static fn ($value, ...$values) => array_merge([$value], $values), 'foo', 'bar', 'baz'));
     }
 
     public function testWrong()
