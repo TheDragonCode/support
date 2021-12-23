@@ -16,7 +16,9 @@
 
 namespace DragonCode\Support\Facades\Helpers\Ables;
 
+use DragonCode\Support\Concerns\Deprecation;
 use DragonCode\Support\Facades\Facade;
+use DragonCode\Support\Facades\Helpers\Str;
 use DragonCode\Support\Helpers\Ables\Stringable as Helper;
 
 /**
@@ -44,6 +46,15 @@ use DragonCode\Support\Helpers\Ables\Stringable as Helper;
  */
 class Stringable extends Facade
 {
+    use Deprecation;
+
+    public static function __callStatic($method, $args)
+    {
+        static::deprecatedClass(Str::class);
+
+        return parent::__callStatic($method, $args);
+    }
+
     protected static function getFacadeAccessor(): string
     {
         return Helper::class;
