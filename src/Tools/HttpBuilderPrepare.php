@@ -32,10 +32,10 @@ class HttpBuilderPrepare implements Stringable
 
     protected string $default = '';
 
-    public function __toString(): ?string
+    public function __toString(): string
     {
         if (! empty($this->of)) {
-            return $this->prefixed();
+            return (string) $this->prefixed();
         }
 
         return $this->default;
