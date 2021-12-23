@@ -67,9 +67,9 @@ class FileTest extends TestCase
     {
         $available = ['.beep', '.gitkeep'];
 
-        $names = $this->file()->names($this->fixturesDirectory(), static function (string $name) {
-            return Str::endsWith($name, 'ep');
-        });
+        $names = $this->file()->names($this->fixturesDirectory(),
+            static fn (string $name): bool => Str::endsWith($name, 'ep')
+        );
 
         $this->assertSame($available, $names);
     }

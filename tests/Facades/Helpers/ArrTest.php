@@ -61,17 +61,11 @@ class ArrTest extends TestCase
             400   => 'Num 400',
         ];
 
-        $this->assertSame(['baz' => 'Baz', 200 => 'Num 200', 400 => 'Num 400'], Arr::except($arr, static function ($key) {
-            return ! Str::startsWith($key, ['foo', 'bar']);
-        }));
+        $this->assertSame(['baz' => 'Baz', 200 => 'Num 200', 400 => 'Num 400'], Arr::except($arr, static fn ($key) => ! Str::startsWith($key, ['foo', 'bar'])));
 
-        $this->assertSame(['foo' => 'Foo', 200 => 'Num 200', 400 => 'Num 400'], Arr::except($arr, static function ($key) {
-            return ! Str::startsWith($key, 'ba');
-        }));
+        $this->assertSame(['foo' => 'Foo', 200 => 'Num 200', 400 => 'Num 400'], Arr::except($arr, static fn ($key) => ! Str::startsWith($key, 'ba')));
 
-        $this->assertSame(['foo' => 'Foo', 'bar' => 'Bar', 'baz' => 'Baz'], Arr::except($arr, static function ($key) {
-            return ! is_numeric($key);
-        }));
+        $this->assertSame(['foo' => 'Foo', 'bar' => 'Bar', 'baz' => 'Baz'], Arr::except($arr, static fn ($key) => ! is_numeric($key)));
     }
 
     public function testRenameKeys()
@@ -94,13 +88,9 @@ class ArrTest extends TestCase
             'baz_789' => 789,
         ];
 
-        $renamed = Arr::renameKeys($source, static function ($key) {
-            return mb_strtoupper($key);
-        });
+        $renamed = Arr::renameKeys($source, static fn ($key) => mb_strtoupper($key));
 
-        $modified = Arr::renameKeys($source, static function ($key, $value) {
-            return mb_strtolower($key) . '_' . $value;
-        });
+        $modified = Arr::renameKeys($source, static fn ($key, $value) => mb_strtolower($key) . '_' . $value);
 
         $this->assertSame($expected_renamed, $renamed);
         $this->assertSame($expected_modified, $modified);
@@ -436,17 +426,11 @@ class ArrTest extends TestCase
             400   => 'Num 400',
         ];
 
-        $this->assertSame(['foo' => 'Foo', 'bar' => 'Bar'], Arr::only($arr, static function ($key) {
-            return Str::startsWith($key, ['foo', 'bar']);
-        }));
+        $this->assertSame(['foo' => 'Foo', 'bar' => 'Bar'], Arr::only($arr, static fn ($key) => Str::startsWith($key, ['foo', 'bar'])));
 
-        $this->assertSame(['bar' => 'Bar', 'baz' => 'Baz'], Arr::only($arr, static function ($key) {
-            return Str::startsWith($key, 'ba');
-        }));
+        $this->assertSame(['bar' => 'Bar', 'baz' => 'Baz'], Arr::only($arr, static fn ($key) => Str::startsWith($key, 'ba')));
 
-        $this->assertSame([200 => 'Num 200', 400 => 'Num 400'], Arr::only($arr, static function ($key) {
-            return is_numeric($key);
-        }));
+        $this->assertSame([200 => 'Num 200', 400 => 'Num 400'], Arr::only($arr, static fn ($key) => is_numeric($key)));
     }
 
     public function testFilter()
@@ -465,9 +449,10 @@ class ArrTest extends TestCase
             200   => 'Num 200',
         ];
 
-        $result = Arr::filter($source, static function ($value, $key) {
-            return Str::contains($value, 200) || Str::startsWith($key, 'b');
-        }, ARRAY_FILTER_USE_BOTH);
+        $result = Arr::filter($source,
+            static fn ($value, $key) => Str::contains($value, 200) || Str::startsWith($key, 'b'),
+            ARRAY_FILTER_USE_BOTH
+        );
 
         $this->assertSame($target, $result);
     }
@@ -1537,9 +1522,7 @@ class ArrTest extends TestCase
             ],
         ];
 
-        $this->assertSame($expected, Arr::map($source, static function ($value, $key) {
-            return Str::studly($key) . '_' . ($value * 2);
-        }));
+        $this->assertSame($expected, Arr::map($source, static fn ($value, $key) => Str::studly($key) . '_' . ($value * 2)));
     }
 
     public function testMapRecursive()
@@ -1568,9 +1551,7 @@ class ArrTest extends TestCase
             ],
         ];
 
-        $this->assertSame($expected, Arr::map($source, static function ($value, $key) {
-            return Str::studly($key) . '_' . ($value * 2);
-        }, true));
+        $this->assertSame($expected, Arr::map($source, static fn ($value, $key) => Str::studly($key) . '_' . ($value * 2), true));
     }
 
     public function testPush()

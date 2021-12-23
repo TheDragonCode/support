@@ -32,9 +32,9 @@ class Builder implements BuilderContract
     use Castable;
     use Validation;
 
-    protected $parsed = [];
+    protected array $parsed = [];
 
-    protected $components = [
+    protected array $components = [
         PHP_URL_SCHEME   => 'scheme',
         PHP_URL_HOST     => 'host',
         PHP_URL_PORT     => 'port',
@@ -45,12 +45,12 @@ class Builder implements BuilderContract
         PHP_URL_FRAGMENT => 'fragment',
     ];
 
-    protected $casts = [
+    protected array $casts = [
         'query' => 'array',
         'port'  => 'integer',
     ];
 
-    protected $validate = [
+    protected array $validate = [
         PHP_URL_SCHEME   => ['null', 'string'],
         PHP_URL_HOST     => ['null', 'string'],
         PHP_URL_PORT     => ['null', 'integer'],
@@ -66,7 +66,7 @@ class Builder implements BuilderContract
      *
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->toUrl();
     }
@@ -531,9 +531,7 @@ class Builder implements BuilderContract
     public function toUrl(): string
     {
         $items = Arrayable::of($this->prepare())
-            ->map(function ($value) {
-                return (string) $value;
-            })
+            ->map(static fn ($value) => (string) $value)
             ->filter()
             ->get();
 

@@ -20,7 +20,7 @@ use DragonCode\Support\Facades\Helpers\Str;
 
 class Sorter
 {
-    protected $special_chars = [
+    protected array $special_chars = [
         ' ',
         '*',
         '-',

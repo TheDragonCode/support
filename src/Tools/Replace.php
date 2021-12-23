@@ -29,8 +29,6 @@ class Replace
             return $values;
         }
 
-        return array_map(static function ($value) use ($format) {
-            return sprintf($format, $value);
-        }, $values);
+        return array_map(static fn ($value) => sprintf($format, $value), $values);
     }
 }

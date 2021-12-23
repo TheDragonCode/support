@@ -27,7 +27,7 @@ use DragonCode\Support\Helpers\Instance as Helper;
  */
 class Instance extends Facade
 {
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
         return Helper::class;
     }

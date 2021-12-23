@@ -20,15 +20,11 @@ class Empties
 {
     public function notEmpty(): callable
     {
-        return static function ($value) {
-            return ! empty($value);
-        };
+        return static fn ($value) => ! empty($value);
     }
 
     public function notEmptyBoth(): callable
     {
-        return static function ($value, $key) {
-            return ! empty($value) && ! empty($key);
-        };
+        return static fn ($value, $key) => ! empty($value) && ! empty($key);
     }
 }

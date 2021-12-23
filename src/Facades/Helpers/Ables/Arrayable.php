@@ -17,9 +17,7 @@
 namespace DragonCode\Support\Facades\Helpers\Ables;
 
 use ArrayAccess;
-use DragonCode\Support\Concerns\Deprecation;
 use DragonCode\Support\Facades\Facade;
-use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\Support\Helpers\Ables\Arrayable as Helper;
 
 /**
@@ -53,15 +51,6 @@ use DragonCode\Support\Helpers\Ables\Arrayable as Helper;
  */
 class Arrayable extends Facade
 {
-    use Deprecation;
-
-    public static function __callStatic($method, $args)
-    {
-        static::deprecatedClass(Arr::class);
-
-        return parent::__callStatic($method, $args);
-    }
-
     protected static function getFacadeAccessor(): string
     {
         return Helper::class;

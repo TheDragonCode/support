@@ -26,16 +26,16 @@ class HttpBuilderPrepare implements Stringable
 
     protected $of;
 
-    protected $prefix = '';
+    protected string $prefix = '';
 
-    protected $suffix = '';
+    protected string $suffix = '';
 
-    protected $default = '';
+    protected string $default = '';
 
-    public function __toString(): string
+    public function __toString(): ?string
     {
         if (! empty($this->of)) {
-            return (string) $this->prefixed();
+            return $this->prefixed();
         }
 
         return $this->default;
