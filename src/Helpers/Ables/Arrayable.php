@@ -27,6 +27,13 @@ class Arrayable
         $this->value = $value;
     }
 
+    public function of($value = [])
+    {
+        $this->value = $value;
+
+        return $this;
+    }
+
     /**
      * Join array elements with a string.
      *

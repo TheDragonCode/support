@@ -28,9 +28,16 @@ class Stringable implements Contract
         $this->value = (string) $value;
     }
 
+    public function of($value = [])
+    {
+        $this->value = $value;
+
+        return $this;
+    }
+
     public function __toString()
     {
-        return $this->value;
+        return (string) $this->value;
     }
 
     /**
