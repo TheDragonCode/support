@@ -75,9 +75,7 @@ class Arr
      */
     public function renameKeysMap(array $array, array $map): array
     {
-        return $this->renameKeys($array, static function ($key) use ($map) {
-            return $map[$key] ?? $key;
-        });
+        return $this->renameKeys($array, static fn ($key) => $map[$key] ?? $key);
     }
 
     /**
@@ -107,7 +105,7 @@ class Arr
                 $array = $this->addUnique($array, $value);
             }
         } else {
-            array_push($array, $values);
+            $array[] = $values;
         }
 
         return $this->unique($array);
@@ -303,7 +301,7 @@ class Arr
      *
      * @return array
      */
-    public function toArray($value = null): array
+    public function resolve($value = null): array
     {
         if (InstanceHelper::of($value, [ArrayObject::class, ArrayableHelper::class])) {
             $value = CallHelper::runMethods($value, ['getArrayCopy', 'get']);
@@ -316,7 +314,7 @@ class Arr
         $array = $this->wrap($value);
 
         foreach ($array as &$item) {
-            $item = $this->isArrayable($item) ? $this->toArray($item) : $item;
+            $item = $this->isArrayable($item) ? $this->resolve($item) : $item;
         }
 
         return $array;
@@ -434,9 +432,7 @@ class Arr
     {
         $callback = is_callable($keys)
             ? $keys
-            : static function ($key) use ($keys) {
-                return empty($keys) || ! in_array($key, (array) $keys);
-            };
+            : static fn ($key) => empty($keys) || ! in_array($key, (array) $keys);
 
         return $this->filter((array) $array, $callback, ARRAY_FILTER_USE_KEY);
     }
@@ -763,9 +759,7 @@ class Arr
      */
     public function storeAsJson(string $path, $array, bool $sort_keys = false, int $flags = 0): void
     {
-        $this->prepareToStore($path, StubTool::JSON, $array, static function (array $array) use ($flags) {
-            return json_encode($array, $flags);
-        }, $sort_keys);
+        $this->prepareToStore($path, StubTool::JSON, $array, static fn (array $array) => json_encode($array, $flags), $sort_keys);
     }
 
     /**
@@ -777,9 +771,7 @@ class Arr
      */
     public function storeAsArray(string $path, $array, bool $sort_keys = false): void
     {
-        $this->prepareToStore($path, StubTool::PHP_ARRAY, $array, static function (array $array) {
-            return var_export($array, true);
-        }, $sort_keys);
+        $this->prepareToStore($path, StubTool::PHP_ARRAY, $array, static fn (array $array) => var_export($array, true), $sort_keys);
     }
 
     /**

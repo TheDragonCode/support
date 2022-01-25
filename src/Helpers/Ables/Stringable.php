@@ -17,32 +17,59 @@
 namespace DragonCode\Support\Helpers\Ables;
 
 use DragonCode\Contracts\Support\Stringable as Contract;
+use DragonCode\Support\Concerns\Dumpable;
 use DragonCode\Support\Facades\Helpers\Str;
 
 class Stringable implements Contract
 {
-    protected $value;
+    use Dumpable;
+
+    protected string $value;
 
     public function __construct(?string $value = null)
     {
         $this->value = (string) $value;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->value;
     }
 
     /**
-     * Creates the current object in case of accessing the Stringable through the facade.
+     * Split a string by a string.
      *
-     * @param  string|null  $value
+     * @param  string  $separator
      *
-     * @return \DragonCode\Support\Helpers\Ables\Stringable
+     * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
-    public function of(?string $value): self
+    public function explode(string $separator): Arrayable
     {
-        return new self($value);
+        return new Arrayable(
+            explode($separator, $this->value)
+        );
+    }
+
+    /**
+     * Escape HTML special characters in a string.
+     *
+     * @param  bool  $double
+     *
+     * @return $this
+     */
+    public function e(bool $double = true): self
+    {
+        return new self(Str::e($this->value, $double));
+    }
+
+    /**
+     * Convert special HTML entities back to characters.
+     *
+     * @return string|null
+     */
+    public function de(): ?string
+    {
+        return new self(Str::de($this->value));
     }
 
     /**
@@ -217,6 +244,18 @@ class Stringable implements Contract
     }
 
     /**
+     * Generate a more truly "random" alpha-numeric string.
+     *
+     * @param  int  $length
+     *
+     * @return $this
+     */
+    public function random(int $length = 16): self
+    {
+        return new self(Str::random($length));
+    }
+
+    /**
      * Strip whitespace (or other characters) from the beginning and end of a string.
      *
      * @see  https://php.net/manual/en/function.trim.php
@@ -268,22 +307,14 @@ class Stringable implements Contract
     }
 
     /**
-     * Outputs the contents of a variable without terminating the application.
+     * Using a call-back function to process a value.
+     *
+     * @param  callable  $callback
      *
      * @return $this
      */
-    public function dump(): self
+    public function map(callable $callback): self
     {
-        dump($this->value);
-
-        return $this;
-    }
-
-    /**
-     * Outputs the contents of a variable, terminating the application.
-     */
-    public function dd(): void
-    {
-        dd($this->value);
+        return new self(Str::map($this->value, $callback));
     }
 }

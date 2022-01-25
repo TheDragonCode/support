@@ -30,21 +30,21 @@ class Str
      *
      * @var array
      */
-    protected static $snakeCache = [];
+    protected static array $snakeCache = [];
 
     /**
      * The cache of camel-cased words.
      *
      * @var array
      */
-    protected static $camelCache = [];
+    protected static array $camelCache = [];
 
     /**
      * The cache of studly-cased words.
      *
      * @var array
      */
-    protected static $studlyCache = [];
+    protected static array $studlyCache = [];
 
     protected $escaping_methods = [
         DeferringDisplayableValue::class => 'resolveDisplayableValue',
@@ -639,5 +639,18 @@ class Str
     public function convertToString(?string $value): string
     {
         return is_null($value) ? 'null' : $value;
+    }
+
+    /**
+     * Using a call-back function to process a value.
+     *
+     * @param  string|null  $value
+     * @param  callable  $callback
+     *
+     * @return string|null
+     */
+    public function map(?string $value, callable $callback): ?string
+    {
+        return $callback($value);
     }
 }

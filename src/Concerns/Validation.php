@@ -17,7 +17,7 @@
 namespace DragonCode\Support\Concerns;
 
 use DragonCode\Support\Exceptions\ForbiddenVariableTypeException;
-use DragonCode\Support\Facades\Helpers\Ables\Arrayable;
+use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\Support\Facades\Helpers\Str;
 
 trait Validation
@@ -38,10 +38,9 @@ trait Validation
 
     protected function validateNeedles($values): array
     {
-        return Arrayable::of($values)
-            ->map(static function ($value) {
-                return Str::lower($value);
-            })->get();
+        return Arr::of($values)
+            ->map(static fn ($value) => Str::lower($value))
+            ->get();
     }
 
     protected function validateGetType($haystack): string

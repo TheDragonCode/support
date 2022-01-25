@@ -33,13 +33,9 @@ class CallTest extends TestCase
         $this->assertSame('ok', $this->call()->run(new Foo(), 'callStatic'));
         $this->assertSame('foo_bar', $this->call()->run(new Foo(), 'callParameter', 'bar'));
 
-        $this->assertSame('foo', $this->call()->run(static function ($value) {
-            return $value;
-        }, 'foo'));
+        $this->assertSame('foo', $this->call()->run(static fn ($value) => $value, 'foo'));
 
-        $this->assertSame(['foo', 'bar', 'baz'], $this->call()->run(static function ($value, ...$values) {
-            return array_merge([$value], $values);
-        }, 'foo', 'bar', 'baz'));
+        $this->assertSame(['foo', 'bar', 'baz'], $this->call()->run(static fn ($value, ...$values): array => array_merge([$value], $values), 'foo', 'bar', 'baz'));
     }
 
     public function testExists()
@@ -50,13 +46,9 @@ class CallTest extends TestCase
         $this->assertSame('ok', $this->call()->runExists(new Foo(), 'callStatic'));
         $this->assertSame('foo_bar', $this->call()->runExists(new Foo(), 'callParameter', 'bar'));
 
-        $this->assertSame('foo', $this->call()->runExists(static function ($value) {
-            return $value;
-        }, 'foo'));
+        $this->assertSame('foo', $this->call()->runExists(static fn ($value) => $value, 'foo'));
 
-        $this->assertSame(['foo', 'bar', 'baz'], $this->call()->runExists(static function ($value, ...$values) {
-            return array_merge([$value], $values);
-        }, 'foo', 'bar', 'baz'));
+        $this->assertSame(['foo', 'bar', 'baz'], $this->call()->runExists(static fn ($value, ...$values): array => array_merge([$value], $values), 'foo', 'bar', 'baz'));
     }
 
     public function testRunMethods()
@@ -73,13 +65,9 @@ class CallTest extends TestCase
         $this->assertSame('foo_bar', $this->call()->runMethods(new Foo(), 'callParameter', 'bar'));
         $this->assertSame('foo_bar', $this->call()->runMethods(new Foo(), ['qwe', 'rty', 'callParameter'], 'bar'));
 
-        $this->assertSame('foo', $this->call()->runMethods(static function ($value) {
-            return $value;
-        }, 'foo'));
+        $this->assertSame('foo', $this->call()->runMethods(static fn ($value) => $value, 'foo'));
 
-        $this->assertSame(['foo', 'bar', 'baz'], $this->call()->runMethods(static function ($value, ...$values) {
-            return array_merge([$value], $values);
-        }, 'foo', 'bar', 'baz'));
+        $this->assertSame(['foo', 'bar', 'baz'], $this->call()->runMethods(static fn ($value, ...$values): array => array_merge([$value], $values), 'foo', 'bar', 'baz'));
 
         $this->assertSame('Foo Bar', $this->call()->runMethods(new AnyException(), 'getMessage'));
     }
@@ -116,13 +104,9 @@ class CallTest extends TestCase
         $this->assertSame('ok', $this->call()->when(true, new Foo(), 'callStatic'));
         $this->assertSame('foo_bar', $this->call()->when(true, new Foo(), 'callParameter', 'bar'));
 
-        $this->assertSame('foo', $this->call()->when(true, static function ($value) {
-            return $value;
-        }, 'foo'));
+        $this->assertSame('foo', $this->call()->when(true, static fn ($value) => $value, 'foo'));
 
-        $this->assertSame(['foo', 'bar', 'baz'], $this->call()->when(true, static function ($value, ...$values) {
-            return array_merge([$value], $values);
-        }, 'foo', 'bar', 'baz'));
+        $this->assertSame(['foo', 'bar', 'baz'], $this->call()->when(true, static fn ($value, ...$values): array => array_merge([$value], $values), 'foo', 'bar', 'baz'));
     }
 
     public function testWhenFalse()
@@ -133,13 +117,9 @@ class CallTest extends TestCase
         $this->assertNull($this->call()->when(false, new Foo(), 'callStatic'));
         $this->assertNull($this->call()->when(false, new Foo(), 'callParameter', 'bar'));
 
-        $this->assertNull($this->call()->when(false, static function ($value) {
-            return $value;
-        }, 'foo'));
+        $this->assertNull($this->call()->when(false, static fn ($value) => $value, 'foo'));
 
-        $this->assertNull($this->call()->when(false, static function ($value, ...$values) {
-            return array_merge([$value], $values);
-        }, 'foo', 'bar', 'baz'));
+        $this->assertNull($this->call()->when(false, static fn ($value, ...$values): array => array_merge([$value], $values), 'foo', 'bar', 'baz'));
     }
 
     public function testWrong()

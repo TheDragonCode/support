@@ -16,10 +16,17 @@
 
 namespace DragonCode\Support\Helpers\Ables;
 
+use DragonCode\Contracts\Support\Arrayable as ArrayableContract;
+use DragonCode\Support\Concerns\Dumpable;
 use DragonCode\Support\Facades\Helpers\Arr;
 
-class Arrayable
+class Arrayable implements ArrayableContract
 {
+    use Dumpable;
+
+    /**
+     * @var  array|\ArrayAccess|string|null
+     */
     protected $value;
 
     public function __construct($value = [])
@@ -28,15 +35,17 @@ class Arrayable
     }
 
     /**
-     * Creates the current object in case of accessing the Arrayable through the facade.
+     * Join array elements with a string.
      *
-     * @param  array|\ArrayAccess|string|null  $value
+     * @param  string  $separator
      *
-     * @return \DragonCode\Support\Helpers\Ables\Arrayable
+     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
-    public function of($value = []): self
+    public function implode(string $separator): Stringable
     {
-        return new self($value);
+        return new Stringable(
+            implode($separator, $this->value)
+        );
     }
 
     /**
@@ -44,7 +53,7 @@ class Arrayable
      *
      * @return array
      */
-    public function get(): array
+    public function toArray(): array
     {
         return $this->value ?: [];
     }
@@ -187,13 +196,13 @@ class Arrayable
     }
 
     /**
-     * Get the instance as an array.
+     * Make the instance as an array recursively.
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
-    public function toArray(): self
+    public function resolve(): self
     {
-        return new self(Arr::toArray($this->value));
+        return new self(Arr::resolve($this->value));
     }
 
     /**
@@ -359,25 +368,5 @@ class Arrayable
     public function reverse(bool $preserve_keys = false): self
     {
         return new self(Arr::reverse($this->value, $preserve_keys));
-    }
-
-    /**
-     * Outputs the contents of a variable without terminating the application.
-     *
-     * @return $this
-     */
-    public function dump(): self
-    {
-        dump($this->value);
-
-        return $this;
-    }
-
-    /**
-     * Outputs the contents of a variable, terminating the application.
-     */
-    public function dd(): void
-    {
-        dd($this->value);
     }
 }

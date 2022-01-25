@@ -176,9 +176,9 @@ class DirectoryTest extends TestCase
     {
         $available = ['Facades', 'Instances'];
 
-        $names = Directory::names($this->fixturesDirectory(), static function (string $name) {
-            return Str::endsWith($name, 'es');
-        });
+        $names = Directory::names($this->fixturesDirectory(),
+            static fn (string $name): bool => Str::endsWith($name, 'es')
+        );
 
         $this->assertSame($available, $names);
     }

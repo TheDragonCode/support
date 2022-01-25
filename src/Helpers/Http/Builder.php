@@ -20,7 +20,6 @@ use DragonCode\Contracts\Http\Builder as BuilderContract;
 use DragonCode\Support\Concerns\Castable;
 use DragonCode\Support\Concerns\Validation;
 use DragonCode\Support\Exceptions\UnknownUrlComponentIndexException;
-use DragonCode\Support\Facades\Helpers\Ables\Arrayable;
 use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\Support\Facades\Helpers\Str;
 use DragonCode\Support\Facades\Http\Url as UrlHelper;
@@ -32,9 +31,9 @@ class Builder implements BuilderContract
     use Castable;
     use Validation;
 
-    protected $parsed = [];
+    protected array $parsed = [];
 
-    protected $components = [
+    protected array $components = [
         PHP_URL_SCHEME   => 'scheme',
         PHP_URL_HOST     => 'host',
         PHP_URL_PORT     => 'port',
@@ -45,12 +44,12 @@ class Builder implements BuilderContract
         PHP_URL_FRAGMENT => 'fragment',
     ];
 
-    protected $casts = [
+    protected array $casts = [
         'query' => 'array',
         'port'  => 'integer',
     ];
 
-    protected $validate = [
+    protected array $validate = [
         PHP_URL_SCHEME   => ['null', 'string'],
         PHP_URL_HOST     => ['null', 'string'],
         PHP_URL_PORT     => ['null', 'integer'],
@@ -66,7 +65,7 @@ class Builder implements BuilderContract
      *
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->toUrl();
     }
@@ -117,7 +116,7 @@ class Builder implements BuilderContract
 
         $filtered = Arr::only($parsed, $components);
 
-        $this->parsed = Arrayable::of($this->parsed)
+        $this->parsed = Arr::of($this->parsed)
             ->merge($filtered)
             ->get();
 
@@ -530,10 +529,8 @@ class Builder implements BuilderContract
      */
     public function toUrl(): string
     {
-        $items = Arrayable::of($this->prepare())
-            ->map(function ($value) {
-                return (string) $value;
-            })
+        $items = Arr::of($this->prepare())
+            ->map(static fn ($value) => (string) $value)
             ->filter()
             ->get();
 

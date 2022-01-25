@@ -23,7 +23,7 @@ namespace DragonCode\Support\Concerns;
  */
 trait Deprecation
 {
-    protected static $next_version = '6.0';
+    protected static string $next_version = '6.0';
 
     protected static function deprecatedClass(string $new_class, string $old_class = null): void
     {
