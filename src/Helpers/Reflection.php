@@ -48,4 +48,9 @@ class Reflection
     {
         return $this->resolve($class)->getConstants();
     }
+
+    public function isStaticMethod($class, string $method): bool
+    {
+        return $this->resolve($class)->getMethod($method)->isStatic();
+    }
 }

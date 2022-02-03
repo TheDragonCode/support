@@ -22,11 +22,12 @@ use ReflectionClass;
 
 /**
  * @method static array getConstants(object|string $class)
+ * @method static bool isStaticMethod(object|ReflectionClass|string $class, string $method)
  * @method static ReflectionClass resolve(object|ReflectionClass|string $class)
  */
 class Reflection extends Facade
 {
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
         return Helper::class;
     }

@@ -18,6 +18,7 @@ namespace Tests\Facades\Helpers;
 
 use DragonCode\Support\Facades\Helpers\Reflection;
 use ReflectionClass;
+use Tests\Fixtures\Instances\Baq;
 use Tests\Fixtures\Instances\Foo;
 use Tests\TestCase;
 
@@ -39,5 +40,14 @@ class ReflectionTest extends TestCase
 
         $this->assertSame($expected, Reflection::getConstants(Foo::class));
         $this->assertSame($expected, Reflection::getConstants(new Foo()));
+    }
+
+    public function testIsStaticMethod()
+    {
+        $this->assertTrue(Reflection::isStaticMethod(Foo::class, 'callStatic'));
+        $this->assertFalse(Reflection::isStaticMethod(Foo::class, 'callDymamic'));
+        $this->assertFalse(Reflection::isStaticMethod(Foo::class, 'callEmpty'));
+
+        $this->assertFalse(Reflection::isStaticMethod(Baq::class, 'toArray'));
     }
 }
