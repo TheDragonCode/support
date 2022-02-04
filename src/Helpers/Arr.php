@@ -700,7 +700,7 @@ class Arr
 
         if (
             is_string($value) &&
-            Instance::of($value, Closure::class) &&
+            method_exists($value, 'toArray') &&
             ! Reflection::isStaticMethod($value, 'toArray')
         ) {
             return false;
