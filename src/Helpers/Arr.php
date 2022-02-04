@@ -18,15 +18,19 @@ namespace DragonCode\Support\Helpers;
 
 use ArrayAccess;
 use ArrayObject;
+use Closure;
 use DragonCode\Contracts\Support\Arrayable;
+use DragonCode\Contracts\Support\Arrayable as DragonCodeArrayable;
 use DragonCode\Support\Facades\Callbacks\Empties;
 use DragonCode\Support\Facades\Callbacks\Sorter;
 use DragonCode\Support\Facades\Helpers\Call as CallHelper;
 use DragonCode\Support\Facades\Helpers\Filesystem\File;
-use DragonCode\Support\Facades\Helpers\Instance as InstanceHelper;
+use DragonCode\Support\Facades\Helpers\Instance;
+use DragonCode\Support\Facades\Helpers\Reflection;
 use DragonCode\Support\Facades\Tools\Stub;
 use DragonCode\Support\Helpers\Ables\Arrayable as ArrayableHelper;
 use DragonCode\Support\Tools\Stub as StubTool;
+use Illuminate\Contracts\Support\Arrayable as IlluminateArrayable;
 
 class Arr
 {
@@ -305,7 +309,7 @@ class Arr
      */
     public function toArray($value = null): array
     {
-        if (InstanceHelper::of($value, [ArrayObject::class, ArrayableHelper::class])) {
+        if (Instance::of($value, [ArrayObject::class, ArrayableHelper::class])) {
             $value = CallHelper::runMethods($value, ['getArrayCopy', 'get']);
         }
 
@@ -694,7 +698,32 @@ class Arr
             return true;
         }
 
-        return InstanceHelper::of($value, [ArrayAccess::class, Arrayable::class]);
+        if (
+            is_string($value)
+            && Instance::of($value, Closure::class) &&
+            Reflection::isStaticMethod($value, 'toArray')
+        ) {
+            return true;
+        }
+
+        if (
+            Instance::of($value, [
+                DragonCodeArrayable::class,
+                IlluminateArrayable::class,
+                ArrayableHelper::class,
+                ArrayObject::class,
+                ArrayAccess::class,
+                Arrayable::class,
+            ])
+        ) {
+            return true;
+        }
+
+        if (Instance::of($value, Closure::class) && method_exists($value, 'toArray')) {
+            return true;
+        }
+
+        return false;
     }
 
     /**

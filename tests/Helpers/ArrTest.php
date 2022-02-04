@@ -1460,6 +1460,8 @@ class ArrTest extends TestCase
         $object = ArrayableHelper::of(['first' => 'Foo', 'second' => 'Bar']);
 
         $this->assertEquals(['first' => 'Foo', 'second' => 'Bar'], $this->arr()->toArray($object));
+
+        $this->assertSame([Baq::class], $this->arr()->toArray([Baq::class]));
     }
 
     public function testIsArrayable()
