@@ -699,11 +699,11 @@ class Arr
         }
 
         if (
-            is_string($value)
-            && Instance::of($value, Closure::class) &&
-            Reflection::isStaticMethod($value, 'toArray')
+            is_string($value) &&
+            Instance::of($value, Closure::class) &&
+            ! Reflection::isStaticMethod($value, 'toArray')
         ) {
-            return true;
+            return false;
         }
 
         if (
