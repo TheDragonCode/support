@@ -9,9 +9,6 @@ Support package is a collection of helpers and tools for any project.
 [![Total Downloads][badge_downloads]][link_packagist]
 [![License][badge_license]][link_license]
 
-[![Github Workflow Status][badge_build]][link_build]
-[![Coverage Status][badge_coverage]][link_scrutinizer]
-[![Scrutinizer Code Quality][badge_quality]][link_scrutinizer]
 
 ## Installation
 
@@ -59,24 +56,14 @@ If no, then:
 This package is licensed under the [MIT License](LICENSE).
 
 
-[badge_build]:          https://img.shields.io/github/workflow/status/TheDragonCode/support/phpunit?style=flat-square
-
-[badge_coverage]:       https://img.shields.io/scrutinizer/coverage/g/dragon-code/support.svg?style=flat-square
-
 [badge_downloads]:      https://img.shields.io/packagist/dt/dragon-code/support.svg?style=flat-square
 
 [badge_license]:        https://img.shields.io/packagist/l/dragon-code/support.svg?style=flat-square
-
-[badge_quality]:        https://img.shields.io/scrutinizer/g/dragon-code/support.svg?style=flat-square
 
 [badge_stable]:         https://img.shields.io/github/v/release/TheDragonCode/support?label=stable&style=flat-square
 
 [badge_unstable]:       https://img.shields.io/badge/unstable-dev--main-orange?style=flat-square
 
-[link_build]:           https://github.com/TheDragonCode/support/actions
-
 [link_license]:         LICENSE
 
 [link_packagist]:       https://packagist.org/packages/dragon-code/support
-
-[link_scrutinizer]:     https://scrutinizer-ci.com/g/dragon-code/support
