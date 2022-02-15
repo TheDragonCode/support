@@ -75,7 +75,7 @@ class File
      *
      * @return string returns the full path to the saved file
      */
-    public function store(string $path, string $content, int $mode = 0o755): string
+    public function store(string $path, string $content, int $mode = 0755): string
     {
         DirectoryHelper::ensureDirectory(pathinfo($path, PATHINFO_DIRNAME), $mode);
 
@@ -91,7 +91,7 @@ class File
      * @param string $target
      * @param int $mode
      */
-    public function copy(string $source, string $target, int $mode = 0o755): void
+    public function copy(string $source, string $target, int $mode = 0755): void
     {
         DirectoryHelper::ensureDirectory(pathinfo($target, PATHINFO_DIRNAME), $mode);
 
@@ -109,7 +109,7 @@ class File
      * @param string $target
      * @param int $mode
      */
-    public function move(string $source, string $target, int $mode = 0o755): void
+    public function move(string $source, string $target, int $mode = 0755): void
     {
         DirectoryHelper::ensureDirectory(pathinfo($target, PATHINFO_DIRNAME), $mode);
 

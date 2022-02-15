@@ -93,7 +93,7 @@ class Directory
      *
      * @return bool
      */
-    public function make(string $path, int $mode = 0o755): bool
+    public function make(string $path, int $mode = 0755): bool
     {
         return ! $this->doesntExist($path) || mkdir($path, $mode, true);
     }
@@ -149,7 +149,7 @@ class Directory
      *
      * @throws \DragonCode\Support\Exceptions\DirectoryNotFoundException
      */
-    public function ensureDirectory(string $path, int $mode = 0o755, bool $can_delete = false): void
+    public function ensureDirectory(string $path, int $mode = 0755, bool $can_delete = false): void
     {
         if ($can_delete && $this->exists($path)) {
             $this->delete($path);

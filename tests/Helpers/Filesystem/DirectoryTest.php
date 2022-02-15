@@ -133,7 +133,7 @@ class DirectoryTest extends TestCase
         $this->assertTrue($this->directory()->exists($path1));
         $this->assertTrue($this->directory()->exists($path2));
 
-        $this->directory()->ensureDirectory($path, 0o755, true);
+        $this->directory()->ensureDirectory($path, 0755, true);
 
         $this->assertTrue($this->directory()->exists($path));
         $this->assertTrue($this->directory()->doesntExist($path1));
