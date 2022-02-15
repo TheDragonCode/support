@@ -18,12 +18,12 @@ namespace DragonCode\Support\Tools;
 
 class Replace
 {
-    public function toFormat(string $value, string $format = null): string
+    public function toFormat(string $value, ?string $format = null): string
     {
         return empty($format) || $format === '%s' ? $value : sprintf($format, $value);
     }
 
-    public function toFormatArray(array $values, string $format = null): array
+    public function toFormatArray(array $values, ?string $format = null): array
     {
         if (empty($format)) {
             return $values;

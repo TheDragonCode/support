@@ -25,7 +25,7 @@ trait Deprecation
 {
     protected static $next_version = '6.0';
 
-    protected static function deprecatedClass(string $new_class, string $old_class = null): void
+    protected static function deprecatedClass(string $new_class, ?string $old_class = null): void
     {
         $old_class = static::getDeprecatedNamespace($old_class);
 
@@ -37,7 +37,7 @@ trait Deprecation
         );
     }
 
-    protected static function deprecatedMethod(string $old_method, string $new_class, string $new_method = null): void
+    protected static function deprecatedMethod(string $old_method, string $new_class, ?string $new_method = null): void
     {
         $namespace = static::getDeprecatedNamespace();
 
@@ -51,7 +51,7 @@ trait Deprecation
         );
     }
 
-    protected static function getDeprecatedNamespace(string $old_namespace = null): string
+    protected static function getDeprecatedNamespace(?string $old_namespace = null): string
     {
         return $old_namespace ?: static::class;
     }

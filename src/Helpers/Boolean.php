@@ -21,7 +21,7 @@ class Boolean
     /**
      * Determines if the value is `true`, otherwise it will return `false`.
      *
-     * @param  mixed  $value
+     * @param mixed $value
      *
      * @return bool
      */
@@ -33,7 +33,7 @@ class Boolean
     /**
      * Determines if the value is `false`, otherwise it will return `true`.
      *
-     * @param  mixed  $value
+     * @param mixed $value
      *
      * @return bool
      */
@@ -45,7 +45,7 @@ class Boolean
     /**
      * Converts a value to a boolean type.
      *
-     * @param  mixed  $value
+     * @param mixed $value
      *
      * @return bool
      */
@@ -57,7 +57,7 @@ class Boolean
     /**
      * Getting a filtered value in a boolean view.
      *
-     * @param  mixed  $value
+     * @param mixed $value
      *
      * @return bool|null
      */
@@ -73,7 +73,7 @@ class Boolean
     /**
      * Converts a boolean value to a string.
      *
-     * @param  bool  $value
+     * @param bool $value
      *
      * @return string
      */

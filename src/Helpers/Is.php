@@ -16,12 +16,12 @@
 
 namespace DragonCode\Support\Helpers;
 
-use Exception;
 use DragonCode\Support\Facades\Helpers\Arr as ArrHelper;
 use DragonCode\Support\Facades\Helpers\Boolean as BooleanHelper;
 use DragonCode\Support\Facades\Helpers\Instance as InstanceHelper;
 use DragonCode\Support\Facades\Helpers\Reflection as ReflectionHelper;
 use DragonCode\Support\Facades\Helpers\Str as StrHelper;
+use Exception;
 use ReflectionClass;
 use Throwable;
 
@@ -30,7 +30,7 @@ class Is
     /**
      * Determines if the value is empty.
      *
-     * @param  mixed  $value
+     * @param mixed $value
      *
      * @return bool
      */
@@ -46,7 +46,7 @@ class Is
     /**
      * Determines if the value is doesn't empty.
      *
-     * @param  mixed  $value
+     * @param mixed $value
      *
      * @return bool
      */
@@ -58,7 +58,7 @@ class Is
     /**
      * Finds whether a variable is an object.
      *
-     * @param  mixed  $value
+     * @param mixed $value
      *
      * @return bool
      */
@@ -70,7 +70,7 @@ class Is
     /**
      * Find whether the type of a variable is string.
      *
-     * @param  mixed  $value
+     * @param mixed $value
      *
      * @return bool
      */
@@ -82,7 +82,7 @@ class Is
     /**
      * Determines if a value is boolean.
      *
-     * @param  mixed  $value
+     * @param mixed $value
      *
      * @return bool
      */
@@ -96,7 +96,7 @@ class Is
     /**
      * Find whether the type of a variable is interface.
      *
-     * @param  mixed  $value
+     * @param mixed $value
      *
      * @return bool
      */
@@ -114,7 +114,7 @@ class Is
     /**
      * Find whether the type of a variable is exception.
      *
-     * @param  mixed  $value
+     * @param mixed $value
      *
      * @return bool
      */
@@ -126,7 +126,7 @@ class Is
     /**
      * Find whether the type of a variable is ReflectionClass.
      *
-     * @param  mixed  $value
+     * @param mixed $value
      *
      * @return bool
      */

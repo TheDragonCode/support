@@ -25,7 +25,7 @@ class Url
     /**
      * Parsing URL into components.
      *
-     * @param  \DragonCode\Contracts\Http\Builder|string|null  $url
+     * @param \DragonCode\Contracts\Http\Builder|string|null $url
      *
      * @return \DragonCode\Support\Helpers\Http\Builder
      */
@@ -37,7 +37,7 @@ class Url
     /**
      * Check if the string is a valid URL.
      *
-     * @param  \DragonCode\Contracts\Http\Builder|string|null  $url
+     * @param \DragonCode\Contracts\Http\Builder|string|null $url
      *
      * @return bool
      */
@@ -49,7 +49,7 @@ class Url
     /**
      * Validate if the value is a valid URL or throw an error.
      *
-     * @param  \DragonCode\Contracts\Http\Builder|string|null  $url
+     * @param \DragonCode\Contracts\Http\Builder|string|null $url
      *
      * @throws \DragonCode\Support\Exceptions\NotValidUrlException
      */
@@ -63,7 +63,7 @@ class Url
     /**
      * Returns the URL after validation, or throws an error.
      *
-     * @param  \DragonCode\Contracts\Http\Builder|string|null  $url
+     * @param \DragonCode\Contracts\Http\Builder|string|null $url
      *
      * @throws \DragonCode\Support\Exceptions\NotValidUrlException
      *
@@ -79,7 +79,7 @@ class Url
     /**
      * Check if the specified URL exists.
      *
-     * @param  \DragonCode\Contracts\Http\Builder|string|null  $url
+     * @param \DragonCode\Contracts\Http\Builder|string|null $url
      *
      * @throws \DragonCode\Support\Exceptions\NotValidUrlException
      *
@@ -107,8 +107,8 @@ class Url
     /**
      * Check the existence of the URL and return the default value if it is missing.
      *
-     * @param  \DragonCode\Contracts\Http\Builder|string  $url
-     * @param  \DragonCode\Contracts\Http\Builder|string  $default
+     * @param \DragonCode\Contracts\Http\Builder|string $url
+     * @param \DragonCode\Contracts\Http\Builder|string $default
      *
      * @throws \DragonCode\Support\Exceptions\NotValidUrlException
      *

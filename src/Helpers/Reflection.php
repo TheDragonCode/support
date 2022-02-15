@@ -18,17 +18,18 @@ namespace DragonCode\Support\Helpers;
 
 use DragonCode\Support\Facades\Helpers\Is as IsHelper;
 use ReflectionClass;
+use ReflectionException;
 
 class Reflection
 {
     /**
      * Creates a ReflectionClass object.
      *
-     * @param  object|ReflectionClass|string  $class
+     * @param object|ReflectionClass|string $class
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      *
-     * @return \ReflectionClass
+     * @return ReflectionClass
      */
     public function resolve($class): ReflectionClass
     {
@@ -38,9 +39,9 @@ class Reflection
     /**
      * Gets class constants.
      *
-     * @param  object|string  $class
+     * @param object|string $class
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      *
      * @return array
      */

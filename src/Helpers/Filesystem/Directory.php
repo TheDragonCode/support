@@ -17,11 +17,11 @@
 namespace DragonCode\Support\Helpers\Filesystem;
 
 use DirectoryIterator;
-use FilesystemIterator;
 use DragonCode\Support\Exceptions\DirectoryNotFoundException;
 use DragonCode\Support\Facades\Helpers\Filesystem\File as FileHelper;
 use DragonCode\Support\Facades\Helpers\Instance;
 use DragonCode\Support\Facades\Helpers\Str;
+use FilesystemIterator;
 use SplFileInfo;
 
 class Directory
@@ -29,7 +29,7 @@ class Directory
     /**
      * Get a list of files and folders in a directory.
      *
-     * @param  string  $path
+     * @param string $path
      *
      * @throws \DragonCode\Support\Exceptions\DirectoryNotFoundException
      *
@@ -47,19 +47,19 @@ class Directory
     /**
      * Get a list of directory names along a path.
      *
-     * @param  string  $path
-     * @param  callable|null  $callback
-     * @param  bool  $recursive
+     * @param string $path
+     * @param callable|null $callback
+     * @param bool $recursive
      *
      * @throws \DragonCode\Support\Exceptions\DirectoryNotFoundException
      *
      * @return array
      */
-    public function names(string $path, callable $callback = null, bool $recursive = false): array
+    public function names(string $path, ?callable $callback = null, bool $recursive = false): array
     {
         $items = [];
 
-        /** @var \DirectoryIterator $directory */
+        /** @var DirectoryIterator $directory */
         foreach ($this->all($path) as $directory) {
             if ($directory->isDir() && ! $directory->isDot()) {
                 $name = $directory->getFilename();
@@ -88,12 +88,12 @@ class Directory
     /**
      * Create a directory at the specified path.
      *
-     * @param  string  $path
-     * @param  int  $mode
+     * @param string $path
+     * @param int $mode
      *
      * @return bool
      */
-    public function make(string $path, int $mode = 0755): bool
+    public function make(string $path, int $mode = 0o755): bool
     {
         return ! $this->doesntExist($path) || mkdir($path, $mode, true);
     }
@@ -101,7 +101,7 @@ class Directory
     /**
      * Delete the directory with all contents in the specified path.
      *
-     * @param  string  $path
+     * @param string $path
      *
      * @throws \DragonCode\Support\Exceptions\DirectoryNotFoundException
      *
@@ -131,6 +131,8 @@ class Directory
     /**
      * Ensure the directory has been deleted.
      *
+     * @param string $path
+     *
      * @throws \DragonCode\Support\Exceptions\DirectoryNotFoundException
      */
     public function ensureDelete(string $path): bool
@@ -141,13 +143,13 @@ class Directory
     /**
      * Ensure created directory exists.
      *
-     * @param  string  $path
-     * @param  int  $mode
-     * @param  bool  $can_delete
+     * @param string $path
+     * @param int $mode
+     * @param bool $can_delete
      *
      * @throws \DragonCode\Support\Exceptions\DirectoryNotFoundException
      */
-    public function ensureDirectory(string $path, int $mode = 0755, bool $can_delete = false): void
+    public function ensureDirectory(string $path, int $mode = 0o755, bool $can_delete = false): void
     {
         if ($can_delete && $this->exists($path)) {
             $this->delete($path);
@@ -161,7 +163,7 @@ class Directory
     /**
      * Check if the directory exists.
      *
-     * @param  string  $path
+     * @param string $path
      *
      * @return bool
      */
@@ -173,7 +175,7 @@ class Directory
     /**
      * Check if the directory doesn't exists.
      *
-     * @param  string  $path
+     * @param string $path
      *
      * @return bool
      */
@@ -185,7 +187,7 @@ class Directory
     /**
      * Check if object or path is a directory.
      *
-     * @param  DirectoryIterator|\SplFileInfo|string  $value
+     * @param DirectoryIterator|SplFileInfo|string $value
      *
      * @return bool
      */
@@ -201,7 +203,7 @@ class Directory
     /**
      * Checks the existence of a directory.
      *
-     * @param  DirectoryIterator|\SplFileInfo|string  $path
+     * @param DirectoryIterator|SplFileInfo|string $path
      *
      * @throws \DragonCode\Support\Exceptions\DirectoryNotFoundException
      */
@@ -215,7 +217,7 @@ class Directory
     /**
      * Checks the existence of a directory and return full path if exist.
      *
-     * @param  DirectoryIterator|\SplFileInfo|string  $path
+     * @param DirectoryIterator|SplFileInfo|string $path
      *
      * @throws \DragonCode\Support\Exceptions\DirectoryNotFoundException
      *

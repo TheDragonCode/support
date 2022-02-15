@@ -23,8 +23,8 @@ use DragonCode\Support\Facades\Helpers\Str;
 trait Validation
 {
     /**
-     * @param  mixed  $haystack
-     * @param  array|string  $needles
+     * @param mixed $haystack
+     * @param array|string $needles
      */
     protected function validateType($haystack, $needles): void
     {

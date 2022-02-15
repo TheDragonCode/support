@@ -26,8 +26,8 @@ class Instance
     /**
      * Checks if the item being checked inherits from other objects and interfaces.
      *
-     * @param  object|string  $haystack
-     * @param  string|string[]  $needles
+     * @param object|string $haystack
+     * @param string|string[] $needles
      *
      * @return bool
      */
@@ -46,11 +46,11 @@ class Instance
             }
 
             if (
-                $haystack instanceof $needle ||
-                $classname === $this->classname($needle) ||
-                $reflection->isSubclassOf($needle) ||
-                ($reflection->isInterface() && $reflection->implementsInterface($needle)) ||
-                in_array($needle, $reflection->getTraitNames(), true)
+                $haystack instanceof $needle
+                || $classname === $this->classname($needle)
+                || $reflection->isSubclassOf($needle)
+                || ($reflection->isInterface() && $reflection->implementsInterface($needle))
+                || in_array($needle, $reflection->getTraitNames(), true)
             ) {
                 return true;
             }
@@ -62,7 +62,7 @@ class Instance
     /**
      * Extract the trailing name component from a file path.
      *
-     * @param  object|string  $class
+     * @param object|string $class
      *
      * @return string|null
      */
@@ -76,7 +76,7 @@ class Instance
     /**
      * Gets the class name of the object.
      *
-     * @param  object|string|null  $class
+     * @param object|string|null $class
      *
      * @return string|null
      */
@@ -92,7 +92,7 @@ class Instance
     /**
      * Checks if the object exists.
      *
-     * @param  object|string  $haystack
+     * @param object|string $haystack
      *
      * @return bool
      */
@@ -108,9 +108,9 @@ class Instance
     /**
      * Creates a ReflectionClass object.
      *
-     * @param  object|ReflectionClass|string  $class
+     * @param object|ReflectionClass|string $class
      *
-     * @return \ReflectionClass
+     * @return ReflectionClass
      */
     protected function resolve($class): ReflectionClass
     {

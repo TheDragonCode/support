@@ -19,6 +19,7 @@ namespace DragonCode\Support\Helpers;
 use DragonCode\Support\Facades\Helpers\Arr as ArrHelper;
 use DragonCode\Support\Facades\Helpers\Call as CallHelper;
 use DragonCode\Support\Facades\Tools\Replace;
+use Exception;
 use Illuminate\Contracts\Support\DeferringDisplayableValue;
 use Illuminate\Contracts\Support\Htmlable;
 use voku\helper\ASCII;
@@ -56,7 +57,7 @@ class Str
      *
      * @see https://github.com/illuminate/support/blob/master/Str.php
      *
-     * @param  string|null  $value
+     * @param string|null $value
      *
      * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
@@ -68,8 +69,8 @@ class Str
     /**
      * Escape HTML special characters in a string.
      *
-     * @param  string|null  $value
-     * @param  bool  $double
+     * @param string|null $value
+     * @param bool $double
      *
      * @return string|null
      */
@@ -85,7 +86,7 @@ class Str
     /**
      * Convert special HTML entities back to characters.
      *
-     * @param  string|null  $value
+     * @param string|null $value
      *
      * @return string|null
      */
@@ -97,7 +98,7 @@ class Str
     /**
      * Replacing multiple spaces with a single space.
      *
-     * @param  string|null  $value
+     * @param string|null $value
      *
      * @return string|null
      */
@@ -109,20 +110,20 @@ class Str
     /**
      * Get a string according to an integer value.
      *
-     * @param  float  $number
-     * @param  array  $choice
-     * @param  string|null  $extra
+     * @param float $number
+     * @param array $choice
+     * @param string|null $extra
      *
      * @return string
      */
-    public function choice(float $number, array $choice = [], string $extra = null): string
+    public function choice(float $number, array $choice = [], ?string $extra = null): string
     {
         $number = (int) $number;
         $mod    = $number % 10;
 
         switch (true) {
             case $mod === 0:
-            case $mod >= 5 && $mod <= 9:
+            case $mod >= 5             && $mod <= 9:
             case ($number % 100 >= 11) && ($number % 100 <= 20):
                 $result = $choice[2] ?? '';
                 break;
@@ -147,8 +148,8 @@ class Str
      *
      * @see https://github.com/illuminate/support/blob/master/Str.php
      *
-     * @param  string|null  $value
-     * @param  string  $prefix
+     * @param string|null $value
+     * @param string $prefix
      *
      * @return string
      */
@@ -162,8 +163,8 @@ class Str
     /**
      * End a string with a single instance of a given value.
      *
-     * @param  string|null  $value
-     * @param  string  $suffix
+     * @param string|null $value
+     * @param string $suffix
      *
      * @return string
      */
@@ -179,8 +180,8 @@ class Str
      *
      * @see https://github.com/illuminate/support/blob/master/Str.php
      *
-     * @param  string  $value
-     * @param  string  $cap
+     * @param string $value
+     * @param string $cap
      *
      * @return string
      */
@@ -196,8 +197,8 @@ class Str
      *
      * @see https://github.com/illuminate/support/blob/master/Str.php
      *
-     * @param  string|array  $pattern
-     * @param  mixed  $value
+     * @param string|array $pattern
+     * @param mixed $value
      *
      * @return bool
      */
@@ -239,8 +240,8 @@ class Str
     /**
      *  Determine if a given string starts with a given substring.
      *
-     * @param  string  $haystack
-     * @param  string|string[]  $needles
+     * @param string $haystack
+     * @param string|string[] $needles
      *
      * @return bool
      */
@@ -258,8 +259,8 @@ class Str
     /**
      * Determine if a given string ends with a given substring.
      *
-     * @param  string  $haystack
-     * @param  string|string[]  $needles
+     * @param string $haystack
+     * @param string|string[] $needles
      *
      * @return bool
      */
@@ -279,7 +280,7 @@ class Str
      *
      * @see https://github.com/illuminate/support/blob/master/Str.php
      *
-     * @param  string|null  $value
+     * @param string|null $value
      *
      * @return string
      */
@@ -293,7 +294,7 @@ class Str
      *
      * @see https://github.com/illuminate/support/blob/master/Str.php
      *
-     * @param  string|null  $value
+     * @param string|null $value
      *
      * @return string
      */
@@ -307,7 +308,7 @@ class Str
      *
      * @see https://github.com/illuminate/support/blob/master/Str.php
      *
-     * @param  string|null  $value
+     * @param string|null $value
      *
      * @return string|null
      */
@@ -329,7 +330,7 @@ class Str
      *
      * @see https://github.com/illuminate/support/blob/master/Str.php
      *
-     * @param  string|null  $value
+     * @param string|null $value
      *
      * @return string|null
      */
@@ -347,8 +348,8 @@ class Str
      *
      * @see https://github.com/illuminate/support/blob/master/Str.php
      *
-     * @param  string|null  $value
-     * @param  string  $delimiter
+     * @param string|null $value
+     * @param string $delimiter
      *
      * @return string|null
      */
@@ -374,9 +375,9 @@ class Str
      *
      * @see https://github.com/illuminate/support/blob/master/Str.php
      *
-     * @param  string  $title
-     * @param  string  $separator
-     * @param  string|null  $language
+     * @param string $title
+     * @param string $separator
+     * @param string|null $language
      *
      * @return string
      */
@@ -406,7 +407,7 @@ class Str
      *
      * @see https://github.com/illuminate/support/blob/master/Str.php
      *
-     * @param  string|null  $value
+     * @param string|null $value
      *
      * @return string|null
      */
@@ -424,12 +425,12 @@ class Str
      *
      * @see https://github.com/illuminate/support/blob/master/Str.php
      *
-     * @param  string|null  $value
-     * @param  string|null  $encoding
+     * @param string|null $value
+     * @param string|null $encoding
      *
      * @return int
      */
-    public function length(?string $value, string $encoding = null): int
+    public function length(?string $value, ?string $encoding = null): int
     {
         return $encoding
             ? mb_strlen($value, $encoding)
@@ -439,9 +440,9 @@ class Str
     /**
      * Count the number of substring occurrences.
      *
-     * @param  string|null  $value
-     * @param  string  $needle
-     * @param  int  $offset
+     * @param string|null $value
+     * @param string $needle
+     * @param int $offset
      *
      * @return int
      */
@@ -455,13 +456,13 @@ class Str
      *
      * @see https://github.com/illuminate/support/blob/master/Str.php
      *
-     * @param  string  $string
-     * @param  int  $start
-     * @param  int|null  $length
+     * @param string $string
+     * @param int $start
+     * @param int|null $length
      *
      * @return string|null
      */
-    public function substr(string $string, int $start, int $length = null): ?string
+    public function substr(string $string, int $start, ?int $length = null): ?string
     {
         return mb_substr($string, $start, $length, 'UTF-8');
     }
@@ -469,13 +470,13 @@ class Str
     /**
      * Replace all occurrences of the search string with the replacement string.
      *
-     * @param  string  $template
-     * @param  array  $values
-     * @param  string|null  $key_format
+     * @param string $template
+     * @param array $values
+     * @param string|null $key_format
      *
      * @return string
      */
-    public function replace(string $template, array $values, string $key_format = null): string
+    public function replace(string $template, array $values, ?string $key_format = null): string
     {
         $keys = Replace::toFormatArray(array_keys($values), $key_format);
 
@@ -487,8 +488,8 @@ class Str
      *
      * @see https://github.com/illuminate/support/blob/master/Str.php
      *
-     * @param  string  $subject
-     * @param  string  $search
+     * @param string $subject
+     * @param string $search
      *
      * @return string
      */
@@ -502,8 +503,8 @@ class Str
      *
      * @see https://github.com/illuminate/support/blob/master/Str.php
      *
-     * @param  string  $subject
-     * @param  string  $search
+     * @param string $subject
+     * @param string $search
      *
      * @return string
      */
@@ -515,8 +516,8 @@ class Str
     /**
      * Determine if a given string contains a given substring.
      *
-     * @param  string  $haystack
-     * @param  string|string[]  $needles
+     * @param string $haystack
+     * @param string|string[] $needles
      *
      * @return bool
      */
@@ -536,9 +537,9 @@ class Str
      *
      * @see https://github.com/illuminate/support/blob/master/Str.php
      *
-     * @param  int  $length
+     * @param int $length
      *
-     * @throws \Exception
+     * @throws Exception
      *
      * @return string
      */
@@ -562,8 +563,8 @@ class Str
      *
      * @see https://github.com/illuminate/support/blob/master/Str.php
      *
-     * @param  string  $value
-     * @param  string  $pattern
+     * @param string $value
+     * @param string $pattern
      *
      * @return string|null
      */
@@ -577,9 +578,9 @@ class Str
     /**
      * Replace a given value in the string.
      *
-     * @param  string|null  $value
-     * @param  string  $pattern
-     * @param  string  $replacement
+     * @param string|null $value
+     * @param string $pattern
+     * @param string $replacement
      *
      * @return string|null
      */
@@ -591,7 +592,7 @@ class Str
     /**
      * Determines if the value is empty.
      *
-     * @param  mixed  $value
+     * @param mixed $value
      *
      * @return bool
      */
@@ -605,7 +606,7 @@ class Str
     /**
      * Determines if the value is doesn't empty.
      *
-     * @param  mixed  $value
+     * @param mixed $value
      *
      * @return bool
      */
@@ -619,8 +620,8 @@ class Str
      *
      * @see https://github.com/illuminate/support/blob/master/Str.php
      *
-     * @param  string|null  $value
-     * @param  string|null  $language
+     * @param string|null $value
+     * @param string|null $language
      *
      * @return string
      */
@@ -632,7 +633,7 @@ class Str
     /**
      * Converts a value to a string.
      *
-     * @param  string|null  $value
+     * @param string|null $value
      *
      * @return string
      */
@@ -644,8 +645,8 @@ class Str
     /**
      * Using a call-back function to process a value.
      *
-     * @param  string|null  $value
-     * @param  callable  $callback
+     * @param string|null $value
+     * @param callable $callback
      *
      * @return string|null
      */

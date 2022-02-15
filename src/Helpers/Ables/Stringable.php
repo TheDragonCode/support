@@ -28,6 +28,11 @@ class Stringable implements Contract
         $this->value = (string) $value;
     }
 
+    public function __toString()
+    {
+        return (string) $this->value;
+    }
+
     public function of($value = [])
     {
         $this->value = $value;
@@ -35,15 +40,10 @@ class Stringable implements Contract
         return $this;
     }
 
-    public function __toString()
-    {
-        return (string) $this->value;
-    }
-
     /**
      * Split a string by a string.
      *
-     * @param  string  $separator
+     * @param string $separator
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
@@ -57,7 +57,7 @@ class Stringable implements Contract
     /**
      * Escape HTML special characters in a string.
      *
-     * @param  bool  $double
+     * @param bool $double
      *
      * @return $this
      */
@@ -89,7 +89,7 @@ class Stringable implements Contract
     /**
      * Begin a string with a single instance of a given value.
      *
-     * @param  string  $prefix
+     * @param string $prefix
      *
      * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
@@ -101,7 +101,7 @@ class Stringable implements Contract
     /**
      * End a string with a single instance of a given value.
      *
-     * @param  string  $suffix
+     * @param string $suffix
      *
      * @return $this
      */
@@ -113,7 +113,7 @@ class Stringable implements Contract
     /**
      * Cap a string with a single instance of a given value.
      *
-     * @param  string  $cap
+     * @param string $cap
      *
      * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
@@ -165,7 +165,7 @@ class Stringable implements Contract
     /**
      * Convert a string to snake case.
      *
-     * @param  string|null  $delimiter
+     * @param string|null $delimiter
      *
      * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
@@ -177,8 +177,8 @@ class Stringable implements Contract
     /**
      * Generate a URL friendly "slug" from a given string.
      *
-     * @param  string  $separator
-     * @param  string|null  $language
+     * @param string $separator
+     * @param string|null $language
      *
      * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
@@ -200,12 +200,12 @@ class Stringable implements Contract
     /**
      * Returns the portion of string specified by the start and length parameters.
      *
-     * @param  int  $start
-     * @param  int|null  $length
+     * @param int $start
+     * @param int|null $length
      *
      * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
-    public function substr(int $start, int $length = null): self
+    public function substr(int $start, ?int $length = null): self
     {
         return new self(Str::substr($this->value, $start, $length));
     }
@@ -213,12 +213,12 @@ class Stringable implements Contract
     /**
      * Replace all occurrences of the search string with the replacement string.
      *
-     * @param  array  $values
-     * @param  string|null  $key_format
+     * @param array $values
+     * @param string|null $key_format
      *
      * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
-    public function replace(array $values, string $key_format = null): self
+    public function replace(array $values, ?string $key_format = null): self
     {
         return new self(Str::replace($this->value, $values, $key_format));
     }
@@ -226,7 +226,7 @@ class Stringable implements Contract
     /**
      * Get the portion of a string before the first occurrence of a given value.
      *
-     * @param  string  $search
+     * @param string $search
      *
      * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
@@ -238,7 +238,7 @@ class Stringable implements Contract
     /**
      * Return the remainder of a string after the first occurrence of a given value.
      *
-     * @param  string  $search
+     * @param string $search
      *
      * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
@@ -250,7 +250,7 @@ class Stringable implements Contract
     /**
      * Generate a more truly "random" alpha-numeric string.
      *
-     * @param  int  $length
+     * @param int $length
      *
      * @return $this
      */
@@ -264,7 +264,7 @@ class Stringable implements Contract
      *
      * @see  https://php.net/manual/en/function.trim.php
      *
-     * @param  string  $characters
+     * @param string $characters
      *
      * @return $this
      */
@@ -276,7 +276,7 @@ class Stringable implements Contract
     /**
      * Get the string matching the given pattern.
      *
-     * @param  string  $pattern
+     * @param string $pattern
      *
      * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
@@ -288,8 +288,8 @@ class Stringable implements Contract
     /**
      * Replace a given value in the string.
      *
-     * @param  string  $pattern
-     * @param  string  $replacement
+     * @param string $pattern
+     * @param string $replacement
      *
      * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
@@ -301,7 +301,7 @@ class Stringable implements Contract
     /**
      * Transliterate a UTF-8 value to ASCII.
      *
-     * @param  string|null  $language
+     * @param string|null $language
      *
      * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
@@ -313,7 +313,7 @@ class Stringable implements Contract
     /**
      * Using a call-back function to process a value.
      *
-     * @param  callable  $callback
+     * @param callable $callback
      *
      * @return $this
      */

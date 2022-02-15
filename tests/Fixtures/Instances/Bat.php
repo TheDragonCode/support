@@ -24,7 +24,7 @@ class Bat implements Contract
 
     public $bar;
 
-    public function __construct(string $foo = null, string $bar = null)
+    public function __construct(?string $foo = null, ?string $bar = null)
     {
         $this->foo = $foo;
         $this->bar = $bar;

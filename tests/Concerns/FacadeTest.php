@@ -16,7 +16,6 @@
 
 namespace Tests\Concerns;
 
-use Error;
 use DragonCode\Support\Facades\Helpers\Arr as ArrFacade;
 use DragonCode\Support\Facades\Helpers\Digit as DigitFacade;
 use DragonCode\Support\Facades\Helpers\Filesystem\Directory as DirectoryFacade;
@@ -41,6 +40,7 @@ use DragonCode\Support\Helpers\OS;
 use DragonCode\Support\Helpers\Reflection;
 use DragonCode\Support\Helpers\Str;
 use DragonCode\Support\Tools\Stub;
+use Error;
 use RuntimeException;
 use Tests\Fixtures\Facades\NotImplement;
 use Tests\Fixtures\Facades\Resolve;

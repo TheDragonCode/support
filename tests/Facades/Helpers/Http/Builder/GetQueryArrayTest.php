@@ -15,7 +15,7 @@
  * @see https://github.com/TheDragonCode/support
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Tests\Facades\Helpers\Http\Builder;
 

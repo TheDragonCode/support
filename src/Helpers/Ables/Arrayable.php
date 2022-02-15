@@ -37,7 +37,7 @@ class Arrayable
     /**
      * Join array elements with a string.
      *
-     * @param  string  $separator
+     * @param string $separator
      *
      * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
@@ -63,7 +63,7 @@ class Arrayable
      * As the second parameter, a callback function is passed, which determines the actions for processing the value.
      * The output of the function must be a string with a name.
      *
-     * @param  callable  $callback
+     * @param callable $callback
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
@@ -75,7 +75,7 @@ class Arrayable
     /**
      * Renaming array keys with map.
      *
-     * @param  array  $map
+     * @param array $map
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
@@ -87,7 +87,7 @@ class Arrayable
     /**
      * Push one a unique element onto the end of array.
      *
-     * @param  mixed  $values
+     * @param mixed $values
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
@@ -107,7 +107,7 @@ class Arrayable
      *
      * @see https://php.net/manual/en/function.array-unique.php
      *
-     * @param  int  $flags
+     * @param int $flags
      *
      * @return $this
      */
@@ -137,7 +137,7 @@ class Arrayable
      *
      * @see https://gist.github.com/Ellrion/a3145621f936aa9416f4c04987533d8d#file-helper-php
      *
-     * @param  array  $sorter
+     * @param array $sorter
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
@@ -149,11 +149,11 @@ class Arrayable
     /**
      * Recursively sorting an array by values.
      *
-     * @param  callable|null  $callback
+     * @param callable|null $callback
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
-    public function sort(callable $callback = null): self
+    public function sort(?callable $callback = null): self
     {
         return new self(Arr::sort($this->value, $callback));
     }
@@ -161,11 +161,11 @@ class Arrayable
     /**
      * Recursively sorting an array by keys.
      *
-     * @param  callable|null  $callback
+     * @param callable|null $callback
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
-    public function ksort(callable $callback = null): self
+    public function ksort(?callable $callback = null): self
     {
         return new self(Arr::ksort($this->value, $callback));
     }
@@ -174,7 +174,7 @@ class Arrayable
      * Merge one or more arrays recursively.
      * Don't forget that numeric keys NOT will be renumbered!
      *
-     * @param  array  ...$arrays
+     * @param array ...$arrays
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
@@ -208,7 +208,7 @@ class Arrayable
     /**
      * Get all of the given array except for a specified array of keys.
      *
-     * @param  array|callable|string  $keys
+     * @param array|callable|string $keys
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
@@ -220,7 +220,7 @@ class Arrayable
     /**
      * Get a subset of the items from the given array.
      *
-     * @param  array|callable|string  $keys
+     * @param array|callable|string $keys
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
@@ -236,12 +236,12 @@ class Arrayable
      *
      * @see https://php.net/manual/en/function.array-filter.php
      *
-     * @param  callable|null  $callback
-     * @param  int  $mode
+     * @param callable|null $callback
+     * @param int $mode
      *
      * @return $this
      */
-    public function filter(callable $callback = null, int $mode = 0): self
+    public function filter(?callable $callback = null, int $mode = 0): self
     {
         return new self(Arr::filter($this->value, $callback, $mode));
     }
@@ -249,7 +249,7 @@ class Arrayable
     /**
      * Flatten a multi-dimensional array into a single level.
      *
-     * @param  bool  $ignore_keys
+     * @param bool $ignore_keys
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
@@ -261,8 +261,8 @@ class Arrayable
     /**
      * Applies the callback to the elements of the given arrays.
      *
-     * @param  callable  $callback
-     * @param  bool  $recursive
+     * @param callable $callback
+     * @param bool $recursive
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
@@ -312,7 +312,7 @@ class Arrayable
      *
      * @see  https://php.net/manual/en/function.array-push.php
      *
-     * @param  mixed  ...$values
+     * @param mixed ...$values
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
@@ -324,8 +324,8 @@ class Arrayable
     /**
      * Assigns a value to an array key.
      *
-     * @param  mixed  $key
-     * @param  mixed  $value
+     * @param mixed $key
+     * @param mixed $value
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
@@ -337,7 +337,7 @@ class Arrayable
     /**
      * Removes an array key.
      *
-     * @param  mixed  $key
+     * @param mixed $key
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
@@ -349,7 +349,7 @@ class Arrayable
     /**
      * Call the given Closure with the given value then return the value.
      *
-     * @param  callable  $callback
+     * @param callable $callback
      *
      * @return $this
      */
@@ -361,7 +361,7 @@ class Arrayable
     /**
      * Return an array with elements in reverse order.
      *
-     * @param  bool  $preserve_keys
+     * @param bool $preserve_keys
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */

@@ -84,8 +84,8 @@ class Builder implements BuilderContract
     /**
      * Parse a URL.
      *
-     * @param  \Psr\Http\Message\UriInterface|string|null  $url
-     * @param  int  $component
+     * @param \Psr\Http\Message\UriInterface|string|null $url
+     * @param int $component
      *
      * @return \DragonCode\Support\Helpers\Http\Builder
      */
@@ -107,7 +107,7 @@ class Builder implements BuilderContract
     /**
      * Populate an object with parsed data.
      *
-     * @param  array  $parsed
+     * @param array $parsed
      *
      * @return \DragonCode\Support\Helpers\Http\Builder
      */
@@ -139,7 +139,7 @@ class Builder implements BuilderContract
     /**
      * Retrieve the domain level name of the URI.
      *
-     * @param  int  $level
+     * @param int $level
      *
      * @return string
      */
@@ -342,7 +342,7 @@ class Builder implements BuilderContract
     /**
      * Return an instance with the specified scheme.
      *
-     * @param  string  $scheme
+     * @param string $scheme
      *
      * @return \DragonCode\Support\Helpers\Http\Builder
      */
@@ -354,8 +354,8 @@ class Builder implements BuilderContract
     /**
      * Return an instance with the specified user information.
      *
-     * @param  string  $user
-     * @param  string|null  $password
+     * @param string $user
+     * @param string|null $password
      *
      * @return \DragonCode\Support\Helpers\Http\Builder
      */
@@ -369,7 +369,7 @@ class Builder implements BuilderContract
     /**
      * Return an instance with the specified host.
      *
-     * @param  string  $host
+     * @param string $host
      *
      * @return \DragonCode\Support\Helpers\Http\Builder
      */
@@ -381,7 +381,7 @@ class Builder implements BuilderContract
     /**
      * Return an instance with the specified port.
      *
-     * @param  int|null  $port
+     * @param int|null $port
      *
      * @return \DragonCode\Support\Helpers\Http\Builder
      */
@@ -393,7 +393,7 @@ class Builder implements BuilderContract
     /**
      * Return an instance with the specified path.
      *
-     * @param  string  $path
+     * @param string $path
      *
      * @return \DragonCode\Support\Helpers\Http\Builder
      */
@@ -405,7 +405,7 @@ class Builder implements BuilderContract
     /**
      * Return an instance with the specified query string.
      *
-     * @param  array|string  $query
+     * @param array|string $query
      *
      * @return \DragonCode\Support\Helpers\Http\Builder
      */
@@ -417,8 +417,8 @@ class Builder implements BuilderContract
     /**
      * Return an instance with the specified query object.
      *
-     * @param  string  $key
-     * @param  mixed  $value
+     * @param string $key
+     * @param mixed $value
      *
      * @return \DragonCode\Support\Helpers\Http\Builder
      */
@@ -439,7 +439,7 @@ class Builder implements BuilderContract
     /**
      * Return an instance with the specified query object.
      *
-     * @param  string  $key
+     * @param string $key
      *
      * @return \DragonCode\Support\Helpers\Http\Builder
      */
@@ -455,7 +455,7 @@ class Builder implements BuilderContract
     /**
      * Return an instance with the specified URI fragment.
      *
-     * @param  string  $fragment
+     * @param string $fragment
      *
      * @return \DragonCode\Support\Helpers\Http\Builder
      */
@@ -467,7 +467,7 @@ class Builder implements BuilderContract
     /**
      * Return an instance with the specified `UriInterface`.
      *
-     * @param  \Psr\Http\Message\UriInterface  $uri
+     * @param \Psr\Http\Message\UriInterface $uri
      *
      * @return \DragonCode\Support\Helpers\Http\Builder
      */

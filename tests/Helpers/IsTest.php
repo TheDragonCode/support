@@ -16,8 +16,8 @@
 
 namespace Tests\Helpers;
 
-use Exception;
 use DragonCode\Support\Helpers\Is;
+use Exception;
 use ReflectionClass;
 use Tests\Fixtures\Contracts\Contract;
 use Tests\Fixtures\Instances\Arrayable;

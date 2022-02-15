@@ -21,7 +21,7 @@ class Digit
     /**
      * Calculating the factorial of a number.
      *
-     * @param  int  $n
+     * @param int $n
      *
      * @return int
      */
@@ -38,8 +38,8 @@ class Digit
      * Converts a number into a short version.
      * eg: 1000 >> 1K.
      *
-     * @param  float  $number
-     * @param  int  $precision
+     * @param float $number
+     * @param int $precision
      *
      * @return string
      */
@@ -58,8 +58,8 @@ class Digit
      * Create short unique identifier from number.
      * Actually using in short URL.
      *
-     * @param  int  $number
-     * @param  string  $chars
+     * @param int $number
+     * @param string $chars
      *
      * @return string
      */
@@ -86,9 +86,9 @@ class Digit
     /**
      * Format a number with grouped with divider.
      *
-     * @param  float  $number
-     * @param  int  $length
-     * @param  int  $precision
+     * @param float $number
+     * @param int $length
+     * @param int $precision
      *
      * @return float
      */
@@ -102,7 +102,7 @@ class Digit
     /**
      * Converts a numeric value to a string.
      *
-     * @param  float|int  $value
+     * @param float|int $value
      *
      * @return string
      */

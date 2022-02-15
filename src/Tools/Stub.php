@@ -28,8 +28,8 @@ class Stub
     /**
      * Replace the contents of the template file.
      *
-     * @param  string  $stub_file
-     * @param  array  $replace
+     * @param string $stub_file
+     * @param array $replace
      *
      * @throws \DragonCode\Support\Exceptions\UnknownStubFileException
      *
@@ -45,7 +45,7 @@ class Stub
     /**
      * Receive the contents of the template file.
      *
-     * @param  string  $filename
+     * @param string $filename
      *
      * @throws \DragonCode\Support\Exceptions\UnknownStubFileException
      *
@@ -63,7 +63,7 @@ class Stub
     /**
      * Receive the path to the template file.
      *
-     * @param  string  $filename
+     * @param string $filename
      *
      * @return string|null
      */
@@ -80,7 +80,7 @@ class Stub
      * If the file exists under the specified link, it will return it,
      * otherwise it will search in the default folder.
      *
-     * @param  string  $path
+     * @param string $path
      *
      * @return bool
      */

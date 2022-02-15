@@ -37,7 +37,7 @@ class Arr
     /**
      * Get a new arrayable object from the given array.
      *
-     * @param  array|ArrayAccess|string|null  $value
+     * @param array|ArrayAccess|string|null $value
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
@@ -51,8 +51,8 @@ class Arr
      * As the second parameter, a callback function is passed, which determines the actions for processing the value.
      * The output of the function must be a string with a name.
      *
-     * @param  array  $array
-     * @param  callable  $callback
+     * @param array $array
+     * @param callable $callback
      *
      * @return array
      */
@@ -72,8 +72,8 @@ class Arr
     /**
      * Renaming array keys with map.
      *
-     * @param  array  $array
-     * @param  array  $map
+     * @param array $array
+     * @param array $map
      *
      * @return array
      */
@@ -87,7 +87,7 @@ class Arr
     /**
      * Get the size of the longest text element of the array.
      *
-     * @param  array  $array
+     * @param array $array
      *
      * @return int
      */
@@ -99,8 +99,8 @@ class Arr
     /**
      * Push one a unique element onto the end of array.
      *
-     * @param  array  $array
-     * @param  mixed  $values
+     * @param array $array
+     * @param mixed $values
      *
      * @return array
      */
@@ -128,8 +128,8 @@ class Arr
      *
      * @see https://php.net/manual/en/function.array-unique.php
      *
-     * @param  array  $array
-     * @param  int  $flags
+     * @param array $array
+     * @param int $flags
      *
      * @return array
      */
@@ -159,8 +159,8 @@ class Arr
      *
      * @see https://gist.github.com/Ellrion/a3145621f936aa9416f4c04987533d8d#file-helper-php
      *
-     * @param  array  $array
-     * @param  array  $sorter
+     * @param array $array
+     * @param array $sorter
      *
      * @return array
      */
@@ -174,12 +174,12 @@ class Arr
     /**
      * Recursively sorting an array by values.
      *
-     * @param  array  $array
-     * @param  callable|null  $callback
+     * @param array $array
+     * @param callable|null $callback
      *
      * @return array
      */
-    public function sort(array $array, callable $callback = null): array
+    public function sort(array $array, ?callable $callback = null): array
     {
         $callback = $callback ?: Sorter::default();
 
@@ -197,12 +197,12 @@ class Arr
     /**
      * Recursively sorting an array by keys.
      *
-     * @param  array  $array
-     * @param  callable|null  $callback
+     * @param array $array
+     * @param callable|null $callback
      *
      * @return array
      */
-    public function ksort(array $array, callable $callback = null): array
+    public function ksort(array $array, ?callable $callback = null): array
     {
         $callback = $callback ?: Sorter::default();
 
@@ -221,7 +221,7 @@ class Arr
      * Merge one or more arrays recursively.
      * Don't forget that numeric keys NOT will be renumbered!
      *
-     * @param  array[]  ...$arrays
+     * @param array[] ...$arrays
      *
      * @return array
      */
@@ -287,7 +287,7 @@ class Arr
     /**
      * If the given value is not an array and not null, wrap it in one.
      *
-     * @param  mixed  $value
+     * @param mixed $value
      *
      * @return array
      */
@@ -303,7 +303,7 @@ class Arr
     /**
      * Get the instance as an array.
      *
-     * @param  mixed  $value
+     * @param mixed $value
      *
      * @return array
      */
@@ -329,8 +329,8 @@ class Arr
     /**
      * Determine if the given key exists in the provided array.
      *
-     * @param  array|\ArrayAccess  $array
-     * @param  mixed  $key
+     * @param array|ArrayAccess $array
+     * @param mixed $key
      *
      * @return bool
      */
@@ -358,8 +358,8 @@ class Arr
     /**
      * Determine if the given key exists in the provided array without dot divider.
      *
-     * @param  array|\ArrayAccess  $array
-     * @param  mixed  $key
+     * @param array|ArrayAccess $array
+     * @param mixed $key
      *
      * @return bool
      */
@@ -377,9 +377,9 @@ class Arr
      *
      * @see https://github.com/illuminate/collections/blob/master/Arr.php
      *
-     * @param  array|ArrayAccess  $array
-     * @param  mixed  $key
-     * @param  mixed|null  $default
+     * @param array|ArrayAccess $array
+     * @param mixed $key
+     * @param mixed|null $default
      *
      * @return mixed|null
      */
@@ -415,9 +415,9 @@ class Arr
     /**
      * If the element key exists, then return the name of the key, otherwise the default value.
      *
-     * @param  array|ArrayAccess  $array
-     * @param  mixed  $key
-     * @param  mixed  $default
+     * @param array|ArrayAccess $array
+     * @param mixed $key
+     * @param mixed $default
      *
      * @return mixed|null
      */
@@ -429,8 +429,8 @@ class Arr
     /**
      * Get all of the given array except for a specified array of keys.
      *
-     * @param  array|ArrayAccess  $array
-     * @param  array|callable|string  $keys
+     * @param array|ArrayAccess $array
+     * @param array|callable|string $keys
      *
      * @return array
      */
@@ -448,8 +448,8 @@ class Arr
     /**
      * Get a subset of the items from the given array.
      *
-     * @param  array|ArrayAccess  $array
-     * @param  array|callable|string  $keys
+     * @param array|ArrayAccess $array
+     * @param array|callable|string $keys
      *
      * @return array
      */
@@ -481,13 +481,13 @@ class Arr
      *
      * @see https://php.net/manual/en/function.array-filter.php
      *
-     * @param  array|ArrayAccess  $array
-     * @param  callable|null  $callback
-     * @param  int  $mode
+     * @param array|ArrayAccess $array
+     * @param callable|null $callback
+     * @param int $mode
      *
      * @return array
      */
-    public function filter($array, callable $callback = null, int $mode = 0): array
+    public function filter($array, ?callable $callback = null, int $mode = 0): array
     {
         if (empty($callback)) {
             $callback = $mode === ARRAY_FILTER_USE_BOTH
@@ -503,7 +503,7 @@ class Arr
      *
      * @see https://php.net/manual/en/function.array-keys.php
      *
-     * @param  mixed  $array
+     * @param mixed $array
      *
      * @return array
      */
@@ -517,7 +517,7 @@ class Arr
      *
      * @see  https://php.net/manual/en/function.array-values.php
      *
-     * @param  mixed  $array
+     * @param mixed $array
      *
      * @return array
      */
@@ -531,7 +531,7 @@ class Arr
      *
      * @see  https://php.net/manual/en/function.array-flip.php
      *
-     * @param  mixed  $array
+     * @param mixed $array
      *
      * @return array
      */
@@ -543,8 +543,8 @@ class Arr
     /**
      * Flatten a multi-dimensional array into a single level.
      *
-     * @param  array  $array
-     * @param  bool  $ignore_keys
+     * @param array $array
+     * @param bool $ignore_keys
      *
      * @return array
      */
@@ -571,7 +571,7 @@ class Arr
         return $ignore_keys ? array_values($result) : $result;
     }
 
-    public function flattenKeys(array $array, string $delimiter = '.', string $prefix = null): array
+    public function flattenKeys(array $array, string $delimiter = '.', ?string $prefix = null): array
     {
         $result = [];
 
@@ -595,9 +595,9 @@ class Arr
     /**
      * Applies the callback to the elements of the given arrays.
      *
-     * @param  array|ArrayAccess  $array
-     * @param  callable  $callback
-     * @param  bool  $recursive
+     * @param array|ArrayAccess $array
+     * @param callable $callback
+     * @param bool $recursive
      *
      * @return array
      */
@@ -619,8 +619,8 @@ class Arr
      *
      * @see  https://php.net/manual/en/function.array-push.php
      *
-     * @param  array|ArrayAccess  $array
-     * @param  mixed  ...$values
+     * @param array|ArrayAccess $array
+     * @param mixed ...$values
      *
      * @return array
      */
@@ -636,9 +636,9 @@ class Arr
     /**
      * Assigns a value to an array key.
      *
-     * @param  array|ArrayAccess  $array
-     * @param  mixed  $key
-     * @param  mixed  $value
+     * @param array|ArrayAccess $array
+     * @param mixed $key
+     * @param mixed $value
      *
      * @return array
      */
@@ -656,8 +656,8 @@ class Arr
     /**
      * Removes an array key.
      *
-     * @param  array|ArrayAccess  $array
-     * @param  mixed  $key
+     * @param array|ArrayAccess $array
+     * @param mixed $key
      *
      * @return array
      */
@@ -671,8 +671,8 @@ class Arr
     /**
      * Call the given Closure with the given value then return the value.
      *
-     * @param  array|ArrayAccess  $array
-     * @param  callable  $callback
+     * @param array|ArrayAccess $array
+     * @param callable $callback
      *
      * @return array
      */
@@ -688,7 +688,7 @@ class Arr
     /**
      * Check if the item is an array.
      *
-     * @param  mixed  $value
+     * @param mixed $value
      *
      * @return bool
      */
@@ -699,9 +699,9 @@ class Arr
         }
 
         if (
-            is_string($value) &&
-            method_exists($value, 'toArray') &&
-            ! Reflection::isStaticMethod($value, 'toArray')
+            is_string($value)
+            && method_exists($value, 'toArray')
+            && ! Reflection::isStaticMethod($value, 'toArray')
         ) {
             return false;
         }
@@ -719,17 +719,13 @@ class Arr
             return true;
         }
 
-        if (Instance::of($value, Closure::class) && method_exists($value, 'toArray')) {
-            return true;
-        }
-
-        return false;
+        return (bool) (Instance::of($value, Closure::class) && method_exists($value, 'toArray'));
     }
 
     /**
      * Determines if the array or arrayable object is empty.
      *
-     * @param  mixed  $value
+     * @param mixed $value
      *
      * @return bool
      */
@@ -744,7 +740,7 @@ class Arr
     /**
      * Determines if the value is doesn't empty.
      *
-     * @param  mixed  $value
+     * @param mixed $value
      *
      * @return bool
      */
@@ -756,8 +752,8 @@ class Arr
     /**
      * Return an array with elements in reverse order.
      *
-     * @param  array  $array
-     * @param  bool  $preserve_keys
+     * @param array $array
+     * @param bool $preserve_keys
      *
      * @return array
      */
@@ -769,11 +765,11 @@ class Arr
     /**
      * Save array to php or json file.
      *
-     * @param  array|ArrayAccess  $array
-     * @param  string  $path
-     * @param  bool  $is_json
-     * @param  bool  $sort_keys
-     * @param  int  $json_flags
+     * @param array|ArrayAccess $array
+     * @param string $path
+     * @param bool $is_json
+     * @param bool $sort_keys
+     * @param int $json_flags
      */
     public function store($array, string $path, bool $is_json = false, bool $sort_keys = false, int $json_flags = 0): void
     {
@@ -785,10 +781,10 @@ class Arr
     /**
      * Save array to json file.
      *
-     * @param  string  $path
-     * @param  array|ArrayAccess  $array
-     * @param  bool  $sort_keys
-     * @param  int  $flags
+     * @param string $path
+     * @param array|ArrayAccess $array
+     * @param bool $sort_keys
+     * @param int $flags
      */
     public function storeAsJson(string $path, $array, bool $sort_keys = false, int $flags = 0): void
     {
@@ -800,9 +796,9 @@ class Arr
     /**
      * Save array to php file.
      *
-     * @param  string  $path
-     * @param  array|ArrayAccess  $array
-     * @param  bool  $sort_keys
+     * @param string $path
+     * @param array|ArrayAccess $array
+     * @param bool $sort_keys
      */
     public function storeAsArray(string $path, $array, bool $sort_keys = false): void
     {
@@ -814,11 +810,11 @@ class Arr
     /**
      * Prepare an array for writing to a file.
      *
-     * @param  string  $path
-     * @param  string  $stub
-     * @param  array|ArrayAccess  $array
-     * @param  callable  $replace
-     * @param  bool  $sort_keys
+     * @param string $path
+     * @param string $stub
+     * @param array|ArrayAccess $array
+     * @param callable $replace
+     * @param bool $sort_keys
      */
     protected function prepareToStore(string $path, string $stub, array $array, callable $replace, bool $sort_keys = false): void
     {

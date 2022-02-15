@@ -17,6 +17,7 @@
 namespace Tests\Fixtures\Instances;
 
 use ArrayAccess;
+use ReturnTypeWillChange;
 
 class Arrayable implements ArrayAccess
 {
@@ -31,7 +32,7 @@ class Arrayable implements ArrayAccess
         return isset($this->values[$offset]);
     }
 
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return $this->values[$offset];

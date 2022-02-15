@@ -30,17 +30,17 @@ class File
     /**
      * Get a list of filenames along a path.
      *
-     * @param  string  $path
-     * @param  callable|null  $callback
-     * @param  bool  $recursive
+     * @param string $path
+     * @param callable|null $callback
+     * @param bool $recursive
      *
      * @return array
      */
-    public function names(string $path, callable $callback = null, bool $recursive = false): array
+    public function names(string $path, ?callable $callback = null, bool $recursive = false): array
     {
         $items = [];
 
-        /** @var \DirectoryIterator $item */
+        /** @var DirectoryIterator $item */
         foreach (DirectoryHelper::all($path) as $item) {
             if ($item->isFile()) {
                 $name = $item->getFilename();
@@ -69,13 +69,13 @@ class File
     /**
      * Save content to file.
      *
-     * @param  string  $path
-     * @param  string  $content
-     * @param  int  $mode
+     * @param string $path
+     * @param string $content
+     * @param int $mode
      *
-     * @return string Returns the full path to the saved file.
+     * @return string returns the full path to the saved file
      */
-    public function store(string $path, string $content, int $mode = 0755): string
+    public function store(string $path, string $content, int $mode = 0o755): string
     {
         DirectoryHelper::ensureDirectory(pathinfo($path, PATHINFO_DIRNAME), $mode);
 
@@ -87,11 +87,11 @@ class File
     /**
      * Copies file.
      *
-     * @param  string  $source
-     * @param  string  $target
-     * @param  int  $mode
+     * @param string $source
+     * @param string $target
+     * @param int $mode
      */
-    public function copy(string $source, string $target, int $mode = 0755): void
+    public function copy(string $source, string $target, int $mode = 0o755): void
     {
         DirectoryHelper::ensureDirectory(pathinfo($target, PATHINFO_DIRNAME), $mode);
 
@@ -105,11 +105,11 @@ class File
     /**
      * Moving a file to a new path.
      *
-     * @param  string  $source
-     * @param  string  $target
-     * @param  int  $mode
+     * @param string $source
+     * @param string $target
+     * @param int $mode
      */
-    public function move(string $source, string $target, int $mode = 0755): void
+    public function move(string $source, string $target, int $mode = 0o755): void
     {
         DirectoryHelper::ensureDirectory(pathinfo($target, PATHINFO_DIRNAME), $mode);
 
@@ -123,7 +123,7 @@ class File
     /**
      * Checks if the file exists.
      *
-     * @param  string  $path
+     * @param string $path
      *
      * @return bool
      */
@@ -135,7 +135,7 @@ class File
     /**
      * Deletes files in the specified paths.
      *
-     * @param  string|string[]  $paths
+     * @param string|string[] $paths
      *
      * @return bool
      */
@@ -161,7 +161,7 @@ class File
     /**
      * Ensure the file has been deleted.
      *
-     * @param  array|string  $paths
+     * @param array|string $paths
      *
      * @return bool
      */
@@ -183,7 +183,7 @@ class File
     /**
      * Checks if an object or link is a file at the specified path.
      *
-     * @param  \DirectoryIterator|\SplFileInfo|string  $value
+     * @param DirectoryIterator|SplFileInfo|string $value
      *
      * @return bool
      */
@@ -199,7 +199,7 @@ class File
     /**
      * Checks the existence of a file.
      *
-     * @param  \DirectoryIterator|\SplFileInfo|string  $path
+     * @param DirectoryIterator|SplFileInfo|string $path
      *
      * @throws \DragonCode\Support\Exceptions\FileNotFoundException
      */
@@ -213,7 +213,7 @@ class File
     /**
      * Checks the existence of a file and return full path if exist.
      *
-     * @param  \DirectoryIterator|\SplFileInfo|string  $path
+     * @param DirectoryIterator|SplFileInfo|string $path
      *
      * @throws \DragonCode\Support\Exceptions\FileNotFoundException
      *
