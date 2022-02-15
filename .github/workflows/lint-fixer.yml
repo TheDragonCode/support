@@ -2,7 +2,7 @@ name: "Code-Style Fixer"
 
 on:
     push:
-        branches: [ main ]
+        branches: [ main, 5.x ]
 
 jobs:
     fix:
