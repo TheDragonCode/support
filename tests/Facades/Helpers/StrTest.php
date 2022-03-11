@@ -460,6 +460,15 @@ class StrTest extends TestCase
         $this->assertNull(Str::match('foo bar', '/nothing/'));
     }
 
+    public function testMatchContains()
+    {
+        $this->assertTrue(Str::matchContains('123 foo 4567', '/\d{4,}/'));
+        $this->assertTrue(Str::matchContains('123 foo 4567', ['/\d{7,}/', '/\d+\s(foo)\s\d+/']));
+
+        $this->assertFalse(Str::matchContains('123 foo 4567', '/\d{5,}/'));
+        $this->assertFalse(Str::matchContains('123 foo 4567', ['/\d{7,}/', '/\d+\s(bar)\s\d+/']));
+    }
+
     public function testPregReplace()
     {
         $this->assertSame('', Str::pregReplace('', '!\s+!', ''));

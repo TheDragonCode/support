@@ -123,7 +123,7 @@ class Str
 
         switch (true) {
             case $mod === 0:
-            case $mod >= 5             && $mod <= 9:
+            case $mod >= 5 && $mod <= 9:
             case ($number % 100 >= 11) && ($number % 100 <= 20):
                 $result = $choice[2] ?? '';
                 break;
@@ -573,6 +573,25 @@ class Str
         preg_match($pattern, $value, $matches);
 
         return ! $matches ? null : ($matches[1] ?? $matches[0]);
+    }
+
+    /**
+     * Determine if a given string contains a given substring by regex.
+     *
+     * @param string $value
+     * @param array|string $pattern
+     *
+     * @return bool
+     */
+    public function matchContains(string $value, $pattern): bool
+    {
+        foreach ((array) $pattern as $item) {
+            if ($this->match($value, $item) !== null) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
