@@ -464,9 +464,13 @@ class StrTest extends TestCase
     {
         $this->assertTrue(Str::matchContains('123 foo 4567', '/\d{4,}/'));
         $this->assertTrue(Str::matchContains('123 foo 4567', ['/\d{7,}/', '/\d+\s(foo)\s\d+/']));
+        $this->assertTrue(Str::matchContains('-_- .-.', '/^[^a-zA-Zа-яА-Я0-9]+$/'));
 
         $this->assertFalse(Str::matchContains('123 foo 4567', '/\d{5,}/'));
         $this->assertFalse(Str::matchContains('123 foo 4567', ['/\d{7,}/', '/\d+\s(bar)\s\d+/']));
+        $this->assertFalse(Str::matchContains('-_- .-.a', '/^[^a-zA-Zа-яА-Я0-9]+$/'));
+        $this->assertFalse(Str::matchContains('-_- .-.ф', '/^[^a-zA-Zа-яА-Я0-9]+$/'));
+        $this->assertFalse(Str::matchContains('-_- .-.8', '/^[^a-zA-Zа-яА-Я0-9]+$/'));
     }
 
     public function testPregReplace()
