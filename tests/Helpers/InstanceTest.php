@@ -17,6 +17,7 @@
 namespace Tests\Helpers;
 
 use DragonCode\Support\Helpers\Instance;
+use Tests\Fixtures\Concerns\Barable;
 use Tests\Fixtures\Concerns\Foable;
 use Tests\Fixtures\Contracts\Contract;
 use Tests\Fixtures\Instances\Bar;
@@ -57,6 +58,33 @@ class InstanceTest extends TestCase
         $this->assertTrue($this->instance()->of(new Baz(), Bat::class));
         $this->assertTrue($this->instance()->of(new Baz(), Contract::class));
         $this->assertTrue($this->instance()->of(new Baz(), Foable::class));
+    }
+
+    public function testOfClass()
+    {
+        $this->assertTrue($this->instance()->of(Baz::class, Bat::class));
+        $this->assertTrue($this->instance()->of(Baz::class, Foable::class));
+        $this->assertTrue($this->instance()->of(Baz::class, Contract::class));
+
+        $this->assertFalse($this->instance()->of(Baz::class, Barable::class));
+    }
+
+    public function testOfTrait()
+    {
+        $this->assertTrue($this->instance()->of(Foable::class, Foable::class));
+
+        $this->assertFalse($this->instance()->of(Foable::class, Bat::class));
+        $this->assertFalse($this->instance()->of(Foable::class, Barable::class));
+        $this->assertFalse($this->instance()->of(Foable::class, Contract::class));
+    }
+
+    public function testOfInterface()
+    {
+        $this->assertTrue($this->instance()->of(Contract::class, Contract::class));
+
+        $this->assertFalse($this->instance()->of(Contract::class, Bat::class));
+        $this->assertFalse($this->instance()->of(Contract::class, Foable::class));
+        $this->assertFalse($this->instance()->of(Contract::class, Barable::class));
     }
 
     public function testClassname()

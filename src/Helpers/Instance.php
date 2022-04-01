@@ -45,13 +45,29 @@ class Instance
                 continue;
             }
 
-            if (
-                $haystack instanceof $needle
-                || $classname === $this->classname($needle)
-                || $reflection->isSubclassOf($needle)
-                || ($reflection->isInterface() && $reflection->implementsInterface($needle))
-                || in_array($needle, $reflection->getTraitNames(), true)
-            ) {
+            $needle_reflection = $this->resolve($needle);
+
+            if ($haystack === $needle) {
+                return true;
+            }
+
+            if ($haystack instanceof $needle) {
+                return true;
+            }
+
+            if (! is_null($classname) && $classname === $this->classname($needle)) {
+                return true;
+            }
+
+            if ($reflection->isSubclassOf($needle)) {
+                return true;
+            }
+
+            if ($reflection->isInterface() && $needle_reflection->isInterface() && $reflection->implementsInterface($needle)) {
+                return true;
+            }
+
+            if (in_array($needle, $reflection->getTraitNames(), true)) {
                 return true;
             }
         }

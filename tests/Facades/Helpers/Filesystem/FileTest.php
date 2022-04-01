@@ -41,6 +41,7 @@ class FileTest extends TestCase
             '.beep',
             '.foo',
             '.gitkeep',
+            'Concerns/Barable.php',
             'Concerns/Foable.php',
             'Contracts/Contract.php',
             'Exceptions/AnyException.php',
