@@ -1,6 +1,6 @@
 # Support
 
-![the dragon code support](https://preview.dragon-code.pro/the-dragon-code/support.svg)
+![the dragon code support](https://preview.dragon-code.pro/the-dragon-code/support.svg?brand=php)
 
 [![Stable Version][badge_stable]][link_packagist]
 [![Unstable Version][badge_unstable]][link_packagist]
