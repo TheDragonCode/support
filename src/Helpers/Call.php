@@ -38,7 +38,7 @@ class Call
      *
      * @return mixed
      */
-    public function run(object|callable|string $class, string $method, mixed...$parameters): mixed
+    public function run(object|callable|string $class, string $method, mixed ...$parameters): mixed
     {
         $this->validate($class);
 
@@ -66,7 +66,7 @@ class Call
      *
      * @return mixed
      */
-    public function runExists(object|callable|string $class, string $method, mixed...$parameters): mixed
+    public function runExists(object|callable|string $class, string $method, mixed ...$parameters): mixed
     {
         $this->validate($class);
 
@@ -92,7 +92,7 @@ class Call
      *
      * @return mixed
      */
-    public function runMethods(object|callable|string $class, array|string $methods, mixed...$parameters): mixed
+    public function runMethods(object|callable|string $class, array|string $methods, mixed ...$parameters): mixed
     {
         if ($value = $this->callback($class, $methods, ...$parameters)) {
             return $value;
@@ -118,7 +118,7 @@ class Call
      *
      * @return mixed|null
      */
-    public function runOf(array $map, mixed $value, mixed...$parameters): mixed
+    public function runOf(array $map, mixed $value, mixed ...$parameters): mixed
     {
         if ($this->validated($value)) {
             foreach ($map as $class => $method) {

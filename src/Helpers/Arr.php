@@ -176,7 +176,7 @@ class Arr
      *
      * @return array
      */
-    public function sort(array $array, callable $callback = null): array
+    public function sort(array $array, ?callable $callback = null): array
     {
         $callback = $callback ?: Sorter::default();
 
@@ -199,7 +199,7 @@ class Arr
      *
      * @return array
      */
-    public function ksort(array $array, callable $callback = null): array
+    public function ksort(array $array, ?callable $callback = null): array
     {
         $callback = $callback ?: Sorter::default();
 
@@ -222,7 +222,7 @@ class Arr
      *
      * @return array
      */
-    public function merge(array...$arrays): array
+    public function merge(array ...$arrays): array
     {
         $result = [];
 
@@ -252,7 +252,7 @@ class Arr
      *
      * @return array
      */
-    public function combine(array...$arrays): array
+    public function combine(array ...$arrays): array
     {
         $result = [];
 
@@ -326,7 +326,7 @@ class Arr
     /**
      * Determine if the given key exists in the provided array.
      *
-     * @param \ArrayAccess|\DragonCode\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Arrayable|array $array |\ArrayAccess $array
+     * @param ArrayAccess|\DragonCode\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Arrayable|array $array |\ArrayAccess $array
      * @param mixed $key
      *
      * @return bool
@@ -355,7 +355,7 @@ class Arr
     /**
      * Determine if the given key exists in the provided array without dot divider.
      *
-     * @param \ArrayAccess|\DragonCode\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Arrayable|array $array |\ArrayAccess $array
+     * @param ArrayAccess|\DragonCode\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Arrayable|array $array |\ArrayAccess $array
      * @param mixed $key
      *
      * @return bool
@@ -374,7 +374,7 @@ class Arr
      *
      * @see https://github.com/illuminate/collections/blob/master/Arr.php
      *
-     * @param \ArrayAccess|\DragonCode\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Arrayable|array $array |ArrayAccess $array
+     * @param ArrayAccess|\DragonCode\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Arrayable|array $array |ArrayAccess $array
      * @param mixed $key
      * @param mixed|null $default
      *
@@ -482,7 +482,7 @@ class Arr
      *
      * @return array
      */
-    public function filter(mixed $array, callable $callback = null, int $mode = 0): array
+    public function filter(mixed $array, ?callable $callback = null, int $mode = 0): array
     {
         if (empty($callback)) {
             $callback = $mode === ARRAY_FILTER_USE_BOTH
@@ -566,7 +566,7 @@ class Arr
         return $ignore_keys ? array_values($result) : $result;
     }
 
-    public function flattenKeys(mixed $array, string $delimiter = '.', string $prefix = null): array
+    public function flattenKeys(mixed $array, string $delimiter = '.', ?string $prefix = null): array
     {
         $result = [];
 
@@ -619,7 +619,7 @@ class Arr
      *
      * @return array
      */
-    public function push(mixed $array, mixed...$values): array
+    public function push(mixed $array, mixed ...$values): array
     {
         foreach ($values as $value) {
             $array[] = $value;

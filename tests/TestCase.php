@@ -37,7 +37,7 @@ abstract class TestCase extends BaseTestCase
         parent::tearDown();
     }
 
-    protected function tempDirectory(string $path = null): string
+    protected function tempDirectory(?string $path = null): string
     {
         $prefix = $this->tempDirectoryPrefix();
 
@@ -48,7 +48,7 @@ abstract class TestCase extends BaseTestCase
         return implode(DIRECTORY_SEPARATOR, [$prefix, $time, $path]);
     }
 
-    protected function fixturesDirectory(string $path = null): string
+    protected function fixturesDirectory(?string $path = null): string
     {
         $path = ! empty($path) ? ltrim($path, '/') : '';
 

@@ -20,7 +20,7 @@ trait Resolvable
 {
     protected static array $resolved = [];
 
-    protected static function resolveInstance(object|string $instance, mixed...$parameters): mixed
+    protected static function resolveInstance(object|string $instance, mixed ...$parameters): mixed
     {
         $class = is_object($instance) ? get_class($instance) : $instance;
 

@@ -6,9 +6,9 @@ namespace DragonCode\Support\Helpers;
 
 class Version
 {
-    protected $version = null;
+    protected $version;
 
-    public function __construct(string $version = null)
+    public function __construct(?string $version = null)
     {
         $this->version = $version;
     }

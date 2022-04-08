@@ -413,21 +413,23 @@ class ArrTest extends TestCase
             ],
         ];
 
-        $this->assertSame([
-            'foo'    => 'Foo',
-            'bar'    => 'Bar',
-            'qwerty' => [
-                'q' => 'Q',
-                'e' => 'E',
+        $this->assertSame(
+            [
+                'foo'    => 'Foo',
+                'bar'    => 'Bar',
+                'qwerty' => [
+                    'q' => 'Q',
+                    'e' => 'E',
+                ],
             ],
-        ],
             $this->arr()->only($arr, [
                 'foo',
                 'bar',
                 'qwerty'        => ['q', 'e'],
                 'unknown_key',
                 'unknown_array' => ['foo', 'bar'],
-            ]));
+            ])
+        );
     }
 
     public function testOnlyCallback()
@@ -463,7 +465,8 @@ class ArrTest extends TestCase
             200   => 'Num 200',
         ];
 
-        $result = $this->arr()->filter($source,
+        $result = $this->arr()->filter(
+            $source,
             static fn ($value, $key): bool => Str::contains($value, 200) || Str::startsWith($key, 'b'),
             ARRAY_FILTER_USE_BOTH
         );

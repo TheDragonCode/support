@@ -33,7 +33,7 @@ class Arrayable implements ArrayableContract
 
     public function of($value = []): self
     {
-        $this->value = (array ) $value;
+        $this->value = (array) $value;
 
         return $this;
     }
@@ -320,7 +320,7 @@ class Arrayable implements ArrayableContract
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
-    public function push(mixed...$values): self
+    public function push(mixed ...$values): self
     {
         return new self(Arr::push($this->value, ...$values));
     }

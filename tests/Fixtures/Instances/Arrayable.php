@@ -32,7 +32,7 @@ class Arrayable implements ArrayAccess
         return isset($this->values[$offset]);
     }
 
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return $this->values[$offset];
