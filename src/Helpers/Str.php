@@ -124,7 +124,7 @@ class Str
         switch (true) {
             case $mod === 0:
             case $mod           >= 5             && $mod           <= 9:
-            case ($number % 100 >= 11) && ($number % 100 <= 20):
+            case ($number % 100 >= 11)           && ($number % 100 <= 20):
                 $result = $choice[2] ?? '';
                 break;
 
