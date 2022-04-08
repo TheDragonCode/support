@@ -74,16 +74,20 @@ class CallTest extends TestCase
 
     public function testRunOf()
     {
-        $this->assertSame('ok',
+        $this->assertSame(
+            'ok',
             Call::runOf([
                 Contract::class => 'callDymamic',
-            ], new Foo()));
+            ], new Foo())
+        );
 
-        $this->assertSame('ok',
+        $this->assertSame(
+            'ok',
             Call::runOf([
                 'Unknown'       => 'unknown',
                 Contract::class => 'callDymamic',
-            ], new Foo()));
+            ], new Foo())
+        );
 
         $this->assertNull(Call::runOf([
             'Unknown' => 'unknown',
