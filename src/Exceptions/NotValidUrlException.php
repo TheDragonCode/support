@@ -17,9 +17,11 @@
 namespace DragonCode\Support\Exceptions;
 
 use Exception;
+use JetBrains\PhpStorm\Pure;
 
 class NotValidUrlException extends Exception
 {
+    #[Pure]
     public function __construct(?string $url)
     {
         $value = $this->value($url);
@@ -31,11 +33,7 @@ class NotValidUrlException extends Exception
 
     protected function value(?string $url): string
     {
-        if (! empty($url)) {
-            return 'The "' . $url . '"';
-        }
-
-        return 'Empty string';
+        return ! empty($url) ? 'The "' . $url . '"' : 'Empty string';
     }
 
     protected function message(string $value): string

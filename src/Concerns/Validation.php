@@ -26,7 +26,7 @@ trait Validation
      * @param mixed $haystack
      * @param array|string $needles
      */
-    protected function validateType($haystack, $needles): void
+    protected function validateType(mixed $haystack, mixed $needles): void
     {
         $type    = $this->validateGetType($haystack);
         $needles = $this->validateNeedles($needles);

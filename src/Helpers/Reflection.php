@@ -31,7 +31,7 @@ class Reflection
      *
      * @return ReflectionClass
      */
-    public function resolve($class): ReflectionClass
+    public function resolve(object|string $class): ReflectionClass
     {
         return IsHelper::reflectionClass($class) ? $class : new ReflectionClass($class);
     }
@@ -45,12 +45,12 @@ class Reflection
      *
      * @return array
      */
-    public function getConstants($class): array
+    public function getConstants(object|string $class): array
     {
         return $this->resolve($class)->getConstants();
     }
 
-    public function isStaticMethod($class, string $method): bool
+    public function isStaticMethod(object|string $class, string $method): bool
     {
         return $this->resolve($class)->getMethod($method)->isStatic();
     }

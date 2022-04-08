@@ -30,7 +30,7 @@ trait Castable
         }
     }
 
-    protected function castValue(string $key, $value)
+    protected function castValue(string $key, mixed $value)
     {
         $cast = $this->castKey($key);
 
@@ -49,7 +49,7 @@ trait Castable
         return (string) Str::of($key)->start('castTo_')->camel();
     }
 
-    protected function castToArray($value): array
+    protected function castToArray(mixed $value): array
     {
         if (empty($value)) {
             return [];
@@ -64,7 +64,7 @@ trait Castable
         return $output;
     }
 
-    protected function castToInteger($value): ?int
+    protected function castToInteger(mixed $value): ?int
     {
         return empty($value) && ! is_numeric($value) ? null : $value;
     }

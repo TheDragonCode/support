@@ -25,7 +25,7 @@ class Boolean
      *
      * @return bool
      */
-    public function isTrue($value): bool
+    public function isTrue(mixed $value): bool
     {
         return $this->to($value) === true;
     }
@@ -37,7 +37,7 @@ class Boolean
      *
      * @return bool
      */
-    public function isFalse($value): bool
+    public function isFalse(mixed $value): bool
     {
         return $this->to($value) === false;
     }
@@ -49,7 +49,7 @@ class Boolean
      *
      * @return bool
      */
-    public function to($value): bool
+    public function to(mixed $value): bool
     {
         return (bool) $this->parse($value);
     }
@@ -61,7 +61,7 @@ class Boolean
      *
      * @return bool|null
      */
-    public function parse($value): ?bool
+    public function parse(mixed $value): ?bool
     {
         if (is_null($value)) {
             return null;

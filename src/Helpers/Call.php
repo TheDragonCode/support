@@ -38,7 +38,7 @@ class Call
      *
      * @return mixed
      */
-    public function run($class, string $method, ...$parameters)
+    public function run(object|callable|string $class, string $method, mixed...$parameters): mixed
     {
         $this->validate($class);
 
@@ -66,7 +66,7 @@ class Call
      *
      * @return mixed
      */
-    public function runExists($class, string $method, ...$parameters)
+    public function runExists(object|callable|string $class, string $method, mixed...$parameters): mixed
     {
         $this->validate($class);
 
@@ -92,7 +92,7 @@ class Call
      *
      * @return mixed
      */
-    public function runMethods($class, $methods, ...$parameters)
+    public function runMethods(object|callable|string $class, array|string $methods, mixed...$parameters): mixed
     {
         if ($value = $this->callback($class, $methods, ...$parameters)) {
             return $value;
@@ -118,7 +118,7 @@ class Call
      *
      * @return mixed|null
      */
-    public function runOf(array $map, $value, ...$parameters)
+    public function runOf(array $map, mixed $value, mixed...$parameters): mixed
     {
         if ($this->validated($value)) {
             foreach ($map as $class => $method) {
@@ -143,12 +143,12 @@ class Call
      *
      * @return mixed|null
      */
-    public function when(bool $when, $class, string $method, ...$parameters)
+    public function when(bool $when, object|callable|string $class, string $method, ...$parameters): mixed
     {
         return $when ? $this->run($class, $method, ...$parameters) : null;
     }
 
-    protected function callback($class, ...$parameters)
+    protected function callback(mixed $class, mixed ...$parameters): mixed
     {
         if (is_callable($class)) {
             return $class(...$parameters);
@@ -157,24 +157,24 @@ class Call
         return null;
     }
 
-    protected function resolve($class)
+    protected function resolve(object|callable|string $class): object
     {
         return IsHelper::object($class) ? $class : new $class();
     }
 
-    protected function reflection($class): ReflectionClass
+    protected function reflection(object|callable|string $class): ReflectionClass
     {
         return ReflectionHelper::resolve($class);
     }
 
-    protected function validate($class): void
+    protected function validate(mixed $class): void
     {
         if (! $this->validated($class)) {
             throw new InvalidArgumentException('Argument #1 must be either a class reference or an instance of a class, ' . gettype($class) . ' given.');
         }
     }
 
-    protected function validated($class): bool
+    protected function validated(mixed $class): bool
     {
         return is_callable($class) || InstanceHelper::exists($class) || IsHelper::object($class) || InstanceHelper::of($class, Closure::class);
     }

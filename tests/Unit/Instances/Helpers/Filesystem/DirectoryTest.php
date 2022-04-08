@@ -33,8 +33,8 @@ class DirectoryTest extends TestCase
 
         foreach ($dirs as $dir) {
             in_array($dir->getFilename(), $available)
-                ? $this->assertTrue($this->directory()->isDirectory($dir))
-                : $this->assertFalse($this->directory()->isDirectory($dir));
+                ? $this->assertTrue($this->directory()->isDirectory($dir), 'Path is ' . $dir->getRealPath())
+                : $this->assertFalse($this->directory()->isDirectory($dir), 'Path is ' . $dir->getRealPath());
         }
     }
 

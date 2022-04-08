@@ -19,12 +19,13 @@ namespace Tests\Unit\Instances\Helpers\Http;
 use DragonCode\Support\Exceptions\NotValidUrlException;
 use DragonCode\Support\Helpers\Http\Builder;
 use DragonCode\Support\Helpers\Http\Url;
+use JetBrains\PhpStorm\Pure;
 use Psr\Http\Message\UriInterface;
 use Tests\TestCase;
 
 class UrlTest extends TestCase
 {
-    protected $test_url = 'https://example.com';
+    protected string $test_url = 'https://example.com';
 
     public function testParse()
     {
@@ -154,6 +155,7 @@ class UrlTest extends TestCase
         $this->assertSame('https://example.com/foo.jpg', $this->url()->default('https://example.com/bar.jpg', 'https://example.com/foo.jpg'));
     }
 
+    #[Pure]
     protected function url(): Url
     {
         return new Url();

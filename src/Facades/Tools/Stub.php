@@ -25,7 +25,7 @@ use DragonCode\Support\Tools\Stub as Tool;
  */
 class Stub extends Facade
 {
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
         return Tool::class;
     }

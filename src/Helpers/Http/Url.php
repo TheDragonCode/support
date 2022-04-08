@@ -16,8 +16,10 @@
 
 namespace DragonCode\Support\Helpers\Http;
 
+use DragonCode\Contracts\Http\Builder as BuilderContract;
 use DragonCode\Support\Exceptions\NotValidUrlException;
 use DragonCode\Support\Facades\Http\Builder as UrlBuilder;
+use Psr\Http\Message\UriInterface;
 use Throwable;
 
 class Url
@@ -25,11 +27,11 @@ class Url
     /**
      * Parsing URL into components.
      *
-     * @param \DragonCode\Contracts\Http\Builder|string|null $url
+     * @param BuilderContract|string|null $url
      *
      * @return \DragonCode\Support\Helpers\Http\Builder
      */
-    public function parse($url): Builder
+    public function parse(UriInterface|string|null $url): Builder
     {
         return UrlBuilder::parse($url);
     }
@@ -37,11 +39,11 @@ class Url
     /**
      * Check if the string is a valid URL.
      *
-     * @param \DragonCode\Contracts\Http\Builder|string|null $url
+     * @param BuilderContract|string|null $url
      *
      * @return bool
      */
-    public function is($url): bool
+    public function is(mixed $url): bool
     {
         return filter_var((string) $url, FILTER_VALIDATE_URL) !== false;
     }
@@ -49,11 +51,11 @@ class Url
     /**
      * Validate if the value is a valid URL or throw an error.
      *
-     * @param \DragonCode\Contracts\Http\Builder|string|null $url
+     * @param BuilderContract|string|null $url
      *
      * @throws \DragonCode\Support\Exceptions\NotValidUrlException
      */
-    public function validate($url): void
+    public function validate(mixed $url): void
     {
         if (! $this->is($url)) {
             throw new NotValidUrlException((string) $url);
@@ -63,13 +65,13 @@ class Url
     /**
      * Returns the URL after validation, or throws an error.
      *
-     * @param \DragonCode\Contracts\Http\Builder|string|null $url
+     * @param BuilderContract|string|null $url
      *
      * @throws \DragonCode\Support\Exceptions\NotValidUrlException
      *
-     * @return \DragonCode\Contracts\Http\Builder|\DragonCode\Support\Helpers\Http\Builder|string
+     * @return BuilderContract|\DragonCode\Support\Helpers\Http\Builder|string
      */
-    public function validated($url)
+    public function validated(mixed $url): mixed
     {
         $this->validate($url);
 
@@ -79,13 +81,13 @@ class Url
     /**
      * Check if the specified URL exists.
      *
-     * @param \DragonCode\Contracts\Http\Builder|string|null $url
+     * @param BuilderContract|string|null $url
      *
      * @throws \DragonCode\Support\Exceptions\NotValidUrlException
      *
      * @return bool
      */
-    public function exists($url): bool
+    public function exists(UriInterface|string|null $url): bool
     {
         $this->validate($url);
 
@@ -107,14 +109,14 @@ class Url
     /**
      * Check the existence of the URL and return the default value if it is missing.
      *
-     * @param \DragonCode\Contracts\Http\Builder|string $url
-     * @param \DragonCode\Contracts\Http\Builder|string $default
+     * @param BuilderContract|string $url
+     * @param BuilderContract|string $default
      *
      * @throws \DragonCode\Support\Exceptions\NotValidUrlException
      *
      * @return string|null
      */
-    public function default($url, $default): string
+    public function default(UriInterface|string $url, UriInterface|string $default): string
     {
         $value = $this->exists($url) ? $url : $default;
 

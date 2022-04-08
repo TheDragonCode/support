@@ -29,7 +29,7 @@ use DragonCode\Support\Helpers\Http\Url as Helper;
  */
 class Url extends Facade
 {
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
         return Helper::class;
     }

@@ -34,7 +34,7 @@ class Is
      *
      * @return bool
      */
-    public function isEmpty($value): bool
+    public function isEmpty(mixed $value): bool
     {
         if (is_numeric($value) || is_bool($value)) {
             return false;
@@ -50,7 +50,7 @@ class Is
      *
      * @return bool
      */
-    public function doesntEmpty($value): bool
+    public function doesntEmpty(mixed $value): bool
     {
         return ! $this->isEmpty($value);
     }
@@ -62,7 +62,7 @@ class Is
      *
      * @return bool
      */
-    public function object($value): bool
+    public function object(mixed $value): bool
     {
         return is_object($value);
     }
@@ -74,7 +74,7 @@ class Is
      *
      * @return bool
      */
-    public function string($value): bool
+    public function string(mixed $value): bool
     {
         return is_string($value);
     }
@@ -86,7 +86,7 @@ class Is
      *
      * @return bool
      */
-    public function boolean($value): bool
+    public function boolean(mixed $value): bool
     {
         $result = BooleanHelper::parse($value);
 
@@ -100,7 +100,7 @@ class Is
      *
      * @return bool
      */
-    public function contract($value): bool
+    public function contract(mixed $value): bool
     {
         if (is_string($value)) {
             $class = InstanceHelper::classname($value);
@@ -118,7 +118,7 @@ class Is
      *
      * @return bool
      */
-    public function error($value): bool
+    public function error(mixed $value): bool
     {
         return InstanceHelper::of($value, [Exception::class, Throwable::class]);
     }
@@ -130,7 +130,7 @@ class Is
      *
      * @return bool
      */
-    public function reflectionClass($value): bool
+    public function reflectionClass(mixed $value): bool
     {
         return $value instanceof ReflectionClass;
     }

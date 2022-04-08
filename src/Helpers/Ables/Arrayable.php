@@ -24,19 +24,16 @@ class Arrayable implements ArrayableContract
 {
     use Dumpable;
 
-    /**
-     * @var  array|\ArrayAccess|string|null
-     */
-    protected $value;
+    protected mixed $value;
 
-    public function __construct($value = [])
+    public function __construct(mixed $value = [])
     {
         $this->value = $value;
     }
 
-    public function of($value = [])
+    public function of($value = []): self
     {
-        $this->value = $value;
+        $this->value = (array ) $value;
 
         return $this;
     }
@@ -323,7 +320,7 @@ class Arrayable implements ArrayableContract
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
-    public function push(...$values): self
+    public function push(mixed...$values): self
     {
         return new self(Arr::push($this->value, ...$values));
     }
@@ -332,11 +329,11 @@ class Arrayable implements ArrayableContract
      * Assigns a value to an array key.
      *
      * @param mixed $key
-     * @param mixed $value
+     * @param mixed|null $value
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
-    public function set($key, $value = null): self
+    public function set(mixed $key, mixed $value = null): self
     {
         return new self(Arr::set($this->value, $key, $value));
     }
@@ -348,7 +345,7 @@ class Arrayable implements ArrayableContract
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
-    public function remove($key): self
+    public function remove(string|int|float $key): self
     {
         return new self(Arr::remove($this->value, $key));
     }

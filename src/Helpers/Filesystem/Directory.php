@@ -33,9 +33,9 @@ class Directory
      *
      * @throws \DragonCode\Support\Exceptions\DirectoryNotFoundException
      *
-     * @return DirectoryIterator
+     * @return DirectoryIterator|DirectoryIterator[]
      */
-    public function all(string $path): DirectoryIterator
+    public function all(string $path): DirectoryIterator|array
     {
         if ($this->doesntExist($path)) {
             throw new DirectoryNotFoundException($path);
@@ -191,7 +191,7 @@ class Directory
      *
      * @return bool
      */
-    public function isDirectory($value): bool
+    public function isDirectory(mixed $value): bool
     {
         if (Instance::of($value, [SplFileInfo::class, DirectoryIterator::class])) {
             return $value->isDir();
@@ -207,7 +207,7 @@ class Directory
      *
      * @throws \DragonCode\Support\Exceptions\DirectoryNotFoundException
      */
-    public function validate($path): void
+    public function validate(string $path): void
     {
         if (! $this->isDirectory($path)) {
             throw new DirectoryNotFoundException($path);
@@ -223,7 +223,7 @@ class Directory
      *
      * @return string
      */
-    public function validated($path): string
+    public function validated(string $path): string
     {
         $this->validate($path);
 

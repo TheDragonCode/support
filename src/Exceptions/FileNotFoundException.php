@@ -17,9 +17,11 @@
 namespace DragonCode\Support\Exceptions;
 
 use Exception;
+use JetBrains\PhpStorm\Pure;
 
 class FileNotFoundException extends Exception
 {
+    #[Pure]
     public function __construct(?string $path)
     {
         $message = 'File "' . $path . '" does not exist.';

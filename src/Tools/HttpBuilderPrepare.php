@@ -24,7 +24,7 @@ class HttpBuilderPrepare implements Stringable
 {
     use Makeable;
 
-    protected $of;
+    protected string $of = '';
 
     protected string $prefix = '';
 
@@ -41,9 +41,9 @@ class HttpBuilderPrepare implements Stringable
         return $this->default;
     }
 
-    public function of(?string $value): self
+    public function of(mixed $value): self
     {
-        $this->of = $value;
+        $this->of = (string) $value;
 
         return $this;
     }

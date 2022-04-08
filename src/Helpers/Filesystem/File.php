@@ -187,7 +187,7 @@ class File
      *
      * @return bool
      */
-    public function isFile($value): bool
+    public function isFile(mixed $value): bool
     {
         if (Instance::of($value, [SplFileInfo::class, DirectoryIterator::class])) {
             return $value->isFile();
@@ -203,7 +203,7 @@ class File
      *
      * @throws \DragonCode\Support\Exceptions\FileNotFoundException
      */
-    public function validate($path): void
+    public function validate(mixed $path): void
     {
         if (! $this->isFile($path)) {
             throw new FileNotFoundException($path);
@@ -219,7 +219,7 @@ class File
      *
      * @return string
      */
-    public function validated($path): string
+    public function validated(mixed $path): string
     {
         $this->validate($path);
 

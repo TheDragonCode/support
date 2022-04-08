@@ -88,7 +88,7 @@ class Builder implements BuilderContract
      *
      * @return \DragonCode\Support\Helpers\Http\Builder
      */
-    public function parse($url, int $component = self::PHP_URL_ALL): BuilderContract
+    public function parse(mixed $url, int $component = self::PHP_URL_ALL): BuilderContract
     {
         if ($component === self::PHP_URL_ALL) {
             UrlHelper::validate($url);

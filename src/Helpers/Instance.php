@@ -26,12 +26,12 @@ class Instance
     /**
      * Checks if the item being checked inherits from other objects and interfaces.
      *
-     * @param object|string $haystack
+     * @param object|callable|string $haystack
      * @param string|string[] $needles
      *
      * @return bool
      */
-    public function of($haystack, $needles): bool
+    public function of(mixed $haystack, mixed $needles): bool
     {
         if (! $this->exists($haystack)) {
             return false;
@@ -82,7 +82,7 @@ class Instance
      *
      * @return string|null
      */
-    public function basename($class): ?string
+    public function basename(object|string $class): ?string
     {
         $class = $this->classname($class);
 
@@ -96,7 +96,7 @@ class Instance
      *
      * @return string|null
      */
-    public function classname($class = null): ?string
+    public function classname(object|string $class = null): ?string
     {
         if (IsHelper::object($class)) {
             return get_class($class);
@@ -112,7 +112,7 @@ class Instance
      *
      * @return bool
      */
-    public function exists($haystack): bool
+    public function exists(mixed $haystack): bool
     {
         if (IsHelper::object($haystack)) {
             return true;
@@ -124,11 +124,11 @@ class Instance
     /**
      * Creates a ReflectionClass object.
      *
-     * @param object|ReflectionClass|string $class
+     * @param object|string $class
      *
      * @return ReflectionClass
      */
-    protected function resolve($class): ReflectionClass
+    protected function resolve(object|string $class): ReflectionClass
     {
         return ReflectionHelper::resolve($class);
     }

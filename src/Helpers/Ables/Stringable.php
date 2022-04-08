@@ -33,12 +33,12 @@ class Stringable implements Contract
 
     public function __toString(): string
     {
-        return (string) $this->value;
+        return $this->value;
     }
 
-    public function of($value = [])
+    public function of(?string $value = null)
     {
-        $this->value = $value;
+        $this->value = (string) $value;
 
         return $this;
     }

@@ -202,7 +202,7 @@ class Str
      *
      * @return bool
      */
-    public function is($pattern, $value): bool
+    public function is(array|string $pattern, mixed $value): bool
     {
         $patterns = ArrHelper::wrap($pattern);
 
@@ -245,7 +245,7 @@ class Str
      *
      * @return bool
      */
-    public function startsWith(string $haystack, $needles): bool
+    public function startsWith(string $haystack, mixed $needles): bool
     {
         foreach ((array) $needles as $needle) {
             if ((string) $needle !== '' && str_starts_with($haystack, $needle)) {
@@ -264,7 +264,7 @@ class Str
      *
      * @return bool
      */
-    public function endsWith(string $haystack, $needles): bool
+    public function endsWith(string $haystack, mixed $needles): bool
     {
         foreach ((array) $needles as $needle) {
             if ((string) $needle !== '' && str_ends_with($haystack, $needle)) {
@@ -381,7 +381,7 @@ class Str
      *
      * @return string
      */
-    public function slug(string $title, string $separator = '-', ?string $language = 'en')
+    public function slug(string $title, string $separator = '-', ?string $language = 'en'): string
     {
         $title = $language ? $this->ascii($title, $language) : $title;
 
@@ -521,7 +521,7 @@ class Str
      *
      * @return bool
      */
-    public function contains(string $haystack, $needles): bool
+    public function contains(string $haystack, mixed $needles): bool
     {
         foreach ((array) $needles as $needle) {
             if ((string) $needle !== '' && str_contains($haystack, $needle)) {
@@ -583,7 +583,7 @@ class Str
      *
      * @return bool
      */
-    public function matchContains(string $value, $pattern): bool
+    public function matchContains(string $value, array|string $pattern): bool
     {
         foreach ((array) $pattern as $item) {
             if ($this->match($value, $item) !== null) {
@@ -615,7 +615,7 @@ class Str
      *
      * @return bool
      */
-    public function isEmpty($value): bool
+    public function isEmpty(mixed $value): bool
     {
         $value = is_string($value) ? trim($value) : $value;
 
@@ -629,7 +629,7 @@ class Str
      *
      * @return bool
      */
-    public function doesntEmpty($value): bool
+    public function doesntEmpty(mixed $value): bool
     {
         return ! $this->isEmpty($value);
     }

@@ -20,7 +20,7 @@ trait Resolvable
 {
     protected static array $resolved = [];
 
-    protected static function resolveInstance($instance, ...$parameters)
+    protected static function resolveInstance(object|string $instance, mixed...$parameters): mixed
     {
         $class = is_object($instance) ? get_class($instance) : $instance;
 
@@ -31,7 +31,7 @@ trait Resolvable
         return self::$resolved[$class] = is_object($instance) ? $instance : new $instance(...$parameters);
     }
 
-    protected static function resolveCallback(string $value, callable $callback)
+    protected static function resolveCallback(string $value, callable $callback): mixed
     {
         $class = static::getSameClass();
 
