@@ -420,13 +420,14 @@ class ArrTest extends TestCase
                 'q' => 'Q',
                 'e' => 'E',
             ],
-        ], $this->arr()->only($arr, [
-            'foo',
-            'bar',
-            'qwerty'        => ['q', 'e'],
-            'unknown_key',
-            'unknown_array' => ['foo', 'bar'],
-        ]));
+        ],
+            $this->arr()->only($arr, [
+                'foo',
+                'bar',
+                'qwerty'        => ['q', 'e'],
+                'unknown_key',
+                'unknown_array' => ['foo', 'bar'],
+            ]));
     }
 
     public function testOnlyCallback()
@@ -1445,7 +1446,7 @@ class ArrTest extends TestCase
 
         $this->assertEquals(['first' => 'Foo', 'second' => 'Bar'], $this->arr()->resolve($object));
 
-        $this->assertSame([Baq::class], $this->arr()->toArray([Baq::class]));
+        $this->assertSame([Baq::class], $this->arr()->resolve([Baq::class]));
     }
 
     public function testIsArrayable()

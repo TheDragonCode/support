@@ -58,20 +58,6 @@ class Stringable implements Contract
     }
 
     /**
-     * Split a string by a string.
-     *
-     * @param  string  $separator
-     *
-     * @return \DragonCode\Support\Helpers\Ables\Arrayable
-     */
-    public function explode(string $separator): Arrayable
-    {
-        return new Arrayable(
-            explode($separator, $this->value)
-        );
-    }
-
-    /**
      * Escape HTML special characters in a string.
      *
      * @param bool $double
@@ -331,18 +317,6 @@ class Stringable implements Contract
      * Using a call-back function to process a value.
      *
      * @param callable $callback
-     *
-     * @return $this
-     */
-    public function map(callable $callback): self
-    {
-        return new self(Str::map($this->value, $callback));
-    }
-
-    /**
-     * Using a call-back function to process a value.
-     *
-     * @param  callable  $callback
      *
      * @return $this
      */

@@ -123,8 +123,8 @@ class Str
 
         switch (true) {
             case $mod === 0:
-            case $mod           >= 5             && $mod           <= 9:
-            case ($number % 100 >= 11)           && ($number % 100 <= 20):
+            case $mod >= 5 && $mod <= 9:
+            case ($number % 100 >= 11) && ($number % 100 <= 20):
                 $result = $choice[2] ?? '';
                 break;
 
@@ -666,19 +666,6 @@ class Str
      *
      * @param string|null $value
      * @param callable $callback
-     *
-     * @return string|null
-     */
-    public function map(?string $value, callable $callback): ?string
-    {
-        return $callback($value);
-    }
-
-    /**
-     * Using a call-back function to process a value.
-     *
-     * @param  string|null  $value
-     * @param  callable  $callback
      *
      * @return string|null
      */
