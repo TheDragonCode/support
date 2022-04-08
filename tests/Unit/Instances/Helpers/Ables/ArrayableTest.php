@@ -80,16 +80,19 @@ class ArrayableTest extends TestCase
             400   => 'Num 400',
         ];
 
-        $this->assertSame(['baz' => 'Baz', 200 => 'Num 200', 400 => 'Num 400'], $this->arr($array)->except(
-            static fn ($key): bool => ! Str::startsWith($key, ['foo', 'bar']))->toArray()
+        $this->assertSame(['baz' => 'Baz', 200 => 'Num 200', 400 => 'Num 400'],
+            $this->arr($array)->except(
+                static fn ($key): bool => ! Str::startsWith($key, ['foo', 'bar']))->toArray()
         );
 
-        $this->assertSame(['foo' => 'Foo', 200 => 'Num 200', 400 => 'Num 400'], $this->arr($array)->except(
-            static fn ($key): bool => ! Str::startsWith($key, 'ba'))->toArray()
+        $this->assertSame(['foo' => 'Foo', 200 => 'Num 200', 400 => 'Num 400'],
+            $this->arr($array)->except(
+                static fn ($key): bool => ! Str::startsWith($key, 'ba'))->toArray()
         );
 
-        $this->assertSame(['foo' => 'Foo', 'bar' => 'Bar', 'baz' => 'Baz'], $this->arr($array)->except(
-            static fn ($key): bool => ! is_numeric($key))->toArray()
+        $this->assertSame(['foo' => 'Foo', 'bar' => 'Bar', 'baz' => 'Baz'],
+            $this->arr($array)->except(
+                static fn ($key): bool => ! is_numeric($key))->toArray()
         );
     }
 
@@ -362,6 +365,7 @@ class ArrayableTest extends TestCase
             0 => 'Foo',
             2 => 'Bar',
             6 => true,
+            7 => false,
         ];
 
         $result = $this->arr($source)->filter()->toArray();
