@@ -19,13 +19,14 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Instances\Helpers\Http\Builder;
 
+use DragonCode\Support\Facades\Http\Builder;
 use Tests\Unit\Instances\Helpers\Http\Base;
 
 class GetDomainLevelMethodTest extends Base
 {
     public function testShort()
     {
-        $builder = $this->builder()->parse($this->test_url);
+        $builder = Builder::parse($this->test_url);
 
         $this->assertSame('com', $builder->getDomainLevel(1));
         $this->assertSame('example', $builder->getDomainLevel(2));
@@ -40,7 +41,7 @@ class GetDomainLevelMethodTest extends Base
 
     public function testFull()
     {
-        $builder = $this->builder()->parse($this->psr_url);
+        $builder = Builder::parse($this->psr_url);
 
         $this->assertSame('com', $builder->getDomainLevel(1));
         $this->assertSame('example', $builder->getDomainLevel(2));
@@ -55,10 +56,10 @@ class GetDomainLevelMethodTest extends Base
 
     public function testEmpty()
     {
-        $this->assertEmpty($this->builder()->getDomainLevel());
-        $this->assertEmpty($this->builder()->getDomainLevel(4));
+        $this->assertEmpty(Builder::getDomainLevel());
+        $this->assertEmpty(Builder::getDomainLevel(4));
 
-        $this->assertIsString($this->builder()->getDomainLevel());
-        $this->assertIsString($this->builder()->getDomainLevel(4));
+        $this->assertIsString(Builder::getDomainLevel());
+        $this->assertIsString(Builder::getDomainLevel(4));
     }
 }

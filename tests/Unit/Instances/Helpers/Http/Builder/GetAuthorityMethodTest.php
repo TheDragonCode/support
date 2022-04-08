@@ -16,13 +16,14 @@
 
 namespace Tests\Unit\Instances\Helpers\Http\Builder;
 
+use DragonCode\Support\Facades\Http\Builder;
 use Tests\Unit\Instances\Helpers\Http\Base;
 
 class GetAuthorityMethodTest extends Base
 {
     public function testUserPassword()
     {
-        $builder = $this->builder()->parse($this->psr_url);
+        $builder = Builder::parse($this->psr_url);
 
         $this->assertIsString($builder->getAuthority());
         $this->assertSame('foo:bar@en.example.com:8901', $builder->getAuthority());
@@ -30,7 +31,7 @@ class GetAuthorityMethodTest extends Base
 
     public function testUser()
     {
-        $builder = $this->builder()->parse('https://foo@example.com:8901');
+        $builder = Builder::parse('https://foo@example.com:8901');
 
         $this->assertIsString($builder->getAuthority());
         $this->assertSame('foo@example.com:8901', $builder->getAuthority());
@@ -38,7 +39,7 @@ class GetAuthorityMethodTest extends Base
 
     public function testFullWithoutPort()
     {
-        $builder = $this->builder()->parse('https://foo:bar@example.com');
+        $builder = Builder::parse('https://foo:bar@example.com');
 
         $this->assertIsString($builder->getAuthority());
         $this->assertSame('foo:bar@example.com', $builder->getAuthority());
@@ -46,7 +47,7 @@ class GetAuthorityMethodTest extends Base
 
     public function testUserWithoutPort()
     {
-        $builder = $this->builder()->parse('https://foo@example.com');
+        $builder = Builder::parse('https://foo@example.com');
 
         $this->assertIsString($builder->getAuthority());
         $this->assertSame('foo@example.com', $builder->getAuthority());
@@ -54,7 +55,7 @@ class GetAuthorityMethodTest extends Base
 
     public function testEmpty()
     {
-        $builder = $this->builder()->parse($this->test_url);
+        $builder = Builder::parse($this->test_url);
 
         $this->assertIsString($builder->getAuthority());
         $this->assertSame('en.example.com', $builder->getAuthority());

@@ -16,8 +16,8 @@
 
 namespace Tests\Unit\Instances\Helpers;
 
+use DragonCode\Support\Facades\Helpers\Str;
 use DragonCode\Support\Helpers\Ables\Stringable;
-use DragonCode\Support\Helpers\Str;
 use Tests\Fixtures\Instances\Arrayable;
 use Tests\Fixtures\Instances\Baq;
 use Tests\Fixtures\Instances\Bar;
@@ -29,455 +29,450 @@ class StrTest extends TestCase
 {
     public function testOf()
     {
-        $this->assertSame('', (string) $this->str()->of(''));
-        $this->assertInstanceOf(Stringable::class, $this->str()->of(''));
+        $this->assertSame('', (string) Str::of(''));
+        $this->assertInstanceOf(Stringable::class, Str::of(''));
 
-        $this->assertSame('', (string) $this->str()->of(null));
-        $this->assertInstanceOf(Stringable::class, $this->str()->of(null));
+        $this->assertSame('', (string) Str::of(null));
+        $this->assertInstanceOf(Stringable::class, Str::of(null));
 
-        $this->assertSame('foo', (string) $this->str()->of('foo'));
-        $this->assertInstanceOf(Stringable::class, $this->str()->of('foo'));
+        $this->assertSame('foo', (string) Str::of('foo'));
+        $this->assertInstanceOf(Stringable::class, Str::of('foo'));
     }
 
     public function testAfter()
     {
-        $this->assertSame('Bar', $this->str()->after('Foo Bar', ' '));
-        $this->assertSame('BaR', $this->str()->after('FoO BaR', ' '));
-        $this->assertSame('bar', $this->str()->after('foo bar', ' '));
-        $this->assertSame('FoO-BaR', $this->str()->after('FoO-BaR', ' '));
-        $this->assertSame('   BaR', $this->str()->after('FoO   -   BaR', '-'));
-        $this->assertSame('  BaR', $this->str()->after('FoO   -   BaR', ' - '));
+        $this->assertSame('Bar', Str::after('Foo Bar', ' '));
+        $this->assertSame('BaR', Str::after('FoO BaR', ' '));
+        $this->assertSame('bar', Str::after('foo bar', ' '));
+        $this->assertSame('FoO-BaR', Str::after('FoO-BaR', ' '));
+        $this->assertSame('   BaR', Str::after('FoO   -   BaR', '-'));
+        $this->assertSame('  BaR', Str::after('FoO   -   BaR', ' - '));
     }
 
     public function testBefore()
     {
-        $this->assertSame('Foo', $this->str()->before('Foo Bar', ' '));
-        $this->assertSame('FoO', $this->str()->before('FoO BaR', ' '));
-        $this->assertSame('foo', $this->str()->before('foo bar', ' '));
-        $this->assertSame('FoO-BaR', $this->str()->before('FoO-BaR', ' '));
-        $this->assertSame('FoO   ', $this->str()->before('FoO   -   BaR', '-'));
-        $this->assertSame('FoO  ', $this->str()->before('FoO   -   BaR', ' - '));
+        $this->assertSame('Foo', Str::before('Foo Bar', ' '));
+        $this->assertSame('FoO', Str::before('FoO BaR', ' '));
+        $this->assertSame('foo', Str::before('foo bar', ' '));
+        $this->assertSame('FoO-BaR', Str::before('FoO-BaR', ' '));
+        $this->assertSame('FoO   ', Str::before('FoO   -   BaR', '-'));
+        $this->assertSame('FoO  ', Str::before('FoO   -   BaR', ' - '));
     }
 
     public function testCamel()
     {
-        $this->assertSame('fooBar', $this->str()->camel('Foo Bar'));
-        $this->assertSame('foOBaR', $this->str()->camel('FoO BaR'));
-        $this->assertSame('fooBar', $this->str()->camel('foo bar'));
-        $this->assertSame('foOBaR', $this->str()->camel('FoO-BaR'));
-        $this->assertSame('foOBaR', $this->str()->camel('FoO   -   BaR'));
+        $this->assertSame('fooBar', Str::camel('Foo Bar'));
+        $this->assertSame('foOBaR', Str::camel('FoO BaR'));
+        $this->assertSame('fooBar', Str::camel('foo bar'));
+        $this->assertSame('foOBaR', Str::camel('FoO-BaR'));
+        $this->assertSame('foOBaR', Str::camel('FoO   -   BaR'));
     }
 
     public function testSnake()
     {
-        $this->assertSame('foo_bar', $this->str()->snake('Foo Bar'));
-        $this->assertSame('fo_o_ba_r', $this->str()->snake('FoO BaR'));
-        $this->assertSame('foo_bar', $this->str()->snake('foo bar'));
-        $this->assertSame('fo_o-_ba_r', $this->str()->snake('FoO-BaR'));
-        $this->assertSame('fo_o-_ba_r', $this->str()->snake('FoO   -   BaR'));
+        $this->assertSame('foo_bar', Str::snake('Foo Bar'));
+        $this->assertSame('fo_o_ba_r', Str::snake('FoO BaR'));
+        $this->assertSame('foo_bar', Str::snake('foo bar'));
+        $this->assertSame('fo_o-_ba_r', Str::snake('FoO-BaR'));
+        $this->assertSame('fo_o-_ba_r', Str::snake('FoO   -   BaR'));
     }
 
     public function testSlug()
     {
-        $this->assertSame('hello-world', $this->str()->slug('hello world'));
-        $this->assertSame('hello-world', $this->str()->slug('hello-world'));
-        $this->assertSame('hello-world', $this->str()->slug('hello_world'));
-        $this->assertSame('hello_world', $this->str()->slug('hello_world', '_'));
-        $this->assertSame('user-at-host', $this->str()->slug('user@host'));
-        $this->assertSame('سلام-دنیا', $this->str()->slug('سلام دنیا', '-', null));
-        $this->assertSame('sometext', $this->str()->slug('some text', ''));
-        $this->assertSame('privetmir', $this->str()->slug('Привет, мир!', ''));
-        $this->assertSame('', $this->str()->slug('', ''));
-        $this->assertSame('', $this->str()->slug(''));
+        $this->assertSame('hello-world', Str::slug('hello world'));
+        $this->assertSame('hello-world', Str::slug('hello-world'));
+        $this->assertSame('hello-world', Str::slug('hello_world'));
+        $this->assertSame('hello_world', Str::slug('hello_world', '_'));
+        $this->assertSame('user-at-host', Str::slug('user@host'));
+        $this->assertSame('سلام-دنیا', Str::slug('سلام دنیا', '-', null));
+        $this->assertSame('sometext', Str::slug('some text', ''));
+        $this->assertSame('privetmir', Str::slug('Привет, мир!', ''));
+        $this->assertSame('', Str::slug('', ''));
+        $this->assertSame('', Str::slug(''));
     }
 
     public function testTitle()
     {
-        $this->assertSame('Foo Bar', $this->str()->title('Foo Bar'));
-        $this->assertSame('Foo Bar', $this->str()->title('FoO BaR'));
-        $this->assertSame('Foo Bar', $this->str()->title('foo bar'));
-        $this->assertSame('Foo-Bar', $this->str()->title('FoO-BaR'));
-        $this->assertSame('Foo   -   Bar', $this->str()->title('FoO   -   BaR'));
+        $this->assertSame('Foo Bar', Str::title('Foo Bar'));
+        $this->assertSame('Foo Bar', Str::title('FoO BaR'));
+        $this->assertSame('Foo Bar', Str::title('foo bar'));
+        $this->assertSame('Foo-Bar', Str::title('FoO-BaR'));
+        $this->assertSame('Foo   -   Bar', Str::title('FoO   -   BaR'));
 
-        $this->assertSame('123', $this->str()->title('123'));
-        $this->assertSame('123', $this->str()->title(123));
+        $this->assertSame('123', Str::title('123'));
+        $this->assertSame('123', Str::title(123));
 
-        $this->assertSame('0', $this->str()->title('0'));
-        $this->assertSame('0', $this->str()->title(0));
+        $this->assertSame('0', Str::title('0'));
+        $this->assertSame('0', Str::title(0));
 
-        $this->assertNull($this->str()->title(''));
-        $this->assertNull($this->str()->title(null));
-        $this->assertNull($this->str()->title(false));
+        $this->assertNull(Str::title(''));
+        $this->assertNull(Str::title(null));
+        $this->assertNull(Str::title(false));
     }
 
     public function testStart()
     {
-        $this->assertSame('/test/string', $this->str()->start('test/string', '/'));
-        $this->assertSame('/test/string', $this->str()->start('/test/string', '/'));
-        $this->assertSame('/test/string', $this->str()->start('//test/string', '/'));
+        $this->assertSame('/test/string', Str::start('test/string', '/'));
+        $this->assertSame('/test/string', Str::start('/test/string', '/'));
+        $this->assertSame('/test/string', Str::start('//test/string', '/'));
     }
 
     public function testStartsWith()
     {
-        $this->assertTrue($this->str()->startsWith('jason', 'jas'));
-        $this->assertTrue($this->str()->startsWith('jason', 'jason'));
-        $this->assertTrue($this->str()->startsWith('jason', ['jas']));
-        $this->assertTrue($this->str()->startsWith('jason', ['day', 'jas']));
-        $this->assertFalse($this->str()->startsWith('jason', 'day'));
-        $this->assertFalse($this->str()->startsWith('jason', ['day']));
-        $this->assertFalse($this->str()->startsWith('jason', null));
-        $this->assertFalse($this->str()->startsWith('jason', [null]));
-        $this->assertFalse($this->str()->startsWith('0123', [null]));
-        $this->assertTrue($this->str()->startsWith('0123', 0));
-        $this->assertFalse($this->str()->startsWith('jason', 'J'));
-        $this->assertFalse($this->str()->startsWith('jason', ''));
-        $this->assertFalse($this->str()->startsWith('', ''));
-        $this->assertFalse($this->str()->startsWith('7', ' 7'));
-        $this->assertTrue($this->str()->startsWith('7a', '7'));
-        $this->assertTrue($this->str()->startsWith('7a', 7));
-        $this->assertTrue($this->str()->startsWith('7.12a', 7.12));
-        $this->assertFalse($this->str()->startsWith('7.12a', 7.13));
-        $this->assertTrue($this->str()->startsWith(7.123, '7'));
-        $this->assertTrue($this->str()->startsWith(7.123, '7.12'));
-        $this->assertFalse($this->str()->startsWith(7.123, '7.13'));
-        $this->assertTrue($this->str()->startsWith(0.27, '0'));
-        $this->assertTrue($this->str()->startsWith(0.27, '0.27'));
-        $this->assertFalse($this->str()->startsWith(0.27, '8'));
+        $this->assertTrue(Str::startsWith('jason', 'jas'));
+        $this->assertTrue(Str::startsWith('jason', 'jason'));
+        $this->assertTrue(Str::startsWith('jason', ['jas']));
+        $this->assertTrue(Str::startsWith('jason', ['day', 'jas']));
+        $this->assertFalse(Str::startsWith('jason', 'day'));
+        $this->assertFalse(Str::startsWith('jason', ['day']));
+        $this->assertFalse(Str::startsWith('jason', null));
+        $this->assertFalse(Str::startsWith('jason', [null]));
+        $this->assertFalse(Str::startsWith('0123', [null]));
+        $this->assertTrue(Str::startsWith('0123', 0));
+        $this->assertFalse(Str::startsWith('jason', 'J'));
+        $this->assertFalse(Str::startsWith('jason', ''));
+        $this->assertFalse(Str::startsWith('', ''));
+        $this->assertFalse(Str::startsWith('7', ' 7'));
+        $this->assertTrue(Str::startsWith('7a', '7'));
+        $this->assertTrue(Str::startsWith('7a', 7));
+        $this->assertTrue(Str::startsWith('7.12a', 7.12));
+        $this->assertFalse(Str::startsWith('7.12a', 7.13));
+        $this->assertTrue(Str::startsWith(7.123, '7'));
+        $this->assertTrue(Str::startsWith(7.123, '7.12'));
+        $this->assertFalse(Str::startsWith(7.123, '7.13'));
+        $this->assertTrue(Str::startsWith(0.27, '0'));
+        $this->assertTrue(Str::startsWith(0.27, '0.27'));
+        $this->assertFalse(Str::startsWith(0.27, '8'));
 
         // Test for multibyte string support
-        $this->assertTrue($this->str()->startsWith('Jönköping', 'Jö'));
-        $this->assertTrue($this->str()->startsWith('Malmö', 'Malmö'));
-        $this->assertFalse($this->str()->startsWith('Jönköping', 'Jonko'));
-        $this->assertFalse($this->str()->startsWith('Malmö', 'Malmo'));
-        $this->assertTrue($this->str()->startsWith('你好', '你'));
-        $this->assertFalse($this->str()->startsWith('你好', '好'));
-        $this->assertFalse($this->str()->startsWith('你好', 'a'));
+        $this->assertTrue(Str::startsWith('Jönköping', 'Jö'));
+        $this->assertTrue(Str::startsWith('Malmö', 'Malmö'));
+        $this->assertFalse(Str::startsWith('Jönköping', 'Jonko'));
+        $this->assertFalse(Str::startsWith('Malmö', 'Malmo'));
+        $this->assertTrue(Str::startsWith('你好', '你'));
+        $this->assertFalse(Str::startsWith('你好', '好'));
+        $this->assertFalse(Str::startsWith('你好', 'a'));
     }
 
     public function testEnd()
     {
-        $this->assertSame('test/string/', $this->str()->end('test/string', '/'));
-        $this->assertSame('test/string/', $this->str()->end('/test/string', '/'));
-        $this->assertSame('test/string/', $this->str()->end('//test/string', '/'));
+        $this->assertSame('test/string/', Str::end('test/string', '/'));
+        $this->assertSame('test/string/', Str::end('/test/string', '/'));
+        $this->assertSame('test/string/', Str::end('//test/string', '/'));
     }
 
     public function testEndsWith()
     {
-        $this->assertTrue($this->str()->endsWith('jason', 'on'));
-        $this->assertTrue($this->str()->endsWith('jason', 'jason'));
-        $this->assertTrue($this->str()->endsWith('jason', ['on']));
-        $this->assertTrue($this->str()->endsWith('jason', ['no', 'on']));
-        $this->assertFalse($this->str()->endsWith('jason', 'no'));
-        $this->assertFalse($this->str()->endsWith('jason', ['no']));
-        $this->assertFalse($this->str()->endsWith('jason', ''));
-        $this->assertFalse($this->str()->endsWith('', ''));
-        $this->assertFalse($this->str()->endsWith('jason', [null]));
-        $this->assertFalse($this->str()->endsWith('jason', null));
-        $this->assertFalse($this->str()->endsWith('jason', 'N'));
-        $this->assertFalse($this->str()->endsWith('7', ' 7'));
-        $this->assertTrue($this->str()->endsWith('a7', '7'));
-        $this->assertTrue($this->str()->endsWith('a7', 7));
-        $this->assertTrue($this->str()->endsWith('a7.12', 7.12));
-        $this->assertFalse($this->str()->endsWith('a7.12', 7.13));
-        $this->assertTrue($this->str()->endsWith(0.27, '7'));
-        $this->assertTrue($this->str()->endsWith(0.27, '0.27'));
-        $this->assertFalse($this->str()->endsWith(0.27, '8'));
+        $this->assertTrue(Str::endsWith('jason', 'on'));
+        $this->assertTrue(Str::endsWith('jason', 'jason'));
+        $this->assertTrue(Str::endsWith('jason', ['on']));
+        $this->assertTrue(Str::endsWith('jason', ['no', 'on']));
+        $this->assertFalse(Str::endsWith('jason', 'no'));
+        $this->assertFalse(Str::endsWith('jason', ['no']));
+        $this->assertFalse(Str::endsWith('jason', ''));
+        $this->assertFalse(Str::endsWith('', ''));
+        $this->assertFalse(Str::endsWith('jason', [null]));
+        $this->assertFalse(Str::endsWith('jason', null));
+        $this->assertFalse(Str::endsWith('jason', 'N'));
+        $this->assertFalse(Str::endsWith('7', ' 7'));
+        $this->assertTrue(Str::endsWith('a7', '7'));
+        $this->assertTrue(Str::endsWith('a7', 7));
+        $this->assertTrue(Str::endsWith('a7.12', 7.12));
+        $this->assertFalse(Str::endsWith('a7.12', 7.13));
+        $this->assertTrue(Str::endsWith(0.27, '7'));
+        $this->assertTrue(Str::endsWith(0.27, '0.27'));
+        $this->assertFalse(Str::endsWith(0.27, '8'));
 
         // Test for multibyte string support
-        $this->assertTrue($this->str()->endsWith('Jönköping', 'öping'));
-        $this->assertTrue($this->str()->endsWith('Malmö', 'mö'));
-        $this->assertFalse($this->str()->endsWith('Jönköping', 'oping'));
-        $this->assertFalse($this->str()->endsWith('Malmö', 'mo'));
-        $this->assertTrue($this->str()->endsWith('你好', '好'));
-        $this->assertFalse($this->str()->endsWith('你好', '你'));
-        $this->assertFalse($this->str()->endsWith('你好', 'a'));
+        $this->assertTrue(Str::endsWith('Jönköping', 'öping'));
+        $this->assertTrue(Str::endsWith('Malmö', 'mö'));
+        $this->assertFalse(Str::endsWith('Jönköping', 'oping'));
+        $this->assertFalse(Str::endsWith('Malmö', 'mo'));
+        $this->assertTrue(Str::endsWith('你好', '好'));
+        $this->assertFalse(Str::endsWith('你好', '你'));
+        $this->assertFalse(Str::endsWith('你好', 'a'));
     }
 
     public function testLength()
     {
-        $this->assertSame(11, $this->str()->length('foo bar baz'));
-        $this->assertSame(11, $this->str()->length('foo bar baz', 'UTF-8'));
+        $this->assertSame(11, Str::length('foo bar baz'));
+        $this->assertSame(11, Str::length('foo bar baz', 'UTF-8'));
     }
 
     public function testCount()
     {
-        $this->assertSame(2, $this->str()->count('foo bar baz', ' '));
-        $this->assertSame(2, $this->str()->count('foo bar baz', 'b'));
-        $this->assertSame(1, $this->str()->count('foo bar baz', 'f'));
-        $this->assertSame(1, $this->str()->count('foo bar baz', 'bar'));
-        $this->assertSame(1, $this->str()->count('foo bar baz', 'foo'));
+        $this->assertSame(2, Str::count('foo bar baz', ' '));
+        $this->assertSame(2, Str::count('foo bar baz', 'b'));
+        $this->assertSame(1, Str::count('foo bar baz', 'f'));
+        $this->assertSame(1, Str::count('foo bar baz', 'bar'));
+        $this->assertSame(1, Str::count('foo bar baz', 'foo'));
 
-        $this->assertSame(1, $this->str()->count('foo bar baz', ' ', 4));
-        $this->assertSame(2, $this->str()->count('foo bar baz', 'b', 4));
-        $this->assertSame(0, $this->str()->count('foo bar baz', 'f', 4));
-        $this->assertSame(1, $this->str()->count('foo bar baz', 'bar', 4));
-        $this->assertSame(0, $this->str()->count('foo bar baz', 'foo', 4));
+        $this->assertSame(1, Str::count('foo bar baz', ' ', 4));
+        $this->assertSame(2, Str::count('foo bar baz', 'b', 4));
+        $this->assertSame(0, Str::count('foo bar baz', 'f', 4));
+        $this->assertSame(1, Str::count('foo bar baz', 'bar', 4));
+        $this->assertSame(0, Str::count('foo bar baz', 'foo', 4));
     }
 
     public function testRemoveSpaces()
     {
-        $this->assertEquals('foo bar', $this->str()->removeSpaces('foo bar'));
-        $this->assertEquals('foo bar', $this->str()->removeSpaces('foo  bar'));
-        $this->assertEquals('foo bar', $this->str()->removeSpaces('foo    bar'));
+        $this->assertEquals('foo bar', Str::removeSpaces('foo bar'));
+        $this->assertEquals('foo bar', Str::removeSpaces('foo  bar'));
+        $this->assertEquals('foo bar', Str::removeSpaces('foo    bar'));
 
-        $this->assertEquals('foo bar baz', $this->str()->removeSpaces('foo bar  baz'));
-        $this->assertEquals('foo bar baz', $this->str()->removeSpaces('foo  bar     baz'));
-        $this->assertEquals('foo bar baz', $this->str()->removeSpaces('foo    bar baz'));
+        $this->assertEquals('foo bar baz', Str::removeSpaces('foo bar  baz'));
+        $this->assertEquals('foo bar baz', Str::removeSpaces('foo  bar     baz'));
+        $this->assertEquals('foo bar baz', Str::removeSpaces('foo    bar baz'));
     }
 
     public function testLower()
     {
-        $this->assertSame('foo bar baz', $this->str()->lower('FOO BAR BAZ'));
-        $this->assertSame('foo bar baz', $this->str()->lower('fOo Bar bAz'));
+        $this->assertSame('foo bar baz', Str::lower('FOO BAR BAZ'));
+        $this->assertSame('foo bar baz', Str::lower('fOo Bar bAz'));
     }
 
     public function testUpper()
     {
-        $this->assertSame('FOO BAR BAZ', $this->str()->upper('FOO BAR BAZ'));
-        $this->assertSame('FOO BAR BAZ', $this->str()->upper('fOo Bar bAz'));
+        $this->assertSame('FOO BAR BAZ', Str::upper('FOO BAR BAZ'));
+        $this->assertSame('FOO BAR BAZ', Str::upper('fOo Bar bAz'));
     }
 
     public function testFinish()
     {
-        $this->assertSame('ab/', $this->str()->finish('ab'));
-        $this->assertSame('abbc', $this->str()->finish('ab', 'bc'));
-        $this->assertSame('abbc', $this->str()->finish('abbcbc', 'bc'));
-        $this->assertSame('abcbbc', $this->str()->finish('abcbbcbc', 'bc'));
+        $this->assertSame('ab/', Str::finish('ab'));
+        $this->assertSame('abbc', Str::finish('ab', 'bc'));
+        $this->assertSame('abbc', Str::finish('abbcbc', 'bc'));
+        $this->assertSame('abcbbc', Str::finish('abcbbcbc', 'bc'));
     }
 
     public function testIs()
     {
-        $this->assertTrue($this->str()->is('/', '/'));
-        $this->assertFalse($this->str()->is('/', ' /'));
-        $this->assertFalse($this->str()->is('/', '/a'));
-        $this->assertTrue($this->str()->is('foo/*', 'foo/bar/baz'));
+        $this->assertTrue(Str::is('/', '/'));
+        $this->assertFalse(Str::is('/', ' /'));
+        $this->assertFalse(Str::is('/', '/a'));
+        $this->assertTrue(Str::is('foo/*', 'foo/bar/baz'));
 
-        $this->assertTrue($this->str()->is('*@*', 'App\Class@method'));
-        $this->assertTrue($this->str()->is('*@*', 'app\Class@'));
-        $this->assertTrue($this->str()->is('*@*', '@method'));
+        $this->assertTrue(Str::is('*@*', 'App\Class@method'));
+        $this->assertTrue(Str::is('*@*', 'app\Class@'));
+        $this->assertTrue(Str::is('*@*', '@method'));
 
         // is case sensitive
-        $this->assertFalse($this->str()->is('*BAZ*', 'foo/bar/baz'));
-        $this->assertFalse($this->str()->is('*FOO*', 'foo/bar/baz'));
-        $this->assertFalse($this->str()->is('A', 'a'));
+        $this->assertFalse(Str::is('*BAZ*', 'foo/bar/baz'));
+        $this->assertFalse(Str::is('*FOO*', 'foo/bar/baz'));
+        $this->assertFalse(Str::is('A', 'a'));
 
         // Accepts array of patterns
-        $this->assertTrue($this->str()->is(['a*', 'b*'], 'a/'));
-        $this->assertTrue($this->str()->is(['a*', 'b*'], 'b/'));
-        $this->assertFalse($this->str()->is(['a*', 'b*'], 'f/'));
+        $this->assertTrue(Str::is(['a*', 'b*'], 'a/'));
+        $this->assertTrue(Str::is(['a*', 'b*'], 'b/'));
+        $this->assertFalse(Str::is(['a*', 'b*'], 'f/'));
 
         // numeric values and patterns
-        $this->assertFalse($this->str()->is(['a*', 'b*'], 123));
-        $this->assertTrue($this->str()->is(['*2*', 'b*'], 11211));
+        $this->assertFalse(Str::is(['a*', 'b*'], 123));
+        $this->assertTrue(Str::is(['*2*', 'b*'], 11211));
 
-        $this->assertTrue($this->str()->is('*/foo', 'blah/baz/foo'));
+        $this->assertTrue(Str::is('*/foo', 'blah/baz/foo'));
 
         // empty patterns
-        $this->assertFalse($this->str()->is([], 'test'));
+        $this->assertFalse(Str::is([], 'test'));
 
-        $this->assertFalse($this->str()->is('', 0));
-        $this->assertFalse($this->str()->is([null], 0));
-        $this->assertTrue($this->str()->is([null], null));
+        $this->assertFalse(Str::is('', 0));
+        $this->assertFalse(Str::is([null], 0));
+        $this->assertTrue(Str::is([null], null));
     }
 
     public function testStudly()
     {
-        $this->assertSame('FooBar', $this->str()->studly('Foo Bar'));
-        $this->assertSame('FoOBaR', $this->str()->studly('FoO BaR'));
-        $this->assertSame('FooBar', $this->str()->studly('foo bar'));
-        $this->assertSame('FoOBaR', $this->str()->studly('FoO-BaR'));
-        $this->assertSame('FoOBaR', $this->str()->studly('FoO   -   BaR'));
+        $this->assertSame('FooBar', Str::studly('Foo Bar'));
+        $this->assertSame('FoOBaR', Str::studly('FoO BaR'));
+        $this->assertSame('FooBar', Str::studly('foo bar'));
+        $this->assertSame('FoOBaR', Str::studly('FoO-BaR'));
+        $this->assertSame('FoOBaR', Str::studly('FoO   -   BaR'));
     }
 
     public function testDe()
     {
-        $this->assertEquals('foo"bar', $this->str()->de('foo&quot;bar'));
-        $this->assertEquals('foo&bar', $this->str()->de('foo&amp;bar'));
-        $this->assertEquals("foo'bar", $this->str()->de('foo&#039;bar'));
-        $this->assertEquals("foo'bar", $this->str()->de('foo&#039;bar'));
-        $this->assertEquals('foo\\\'bar', $this->str()->de('foo\&#039;bar'));
+        $this->assertEquals('foo"bar', Str::de('foo&quot;bar'));
+        $this->assertEquals('foo&bar', Str::de('foo&amp;bar'));
+        $this->assertEquals("foo'bar", Str::de('foo&#039;bar'));
+        $this->assertEquals("foo'bar", Str::de('foo&#039;bar'));
+        $this->assertEquals('foo\\\'bar', Str::de('foo\&#039;bar'));
 
-        $this->assertEquals('Foo->bar with space', $this->str()->de('Foo-&gt;bar with space'));
-        $this->assertEquals('A#symbol^and%a$few@special!chars~`', $this->str()->de('A#symbol^and%a$few@special!chars~`'));
+        $this->assertEquals('Foo->bar with space', Str::de('Foo-&gt;bar with space'));
+        $this->assertEquals('A#symbol^and%a$few@special!chars~`', Str::de('A#symbol^and%a$few@special!chars~`'));
     }
 
     public function testE()
     {
-        $this->assertSame('foo&quot;bar', $this->str()->e('foo"bar'));
-        $this->assertSame('foo&amp;bar', $this->str()->e('foo&bar'));
-        $this->assertSame('foo&#039;bar', $this->str()->e('foo\'bar'));
-        $this->assertSame('foo&#039;bar', $this->str()->e("foo'bar"));
-        $this->assertSame('foo\&#039;bar', $this->str()->e('foo\\\'bar'));
+        $this->assertSame('foo&quot;bar', Str::e('foo"bar'));
+        $this->assertSame('foo&amp;bar', Str::e('foo&bar'));
+        $this->assertSame('foo&#039;bar', Str::e('foo\'bar'));
+        $this->assertSame('foo&#039;bar', Str::e("foo'bar"));
+        $this->assertSame('foo\&#039;bar', Str::e('foo\\\'bar'));
 
-        $this->assertSame('Foo-&gt;bar with space', $this->str()->e('Foo->bar with space'));
-        $this->assertSame('A#symbol^and%a$few@special!chars~`', $this->str()->e('A#symbol^and%a$few@special!chars~`'));
+        $this->assertSame('Foo-&gt;bar with space', Str::e('Foo->bar with space'));
+        $this->assertSame('A#symbol^and%a$few@special!chars~`', Str::e('A#symbol^and%a$few@special!chars~`'));
     }
 
     public function testChoice()
     {
-        $this->assertEquals('user', $this->str()->choice(1, ['user', 'users', 'users']));
-        $this->assertEquals('users', $this->str()->choice(5, ['user', 'users', 'users']));
-        $this->assertEquals('users', $this->str()->choice(20, ['user', 'users', 'users']));
+        $this->assertEquals('user', Str::choice(1, ['user', 'users', 'users']));
+        $this->assertEquals('users', Str::choice(5, ['user', 'users', 'users']));
+        $this->assertEquals('users', Str::choice(20, ['user', 'users', 'users']));
 
-        $this->assertEquals('user of this', $this->str()->choice(1, ['user', 'users', 'users'], 'of this'));
-        $this->assertEquals('users of this', $this->str()->choice(5, ['user', 'users', 'users'], 'of this'));
-        $this->assertEquals('users of this', $this->str()->choice(20, ['user', 'users', 'users'], 'of this'));
+        $this->assertEquals('user of this', Str::choice(1, ['user', 'users', 'users'], 'of this'));
+        $this->assertEquals('users of this', Str::choice(5, ['user', 'users', 'users'], 'of this'));
+        $this->assertEquals('users of this', Str::choice(20, ['user', 'users', 'users'], 'of this'));
     }
 
     public function testSubstr()
     {
-        $this->assertSame('Ё', $this->str()->substr('БГДЖИЛЁ', -1));
-        $this->assertSame('ЛЁ', $this->str()->substr('БГДЖИЛЁ', -2));
-        $this->assertSame('И', $this->str()->substr('БГДЖИЛЁ', -3, 1));
-        $this->assertSame('ДЖИЛ', $this->str()->substr('БГДЖИЛЁ', 2, -1));
-        $this->assertSame('ИЛ', $this->str()->substr('БГДЖИЛЁ', -3, -1));
-        $this->assertSame('ГДЖИЛЁ', $this->str()->substr('БГДЖИЛЁ', 1));
-        $this->assertSame('ГДЖ', $this->str()->substr('БГДЖИЛЁ', 1, 3));
-        $this->assertSame('БГДЖ', $this->str()->substr('БГДЖИЛЁ', 0, 4));
-        $this->assertSame('Ё', $this->str()->substr('БГДЖИЛЁ', -1, 1));
+        $this->assertSame('Ё', Str::substr('БГДЖИЛЁ', -1));
+        $this->assertSame('ЛЁ', Str::substr('БГДЖИЛЁ', -2));
+        $this->assertSame('И', Str::substr('БГДЖИЛЁ', -3, 1));
+        $this->assertSame('ДЖИЛ', Str::substr('БГДЖИЛЁ', 2, -1));
+        $this->assertSame('ИЛ', Str::substr('БГДЖИЛЁ', -3, -1));
+        $this->assertSame('ГДЖИЛЁ', Str::substr('БГДЖИЛЁ', 1));
+        $this->assertSame('ГДЖ', Str::substr('БГДЖИЛЁ', 1, 3));
+        $this->assertSame('БГДЖ', Str::substr('БГДЖИЛЁ', 0, 4));
+        $this->assertSame('Ё', Str::substr('БГДЖИЛЁ', -1, 1));
 
-        $this->assertEmpty($this->str()->substr('БГДЖИЛЁ', 4, -4));
-        $this->assertEmpty($this->str()->substr('Б', 2));
+        $this->assertEmpty(Str::substr('БГДЖИЛЁ', 4, -4));
+        $this->assertEmpty(Str::substr('Б', 2));
     }
 
     public function testReplace()
     {
-        $this->assertSame('foo', $this->str()->replace('foo', ['a' => 'Z', 's' => 'X']));
-        $this->assertSame('fQQ', $this->str()->replace('foo', ['a' => 'Z', 's' => 'X', 'o' => 'Q']));
-        $this->assertSame('Eoo', $this->str()->replace('foo', ['a' => 'Z', 's' => 'X', 'f' => 'E']));
-        $this->assertSame('EPP', $this->str()->replace('foo', ['a' => 'Z', 's' => 'X', 'f' => 'E', 'o' => 'P']));
+        $this->assertSame('foo', Str::replace('foo', ['a' => 'Z', 's' => 'X']));
+        $this->assertSame('fQQ', Str::replace('foo', ['a' => 'Z', 's' => 'X', 'o' => 'Q']));
+        $this->assertSame('Eoo', Str::replace('foo', ['a' => 'Z', 's' => 'X', 'f' => 'E']));
+        $this->assertSame('EPP', Str::replace('foo', ['a' => 'Z', 's' => 'X', 'f' => 'E', 'o' => 'P']));
 
-        $this->assertSame('bZr', $this->str()->replace('bar', ['a' => 'Z', 's' => 'X']));
-        $this->assertSame('bZr', $this->str()->replace('bar', ['a' => 'Z', 's' => 'X', 'o' => 'Q']));
-        $this->assertSame('bZr', $this->str()->replace('bar', ['a' => 'Z', 's' => 'X', 'f' => 'E']));
-        $this->assertSame('bZr', $this->str()->replace('bar', ['a' => 'Z', 's' => 'X', 'f' => 'E', 'o' => 'P']));
+        $this->assertSame('bZr', Str::replace('bar', ['a' => 'Z', 's' => 'X']));
+        $this->assertSame('bZr', Str::replace('bar', ['a' => 'Z', 's' => 'X', 'o' => 'Q']));
+        $this->assertSame('bZr', Str::replace('bar', ['a' => 'Z', 's' => 'X', 'f' => 'E']));
+        $this->assertSame('bZr', Str::replace('bar', ['a' => 'Z', 's' => 'X', 'f' => 'E', 'o' => 'P']));
 
-        $this->assertSame('foo', $this->str()->replace('foo', ['a' => 'Z', 's' => 'X'], '{%s}'));
-        $this->assertSame('foo', $this->str()->replace('foo', ['a' => 'Z', 's' => 'X', 'o' => 'Q'], '{%s}'));
-        $this->assertSame('foo', $this->str()->replace('foo', ['a' => 'Z', 's' => 'X', 'f' => 'E'], '{%s}'));
-        $this->assertSame('foo', $this->str()->replace('foo', ['a' => 'Z', 's' => 'X', 'f' => 'E', 'o' => 'P'], '{%s}'));
+        $this->assertSame('foo', Str::replace('foo', ['a' => 'Z', 's' => 'X'], '{%s}'));
+        $this->assertSame('foo', Str::replace('foo', ['a' => 'Z', 's' => 'X', 'o' => 'Q'], '{%s}'));
+        $this->assertSame('foo', Str::replace('foo', ['a' => 'Z', 's' => 'X', 'f' => 'E'], '{%s}'));
+        $this->assertSame('foo', Str::replace('foo', ['a' => 'Z', 's' => 'X', 'f' => 'E', 'o' => 'P'], '{%s}'));
 
-        $this->assertSame('bZr', $this->str()->replace('b{a}r', ['a' => 'Z', 's' => 'X'], '{%s}'));
-        $this->assertSame('bZr', $this->str()->replace('b{a}r', ['a' => 'Z', 's' => 'X', 'o' => 'Q'], '{%s}'));
-        $this->assertSame('bZr', $this->str()->replace('b{a}r', ['a' => 'Z', 's' => 'X', 'f' => 'E'], '{%s}'));
-        $this->assertSame('bZr', $this->str()->replace('b{a}r', ['a' => 'Z', 's' => 'X', 'f' => 'E', 'o' => 'P'], '{%s}'));
+        $this->assertSame('bZr', Str::replace('b{a}r', ['a' => 'Z', 's' => 'X'], '{%s}'));
+        $this->assertSame('bZr', Str::replace('b{a}r', ['a' => 'Z', 's' => 'X', 'o' => 'Q'], '{%s}'));
+        $this->assertSame('bZr', Str::replace('b{a}r', ['a' => 'Z', 's' => 'X', 'f' => 'E'], '{%s}'));
+        $this->assertSame('bZr', Str::replace('b{a}r', ['a' => 'Z', 's' => 'X', 'f' => 'E', 'o' => 'P'], '{%s}'));
 
-        $this->assertSame('bZz', $this->str()->replace('b_a_z', ['a' => 'Z', 's' => 'X'], '_%s_'));
-        $this->assertSame('bZz', $this->str()->replace('b_a_z', ['a' => 'Z', 's' => 'X', 'o' => 'Q'], '_%s_'));
-        $this->assertSame('bZz', $this->str()->replace('b_a_z', ['a' => 'Z', 's' => 'X', 'f' => 'E'], '_%s_'));
-        $this->assertSame('bZz', $this->str()->replace('b_a_z', ['a' => 'Z', 's' => 'X', 'f' => 'E', 'o' => 'P'], '_%s_'));
+        $this->assertSame('bZz', Str::replace('b_a_z', ['a' => 'Z', 's' => 'X'], '_%s_'));
+        $this->assertSame('bZz', Str::replace('b_a_z', ['a' => 'Z', 's' => 'X', 'o' => 'Q'], '_%s_'));
+        $this->assertSame('bZz', Str::replace('b_a_z', ['a' => 'Z', 's' => 'X', 'f' => 'E'], '_%s_'));
+        $this->assertSame('bZz', Str::replace('b_a_z', ['a' => 'Z', 's' => 'X', 'f' => 'E', 'o' => 'P'], '_%s_'));
     }
 
     public function testStrContains()
     {
-        $this->assertTrue($this->str()->contains('qwerty', 'ert'));
-        $this->assertTrue($this->str()->contains('qwerty', 'qwerty'));
-        $this->assertTrue($this->str()->contains('qwerty', ['ert']));
-        $this->assertTrue($this->str()->contains('qwerty', ['xxx', 'ert']));
+        $this->assertTrue(Str::contains('qwerty', 'ert'));
+        $this->assertTrue(Str::contains('qwerty', 'qwerty'));
+        $this->assertTrue(Str::contains('qwerty', ['ert']));
+        $this->assertTrue(Str::contains('qwerty', ['xxx', 'ert']));
 
-        $this->assertFalse($this->str()->contains('qwerty', 'xxx'));
-        $this->assertFalse($this->str()->contains('qwerty', ['xxx']));
-        $this->assertFalse($this->str()->contains('qwerty', ''));
-        $this->assertFalse($this->str()->contains('qwerty', null));
-        $this->assertFalse($this->str()->contains('qwerty', [null]));
-        $this->assertFalse($this->str()->contains('qwerty', [0]));
-        $this->assertFalse($this->str()->contains('qwerty', ['0']));
-        $this->assertFalse($this->str()->contains('qwerty', 0));
-        $this->assertFalse($this->str()->contains('qwerty', '0'));
-        $this->assertFalse($this->str()->contains('', ''));
+        $this->assertFalse(Str::contains('qwerty', 'xxx'));
+        $this->assertFalse(Str::contains('qwerty', ['xxx']));
+        $this->assertFalse(Str::contains('qwerty', ''));
+        $this->assertFalse(Str::contains('qwerty', null));
+        $this->assertFalse(Str::contains('qwerty', [null]));
+        $this->assertFalse(Str::contains('qwerty', [0]));
+        $this->assertFalse(Str::contains('qwerty', ['0']));
+        $this->assertFalse(Str::contains('qwerty', 0));
+        $this->assertFalse(Str::contains('qwerty', '0'));
+        $this->assertFalse(Str::contains('', ''));
     }
 
     public function testRandom()
     {
-        $this->assertEquals(16, strlen($this->str()->random()));
+        $this->assertEquals(16, strlen(Str::random()));
 
         $randomInteger = random_int(1, 100);
 
-        $this->assertEquals($randomInteger, strlen($this->str()->random($randomInteger)));
+        $this->assertEquals($randomInteger, strlen(Str::random($randomInteger)));
 
-        $this->assertIsString($this->str()->random());
+        $this->assertIsString(Str::random());
     }
 
     public function testIsEmpty()
     {
-        $this->assertTrue($this->str()->isEmpty(''));
-        $this->assertTrue($this->str()->isEmpty(' '));
-        $this->assertTrue($this->str()->isEmpty('      '));
-        $this->assertTrue($this->str()->isEmpty(null));
+        $this->assertTrue(Str::isEmpty(''));
+        $this->assertTrue(Str::isEmpty(' '));
+        $this->assertTrue(Str::isEmpty('      '));
+        $this->assertTrue(Str::isEmpty(null));
 
-        $this->assertFalse($this->str()->isEmpty(0));
-        $this->assertFalse($this->str()->isEmpty('   0   '));
-        $this->assertFalse($this->str()->isEmpty(false));
-        $this->assertFalse($this->str()->isEmpty([]));
+        $this->assertFalse(Str::isEmpty(0));
+        $this->assertFalse(Str::isEmpty('   0   '));
+        $this->assertFalse(Str::isEmpty(false));
+        $this->assertFalse(Str::isEmpty([]));
 
-        $this->assertFalse($this->str()->isEmpty(new Foo()));
-        $this->assertFalse($this->str()->isEmpty(new Bar()));
-        $this->assertFalse($this->str()->isEmpty(new Baz()));
-        $this->assertFalse($this->str()->isEmpty(new Baq()));
-        $this->assertFalse($this->str()->isEmpty(new Arrayable()));
+        $this->assertFalse(Str::isEmpty(new Foo()));
+        $this->assertFalse(Str::isEmpty(new Bar()));
+        $this->assertFalse(Str::isEmpty(new Baz()));
+        $this->assertFalse(Str::isEmpty(new Baq()));
+        $this->assertFalse(Str::isEmpty(new Arrayable()));
     }
 
     public function testDoesntEmpty()
     {
-        $this->assertFalse($this->str()->doesntEmpty(''));
-        $this->assertFalse($this->str()->doesntEmpty(' '));
-        $this->assertFalse($this->str()->doesntEmpty('      '));
-        $this->assertFalse($this->str()->doesntEmpty(null));
+        $this->assertFalse(Str::doesntEmpty(''));
+        $this->assertFalse(Str::doesntEmpty(' '));
+        $this->assertFalse(Str::doesntEmpty('      '));
+        $this->assertFalse(Str::doesntEmpty(null));
 
-        $this->assertTrue($this->str()->doesntEmpty(0));
-        $this->assertTrue($this->str()->doesntEmpty('   0   '));
-        $this->assertTrue($this->str()->doesntEmpty(false));
-        $this->assertTrue($this->str()->doesntEmpty([]));
+        $this->assertTrue(Str::doesntEmpty(0));
+        $this->assertTrue(Str::doesntEmpty('   0   '));
+        $this->assertTrue(Str::doesntEmpty(false));
+        $this->assertTrue(Str::doesntEmpty([]));
 
-        $this->assertTrue($this->str()->doesntEmpty(new Foo()));
-        $this->assertTrue($this->str()->doesntEmpty(new Bar()));
-        $this->assertTrue($this->str()->doesntEmpty(new Baz()));
-        $this->assertTrue($this->str()->doesntEmpty(new Baq()));
-        $this->assertTrue($this->str()->doesntEmpty(new Arrayable()));
+        $this->assertTrue(Str::doesntEmpty(new Foo()));
+        $this->assertTrue(Str::doesntEmpty(new Bar()));
+        $this->assertTrue(Str::doesntEmpty(new Baz()));
+        $this->assertTrue(Str::doesntEmpty(new Baq()));
+        $this->assertTrue(Str::doesntEmpty(new Arrayable()));
     }
 
     public function testAscii()
     {
-        $this->assertSame('', $this->str()->ascii(null));
+        $this->assertSame('', Str::ascii(null));
 
-        $this->assertSame('@', $this->str()->ascii('@'));
-        $this->assertSame('u', $this->str()->ascii('ü'));
+        $this->assertSame('@', Str::ascii('@'));
+        $this->assertSame('u', Str::ascii('ü'));
 
-        $this->assertSame('h H sht Sht a A ia yo', $this->str()->ascii('х Х щ Щ ъ Ъ иа йо', 'bg'));
-        $this->assertSame('ae oe ue Ae Oe Ue', $this->str()->ascii('ä ö ü Ä Ö Ü', 'de'));
+        $this->assertSame('h H sht Sht a A ia yo', Str::ascii('х Х щ Щ ъ Ъ иа йо', 'bg'));
+        $this->assertSame('ae oe ue Ae Oe Ue', Str::ascii('ä ö ü Ä Ö Ü', 'de'));
     }
 
     public function testConvertToString()
     {
-        $this->assertSame('', $this->str()->convertToString(''));
-        $this->assertSame('null', $this->str()->convertToString(null));
-        $this->assertSame('foo', $this->str()->convertToString('foo'));
-        $this->assertSame('bar', $this->str()->convertToString('bar'));
+        $this->assertSame('', Str::convertToString(''));
+        $this->assertSame('null', Str::convertToString(null));
+        $this->assertSame('foo', Str::convertToString('foo'));
+        $this->assertSame('bar', Str::convertToString('bar'));
     }
 
     public function testMatch()
     {
-        $this->assertSame('bar', $this->str()->match('foo bar', '/bar/'));
-        $this->assertSame('bar', $this->str()->match('foo bar', '/foo (.*)/'));
+        $this->assertSame('bar', Str::match('foo bar', '/bar/'));
+        $this->assertSame('bar', Str::match('foo bar', '/foo (.*)/'));
 
-        $this->assertNull($this->str()->match('foo bar', '/nothing/'));
+        $this->assertNull(Str::match('foo bar', '/nothing/'));
     }
 
     public function testPregReplace()
     {
-        $this->assertSame('', $this->str()->pregReplace('', '!\s+!', ''));
-        $this->assertSame('', $this->str()->pregReplace(' ', '!\s+!', ''));
-        $this->assertSame('', $this->str()->pregReplace(null, '!\s+!', ''));
+        $this->assertSame('', Str::pregReplace('', '!\s+!', ''));
+        $this->assertSame('', Str::pregReplace(' ', '!\s+!', ''));
+        $this->assertSame('', Str::pregReplace(null, '!\s+!', ''));
 
-        $this->assertSame('foobar', $this->str()->pregReplace('foo bar', '!\s+!', ''));
-        $this->assertSame('foo-bar', $this->str()->pregReplace('foo bar', '!\s+!', '-'));
-        $this->assertSame('foo-bar', $this->str()->pregReplace('foo     bar', '!\s+!', '-'));
+        $this->assertSame('foobar', Str::pregReplace('foo bar', '!\s+!', ''));
+        $this->assertSame('foo-bar', Str::pregReplace('foo bar', '!\s+!', '-'));
+        $this->assertSame('foo-bar', Str::pregReplace('foo     bar', '!\s+!', '-'));
 
-        $this->assertSame('71234567890', $this->str()->pregReplace('abc 7 (123)  456-78-90', '!(\W|\D)+!', ''));
-    }
-
-    protected function str(): Str
-    {
-        return new Str();
+        $this->assertSame('71234567890', Str::pregReplace('abc 7 (123)  456-78-90', '!(\W|\D)+!', ''));
     }
 }

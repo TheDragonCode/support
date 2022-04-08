@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Instances\Callbacks\Empties;
 
-class NotFilterBothTest extends Base
+use DragonCode\Support\Facades\Callbacks\Empties;
+use Tests\TestCase;
+
+class NotFilterBothTest extends TestCase
 {
     public function testFilterBoth()
     {
-        $callback = $this->call()->notEmptyBoth();
+        $callback = Empties::notEmptyBoth();
 
         $this->assertIsCallable($callback);
 

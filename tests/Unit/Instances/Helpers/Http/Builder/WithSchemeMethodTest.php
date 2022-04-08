@@ -16,13 +16,14 @@
 
 namespace Tests\Unit\Instances\Helpers\Http\Builder;
 
+use DragonCode\Support\Facades\Http\Builder;
 use Tests\Unit\Instances\Helpers\Http\Base;
 
 class WithSchemeMethodTest extends Base
 {
     public function testEmpty()
     {
-        $builder = $this->builder();
+        $builder = Builder::same();
 
         $this->assertEmpty($builder->getScheme());
 
@@ -34,7 +35,7 @@ class WithSchemeMethodTest extends Base
 
     public function testReplace()
     {
-        $builder = $this->builder()->parse($this->psr_url);
+        $builder = Builder::parse($this->psr_url);
 
         $this->assertIsString($this->psr_scheme, $builder->getScheme());
         $this->assertSame($this->psr_scheme, $builder->getScheme());

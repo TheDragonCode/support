@@ -16,13 +16,14 @@
 
 namespace Tests\Unit\Instances\Helpers\Http\Builder;
 
+use DragonCode\Support\Facades\Http\Builder;
 use Tests\Unit\Instances\Helpers\Http\Base;
 
 class WithQueryMethodTest extends Base
 {
     public function testWithout()
     {
-        $builder = $this->builder();
+        $builder = Builder::same();
 
         $this->assertIsString($builder->getQuery());
         $this->assertEmpty($builder->getQuery());
@@ -35,7 +36,7 @@ class WithQueryMethodTest extends Base
 
     public function testWith()
     {
-        $builder = $this->builder()->parse($this->psr_url);
+        $builder = Builder::parse($this->psr_url);
 
         $this->assertIsString($builder->getQuery());
         $this->assertSame($this->psr_query, $builder->getQuery());
@@ -48,7 +49,7 @@ class WithQueryMethodTest extends Base
 
     public function testArray()
     {
-        $builder = $this->builder()->parse($this->psr_url);
+        $builder = Builder::parse($this->psr_url);
 
         $this->assertIsString($builder->getQuery());
         $this->assertSame($this->psr_query, $builder->getQuery());
@@ -61,7 +62,7 @@ class WithQueryMethodTest extends Base
 
     public function testEmpty()
     {
-        $builder = $this->builder()->parse($this->psr_url);
+        $builder = Builder::parse($this->psr_url);
 
         $builder->withQuery('');
 
@@ -71,7 +72,7 @@ class WithQueryMethodTest extends Base
 
     public function testNull()
     {
-        $builder = $this->builder()->parse($this->psr_url);
+        $builder = Builder::parse($this->psr_url);
 
         $builder->withQuery(null);
 

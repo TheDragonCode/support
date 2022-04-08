@@ -16,168 +16,163 @@
 
 namespace Tests\Unit\Instances\Helpers;
 
-use DragonCode\Support\Helpers\Boolean;
+use DragonCode\Support\Facades\Helpers\Boolean;
 use Tests\TestCase;
 
 class BooleanTest extends TestCase
 {
     public function testIsTrue(): void
     {
-        $this->assertTrue($this->boolean()->isTrue(true));
-        $this->assertTrue($this->boolean()->isTrue(1));
-        $this->assertTrue($this->boolean()->isTrue('1'));
-        $this->assertTrue($this->boolean()->isTrue('on'));
-        $this->assertTrue($this->boolean()->isTrue('On'));
-        $this->assertTrue($this->boolean()->isTrue('ON'));
-        $this->assertTrue($this->boolean()->isTrue('yes'));
-        $this->assertTrue($this->boolean()->isTrue('Yes'));
-        $this->assertTrue($this->boolean()->isTrue('YES'));
-        $this->assertTrue($this->boolean()->isTrue('true'));
-        $this->assertTrue($this->boolean()->isTrue('True'));
-        $this->assertTrue($this->boolean()->isTrue('TRUE'));
+        $this->assertTrue(Boolean::isTrue(true));
+        $this->assertTrue(Boolean::isTrue(1));
+        $this->assertTrue(Boolean::isTrue('1'));
+        $this->assertTrue(Boolean::isTrue('on'));
+        $this->assertTrue(Boolean::isTrue('On'));
+        $this->assertTrue(Boolean::isTrue('ON'));
+        $this->assertTrue(Boolean::isTrue('yes'));
+        $this->assertTrue(Boolean::isTrue('Yes'));
+        $this->assertTrue(Boolean::isTrue('YES'));
+        $this->assertTrue(Boolean::isTrue('true'));
+        $this->assertTrue(Boolean::isTrue('True'));
+        $this->assertTrue(Boolean::isTrue('TRUE'));
 
-        $this->assertFalse($this->boolean()->isTrue(false));
-        $this->assertFalse($this->boolean()->isTrue(0));
-        $this->assertFalse($this->boolean()->isTrue('0'));
-        $this->assertFalse($this->boolean()->isTrue('off'));
-        $this->assertFalse($this->boolean()->isTrue('Off'));
-        $this->assertFalse($this->boolean()->isTrue('OFF'));
-        $this->assertFalse($this->boolean()->isTrue('no'));
-        $this->assertFalse($this->boolean()->isTrue('No'));
-        $this->assertFalse($this->boolean()->isTrue('NO'));
-        $this->assertFalse($this->boolean()->isTrue('false'));
-        $this->assertFalse($this->boolean()->isTrue('False'));
-        $this->assertFalse($this->boolean()->isTrue('FALSE'));
+        $this->assertFalse(Boolean::isTrue(false));
+        $this->assertFalse(Boolean::isTrue(0));
+        $this->assertFalse(Boolean::isTrue('0'));
+        $this->assertFalse(Boolean::isTrue('off'));
+        $this->assertFalse(Boolean::isTrue('Off'));
+        $this->assertFalse(Boolean::isTrue('OFF'));
+        $this->assertFalse(Boolean::isTrue('no'));
+        $this->assertFalse(Boolean::isTrue('No'));
+        $this->assertFalse(Boolean::isTrue('NO'));
+        $this->assertFalse(Boolean::isTrue('false'));
+        $this->assertFalse(Boolean::isTrue('False'));
+        $this->assertFalse(Boolean::isTrue('FALSE'));
 
-        $this->assertFalse($this->boolean()->isTrue(null));
-        $this->assertFalse($this->boolean()->isTrue(' '));
-        $this->assertFalse($this->boolean()->isTrue('foo'));
-        $this->assertFalse($this->boolean()->isTrue('bar'));
-        $this->assertFalse($this->boolean()->isTrue('baz'));
-        $this->assertFalse($this->boolean()->isTrue([]));
-        $this->assertFalse($this->boolean()->isTrue(['foo', 'bar']));
+        $this->assertFalse(Boolean::isTrue(null));
+        $this->assertFalse(Boolean::isTrue(' '));
+        $this->assertFalse(Boolean::isTrue('foo'));
+        $this->assertFalse(Boolean::isTrue('bar'));
+        $this->assertFalse(Boolean::isTrue('baz'));
+        $this->assertFalse(Boolean::isTrue([]));
+        $this->assertFalse(Boolean::isTrue(['foo', 'bar']));
     }
 
     public function testIsFalse(): void
     {
-        $this->assertTrue($this->boolean()->isFalse(null));
-        $this->assertTrue($this->boolean()->isFalse(false));
-        $this->assertTrue($this->boolean()->isFalse(0));
-        $this->assertTrue($this->boolean()->isFalse('0'));
-        $this->assertTrue($this->boolean()->isFalse('off'));
-        $this->assertTrue($this->boolean()->isFalse('Off'));
-        $this->assertTrue($this->boolean()->isFalse('OFF'));
-        $this->assertTrue($this->boolean()->isFalse('no'));
-        $this->assertTrue($this->boolean()->isFalse('No'));
-        $this->assertTrue($this->boolean()->isFalse('NO'));
-        $this->assertTrue($this->boolean()->isFalse('false'));
-        $this->assertTrue($this->boolean()->isFalse('False'));
-        $this->assertTrue($this->boolean()->isFalse('FALSE'));
+        $this->assertTrue(Boolean::isFalse(null));
+        $this->assertTrue(Boolean::isFalse(false));
+        $this->assertTrue(Boolean::isFalse(0));
+        $this->assertTrue(Boolean::isFalse('0'));
+        $this->assertTrue(Boolean::isFalse('off'));
+        $this->assertTrue(Boolean::isFalse('Off'));
+        $this->assertTrue(Boolean::isFalse('OFF'));
+        $this->assertTrue(Boolean::isFalse('no'));
+        $this->assertTrue(Boolean::isFalse('No'));
+        $this->assertTrue(Boolean::isFalse('NO'));
+        $this->assertTrue(Boolean::isFalse('false'));
+        $this->assertTrue(Boolean::isFalse('False'));
+        $this->assertTrue(Boolean::isFalse('FALSE'));
 
-        $this->assertFalse($this->boolean()->isFalse(true));
-        $this->assertFalse($this->boolean()->isFalse(1));
-        $this->assertFalse($this->boolean()->isFalse('1'));
-        $this->assertFalse($this->boolean()->isFalse('on'));
-        $this->assertFalse($this->boolean()->isFalse('On'));
-        $this->assertFalse($this->boolean()->isFalse('ON'));
-        $this->assertFalse($this->boolean()->isFalse('yes'));
-        $this->assertFalse($this->boolean()->isFalse('Yes'));
-        $this->assertFalse($this->boolean()->isFalse('YES'));
-        $this->assertFalse($this->boolean()->isFalse('true'));
-        $this->assertFalse($this->boolean()->isFalse('True'));
-        $this->assertFalse($this->boolean()->isFalse('TRUE'));
+        $this->assertFalse(Boolean::isFalse(true));
+        $this->assertFalse(Boolean::isFalse(1));
+        $this->assertFalse(Boolean::isFalse('1'));
+        $this->assertFalse(Boolean::isFalse('on'));
+        $this->assertFalse(Boolean::isFalse('On'));
+        $this->assertFalse(Boolean::isFalse('ON'));
+        $this->assertFalse(Boolean::isFalse('yes'));
+        $this->assertFalse(Boolean::isFalse('Yes'));
+        $this->assertFalse(Boolean::isFalse('YES'));
+        $this->assertFalse(Boolean::isFalse('true'));
+        $this->assertFalse(Boolean::isFalse('True'));
+        $this->assertFalse(Boolean::isFalse('TRUE'));
 
-        $this->assertTrue($this->boolean()->isFalse(' '));
-        $this->assertTrue($this->boolean()->isFalse('foo'));
-        $this->assertTrue($this->boolean()->isFalse('bar'));
-        $this->assertTrue($this->boolean()->isFalse('baz'));
-        $this->assertTrue($this->boolean()->isFalse([]));
-        $this->assertTrue($this->boolean()->isFalse(['foo', 'bar']));
+        $this->assertTrue(Boolean::isFalse(' '));
+        $this->assertTrue(Boolean::isFalse('foo'));
+        $this->assertTrue(Boolean::isFalse('bar'));
+        $this->assertTrue(Boolean::isFalse('baz'));
+        $this->assertTrue(Boolean::isFalse([]));
+        $this->assertTrue(Boolean::isFalse(['foo', 'bar']));
     }
 
     public function testTo(): void
     {
-        $this->assertTrue($this->boolean()->to(true));
-        $this->assertTrue($this->boolean()->to(1));
-        $this->assertTrue($this->boolean()->to('1'));
-        $this->assertTrue($this->boolean()->to('on'));
-        $this->assertTrue($this->boolean()->to('On'));
-        $this->assertTrue($this->boolean()->to('ON'));
-        $this->assertTrue($this->boolean()->to('yes'));
-        $this->assertTrue($this->boolean()->to('Yes'));
-        $this->assertTrue($this->boolean()->to('YES'));
-        $this->assertTrue($this->boolean()->to('true'));
-        $this->assertTrue($this->boolean()->to('True'));
-        $this->assertTrue($this->boolean()->to('TRUE'));
+        $this->assertTrue(Boolean::to(true));
+        $this->assertTrue(Boolean::to(1));
+        $this->assertTrue(Boolean::to('1'));
+        $this->assertTrue(Boolean::to('on'));
+        $this->assertTrue(Boolean::to('On'));
+        $this->assertTrue(Boolean::to('ON'));
+        $this->assertTrue(Boolean::to('yes'));
+        $this->assertTrue(Boolean::to('Yes'));
+        $this->assertTrue(Boolean::to('YES'));
+        $this->assertTrue(Boolean::to('true'));
+        $this->assertTrue(Boolean::to('True'));
+        $this->assertTrue(Boolean::to('TRUE'));
 
-        $this->assertFalse($this->boolean()->to(false));
-        $this->assertFalse($this->boolean()->to(0));
-        $this->assertFalse($this->boolean()->to('0'));
-        $this->assertFalse($this->boolean()->to('off'));
-        $this->assertFalse($this->boolean()->to('Off'));
-        $this->assertFalse($this->boolean()->to('OFF'));
-        $this->assertFalse($this->boolean()->to('no'));
-        $this->assertFalse($this->boolean()->to('No'));
-        $this->assertFalse($this->boolean()->to('NO'));
-        $this->assertFalse($this->boolean()->to('false'));
-        $this->assertFalse($this->boolean()->to('False'));
-        $this->assertFalse($this->boolean()->to('FALSE'));
+        $this->assertFalse(Boolean::to(false));
+        $this->assertFalse(Boolean::to(0));
+        $this->assertFalse(Boolean::to('0'));
+        $this->assertFalse(Boolean::to('off'));
+        $this->assertFalse(Boolean::to('Off'));
+        $this->assertFalse(Boolean::to('OFF'));
+        $this->assertFalse(Boolean::to('no'));
+        $this->assertFalse(Boolean::to('No'));
+        $this->assertFalse(Boolean::to('NO'));
+        $this->assertFalse(Boolean::to('false'));
+        $this->assertFalse(Boolean::to('False'));
+        $this->assertFalse(Boolean::to('FALSE'));
 
-        $this->assertFalse($this->boolean()->to(' '));
-        $this->assertFalse($this->boolean()->to('foo'));
-        $this->assertFalse($this->boolean()->to('bar'));
-        $this->assertFalse($this->boolean()->to('baz'));
-        $this->assertFalse($this->boolean()->to([]));
-        $this->assertFalse($this->boolean()->to(['foo', 'bar']));
+        $this->assertFalse(Boolean::to(' '));
+        $this->assertFalse(Boolean::to('foo'));
+        $this->assertFalse(Boolean::to('bar'));
+        $this->assertFalse(Boolean::to('baz'));
+        $this->assertFalse(Boolean::to([]));
+        $this->assertFalse(Boolean::to(['foo', 'bar']));
     }
 
     public function testParse(): void
     {
-        $this->assertTrue($this->boolean()->parse(true));
-        $this->assertTrue($this->boolean()->parse(1));
-        $this->assertTrue($this->boolean()->parse('1'));
-        $this->assertTrue($this->boolean()->parse('on'));
-        $this->assertTrue($this->boolean()->parse('On'));
-        $this->assertTrue($this->boolean()->parse('ON'));
-        $this->assertTrue($this->boolean()->parse('yes'));
-        $this->assertTrue($this->boolean()->parse('Yes'));
-        $this->assertTrue($this->boolean()->parse('YES'));
-        $this->assertTrue($this->boolean()->parse('true'));
-        $this->assertTrue($this->boolean()->parse('True'));
-        $this->assertTrue($this->boolean()->parse('TRUE'));
+        $this->assertTrue(Boolean::parse(true));
+        $this->assertTrue(Boolean::parse(1));
+        $this->assertTrue(Boolean::parse('1'));
+        $this->assertTrue(Boolean::parse('on'));
+        $this->assertTrue(Boolean::parse('On'));
+        $this->assertTrue(Boolean::parse('ON'));
+        $this->assertTrue(Boolean::parse('yes'));
+        $this->assertTrue(Boolean::parse('Yes'));
+        $this->assertTrue(Boolean::parse('YES'));
+        $this->assertTrue(Boolean::parse('true'));
+        $this->assertTrue(Boolean::parse('True'));
+        $this->assertTrue(Boolean::parse('TRUE'));
 
-        $this->assertFalse($this->boolean()->parse(' '));
-        $this->assertFalse($this->boolean()->parse(false));
-        $this->assertFalse($this->boolean()->parse(0));
-        $this->assertFalse($this->boolean()->parse('0'));
-        $this->assertFalse($this->boolean()->parse('off'));
-        $this->assertFalse($this->boolean()->parse('Off'));
-        $this->assertFalse($this->boolean()->parse('OFF'));
-        $this->assertFalse($this->boolean()->parse('no'));
-        $this->assertFalse($this->boolean()->parse('No'));
-        $this->assertFalse($this->boolean()->parse('NO'));
-        $this->assertFalse($this->boolean()->parse('false'));
-        $this->assertFalse($this->boolean()->parse('False'));
-        $this->assertFalse($this->boolean()->parse('FALSE'));
+        $this->assertFalse(Boolean::parse(' '));
+        $this->assertFalse(Boolean::parse(false));
+        $this->assertFalse(Boolean::parse(0));
+        $this->assertFalse(Boolean::parse('0'));
+        $this->assertFalse(Boolean::parse('off'));
+        $this->assertFalse(Boolean::parse('Off'));
+        $this->assertFalse(Boolean::parse('OFF'));
+        $this->assertFalse(Boolean::parse('no'));
+        $this->assertFalse(Boolean::parse('No'));
+        $this->assertFalse(Boolean::parse('NO'));
+        $this->assertFalse(Boolean::parse('false'));
+        $this->assertFalse(Boolean::parse('False'));
+        $this->assertFalse(Boolean::parse('FALSE'));
 
-        $this->assertNull($this->boolean()->parse('foo'));
-        $this->assertNull($this->boolean()->parse('bar'));
-        $this->assertNull($this->boolean()->parse('baz'));
-        $this->assertNull($this->boolean()->parse([]));
-        $this->assertNull($this->boolean()->parse(['foo', 'bar']));
+        $this->assertNull(Boolean::parse('foo'));
+        $this->assertNull(Boolean::parse('bar'));
+        $this->assertNull(Boolean::parse('baz'));
+        $this->assertNull(Boolean::parse([]));
+        $this->assertNull(Boolean::parse(['foo', 'bar']));
     }
 
     public function testConvertToString()
     {
-        $this->assertSame('true', $this->boolean()->convertToString(true));
-        $this->assertSame('true', $this->boolean()->convertToString(1));
+        $this->assertSame('true', Boolean::convertToString(true));
+        $this->assertSame('true', Boolean::convertToString(1));
 
-        $this->assertSame('false', $this->boolean()->convertToString(false));
-        $this->assertSame('false', $this->boolean()->convertToString(0));
-    }
-
-    protected function boolean()
-    {
-        return new Boolean();
+        $this->assertSame('false', Boolean::convertToString(false));
+        $this->assertSame('false', Boolean::convertToString(0));
     }
 }

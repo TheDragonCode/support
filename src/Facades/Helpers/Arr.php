@@ -23,7 +23,7 @@ use DragonCode\Support\Helpers\Ables\Arrayable;
 use DragonCode\Support\Helpers\Arr as Helper;
 
 /**
- * @method static Arrayable of(array|ArrayAccess|\DragonCode\Contracts\Support\Arrayable $value = [])
+ * @method static Arrayable of(mixed $value = [])
  * @method static array addUnique(array $array, $values)
  * @method static array combine(...$arrays)
  * @method static array except(array $array, array|callable|string $keys)

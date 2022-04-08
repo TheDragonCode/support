@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Instances\Callbacks\Sorter;
 
+use DragonCode\Support\Facades\Callbacks\Sorter;
+
 class DefaultTest extends Base
 {
     public function testDefaultCallback()
     {
-        $callback = $this->sorter()->default();
+        $callback = Sorter::default();
 
         $this->assertIsCallable($callback);
 

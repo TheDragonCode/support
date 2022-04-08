@@ -24,15 +24,15 @@ class SameMethodTest extends Base
 {
     public function testBuilder()
     {
-        $this->assertInstanceOf(Builder::class, $this->builder()->same());
-        $this->assertInstanceOf(Builder::class, $this->builder()->same()->parse($this->test_url)->same());
-        $this->assertInstanceOf(Builder::class, $this->builder()->parse($this->test_url)->same());
+        $this->assertInstanceOf(Builder::class, \DragonCode\Support\Facades\Http\Builder::same());
+        $this->assertInstanceOf(Builder::class, \DragonCode\Support\Facades\Http\Builder::same()->parse($this->test_url)->same());
+        $this->assertInstanceOf(Builder::class, \DragonCode\Support\Facades\Http\Builder::parse($this->test_url)->same());
     }
 
     public function testInterface()
     {
-        $this->assertInstanceOf(UriInterface::class, $this->builder()->same());
-        $this->assertInstanceOf(UriInterface::class, $this->builder()->same()->parse($this->test_url)->same());
-        $this->assertInstanceOf(UriInterface::class, $this->builder()->parse($this->test_url)->same());
+        $this->assertInstanceOf(UriInterface::class, \DragonCode\Support\Facades\Http\Builder::same());
+        $this->assertInstanceOf(UriInterface::class, \DragonCode\Support\Facades\Http\Builder::same()->parse($this->test_url)->same());
+        $this->assertInstanceOf(UriInterface::class, \DragonCode\Support\Facades\Http\Builder::parse($this->test_url)->same());
     }
 }

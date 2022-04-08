@@ -16,16 +16,15 @@
 
 namespace DragonCode\Support\Facades\Helpers;
 
-use Closure;
 use DragonCode\Support\Facades\Facade;
 use DragonCode\Support\Helpers\Call as Helper;
 
 /**
- * @method static mixed|null run(callable|Closure|string $class, string $method, ...$parameters)
- * @method static mixed|null runExists(callable|Closure|string $class, string $method, ...$parameters)
+ * @method static mixed|null run(mixed $class, string $method, ...$parameters)
+ * @method static mixed|null runExists(mixed $class, string $method, ...$parameters)
  * @method static mixed|null runMethods($class, $methods, ...$parameters)
  * @method static mixed|null runOf(array $map, $value, ...$parameters)
- * @method static mixed|null when(bool $when, callable|Closure|string $class, string $method, ...$parameters)
+ * @method static mixed|null when(bool $when, mixed $class, string $method, ...$parameters)
  */
 class Call extends Facade
 {

@@ -17,9 +17,9 @@
 namespace Tests\Unit\Instances\Helpers;
 
 use ArrayObject;
+use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\Support\Facades\Helpers\Str;
 use DragonCode\Support\Helpers\Ables\Arrayable as Helper;
-use DragonCode\Support\Helpers\Arr;
 use Tests\Fixtures\Instances\Arrayable;
 use Tests\Fixtures\Instances\Baq;
 use Tests\Fixtures\Instances\Bar;
@@ -31,17 +31,17 @@ class ArrTest extends TestCase
 {
     public function testOf()
     {
-        $this->assertSame([], $this->arr()->of()->toArray());
-        $this->assertInstanceOf(Helper::class, $this->arr()->of());
+        $this->assertSame([], Arr::of()->toArray());
+        $this->assertInstanceOf(Helper::class, Arr::of());
 
-        $this->assertSame([], $this->arr()->of(null)->toArray());
-        $this->assertInstanceOf(Helper::class, $this->arr()->of(null));
+        $this->assertSame([], Arr::of(null)->toArray());
+        $this->assertInstanceOf(Helper::class, Arr::of(null));
 
-        $this->assertSame([], $this->arr()->of([])->toArray());
-        $this->assertInstanceOf(Helper::class, $this->arr()->of([]));
+        $this->assertSame([], Arr::of([])->toArray());
+        $this->assertInstanceOf(Helper::class, Arr::of([]));
 
-        $this->assertSame([], $this->arr()->of('')->toArray());
-        $this->assertInstanceOf(Helper::class, $this->arr()->of(''));
+        $this->assertSame([], Arr::of('')->toArray());
+        $this->assertInstanceOf(Helper::class, Arr::of(''));
     }
 
     public function testExcept()
@@ -52,18 +52,18 @@ class ArrTest extends TestCase
             'baz' => 789,
         ];
 
-        $this->assertSame(['bar' => 456, 'baz' => 789], $this->arr()->except($array, 'foo'));
-        $this->assertSame(['bar' => 456, 'baz' => 789], $this->arr()->except($array, ['foo']));
+        $this->assertSame(['bar' => 456, 'baz' => 789], Arr::except($array, 'foo'));
+        $this->assertSame(['bar' => 456, 'baz' => 789], Arr::except($array, ['foo']));
 
-        $this->assertSame(['bar' => 456], $this->arr()->except($array, ['foo', 'baz']));
+        $this->assertSame(['bar' => 456], Arr::except($array, ['foo', 'baz']));
 
-        $this->assertSame(['foo' => 123, 'bar' => 456, 'baz' => 789], $this->arr()->except($array, []));
-        $this->assertSame(['foo' => 123, 'bar' => 456, 'baz' => 789], $this->arr()->except($array, null));
-        $this->assertSame(['foo' => 123, 'bar' => 456, 'baz' => 789], $this->arr()->except($array, 123));
+        $this->assertSame(['foo' => 123, 'bar' => 456, 'baz' => 789], Arr::except($array, []));
+        $this->assertSame(['foo' => 123, 'bar' => 456, 'baz' => 789], Arr::except($array, null));
+        $this->assertSame(['foo' => 123, 'bar' => 456, 'baz' => 789], Arr::except($array, 123));
 
-        $this->assertSame([], $this->arr()->except([], []));
-        $this->assertSame([], $this->arr()->except([], ''));
-        $this->assertSame([], $this->arr()->except([], ['foo', 'bar']));
+        $this->assertSame([], Arr::except([], []));
+        $this->assertSame([], Arr::except([], ''));
+        $this->assertSame([], Arr::except([], ['foo', 'bar']));
     }
 
     public function testExceptCallback()
@@ -76,11 +76,11 @@ class ArrTest extends TestCase
             400   => 'Num 400',
         ];
 
-        $this->assertSame(['baz' => 'Baz', 200 => 'Num 200', 400 => 'Num 400'], $this->arr()->except($arr, static fn ($key): bool => ! Str::startsWith($key, ['foo', 'bar'])));
+        $this->assertSame(['baz' => 'Baz', 200 => 'Num 200', 400 => 'Num 400'], Arr::except($arr, static fn ($key): bool => ! Str::startsWith($key, ['foo', 'bar'])));
 
-        $this->assertSame(['foo' => 'Foo', 200 => 'Num 200', 400 => 'Num 400'], $this->arr()->except($arr, static fn ($key): bool => ! Str::startsWith($key, 'ba')));
+        $this->assertSame(['foo' => 'Foo', 200 => 'Num 200', 400 => 'Num 400'], Arr::except($arr, static fn ($key): bool => ! Str::startsWith($key, 'ba')));
 
-        $this->assertSame(['foo' => 'Foo', 'bar' => 'Bar', 'baz' => 'Baz'], $this->arr()->except($arr, static fn ($key): bool => ! is_numeric($key)));
+        $this->assertSame(['foo' => 'Foo', 'bar' => 'Bar', 'baz' => 'Baz'], Arr::except($arr, static fn ($key): bool => ! is_numeric($key)));
     }
 
     public function testRenameKeys()
@@ -103,9 +103,9 @@ class ArrTest extends TestCase
             'baz_789' => 789,
         ];
 
-        $renamed = $this->arr()->renameKeys($source, static fn ($key): string => mb_strtoupper($key));
+        $renamed = Arr::renameKeys($source, static fn ($key): string => mb_strtoupper($key));
 
-        $modified = $this->arr()->renameKeys($source, static fn ($key, $value): string => mb_strtolower($key) . '_' . $value);
+        $modified = Arr::renameKeys($source, static fn ($key, $value): string => mb_strtolower($key) . '_' . $value);
 
         $this->assertSame($expected_renamed, $renamed);
         $this->assertSame($expected_modified, $modified);
@@ -130,88 +130,88 @@ class ArrTest extends TestCase
             'BaR' => 'BARX',
         ];
 
-        $renamed = $this->arr()->renameKeysMap($source, $map);
+        $renamed = Arr::renameKeysMap($source, $map);
 
         $this->assertSame($expected, $renamed);
     }
 
     public function testGet()
     {
-        $this->assertEquals('bar', $this->arr()->get(['foo' => 'bar'], 'foo'));
-        $this->assertEquals('bar', $this->arr()->get(['foo' => 'bar'], 'foo', 'bar'));
-        $this->assertEquals('baz', $this->arr()->get(['foo' => 'bar'], 'bar', 'baz'));
+        $this->assertEquals('bar', Arr::get(['foo' => 'bar'], 'foo'));
+        $this->assertEquals('bar', Arr::get(['foo' => 'bar'], 'foo', 'bar'));
+        $this->assertEquals('baz', Arr::get(['foo' => 'bar'], 'bar', 'baz'));
 
-        $this->assertNull($this->arr()->get(['foo' => 'bar'], 'bar'));
+        $this->assertNull(Arr::get(['foo' => 'bar'], 'bar'));
 
-        $this->assertSame('Foo', $this->arr()->get(new Arrayable(), 'foo'));
-        $this->assertSame('Bar', $this->arr()->get(new Arrayable(), 'bar'));
-        $this->assertSame('Baz', $this->arr()->get(new Arrayable(), 'baz'));
+        $this->assertSame('Foo', Arr::get(new Arrayable(), 'foo'));
+        $this->assertSame('Bar', Arr::get(new Arrayable(), 'bar'));
+        $this->assertSame('Baz', Arr::get(new Arrayable(), 'baz'));
 
-        $this->assertNull($this->arr()->get(new Arrayable(), 'qwerty'));
+        $this->assertNull(Arr::get(new Arrayable(), 'qwerty'));
 
         $array = ['products.desk' => ['price' => 100]];
-        $this->assertEquals(['price' => 100], $this->arr()->get($array, 'products.desk'));
+        $this->assertEquals(['price' => 100], Arr::get($array, 'products.desk'));
 
         $array = ['products' => ['desk' => ['price' => 100]]];
-        $value = $this->arr()->get($array, 'products.desk');
+        $value = Arr::get($array, 'products.desk');
         $this->assertEquals(['price' => 100], $value);
 
         // Test null array values
         $array = ['foo' => null, 'bar' => ['baz' => null]];
-        $this->assertNull($this->arr()->get($array, 'foo', 'default'));
-        $this->assertNull($this->arr()->get($array, 'bar.baz', 'default'));
+        $this->assertNull(Arr::get($array, 'foo', 'default'));
+        $this->assertNull(Arr::get($array, 'bar.baz', 'default'));
 
         // Test direct ArrayAccess object
         $array             = ['products' => ['desk' => ['price' => 100]]];
         $arrayAccessObject = new ArrayObject($array);
-        $value             = $this->arr()->get($arrayAccessObject, 'products.desk');
+        $value             = Arr::get($arrayAccessObject, 'products.desk');
         $this->assertEquals(['price' => 100], $value);
 
         // Test array containing ArrayAccess object
         $arrayAccessChild = new ArrayObject(['products' => ['desk' => ['price' => 100]]]);
         $array            = ['child' => $arrayAccessChild];
-        $value            = $this->arr()->get($array, 'child.products.desk');
+        $value            = Arr::get($array, 'child.products.desk');
         $this->assertEquals(['price' => 100], $value);
 
         // Test array containing multiple nested ArrayAccess objects
         $arrayAccessChild  = new ArrayObject(['products' => ['desk' => ['price' => 100]]]);
         $arrayAccessParent = new ArrayObject(['child' => $arrayAccessChild]);
         $array             = ['parent' => $arrayAccessParent];
-        $value             = $this->arr()->get($array, 'parent.child.products.desk');
+        $value             = Arr::get($array, 'parent.child.products.desk');
         $this->assertEquals(['price' => 100], $value);
 
         // Test missing ArrayAccess object field
         $arrayAccessChild  = new ArrayObject(['products' => ['desk' => ['price' => 100]]]);
         $arrayAccessParent = new ArrayObject(['child' => $arrayAccessChild]);
         $array             = ['parent' => $arrayAccessParent];
-        $value             = $this->arr()->get($array, 'parent.child.desk');
+        $value             = Arr::get($array, 'parent.child.desk');
         $this->assertNull($value);
 
         // Test missing ArrayAccess object field
         $arrayAccessObject = new ArrayObject(['products' => ['desk' => null]]);
         $array             = ['parent' => $arrayAccessObject];
-        $value             = $this->arr()->get($array, 'parent.products.desk.price');
+        $value             = Arr::get($array, 'parent.products.desk.price');
         $this->assertNull($value);
 
         // Test null ArrayAccess object fields
         $array = new ArrayObject(['foo' => null, 'bar' => new ArrayObject(['baz' => null])]);
-        $this->assertNull($this->arr()->get($array, 'foo', 'default'));
-        $this->assertNull($this->arr()->get($array, 'bar.baz', 'default'));
+        $this->assertNull(Arr::get($array, 'foo', 'default'));
+        $this->assertNull(Arr::get($array, 'bar.baz', 'default'));
 
         // Test null key returns the whole array
         $array = ['foo', 'bar'];
-        $this->assertEquals($array, $this->arr()->get($array, null));
+        $this->assertEquals($array, Arr::get($array, null));
 
         // Test $array not an array
-        $this->assertSame('default', $this->arr()->get(null, 'foo', 'default'));
-        $this->assertSame('default', $this->arr()->get(false, 'foo', 'default'));
+        $this->assertSame('default', Arr::get(null, 'foo', 'default'));
+        $this->assertSame('default', Arr::get(false, 'foo', 'default'));
 
         // Test $array not an array and key is null
-        $this->assertSame('default', $this->arr()->get(null, null, 'default'));
+        $this->assertSame('default', Arr::get(null, null, 'default'));
 
         // Test $array is empty and key is null
-        $this->assertEmpty($this->arr()->get([], null));
-        $this->assertEmpty($this->arr()->get([], null, 'default'));
+        $this->assertEmpty(Arr::get([], null));
+        $this->assertEmpty(Arr::get([], null, 'default'));
 
         // Test numeric keys
         $array = [
@@ -220,12 +220,12 @@ class ArrTest extends TestCase
                 ['name' => 'chair'],
             ],
         ];
-        $this->assertSame('desk', $this->arr()->get($array, 'products.0.name'));
-        $this->assertSame('chair', $this->arr()->get($array, 'products.1.name'));
+        $this->assertSame('desk', Arr::get($array, 'products.0.name'));
+        $this->assertSame('chair', Arr::get($array, 'products.1.name'));
 
         // Test return default value for non-existing key.
         $array = ['names' => ['developer' => 'taylor']];
-        $this->assertSame('dayle', $this->arr()->get($array, 'names.otherDeveloper', 'dayle'));
+        $this->assertSame('dayle', Arr::get($array, 'names.otherDeveloper', 'dayle'));
     }
 
     public function testMerge()
@@ -258,7 +258,7 @@ class ArrTest extends TestCase
             800   => ['bbb' => 'BBB'],
         ];
 
-        $result = $this->arr()->merge($arr1, $arr2);
+        $result = Arr::merge($arr1, $arr2);
 
         $this->assertSame($expected, $result);
     }
@@ -296,7 +296,7 @@ class ArrTest extends TestCase
             ['CCC'],
         ];
 
-        $result = $this->arr()->combine($arr1, $arr2);
+        $result = Arr::combine($arr1, $arr2);
 
         $this->assertSame($expected, $result);
     }
@@ -334,7 +334,7 @@ class ArrTest extends TestCase
             'k' => ['BBB'],
         ];
 
-        $result = $this->arr()->combine($arr1, $arr2);
+        $result = Arr::combine($arr1, $arr2);
 
         $this->assertSame($expected, $result);
     }
@@ -343,7 +343,7 @@ class ArrTest extends TestCase
     {
         $array = ['foo', 'bar', 'foobar', 'baz'];
 
-        $this->assertSame(6, $this->arr()->longestStringLength($array));
+        $this->assertSame(6, Arr::longestStringLength($array));
     }
 
     public function testOnly()
@@ -366,31 +366,31 @@ class ArrTest extends TestCase
             ],
         ];
 
-        $this->assertSame(['foo' => 'Foo', 'bar' => 'Bar'], $this->arr()->only($arr, ['foo', 'bar']));
-        $this->assertSame(['bar' => 'Bar', 200 => 'Num 200'], $this->arr()->only($arr, ['bar', 200]));
+        $this->assertSame(['foo' => 'Foo', 'bar' => 'Bar'], Arr::only($arr, ['foo', 'bar']));
+        $this->assertSame(['bar' => 'Bar', 200 => 'Num 200'], Arr::only($arr, ['bar', 200]));
 
         $this->assertSame(
             ['foo' => 'Foo', 'baz' => 'Baz', 'qwerty' => ['q' => 'Q', 'w' => 'W', 'e' => 'E']],
-            $this->arr()->only($arr, ['foo', 'baz', 'qwerty'])
+            Arr::only($arr, ['foo', 'baz', 'qwerty'])
         );
 
         $this->assertSame(
             ['foo' => 'Foo', 'baz' => 'Baz', 500 => ['r' => 'R', 't' => 'T', 'y' => 'Y']],
-            $this->arr()->only($arr, ['foo', 'baz', 500])
+            Arr::only($arr, ['foo', 'baz', 500])
         );
 
         $this->assertSame(
             ['foo' => 'Foo', 'qwerty' => ['w' => 'W'], 500 => ['r' => 'R', 't' => 'T', 'y' => 'Y']],
-            $this->arr()->only($arr, ['foo', 'qwerty' => ['w'], 500])
+            Arr::only($arr, ['foo', 'qwerty' => ['w'], 500])
         );
 
         $this->assertSame(
             ['foo' => 'Foo', 'qwerty' => ['w' => 'W'], 500 => ['t' => 'T', 'y' => 'Y']],
-            $this->arr()->only($arr, ['foo', 'qwerty' => ['w'], 500 => ['t', 'y']])
+            Arr::only($arr, ['foo', 'qwerty' => ['w'], 500 => ['t', 'y']])
         );
 
-        $this->assertSame([], $this->arr()->only($arr, []));
-        $this->assertSame([], $this->arr()->only($arr, null));
+        $this->assertSame([], Arr::only($arr, []));
+        $this->assertSame([], Arr::only($arr, null));
     }
 
     public function testOnlyDiffKeys()
@@ -422,7 +422,7 @@ class ArrTest extends TestCase
                     'e' => 'E',
                 ],
             ],
-            $this->arr()->only($arr, [
+            Arr::only($arr, [
                 'foo',
                 'bar',
                 'qwerty'        => ['q', 'e'],
@@ -442,11 +442,11 @@ class ArrTest extends TestCase
             400   => 'Num 400',
         ];
 
-        $this->assertSame(['foo' => 'Foo', 'bar' => 'Bar'], $this->arr()->only($arr, static fn ($key): bool => Str::startsWith($key, ['foo', 'bar'])));
+        $this->assertSame(['foo' => 'Foo', 'bar' => 'Bar'], Arr::only($arr, static fn ($key): bool => Str::startsWith($key, ['foo', 'bar'])));
 
-        $this->assertSame(['bar' => 'Bar', 'baz' => 'Baz'], $this->arr()->only($arr, static fn ($key): bool => Str::startsWith($key, 'ba')));
+        $this->assertSame(['bar' => 'Bar', 'baz' => 'Baz'], Arr::only($arr, static fn ($key): bool => Str::startsWith($key, 'ba')));
 
-        $this->assertSame([200 => 'Num 200', 400 => 'Num 400'], $this->arr()->only($arr, static fn ($key): bool => is_numeric($key)));
+        $this->assertSame([200 => 'Num 200', 400 => 'Num 400'], Arr::only($arr, static fn ($key): bool => is_numeric($key)));
     }
 
     public function testFilter()
@@ -465,7 +465,7 @@ class ArrTest extends TestCase
             200   => 'Num 200',
         ];
 
-        $result = $this->arr()->filter(
+        $result = Arr::filter(
             $source,
             static fn ($value, $key): bool => Str::contains($value, 200) || Str::startsWith($key, 'b'),
             ARRAY_FILTER_USE_BOTH
@@ -492,7 +492,7 @@ class ArrTest extends TestCase
             'Num 400' => 400,
         ];
 
-        $this->assertSame($target, $this->arr()->flip($source));
+        $this->assertSame($target, Arr::flip($source));
     }
 
     public function testFlipArrayable()
@@ -506,8 +506,8 @@ class ArrTest extends TestCase
             'Qwerty' => 'qwerty',
         ];
 
-        $this->assertSame($expected_bar, $this->arr()->flip(new Bar()));
-        $this->assertSame($expected_baz, $this->arr()->flip(new Baz()));
+        $this->assertSame($expected_bar, Arr::flip(new Bar()));
+        $this->assertSame($expected_baz, Arr::flip(new Baz()));
     }
 
     public function testValues()
@@ -528,7 +528,7 @@ class ArrTest extends TestCase
             'Num 400',
         ];
 
-        $this->assertSame($expected, $this->arr()->values($source));
+        $this->assertSame($expected, Arr::values($source));
     }
 
     public function testValuesArrayable()
@@ -542,8 +542,8 @@ class ArrTest extends TestCase
             'Qwerty',
         ];
 
-        $this->assertSame($expected_bar, $this->arr()->values(new Bar()));
-        $this->assertSame($expected_baz, $this->arr()->values(new Baz()));
+        $this->assertSame($expected_bar, Arr::values(new Bar()));
+        $this->assertSame($expected_baz, Arr::values(new Baz()));
     }
 
     public function testKeys()
@@ -564,7 +564,7 @@ class ArrTest extends TestCase
             400,
         ];
 
-        $this->assertSame($expected, $this->arr()->keys($source));
+        $this->assertSame($expected, Arr::keys($source));
     }
 
     public function testKeysArrayable()
@@ -578,60 +578,60 @@ class ArrTest extends TestCase
             'qwerty',
         ];
 
-        $this->assertSame($expected_bar, $this->arr()->keys(new Bar()));
-        $this->assertSame($expected_baz, $this->arr()->keys(new Baz()));
+        $this->assertSame($expected_bar, Arr::keys(new Bar()));
+        $this->assertSame($expected_baz, Arr::keys(new Baz()));
     }
 
     public function testFlatten()
     {
         // Flat arrays are unaffected
         $array = ['#foo', '#bar', '#baz'];
-        $this->assertEquals(['#foo', '#bar', '#baz'], $this->arr()->flatten($array));
+        $this->assertEquals(['#foo', '#bar', '#baz'], Arr::flatten($array));
 
         // Nested arrays are flattened with existing flat items
         $array = [['#foo', '#bar'], '#baz'];
-        $this->assertEquals(['#foo', '#bar', '#baz'], $this->arr()->flatten($array));
+        $this->assertEquals(['#foo', '#bar', '#baz'], Arr::flatten($array));
 
         // Flattened array includes "null" items
         $array = [['#foo', null], '#baz', null];
-        $this->assertEquals(['#foo', null, '#baz', null], $this->arr()->flatten($array));
+        $this->assertEquals(['#foo', null, '#baz', null], Arr::flatten($array));
 
         // Sets of nested arrays are flattened
         $array = [['#foo', '#bar'], ['#baz']];
-        $this->assertEquals(['#foo', '#bar', '#baz'], $this->arr()->flatten($array));
+        $this->assertEquals(['#foo', '#bar', '#baz'], Arr::flatten($array));
 
         // Deeply nested arrays are flattened
         $array = [['#foo', ['#bar']], ['#baz']];
-        $this->assertEquals(['#foo', '#bar', '#baz'], $this->arr()->flatten($array));
+        $this->assertEquals(['#foo', '#bar', '#baz'], Arr::flatten($array));
     }
 
     public function testFlattenDoesntIgnore()
     {
         // Flat arrays are unaffected
         $array = ['#foo', '#bar', '#baz'];
-        $this->assertEquals(['#foo', '#bar', '#baz'], $this->arr()->flatten($array, false));
+        $this->assertEquals(['#foo', '#bar', '#baz'], Arr::flatten($array, false));
 
         // Nested arrays are flattened with existing flat items
         $array = [['#foo', '#bar'], '#baz'];
-        $this->assertEquals(['#foo', '#baz'], $this->arr()->flatten($array, false));
+        $this->assertEquals(['#foo', '#baz'], Arr::flatten($array, false));
 
         // Flattened array includes "null" items
         $array = [['#foo', null], '#baz', null];
-        $this->assertEquals(['#foo', '#baz', null], $this->arr()->flatten($array, false));
+        $this->assertEquals(['#foo', '#baz', null], Arr::flatten($array, false));
 
         // Sets of nested arrays are flattened
         $array = [['#foo', '#bar'], ['#baz']];
-        $this->assertEquals(['#foo', '#bar', '#baz'], $this->arr()->flatten($array, false));
+        $this->assertEquals(['#foo', '#bar', '#baz'], Arr::flatten($array, false));
 
         // Deeply nested arrays are flattened
         $array = [['#foo', ['#bar']], ['#baz']];
-        $this->assertEquals(['#foo', '#bar', '#baz'], $this->arr()->flatten($array, false));
+        $this->assertEquals(['#foo', '#bar', '#baz'], Arr::flatten($array, false));
     }
 
     public function testFlattenKeys()
     {
         $array = ['foo', 'bar', 'baz'];
-        $this->assertEquals($array, $this->arr()->flattenKeys($array));
+        $this->assertEquals($array, Arr::flattenKeys($array));
 
         $array = ['f' => ['foo', 'bar', 'baz'], 'b' => ['q', 'w', 'e']];
         $this->assertEquals([
@@ -641,7 +641,7 @@ class ArrTest extends TestCase
             'b.0' => 'q',
             'b.1' => 'w',
             'b.2' => 'e',
-        ], $this->arr()->flattenKeys($array));
+        ], Arr::flattenKeys($array));
 
         $array = [
             'f' => ['q' => 'Q', 'w' => 'W', 'e' => 'E'],
@@ -654,13 +654,13 @@ class ArrTest extends TestCase
             'b.a' => 'A',
             'b.s' => 'S',
             'b.d' => 'D',
-        ], $this->arr()->flattenKeys($array));
+        ], Arr::flattenKeys($array));
     }
 
     public function testFlattenKeysCustomDelimiter()
     {
         $array = ['foo', 'bar', 'baz'];
-        $this->assertEquals($array, $this->arr()->flattenKeys($array, '_'));
+        $this->assertEquals($array, Arr::flattenKeys($array, '_'));
 
         $array = ['f' => ['foo', 'bar', 'baz'], 'b' => ['q', 'w', 'e']];
         $this->assertEquals([
@@ -670,7 +670,7 @@ class ArrTest extends TestCase
             'b_0' => 'q',
             'b_1' => 'w',
             'b_2' => 'e',
-        ], $this->arr()->flattenKeys($array, '_'));
+        ], Arr::flattenKeys($array, '_'));
 
         $array = [
             'f' => ['q' => 'Q', 'w' => 'W', 'e' => 'E'],
@@ -683,7 +683,7 @@ class ArrTest extends TestCase
             'b_a' => 'A',
             'b_s' => 'S',
             'b_d' => 'D',
-        ], $this->arr()->flattenKeys($array, '_'));
+        ], Arr::flattenKeys($array, '_'));
     }
 
     public function testStoreAsArray()
@@ -715,7 +715,7 @@ class ArrTest extends TestCase
 
         $path = $this->tempDirectory('array.php');
 
-        $this->arr()->store($source, $path);
+        Arr::store($source, $path);
 
         $loaded = require $path;
 
@@ -753,7 +753,7 @@ class ArrTest extends TestCase
 
         $path = $this->tempDirectory('array.json');
 
-        $this->arr()->store($source, $path, true);
+        Arr::store($source, $path, true);
 
         $this->assertJsonStringEqualsJsonFile($path, json_encode($target));
     }
@@ -787,7 +787,7 @@ class ArrTest extends TestCase
 
         $path = $this->tempDirectory('array.json');
 
-        $this->arr()->store($source, $path, true, false, JSON_PRETTY_PRINT);
+        Arr::store($source, $path, true, false, JSON_PRETTY_PRINT);
 
         $this->assertJsonStringEqualsJsonFile($path, json_encode($target, JSON_PRETTY_PRINT));
     }
@@ -821,7 +821,7 @@ class ArrTest extends TestCase
 
         $path = $this->tempDirectory('sorted.php');
 
-        $this->arr()->storeAsArray($path, $source, true);
+        Arr::storeAsArray($path, $source, true);
 
         $loaded = require $path;
 
@@ -858,7 +858,7 @@ class ArrTest extends TestCase
 
         $path = $this->tempDirectory('sorted.json');
 
-        $this->arr()->storeAsJson($path, $source, true);
+        Arr::storeAsJson($path, $source, true);
 
         $this->assertJsonStringEqualsJsonFile($path, json_encode($target));
     }
@@ -892,7 +892,7 @@ class ArrTest extends TestCase
 
         $path = $this->tempDirectory('sorted.json');
 
-        $this->arr()->storeAsJson($path, $source, true, JSON_PRETTY_PRINT);
+        Arr::storeAsJson($path, $source, true, JSON_PRETTY_PRINT);
 
         $this->assertJsonStringEqualsJsonFile($path, json_encode($target, JSON_PRETTY_PRINT));
     }
@@ -905,7 +905,7 @@ class ArrTest extends TestCase
 
         $expected = ['q' => 1, 'w' => 123, 'r' => 2, 's' => 5];
 
-        $actual = $this->arr()->sortByKeys($source, $sorter);
+        $actual = Arr::sortByKeys($source, $sorter);
 
         $this->assertSame($expected, $actual);
     }
@@ -1016,7 +1016,7 @@ class ArrTest extends TestCase
             ],
         ];
 
-        $this->assertSame($target, $this->arr()->sort($source));
+        $this->assertSame($target, Arr::sort($source));
     }
 
     public function testSortCallback()
@@ -1146,7 +1146,7 @@ class ArrTest extends TestCase
             return $current < $next ? -1 : 1;
         };
 
-        $this->assertSame($target, $this->arr()->sort($source, $callback));
+        $this->assertSame($target, Arr::sort($source, $callback));
     }
 
     public function testKsort()
@@ -1262,7 +1262,7 @@ class ArrTest extends TestCase
             'w' => 123,
         ];
 
-        $this->assertSame($target, $this->arr()->ksort($source));
+        $this->assertSame($target, Arr::ksort($source));
     }
 
     public function testKsortCallback()
@@ -1397,106 +1397,106 @@ class ArrTest extends TestCase
             return $current < $next ? -1 : 1;
         };
 
-        $this->assertSame($target, $this->arr()->ksort($source, $callback));
+        $this->assertSame($target, Arr::ksort($source, $callback));
     }
 
     public function testExists()
     {
-        $this->assertTrue($this->arr()->exists(['foo' => 'bar'], 'foo'));
-        $this->assertFalse($this->arr()->exists(['foo' => 'bar'], 'bar'));
+        $this->assertTrue(Arr::exists(['foo' => 'bar'], 'foo'));
+        $this->assertFalse(Arr::exists(['foo' => 'bar'], 'bar'));
 
-        $this->assertTrue($this->arr()->exists(new Arrayable(), 'foo'));
-        $this->assertTrue($this->arr()->exists(new Arrayable(), 'bar'));
-        $this->assertFalse($this->arr()->exists(new Arrayable(), 'qwe'));
-        $this->assertFalse($this->arr()->exists(new Arrayable(), 'rty'));
+        $this->assertTrue(Arr::exists(new Arrayable(), 'foo'));
+        $this->assertTrue(Arr::exists(new Arrayable(), 'bar'));
+        $this->assertFalse(Arr::exists(new Arrayable(), 'qwe'));
+        $this->assertFalse(Arr::exists(new Arrayable(), 'rty'));
 
-        $this->assertTrue($this->arr()->exists(['foo' => ['bar' => ['baz' => 'value']]], 'foo.bar.baz'));
-        $this->assertFalse($this->arr()->exists(['foo' => ['bar' => ['baz' => 'value']]], 'foo.bar.qwerty'));
+        $this->assertTrue(Arr::exists(['foo' => ['bar' => ['baz' => 'value']]], 'foo.bar.baz'));
+        $this->assertFalse(Arr::exists(['foo' => ['bar' => ['baz' => 'value']]], 'foo.bar.qwerty'));
     }
 
     public function testExistsWithoutDot()
     {
-        $this->assertTrue($this->arr()->existsWithoutDot(['foo' => 'bar'], 'foo'));
-        $this->assertFalse($this->arr()->existsWithoutDot(['foo' => 'bar'], 'bar'));
+        $this->assertTrue(Arr::existsWithoutDot(['foo' => 'bar'], 'foo'));
+        $this->assertFalse(Arr::existsWithoutDot(['foo' => 'bar'], 'bar'));
 
-        $this->assertTrue($this->arr()->existsWithoutDot(new Arrayable(), 'foo'));
-        $this->assertTrue($this->arr()->existsWithoutDot(new Arrayable(), 'bar'));
-        $this->assertFalse($this->arr()->existsWithoutDot(new Arrayable(), 'qwe'));
-        $this->assertFalse($this->arr()->existsWithoutDot(new Arrayable(), 'rty'));
+        $this->assertTrue(Arr::existsWithoutDot(new Arrayable(), 'foo'));
+        $this->assertTrue(Arr::existsWithoutDot(new Arrayable(), 'bar'));
+        $this->assertFalse(Arr::existsWithoutDot(new Arrayable(), 'qwe'));
+        $this->assertFalse(Arr::existsWithoutDot(new Arrayable(), 'rty'));
 
-        $this->assertFalse($this->arr()->existsWithoutDot(['foo' => ['bar' => ['baz' => 'value']]], 'foo.bar.baz'));
-        $this->assertFalse($this->arr()->existsWithoutDot(['foo' => ['bar' => ['baz' => 'value']]], 'foo.bar.qwerty'));
+        $this->assertFalse(Arr::existsWithoutDot(['foo' => ['bar' => ['baz' => 'value']]], 'foo.bar.baz'));
+        $this->assertFalse(Arr::existsWithoutDot(['foo' => ['bar' => ['baz' => 'value']]], 'foo.bar.qwerty'));
     }
 
     public function testWrap()
     {
-        $this->assertEquals(['data'], $this->arr()->wrap('data'));
-        $this->assertEquals(['data'], $this->arr()->wrap(['data']));
-        $this->assertEquals([1], $this->arr()->wrap(1));
+        $this->assertEquals(['data'], Arr::wrap('data'));
+        $this->assertEquals(['data'], Arr::wrap(['data']));
+        $this->assertEquals([1], Arr::wrap(1));
     }
 
     public function testResolve()
     {
-        $this->assertEquals(['foo', 'bar'], $this->arr()->resolve(['foo', 'bar']));
-        $this->assertEquals(['foo' => 'Foo', 'bar' => 'Bar'], $this->arr()->resolve(['foo' => 'Foo', 'bar' => 'Bar']));
-        $this->assertEquals(['foo' => 'Foo', 'bar' => 'Bar'], $this->arr()->resolve((object) ['foo' => 'Foo', 'bar' => 'Bar']));
-        $this->assertEquals(['foo'], $this->arr()->resolve('foo'));
+        $this->assertEquals(['foo', 'bar'], Arr::resolve(['foo', 'bar']));
+        $this->assertEquals(['foo' => 'Foo', 'bar' => 'Bar'], Arr::resolve(['foo' => 'Foo', 'bar' => 'Bar']));
+        $this->assertEquals(['foo' => 'Foo', 'bar' => 'Bar'], Arr::resolve((object) ['foo' => 'Foo', 'bar' => 'Bar']));
+        $this->assertEquals(['foo'], Arr::resolve('foo'));
 
-        $this->assertEquals(['first' => 'Foo', 'second' => 'Bar'], $this->arr()->resolve(new Bar()));
-        $this->assertEquals(['qwerty' => 'Qwerty'], $this->arr()->resolve(new Baz()));
+        $this->assertEquals(['first' => 'Foo', 'second' => 'Bar'], Arr::resolve(new Bar()));
+        $this->assertEquals(['qwerty' => 'Qwerty'], Arr::resolve(new Baz()));
 
-        $object = $this->arr()->of(['first' => 'Foo', 'second' => 'Bar']);
+        $object = Arr::of(['first' => 'Foo', 'second' => 'Bar']);
 
-        $this->assertEquals(['first' => 'Foo', 'second' => 'Bar'], $this->arr()->resolve($object));
+        $this->assertEquals(['first' => 'Foo', 'second' => 'Bar'], Arr::resolve($object));
 
-        $this->assertSame([Baq::class], $this->arr()->resolve([Baq::class]));
+        $this->assertSame([Baq::class], Arr::resolve([Baq::class]));
     }
 
     public function testIsArrayable()
     {
-        $this->assertTrue($this->arr()->isArrayable([]));
-        $this->assertTrue($this->arr()->isArrayable(['foo']));
-        $this->assertTrue($this->arr()->isArrayable(new Arrayable()));
+        $this->assertTrue(Arr::isArrayable([]));
+        $this->assertTrue(Arr::isArrayable(['foo']));
+        $this->assertTrue(Arr::isArrayable(new Arrayable()));
     }
 
     public function testIsEmpty()
     {
-        $this->assertFalse($this->arr()->isEmpty(''));
-        $this->assertFalse($this->arr()->isEmpty(' '));
-        $this->assertFalse($this->arr()->isEmpty('      '));
-        $this->assertFalse($this->arr()->isEmpty(null));
+        $this->assertFalse(Arr::isEmpty(''));
+        $this->assertFalse(Arr::isEmpty(' '));
+        $this->assertFalse(Arr::isEmpty('      '));
+        $this->assertFalse(Arr::isEmpty(null));
 
-        $this->assertFalse($this->arr()->isEmpty(0));
-        $this->assertFalse($this->arr()->isEmpty('   0   '));
-        $this->assertFalse($this->arr()->isEmpty(false));
+        $this->assertFalse(Arr::isEmpty(0));
+        $this->assertFalse(Arr::isEmpty('   0   '));
+        $this->assertFalse(Arr::isEmpty(false));
 
-        $this->assertTrue($this->arr()->isEmpty([]));
-        $this->assertTrue($this->arr()->isEmpty(new Foo()));
+        $this->assertTrue(Arr::isEmpty([]));
+        $this->assertTrue(Arr::isEmpty(new Foo()));
 
-        $this->assertFalse($this->arr()->isEmpty(new Bar()));
-        $this->assertFalse($this->arr()->isEmpty(new Baz()));
-        $this->assertFalse($this->arr()->isEmpty(new Baq()));
-        $this->assertFalse($this->arr()->isEmpty(new Arrayable()));
+        $this->assertFalse(Arr::isEmpty(new Bar()));
+        $this->assertFalse(Arr::isEmpty(new Baz()));
+        $this->assertFalse(Arr::isEmpty(new Baq()));
+        $this->assertFalse(Arr::isEmpty(new Arrayable()));
     }
 
     public function testDoesntEmpty()
     {
-        $this->assertTrue($this->arr()->doesntEmpty(''));
-        $this->assertTrue($this->arr()->doesntEmpty(' '));
-        $this->assertTrue($this->arr()->doesntEmpty('      '));
-        $this->assertTrue($this->arr()->doesntEmpty(null));
+        $this->assertTrue(Arr::doesntEmpty(''));
+        $this->assertTrue(Arr::doesntEmpty(' '));
+        $this->assertTrue(Arr::doesntEmpty('      '));
+        $this->assertTrue(Arr::doesntEmpty(null));
 
-        $this->assertTrue($this->arr()->doesntEmpty(0));
-        $this->assertTrue($this->arr()->doesntEmpty('   0   '));
-        $this->assertTrue($this->arr()->doesntEmpty(false));
+        $this->assertTrue(Arr::doesntEmpty(0));
+        $this->assertTrue(Arr::doesntEmpty('   0   '));
+        $this->assertTrue(Arr::doesntEmpty(false));
 
-        $this->assertFalse($this->arr()->doesntEmpty([]));
-        $this->assertFalse($this->arr()->doesntEmpty(new Foo()));
+        $this->assertFalse(Arr::doesntEmpty([]));
+        $this->assertFalse(Arr::doesntEmpty(new Foo()));
 
-        $this->assertTrue($this->arr()->doesntEmpty(new Bar()));
-        $this->assertTrue($this->arr()->doesntEmpty(new Baz()));
-        $this->assertTrue($this->arr()->doesntEmpty(new Baq()));
-        $this->assertTrue($this->arr()->doesntEmpty(new Arrayable()));
+        $this->assertTrue(Arr::doesntEmpty(new Bar()));
+        $this->assertTrue(Arr::doesntEmpty(new Baz()));
+        $this->assertTrue(Arr::doesntEmpty(new Baq()));
+        $this->assertTrue(Arr::doesntEmpty(new Arrayable()));
     }
 
     public function testAddUnique()
@@ -1507,8 +1507,8 @@ class ArrTest extends TestCase
 
         $expected = ['foo', 'bar', 'baz', 'foobar'];
 
-        $array = $this->arr()->addUnique($array, $values1);
-        $array = $this->arr()->addUnique($array, $values2);
+        $array = Arr::addUnique($array, $values1);
+        $array = Arr::addUnique($array, $values2);
 
         $this->assertSame($expected, $array);
     }
@@ -1524,16 +1524,16 @@ class ArrTest extends TestCase
             4 => 'baq',
         ];
 
-        $this->assertSame($expected, $this->arr()->unique($source));
+        $this->assertSame($expected, Arr::unique($source));
     }
 
     public function testGetKeyIfExist()
     {
-        $this->assertEquals('foo', $this->arr()->getKey(['foo' => 'bar'], 'foo'));
-        $this->assertEquals('foo', $this->arr()->getKey(['foo' => 'bar'], 'foo', 'bar'));
-        $this->assertEquals('baz', $this->arr()->getKey(['foo' => 'bar'], 'bar', 'baz'));
+        $this->assertEquals('foo', Arr::getKey(['foo' => 'bar'], 'foo'));
+        $this->assertEquals('foo', Arr::getKey(['foo' => 'bar'], 'foo', 'bar'));
+        $this->assertEquals('baz', Arr::getKey(['foo' => 'bar'], 'bar', 'baz'));
 
-        $this->assertNull($this->arr()->get(['foo' => 'bar'], 'bar'));
+        $this->assertNull(Arr::get(['foo' => 'bar'], 'bar'));
     }
 
     public function testMap()
@@ -1562,7 +1562,7 @@ class ArrTest extends TestCase
             ],
         ];
 
-        $this->assertSame($expected, $this->arr()->map($source, static fn ($value, $key): string => Str::studly($key) . '_' . ($value * 2)));
+        $this->assertSame($expected, Arr::map($source, static fn ($value, $key): string => Str::studly($key) . '_' . ($value * 2)));
     }
 
     public function testMapRecursive()
@@ -1591,7 +1591,7 @@ class ArrTest extends TestCase
             ],
         ];
 
-        $this->assertSame($expected, $this->arr()->map($source, static fn ($value, $key): string => Str::studly($key) . '_' . ($value * 2), true));
+        $this->assertSame($expected, Arr::map($source, static fn ($value, $key): string => Str::studly($key) . '_' . ($value * 2), true));
     }
 
     public function testPush()
@@ -1619,9 +1619,9 @@ class ArrTest extends TestCase
             'Baz',
         ];
 
-        $this->assertSame($expected1, $this->arr()->push($source, 'Bar'));
-        $this->assertSame($expected2, $this->arr()->push($source, ['Bar', 'Baz']));
-        $this->assertSame($expected3, $this->arr()->push($source, 'Bar', 'Baz'));
+        $this->assertSame($expected1, Arr::push($source, 'Bar'));
+        $this->assertSame($expected2, Arr::push($source, ['Bar', 'Baz']));
+        $this->assertSame($expected3, Arr::push($source, 'Bar', 'Baz'));
     }
 
     public function testSet()
@@ -1636,8 +1636,8 @@ class ArrTest extends TestCase
             'bar' => 'Qwerty',
         ];
 
-        $this->assertSame($expected, $this->arr()->set($source, 'bar', 'Qwerty'));
-        $this->assertSame($expected, $this->arr()->set($source, ['bar' => 'Qwerty']));
+        $this->assertSame($expected, Arr::set($source, 'bar', 'Qwerty'));
+        $this->assertSame($expected, Arr::set($source, ['bar' => 'Qwerty']));
     }
 
     public function testRemove()
@@ -1651,7 +1651,7 @@ class ArrTest extends TestCase
             'foo' => 'Foo',
         ];
 
-        $this->assertSame($expected, $this->arr()->remove($source, 'bar'));
+        $this->assertSame($expected, Arr::remove($source, 'bar'));
     }
 
     public function testTap()
@@ -1673,7 +1673,7 @@ class ArrTest extends TestCase
 
         $tmp = [];
 
-        $result = $this->arr()->tap($source, static function ($value, $key) use (&$tmp) {
+        $result = Arr::tap($source, static function ($value, $key) use (&$tmp) {
             $tmp[$value] = $key;
         });
 
@@ -1688,12 +1688,7 @@ class ArrTest extends TestCase
         $expected1 = ['baz', 'bar', 'foo'];
         $expected2 = [2 => 'baz', 1 => 'bar', 0 => 'foo'];
 
-        $this->assertSame($expected1, $this->arr()->reverse($source));
-        $this->assertSame($expected2, $this->arr()->reverse($source, true));
-    }
-
-    protected function arr(): Arr
-    {
-        return new Arr();
+        $this->assertSame($expected1, Arr::reverse($source));
+        $this->assertSame($expected2, Arr::reverse($source, true));
     }
 }

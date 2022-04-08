@@ -16,13 +16,14 @@
 
 namespace Tests\Unit\Instances\Helpers\Http\Builder;
 
+use DragonCode\Support\Facades\Http\Builder;
 use Tests\Unit\Instances\Helpers\Http\Base;
 
 class PutQueryMethodTest extends Base
 {
     public function testWith()
     {
-        $builder = $this->builder()->parse($this->psr_url);
+        $builder = Builder::parse($this->psr_url);
 
         $this->assertIsString($builder->getQuery());
         $this->assertSame($this->psr_query, $builder->getQuery());
@@ -37,7 +38,7 @@ class PutQueryMethodTest extends Base
 
     public function testWithout()
     {
-        $builder = $this->builder()->parse($this->test_url);
+        $builder = Builder::parse($this->test_url);
 
         $this->assertIsString($builder->getQuery());
         $this->assertEmpty($builder->getQuery());
@@ -52,7 +53,7 @@ class PutQueryMethodTest extends Base
 
     public function testEmpty()
     {
-        $builder = $this->builder()->parse($this->test_url);
+        $builder = Builder::parse($this->test_url);
 
         $this->assertIsString($builder->getQuery());
         $this->assertEmpty($builder->getQuery());
@@ -65,7 +66,7 @@ class PutQueryMethodTest extends Base
 
     public function testNull()
     {
-        $builder = $this->builder()->parse($this->test_url);
+        $builder = Builder::parse($this->test_url);
 
         $this->assertIsString($builder->getQuery());
         $this->assertEmpty($builder->getQuery());

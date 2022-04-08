@@ -17,10 +17,10 @@
 namespace Tests\Unit\Instances\Helpers\Filesystem;
 
 use DragonCode\Support\Exceptions\DirectoryNotFoundException;
+use DragonCode\Support\Facades\Helpers\Filesystem\Directory;
 use DragonCode\Support\Facades\Helpers\Filesystem\Directory as DirectoryFacade;
 use DragonCode\Support\Facades\Helpers\Filesystem\File;
 use DragonCode\Support\Facades\Helpers\Str;
-use DragonCode\Support\Helpers\Filesystem\Directory;
 use Tests\TestCase;
 
 class DirectoryTest extends TestCase
@@ -29,12 +29,12 @@ class DirectoryTest extends TestCase
     {
         $available = ['.', '..', 'Concerns', 'Contracts', 'Exceptions', 'Facades', 'Foo', 'Instances', 'stubs'];
 
-        $dirs = $this->directory()->all($this->fixturesDirectory());
+        $dirs = Directory::all($this->fixturesDirectory());
 
         foreach ($dirs as $dir) {
             in_array($dir->getFilename(), $available)
-                ? $this->assertTrue($this->directory()->isDirectory($dir), 'Path is ' . $dir->getRealPath())
-                : $this->assertFalse($this->directory()->isDirectory($dir), 'Path is ' . $dir->getRealPath());
+                ? $this->assertTrue(Directory::isDirectory($dir), 'Path is ' . $dir->getRealPath())
+                : $this->assertFalse(Directory::isDirectory($dir), 'Path is ' . $dir->getRealPath());
         }
     }
 
@@ -43,7 +43,7 @@ class DirectoryTest extends TestCase
         $this->expectException(DirectoryNotFoundException::class);
         $this->expectExceptionMessage('Directory "qwerty" does not exist.');
 
-        $this->directory()->all('qwerty');
+        Directory::all('qwerty');
     }
 
     public function testAsFile()
@@ -53,7 +53,7 @@ class DirectoryTest extends TestCase
         $this->expectException(DirectoryNotFoundException::class);
         $this->expectExceptionMessage('Directory "' . $path . '" does not exist.');
 
-        $this->directory()->all($path);
+        Directory::all($path);
     }
 
     public function testDelete()
@@ -62,13 +62,13 @@ class DirectoryTest extends TestCase
 
         $this->assertDirectoryDoesNotExist($path);
 
-        $this->assertTrue($this->directory()->make($path, 777));
+        $this->assertTrue(Directory::make($path, 777));
 
         $this->assertDirectoryExists($path);
 
-        $this->assertTrue($this->directory()->delete($path));
+        $this->assertTrue(Directory::delete($path));
 
-        $this->assertFalse($this->directory()->exists($path));
+        $this->assertFalse(Directory::exists($path));
     }
 
     public function testDeleteDoesntExists()
@@ -76,7 +76,7 @@ class DirectoryTest extends TestCase
         $this->expectException(DirectoryNotFoundException::class);
         $this->expectExceptionMessage('Directory "qwe" does not exist.');
 
-        $this->assertTrue($this->directory()->delete('qwe'));
+        $this->assertTrue(Directory::delete('qwe'));
     }
 
     public function testDeleteAsFile()
@@ -88,7 +88,7 @@ class DirectoryTest extends TestCase
         $this->expectException(DirectoryNotFoundException::class);
         $this->expectExceptionMessage('Directory "' . $path . '" does not exist.');
 
-        $this->directory()->delete($path);
+        Directory::delete($path);
     }
 
     public function testEnsureDelete()
@@ -99,12 +99,12 @@ class DirectoryTest extends TestCase
         $this->assertDirectoryDoesNotExist($path1);
         $this->assertDirectoryDoesNotExist($path2);
 
-        $this->assertTrue($this->directory()->make($path1), 777);
+        $this->assertTrue(Directory::make($path1), 777);
 
         $this->assertDirectoryExists($path1);
 
-        $this->assertTrue($this->directory()->ensureDelete($path1));
-        $this->assertTrue($this->directory()->ensureDelete($path2));
+        $this->assertTrue(Directory::ensureDelete($path1));
+        $this->assertTrue(Directory::ensureDelete($path2));
 
         $this->assertDirectoryDoesNotExist($path1);
         $this->assertDirectoryDoesNotExist($path2);
@@ -117,40 +117,40 @@ class DirectoryTest extends TestCase
         $path1 = $path . 'foo';
         $path2 = $path . 'bar';
 
-        $this->assertTrue($this->directory()->doesntExist($path));
-        $this->assertTrue($this->directory()->doesntExist($path1));
-        $this->assertTrue($this->directory()->doesntExist($path2));
+        $this->assertTrue(Directory::doesntExist($path));
+        $this->assertTrue(Directory::doesntExist($path1));
+        $this->assertTrue(Directory::doesntExist($path2));
 
-        $this->directory()->make($path1);
+        Directory::make($path1);
 
-        $this->assertTrue($this->directory()->exists($path));
-        $this->assertTrue($this->directory()->exists($path1));
-        $this->assertTrue($this->directory()->doesntExist($path2));
+        $this->assertTrue(Directory::exists($path));
+        $this->assertTrue(Directory::exists($path1));
+        $this->assertTrue(Directory::doesntExist($path2));
 
-        $this->directory()->ensureDirectory($path2);
+        Directory::ensureDirectory($path2);
 
-        $this->assertTrue($this->directory()->exists($path));
-        $this->assertTrue($this->directory()->exists($path1));
-        $this->assertTrue($this->directory()->exists($path2));
+        $this->assertTrue(Directory::exists($path));
+        $this->assertTrue(Directory::exists($path1));
+        $this->assertTrue(Directory::exists($path2));
 
-        $this->directory()->ensureDirectory($path, 0755, true);
+        Directory::ensureDirectory($path, 0755, true);
 
-        $this->assertTrue($this->directory()->exists($path));
-        $this->assertTrue($this->directory()->doesntExist($path1));
-        $this->assertTrue($this->directory()->doesntExist($path2));
+        $this->assertTrue(Directory::exists($path));
+        $this->assertTrue(Directory::doesntExist($path1));
+        $this->assertTrue(Directory::doesntExist($path2));
     }
 
     public function testDoesntExist()
     {
-        $this->assertTrue($this->directory()->doesntExist(__DIR__ . '/../../../Foo'));
-        $this->assertTrue($this->directory()->doesntExist(__DIR__ . '/../../../Instances/Foo.php'));
+        $this->assertTrue(Directory::doesntExist(__DIR__ . '/../../../Foo'));
+        $this->assertTrue(Directory::doesntExist(__DIR__ . '/../../../Instances/Foo.php'));
     }
 
     public function testNames()
     {
         $available = ['Concerns', 'Contracts', 'Exceptions', 'Facades', 'Foo', 'Instances', 'stubs'];
 
-        $names = $this->directory()->names($this->fixturesDirectory());
+        $names = Directory::names($this->fixturesDirectory());
 
         $this->assertSame($available, $names);
     }
@@ -168,7 +168,7 @@ class DirectoryTest extends TestCase
             'stubs',
         ];
 
-        $names = $this->directory()->names($this->fixturesDirectory(), null, true);
+        $names = Directory::names($this->fixturesDirectory(), null, true);
 
         $this->assertSame($available, $names);
     }
@@ -177,7 +177,7 @@ class DirectoryTest extends TestCase
     {
         $available = ['Facades', 'Instances'];
 
-        $names = $this->directory()->names(
+        $names = Directory::names(
             $this->fixturesDirectory(),
             static fn (string $name): bool => Str::endsWith($name, 'es')
         );
@@ -191,30 +191,30 @@ class DirectoryTest extends TestCase
 
         $this->assertFalse(DirectoryFacade::exists($path));
 
-        $this->assertTrue($this->directory()->make($path, 777));
+        $this->assertTrue(Directory::make($path, 777));
 
         $this->assertDirectoryExists($path);
     }
 
     public function testExists()
     {
-        $this->assertTrue($this->directory()->exists($this->fixturesDirectory()));
+        $this->assertTrue(Directory::exists($this->fixturesDirectory()));
     }
 
     public function testIsDirectory()
     {
-        $this->assertTrue($this->directory()->isDirectory($this->fixturesDirectory()));
+        $this->assertTrue(Directory::isDirectory($this->fixturesDirectory()));
 
-        $this->assertTrue($this->directory()->isDirectory($this->fixturesDirectory('Contracts')));
-        $this->assertTrue($this->directory()->isDirectory($this->fixturesDirectory('Instances')));
+        $this->assertTrue(Directory::isDirectory($this->fixturesDirectory('Contracts')));
+        $this->assertTrue(Directory::isDirectory($this->fixturesDirectory('Instances')));
 
-        $this->assertFalse($this->directory()->isDirectory($this->fixturesDirectory('Contracts/Contract.php')));
-        $this->assertFalse($this->directory()->isDirectory($this->fixturesDirectory('Instances/Foo.php')));
+        $this->assertFalse(Directory::isDirectory($this->fixturesDirectory('Contracts/Contract.php')));
+        $this->assertFalse(Directory::isDirectory($this->fixturesDirectory('Instances/Foo.php')));
     }
 
     public function testValidateSuccess()
     {
-        $this->directory()->validate($this->fixturesDirectory());
+        Directory::validate($this->fixturesDirectory());
 
         $this->assertTrue(true);
     }
@@ -223,14 +223,14 @@ class DirectoryTest extends TestCase
     {
         $this->expectException(DirectoryNotFoundException::class);
 
-        $this->directory()->validate($this->fixturesDirectory('qwe/rty'));
+        Directory::validate($this->fixturesDirectory('qwe/rty'));
     }
 
     public function testValidatedSuccess()
     {
         $path = $this->fixturesDirectory();
 
-        $result = $this->directory()->validated($path);
+        $result = Directory::validated($path);
 
         $this->assertSame(realpath($path), $result);
     }
@@ -239,11 +239,6 @@ class DirectoryTest extends TestCase
     {
         $this->expectException(DirectoryNotFoundException::class);
 
-        $this->directory()->validated($this->fixturesDirectory('qwe/rty'));
-    }
-
-    protected function directory(): Directory
-    {
-        return new Directory();
+        Directory::validated($this->fixturesDirectory('qwe/rty'));
     }
 }

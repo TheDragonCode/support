@@ -16,13 +16,14 @@
 
 namespace Tests\Unit\Instances\Helpers\Http\Builder;
 
+use DragonCode\Support\Facades\Http\Builder;
 use Tests\Unit\Instances\Helpers\Http\Base;
 
 class GetDomainMethodTest extends Base
 {
     public function testShort()
     {
-        $builder = $this->builder()->parse($this->test_url);
+        $builder = Builder::parse($this->test_url);
 
         $this->assertIsString($builder->getDomain());
         $this->assertSame('en.example.com', $builder->getDomain());
@@ -30,7 +31,7 @@ class GetDomainMethodTest extends Base
 
     public function testFull()
     {
-        $builder = $this->builder()->parse($this->psr_url);
+        $builder = Builder::parse($this->psr_url);
 
         $this->assertIsString($builder->getDomain());
         $this->assertSame('en.example.com', $builder->getDomain());
@@ -38,7 +39,7 @@ class GetDomainMethodTest extends Base
 
     public function testEmpty()
     {
-        $builder = $this->builder();
+        $builder = Builder::same();
 
         $this->assertIsString($builder->getDomain());
         $this->assertEmpty($builder->getDomain());

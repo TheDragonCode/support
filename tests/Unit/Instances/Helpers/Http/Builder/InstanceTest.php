@@ -16,6 +16,7 @@
 
 namespace Tests\Unit\Instances\Helpers\Http\Builder;
 
+use DragonCode\Support\Facades\Http\Builder as BuilderFacade;
 use DragonCode\Support\Helpers\Http\Builder;
 use Psr\Http\Message\UriInterface;
 use Tests\Unit\Instances\Helpers\Http\Base;
@@ -24,15 +25,15 @@ class InstanceTest extends Base
 {
     public function testBuilder()
     {
-        $this->assertInstanceOf(Builder::class, $this->builder());
-        $this->assertInstanceOf(Builder::class, $this->builder()->same());
-        $this->assertInstanceOf(Builder::class, $this->builder()->parse($this->test_url));
+        $this->assertInstanceOf(Builder::class, BuilderFacade::same());
+        $this->assertInstanceOf(Builder::class, BuilderFacade::same());
+        $this->assertInstanceOf(Builder::class, BuilderFacade::parse($this->test_url));
     }
 
     public function testInterface()
     {
-        $this->assertInstanceOf(UriInterface::class, $this->builder());
-        $this->assertInstanceOf(UriInterface::class, $this->builder()->same());
-        $this->assertInstanceOf(UriInterface::class, $this->builder()->parse($this->test_url));
+        $this->assertInstanceOf(UriInterface::class, BuilderFacade::same());
+        $this->assertInstanceOf(UriInterface::class, BuilderFacade::same());
+        $this->assertInstanceOf(UriInterface::class, BuilderFacade::parse($this->test_url));
     }
 }

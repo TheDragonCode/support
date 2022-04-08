@@ -16,7 +16,7 @@
 
 namespace Tests\Unit\Instances\Helpers;
 
-use DragonCode\Support\Helpers\Is;
+use DragonCode\Support\Facades\Helpers\Is;
 use Exception;
 use ReflectionClass;
 use Tests\Fixtures\Contracts\Contract;
@@ -31,157 +31,152 @@ class IsTest extends TestCase
 {
     public function testReflectionClass()
     {
-        $this->assertTrue($this->is()->reflectionClass(new ReflectionClass(new Foo())));
-        $this->assertTrue($this->is()->reflectionClass(new ReflectionClass(new Bar())));
-        $this->assertTrue($this->is()->reflectionClass(new ReflectionClass(new Baz())));
+        $this->assertTrue(Is::reflectionClass(new ReflectionClass(new Foo())));
+        $this->assertTrue(Is::reflectionClass(new ReflectionClass(new Bar())));
+        $this->assertTrue(Is::reflectionClass(new ReflectionClass(new Baz())));
 
-        $this->assertFalse($this->is()->reflectionClass(new Foo()));
-        $this->assertFalse($this->is()->reflectionClass(new Bar()));
-        $this->assertFalse($this->is()->reflectionClass(new Baz()));
+        $this->assertFalse(Is::reflectionClass(new Foo()));
+        $this->assertFalse(Is::reflectionClass(new Bar()));
+        $this->assertFalse(Is::reflectionClass(new Baz()));
 
-        $this->assertFalse($this->is()->reflectionClass(Foo::class));
-        $this->assertFalse($this->is()->reflectionClass(Bar::class));
-        $this->assertFalse($this->is()->reflectionClass(Baz::class));
+        $this->assertFalse(Is::reflectionClass(Foo::class));
+        $this->assertFalse(Is::reflectionClass(Bar::class));
+        $this->assertFalse(Is::reflectionClass(Baz::class));
 
-        $this->assertFalse($this->is()->reflectionClass('foo'));
+        $this->assertFalse(Is::reflectionClass('foo'));
     }
 
     public function testError()
     {
-        $this->assertTrue($this->is()->error(new Exception()));
+        $this->assertTrue(Is::error(new Exception()));
 
-        $this->assertFalse($this->is()->error(new Foo()));
-        $this->assertFalse($this->is()->error(new Bar()));
-        $this->assertFalse($this->is()->error(new Baz()));
+        $this->assertFalse(Is::error(new Foo()));
+        $this->assertFalse(Is::error(new Bar()));
+        $this->assertFalse(Is::error(new Baz()));
 
-        $this->assertFalse($this->is()->error('foo'));
+        $this->assertFalse(Is::error('foo'));
     }
 
     public function testContract()
     {
-        $this->assertTrue($this->is()->contract(Contract::class));
+        $this->assertTrue(Is::contract(Contract::class));
 
-        $this->assertFalse($this->is()->contract(Foo::class));
-        $this->assertFalse($this->is()->contract(Bar::class));
-        $this->assertFalse($this->is()->contract(Baz::class));
+        $this->assertFalse(Is::contract(Foo::class));
+        $this->assertFalse(Is::contract(Bar::class));
+        $this->assertFalse(Is::contract(Baz::class));
 
-        $this->assertFalse($this->is()->contract(new Foo()));
-        $this->assertFalse($this->is()->contract(new Bar()));
-        $this->assertFalse($this->is()->contract(new Baz()));
+        $this->assertFalse(Is::contract(new Foo()));
+        $this->assertFalse(Is::contract(new Bar()));
+        $this->assertFalse(Is::contract(new Baz()));
 
-        $this->assertFalse($this->is()->contract('foo'));
+        $this->assertFalse(Is::contract('foo'));
     }
 
     public function testString()
     {
-        $this->assertTrue($this->is()->string('foo'));
-        $this->assertTrue($this->is()->string('bar'));
-        $this->assertTrue($this->is()->string('baz'));
+        $this->assertTrue(Is::string('foo'));
+        $this->assertTrue(Is::string('bar'));
+        $this->assertTrue(Is::string('baz'));
 
-        $this->assertTrue($this->is()->string(Foo::class));
-        $this->assertTrue($this->is()->string(Bar::class));
-        $this->assertTrue($this->is()->string(Baz::class));
+        $this->assertTrue(Is::string(Foo::class));
+        $this->assertTrue(Is::string(Bar::class));
+        $this->assertTrue(Is::string(Baz::class));
 
-        $this->assertFalse($this->is()->string(new Foo()));
-        $this->assertFalse($this->is()->string(new Bar()));
-        $this->assertFalse($this->is()->string(new Baz()));
+        $this->assertFalse(Is::string(new Foo()));
+        $this->assertFalse(Is::string(new Bar()));
+        $this->assertFalse(Is::string(new Baz()));
     }
 
     public function testObject()
     {
-        $this->assertFalse($this->is()->object('foo'));
-        $this->assertFalse($this->is()->object('bar'));
-        $this->assertFalse($this->is()->object('baz'));
+        $this->assertFalse(Is::object('foo'));
+        $this->assertFalse(Is::object('bar'));
+        $this->assertFalse(Is::object('baz'));
 
-        $this->assertFalse($this->is()->object(Foo::class));
-        $this->assertFalse($this->is()->object(Bar::class));
-        $this->assertFalse($this->is()->object(Baz::class));
+        $this->assertFalse(Is::object(Foo::class));
+        $this->assertFalse(Is::object(Bar::class));
+        $this->assertFalse(Is::object(Baz::class));
 
-        $this->assertTrue($this->is()->object(new Foo()));
-        $this->assertTrue($this->is()->object(new Bar()));
-        $this->assertTrue($this->is()->object(new Baz()));
+        $this->assertTrue(Is::object(new Foo()));
+        $this->assertTrue(Is::object(new Bar()));
+        $this->assertTrue(Is::object(new Baz()));
     }
 
     public function testIsBoolean()
     {
-        $this->assertTrue($this->is()->boolean(true));
-        $this->assertTrue($this->is()->boolean(1));
-        $this->assertTrue($this->is()->boolean('1'));
-        $this->assertTrue($this->is()->boolean('on'));
-        $this->assertTrue($this->is()->boolean('On'));
-        $this->assertTrue($this->is()->boolean('ON'));
-        $this->assertTrue($this->is()->boolean('yes'));
-        $this->assertTrue($this->is()->boolean('Yes'));
-        $this->assertTrue($this->is()->boolean('YES'));
-        $this->assertTrue($this->is()->boolean('true'));
-        $this->assertTrue($this->is()->boolean('True'));
-        $this->assertTrue($this->is()->boolean('TRUE'));
+        $this->assertTrue(Is::boolean(true));
+        $this->assertTrue(Is::boolean(1));
+        $this->assertTrue(Is::boolean('1'));
+        $this->assertTrue(Is::boolean('on'));
+        $this->assertTrue(Is::boolean('On'));
+        $this->assertTrue(Is::boolean('ON'));
+        $this->assertTrue(Is::boolean('yes'));
+        $this->assertTrue(Is::boolean('Yes'));
+        $this->assertTrue(Is::boolean('YES'));
+        $this->assertTrue(Is::boolean('true'));
+        $this->assertTrue(Is::boolean('True'));
+        $this->assertTrue(Is::boolean('TRUE'));
 
-        $this->assertTrue($this->is()->boolean(false));
-        $this->assertTrue($this->is()->boolean(0));
-        $this->assertTrue($this->is()->boolean('0'));
-        $this->assertTrue($this->is()->boolean('off'));
-        $this->assertTrue($this->is()->boolean('Off'));
-        $this->assertTrue($this->is()->boolean('OFF'));
-        $this->assertTrue($this->is()->boolean('no'));
-        $this->assertTrue($this->is()->boolean('No'));
-        $this->assertTrue($this->is()->boolean('NO'));
-        $this->assertTrue($this->is()->boolean('false'));
-        $this->assertTrue($this->is()->boolean('False'));
-        $this->assertTrue($this->is()->boolean('FALSE'));
+        $this->assertTrue(Is::boolean(false));
+        $this->assertTrue(Is::boolean(0));
+        $this->assertTrue(Is::boolean('0'));
+        $this->assertTrue(Is::boolean('off'));
+        $this->assertTrue(Is::boolean('Off'));
+        $this->assertTrue(Is::boolean('OFF'));
+        $this->assertTrue(Is::boolean('no'));
+        $this->assertTrue(Is::boolean('No'));
+        $this->assertTrue(Is::boolean('NO'));
+        $this->assertTrue(Is::boolean('false'));
+        $this->assertTrue(Is::boolean('False'));
+        $this->assertTrue(Is::boolean('FALSE'));
 
-        $this->assertFalse($this->is()->boolean(null));
-        $this->assertFalse($this->is()->boolean('foo'));
-        $this->assertFalse($this->is()->boolean('bar'));
-        $this->assertFalse($this->is()->boolean('baz'));
-        $this->assertFalse($this->is()->boolean('qwerty'));
-        $this->assertFalse($this->is()->boolean(['foo']));
-        $this->assertFalse($this->is()->boolean(['foo', 'bar']));
-        $this->assertFalse($this->is()->boolean([]));
+        $this->assertFalse(Is::boolean(null));
+        $this->assertFalse(Is::boolean('foo'));
+        $this->assertFalse(Is::boolean('bar'));
+        $this->assertFalse(Is::boolean('baz'));
+        $this->assertFalse(Is::boolean('qwerty'));
+        $this->assertFalse(Is::boolean(['foo']));
+        $this->assertFalse(Is::boolean(['foo', 'bar']));
+        $this->assertFalse(Is::boolean([]));
     }
 
     public function testIsEmpty()
     {
-        $this->assertTrue($this->is()->isEmpty(''));
-        $this->assertTrue($this->is()->isEmpty(' '));
-        $this->assertTrue($this->is()->isEmpty('      '));
-        $this->assertTrue($this->is()->isEmpty(null));
+        $this->assertTrue(Is::isEmpty(''));
+        $this->assertTrue(Is::isEmpty(' '));
+        $this->assertTrue(Is::isEmpty('      '));
+        $this->assertTrue(Is::isEmpty(null));
 
-        $this->assertFalse($this->is()->isEmpty(0));
-        $this->assertFalse($this->is()->isEmpty('   0   '));
-        $this->assertFalse($this->is()->isEmpty(false));
+        $this->assertFalse(Is::isEmpty(0));
+        $this->assertFalse(Is::isEmpty('   0   '));
+        $this->assertFalse(Is::isEmpty(false));
 
-        $this->assertTrue($this->is()->isEmpty([]));
-        $this->assertTrue($this->is()->isEmpty(new Foo()));
+        $this->assertTrue(Is::isEmpty([]));
+        $this->assertTrue(Is::isEmpty(new Foo()));
 
-        $this->assertFalse($this->is()->isEmpty(new Bar()));
-        $this->assertFalse($this->is()->isEmpty(new Baz()));
-        $this->assertFalse($this->is()->isEmpty(new Baq()));
-        $this->assertFalse($this->is()->isEmpty(new Arrayable()));
+        $this->assertFalse(Is::isEmpty(new Bar()));
+        $this->assertFalse(Is::isEmpty(new Baz()));
+        $this->assertFalse(Is::isEmpty(new Baq()));
+        $this->assertFalse(Is::isEmpty(new Arrayable()));
     }
 
     public function testDoesntEmpty()
     {
-        $this->assertFalse($this->is()->doesntEmpty(''));
-        $this->assertFalse($this->is()->doesntEmpty(' '));
-        $this->assertFalse($this->is()->doesntEmpty('      '));
-        $this->assertFalse($this->is()->doesntEmpty(null));
+        $this->assertFalse(Is::doesntEmpty(''));
+        $this->assertFalse(Is::doesntEmpty(' '));
+        $this->assertFalse(Is::doesntEmpty('      '));
+        $this->assertFalse(Is::doesntEmpty(null));
 
-        $this->assertTrue($this->is()->doesntEmpty(0));
-        $this->assertTrue($this->is()->doesntEmpty('   0   '));
-        $this->assertTrue($this->is()->doesntEmpty(false));
+        $this->assertTrue(Is::doesntEmpty(0));
+        $this->assertTrue(Is::doesntEmpty('   0   '));
+        $this->assertTrue(Is::doesntEmpty(false));
 
-        $this->assertFalse($this->is()->doesntEmpty([]));
-        $this->assertFalse($this->is()->doesntEmpty(new Foo()));
+        $this->assertFalse(Is::doesntEmpty([]));
+        $this->assertFalse(Is::doesntEmpty(new Foo()));
 
-        $this->assertTrue($this->is()->doesntEmpty(new Bar()));
-        $this->assertTrue($this->is()->doesntEmpty(new Baz()));
-        $this->assertTrue($this->is()->doesntEmpty(new Baq()));
-        $this->assertTrue($this->is()->doesntEmpty(new Arrayable()));
-    }
-
-    protected function is(): Is
-    {
-        return new Is();
+        $this->assertTrue(Is::doesntEmpty(new Bar()));
+        $this->assertTrue(Is::doesntEmpty(new Baz()));
+        $this->assertTrue(Is::doesntEmpty(new Baq()));
+        $this->assertTrue(Is::doesntEmpty(new Arrayable()));
     }
 }

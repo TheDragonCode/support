@@ -19,13 +19,14 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Instances\Helpers\Http\Builder;
 
+use DragonCode\Support\Facades\Http\Builder;
 use Tests\Unit\Instances\Helpers\Http\Base;
 
 class GetQueryArrayTest extends Base
 {
     public function testWith()
     {
-        $builder = $this->builder()->parse($this->psr_url);
+        $builder = Builder::parse($this->psr_url);
 
         $this->assertIsArray($builder->getQueryArray());
         $this->assertSame($this->psr_query_array, $builder->getQueryArray());
@@ -33,7 +34,7 @@ class GetQueryArrayTest extends Base
 
     public function testWithout()
     {
-        $builder = $this->builder()->parse($this->test_url);
+        $builder = Builder::parse($this->test_url);
 
         $this->assertIsArray($builder->getQueryArray());
         $this->assertEmpty($builder->getQueryArray());

@@ -16,7 +16,7 @@
 
 namespace Tests\Unit\Instances\Helpers;
 
-use DragonCode\Support\Helpers\Call;
+use DragonCode\Support\Facades\Helpers\Call;
 use InvalidArgumentException;
 use Tests\Fixtures\Contracts\Contract;
 use Tests\Fixtures\Exceptions\AnyException;
@@ -27,99 +27,101 @@ class CallTest extends TestCase
 {
     public function testRun()
     {
-        $this->assertSame('ok', $this->call()->run(Foo::class, 'callStatic'));
-        $this->assertSame('foo_bar', $this->call()->run(Foo::class, 'callParameter', 'bar'));
+        $this->assertSame('ok', Call::run(Foo::class, 'callStatic'));
+        $this->assertSame('foo_bar', Call::run(Foo::class, 'callParameter', 'bar'));
 
-        $this->assertSame('ok', $this->call()->run(new Foo(), 'callStatic'));
-        $this->assertSame('foo_bar', $this->call()->run(new Foo(), 'callParameter', 'bar'));
+        $this->assertSame('ok', Call::run(new Foo(), 'callStatic'));
+        $this->assertSame('foo_bar', Call::run(new Foo(), 'callParameter', 'bar'));
 
-        $this->assertSame('foo', $this->call()->run(static fn ($value) => $value, 'foo'));
+        $this->assertSame('foo', Call::run(static fn ($value) => $value, 'foo'));
 
-        $this->assertSame(['foo', 'bar', 'baz'], $this->call()->run(static fn ($value, ...$values): array => array_merge([$value], $values), 'foo', 'bar', 'baz'));
+        $this->assertSame(['foo', 'bar', 'baz'], Call::run(static fn ($value, ...$values): array => array_merge([$value], $values), 'foo', 'bar', 'baz'));
     }
 
     public function testExists()
     {
-        $this->assertSame('ok', $this->call()->runExists(Foo::class, 'callStatic'));
-        $this->assertSame('foo_bar', $this->call()->runExists(Foo::class, 'callParameter', 'bar'));
+        $this->assertSame('ok', Call::runExists(Foo::class, 'callStatic'));
+        $this->assertSame('foo_bar', Call::runExists(Foo::class, 'callParameter', 'bar'));
 
-        $this->assertSame('ok', $this->call()->runExists(new Foo(), 'callStatic'));
-        $this->assertSame('foo_bar', $this->call()->runExists(new Foo(), 'callParameter', 'bar'));
+        $this->assertSame('ok', Call::runExists(new Foo(), 'callStatic'));
+        $this->assertSame('foo_bar', Call::runExists(new Foo(), 'callParameter', 'bar'));
 
-        $this->assertSame('foo', $this->call()->runExists(static fn ($value) => $value, 'foo'));
+        $this->assertSame('foo', Call::runExists(static fn ($value) => $value, 'foo'));
 
-        $this->assertSame(['foo', 'bar', 'baz'], $this->call()->runExists(static fn ($value, ...$values): array => array_merge([$value], $values), 'foo', 'bar', 'baz'));
+        $this->assertSame(['foo', 'bar', 'baz'], Call::runExists(static fn ($value, ...$values): array => array_merge([$value], $values), 'foo', 'bar', 'baz'));
     }
 
     public function testRunMethods()
     {
-        $this->assertSame('ok', $this->call()->runMethods(Foo::class, 'callStatic'));
-        $this->assertSame('ok', $this->call()->runMethods(Foo::class, ['qwe', 'rty', 'callStatic']));
+        $this->assertSame('ok', Call::runMethods(Foo::class, 'callStatic'));
+        $this->assertSame('ok', Call::runMethods(Foo::class, ['qwe', 'rty', 'callStatic']));
 
-        $this->assertSame('foo_bar', $this->call()->runMethods(Foo::class, 'callParameter', 'bar'));
-        $this->assertSame('foo_bar', $this->call()->runMethods(Foo::class, ['qwe', 'rty', 'callParameter'], 'bar'));
+        $this->assertSame('foo_bar', Call::runMethods(Foo::class, 'callParameter', 'bar'));
+        $this->assertSame('foo_bar', Call::runMethods(Foo::class, ['qwe', 'rty', 'callParameter'], 'bar'));
 
-        $this->assertSame('ok', $this->call()->runMethods(new Foo(), 'callStatic'));
-        $this->assertSame('ok', $this->call()->runMethods(new Foo(), ['qwe', 'rty', 'callStatic']));
+        $this->assertSame('ok', Call::runMethods(new Foo(), 'callStatic'));
+        $this->assertSame('ok', Call::runMethods(new Foo(), ['qwe', 'rty', 'callStatic']));
 
-        $this->assertSame('foo_bar', $this->call()->runMethods(new Foo(), 'callParameter', 'bar'));
-        $this->assertSame('foo_bar', $this->call()->runMethods(new Foo(), ['qwe', 'rty', 'callParameter'], 'bar'));
+        $this->assertSame('foo_bar', Call::runMethods(new Foo(), 'callParameter', 'bar'));
+        $this->assertSame('foo_bar', Call::runMethods(new Foo(), ['qwe', 'rty', 'callParameter'], 'bar'));
 
-        $this->assertSame('foo', $this->call()->runMethods(static fn ($value) => $value, 'foo'));
+        $this->assertSame('foo', Call::runMethods(static fn ($value) => $value, 'foo'));
 
-        $this->assertSame(['foo', 'bar', 'baz'], $this->call()->runMethods(static fn ($value, ...$values): array => array_merge([$value], $values), 'foo', 'bar', 'baz'));
+        $this->assertSame(['foo', 'bar', 'baz'], Call::runMethods(static fn ($value, ...$values): array => array_merge([$value], $values), 'foo', 'bar', 'baz'));
 
-        $this->assertSame('Foo Bar', $this->call()->runMethods(new AnyException(), 'getMessage'));
+        $this->assertSame('Foo Bar', Call::runMethods(new AnyException(), 'getMessage'));
     }
 
     public function testRunOf()
     {
-        $this->assertSame('ok', $this->call()->runOf([
-            Contract::class => 'callDymamic',
-        ], new Foo()));
+        $this->assertSame('ok',
+            Call::runOf([
+                Contract::class => 'callDymamic',
+            ], new Foo()));
 
-        $this->assertSame('ok', $this->call()->runOf([
-            'Unknown'       => 'unknown',
-            Contract::class => 'callDymamic',
-        ], new Foo()));
+        $this->assertSame('ok',
+            Call::runOf([
+                'Unknown'       => 'unknown',
+                Contract::class => 'callDymamic',
+            ], new Foo()));
 
-        $this->assertNull($this->call()->runOf([
+        $this->assertNull(Call::runOf([
             'Unknown' => 'unknown',
         ], new Foo(), 'foo'));
 
-        $this->assertNull($this->call()->runOf([
+        $this->assertNull(Call::runOf([
             'Unknown' => 'unknown',
         ], new Foo()));
 
-        $this->assertNull($this->call()->runOf([
+        $this->assertNull(Call::runOf([
             'Unknown' => 'unknown',
         ], 'foo'));
     }
 
     public function testWhenTrue()
     {
-        $this->assertSame('ok', $this->call()->when(true, Foo::class, 'callStatic'));
-        $this->assertSame('foo_bar', $this->call()->when(true, Foo::class, 'callParameter', 'bar'));
+        $this->assertSame('ok', Call::when(true, Foo::class, 'callStatic'));
+        $this->assertSame('foo_bar', Call::when(true, Foo::class, 'callParameter', 'bar'));
 
-        $this->assertSame('ok', $this->call()->when(true, new Foo(), 'callStatic'));
-        $this->assertSame('foo_bar', $this->call()->when(true, new Foo(), 'callParameter', 'bar'));
+        $this->assertSame('ok', Call::when(true, new Foo(), 'callStatic'));
+        $this->assertSame('foo_bar', Call::when(true, new Foo(), 'callParameter', 'bar'));
 
-        $this->assertSame('foo', $this->call()->when(true, static fn ($value) => $value, 'foo'));
+        $this->assertSame('foo', Call::when(true, static fn ($value) => $value, 'foo'));
 
-        $this->assertSame(['foo', 'bar', 'baz'], $this->call()->when(true, static fn ($value, ...$values): array => array_merge([$value], $values), 'foo', 'bar', 'baz'));
+        $this->assertSame(['foo', 'bar', 'baz'], Call::when(true, static fn ($value, ...$values): array => array_merge([$value], $values), 'foo', 'bar', 'baz'));
     }
 
     public function testWhenFalse()
     {
-        $this->assertNull($this->call()->when(false, Foo::class, 'callStatic'));
-        $this->assertNull($this->call()->when(false, Foo::class, 'callParameter', 'bar'));
+        $this->assertNull(Call::when(false, Foo::class, 'callStatic'));
+        $this->assertNull(Call::when(false, Foo::class, 'callParameter', 'bar'));
 
-        $this->assertNull($this->call()->when(false, new Foo(), 'callStatic'));
-        $this->assertNull($this->call()->when(false, new Foo(), 'callParameter', 'bar'));
+        $this->assertNull(Call::when(false, new Foo(), 'callStatic'));
+        $this->assertNull(Call::when(false, new Foo(), 'callParameter', 'bar'));
 
-        $this->assertNull($this->call()->when(false, static fn ($value) => $value, 'foo'));
+        $this->assertNull(Call::when(false, static fn ($value) => $value, 'foo'));
 
-        $this->assertNull($this->call()->when(false, static fn ($value, ...$values): array => array_merge([$value], $values), 'foo', 'bar', 'baz'));
+        $this->assertNull(Call::when(false, static fn ($value, ...$values): array => array_merge([$value], $values), 'foo', 'bar', 'baz'));
     }
 
     public function testWrong()
@@ -127,11 +129,6 @@ class CallTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Argument #1 must be either a class reference or an instance of a class, string given.');
 
-        $this->call()->run('foo', 'bar');
-    }
-
-    protected function call(): Call
-    {
-        return new Call();
+        Call::run('foo', 'bar');
     }
 }

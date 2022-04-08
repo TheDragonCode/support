@@ -16,54 +16,49 @@
 
 namespace Tests\Unit\Instances\Helpers;
 
-use DragonCode\Support\Helpers\OS;
+use DragonCode\Support\Facades\Helpers\OS;
 use Tests\TestCase;
 
 class OSTest extends TestCase
 {
     public function testIsLinux()
     {
-        $this->assertTrue($this->os()->isLinux());
+        $this->assertTrue(OS::isLinux());
     }
 
     public function testFamily()
     {
-        $this->assertSame('linux', $this->os()->family());
-        $this->assertSame('Linux', $this->os()->family(false));
+        $this->assertSame('linux', OS::family());
+        $this->assertSame('Linux', OS::family(false));
     }
 
     public function testIsDarwin()
     {
-        $this->assertFalse($this->os()->isDarwin());
+        $this->assertFalse(OS::isDarwin());
     }
 
     public function testIsWindows()
     {
-        $this->assertFalse($this->os()->isWindows());
+        $this->assertFalse(OS::isWindows());
     }
 
     public function testIsBSD()
     {
-        $this->assertFalse($this->os()->isBSD());
+        $this->assertFalse(OS::isBSD());
     }
 
     public function testIsUnix()
     {
-        $this->assertTrue($this->os()->isUnix());
+        $this->assertTrue(OS::isUnix());
     }
 
     public function testIsUnknown()
     {
-        $this->assertFalse($this->os()->isUnknown());
+        $this->assertFalse(OS::isUnknown());
     }
 
     public function testIsSolaris()
     {
-        $this->assertFalse($this->os()->isSolaris());
-    }
-
-    protected function os(): OS
-    {
-        return new OS();
+        $this->assertFalse(OS::isSolaris());
     }
 }

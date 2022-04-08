@@ -16,41 +16,35 @@
 
 namespace Tests\Unit\Instances\Helpers\Http;
 
-use DragonCode\Support\Helpers\Http\Builder;
 use Tests\Fixtures\Instances\Psr;
 use Tests\TestCase;
 
 abstract class Base extends TestCase
 {
-    protected $test_url = 'https://en.example.com/';
+    protected string $test_url = 'https://en.example.com/';
 
-    protected $psr_url = 'https://foo:bar@en.example.com:8901/foo/bar?id=123&name=hey#qwerty';
+    protected string $psr_url = 'https://foo:bar@en.example.com:8901/foo/bar?id=123&name=hey#qwerty';
 
-    protected $psr_scheme = 'https';
+    protected string $psr_scheme = 'https';
 
-    protected $psr_user = 'foo';
+    protected string $psr_user = 'foo';
 
-    protected $psr_pass = 'bar';
+    protected string $psr_pass = 'bar';
 
-    protected $psr_host = 'en.example.com';
+    protected string $psr_host = 'en.example.com';
 
-    protected $psr_port = 8901;
+    protected int $psr_port = 8901;
 
-    protected $psr_path = '/foo/bar';
+    protected string $psr_path = '/foo/bar';
 
-    protected $psr_query = 'id=123&name=hey';
+    protected string $psr_query = 'id=123&name=hey';
 
-    protected $psr_query_array = [
+    protected array $psr_query_array = [
         'id'   => '123',
         'name' => 'hey',
     ];
 
-    protected $psr_fragment = 'qwerty';
-
-    protected function builder(): Builder
-    {
-        return new Builder();
-    }
+    protected string $psr_fragment = 'qwerty';
 
     protected function psr(bool $empty = false): Psr
     {

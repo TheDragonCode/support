@@ -16,13 +16,14 @@
 
 namespace Tests\Unit\Instances\Helpers\Http\Builder;
 
+use DragonCode\Support\Facades\Http\Builder;
 use Tests\Unit\Instances\Helpers\Http\Base;
 
 class WithUserInfoMethodTest extends Base
 {
     public function testWith()
     {
-        $builder = $this->builder()->parse($this->psr_url);
+        $builder = Builder::parse($this->psr_url);
 
         $this->assertIsString($builder->getUserInfo());
         $this->assertSame($this->psr_user . ':' . $this->psr_pass, $builder->getUserInfo());
@@ -35,7 +36,7 @@ class WithUserInfoMethodTest extends Base
 
     public function testWithout()
     {
-        $builder = $this->builder()->parse($this->test_url);
+        $builder = Builder::parse($this->test_url);
 
         $this->assertIsString($builder->getUserInfo());
         $this->assertEmpty($builder->getUserInfo());
@@ -48,7 +49,7 @@ class WithUserInfoMethodTest extends Base
 
     public function testOnlyUser()
     {
-        $builder = $this->builder()->parse('https://example.com');
+        $builder = Builder::parse('https://example.com');
 
         $this->assertIsString($builder->getUserInfo());
         $this->assertEmpty($builder->getUserInfo());

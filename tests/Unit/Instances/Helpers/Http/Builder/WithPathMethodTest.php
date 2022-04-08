@@ -16,13 +16,14 @@
 
 namespace Tests\Unit\Instances\Helpers\Http\Builder;
 
+use DragonCode\Support\Facades\Http\Builder;
 use Tests\Unit\Instances\Helpers\Http\Base;
 
 class WithPathMethodTest extends Base
 {
     public function testWithoutPrefix()
     {
-        $builder = $this->builder();
+        $builder = Builder::same();
 
         $this->assertIsString($builder->getPath());
         $this->assertEmpty($builder->getPath());
@@ -35,7 +36,7 @@ class WithPathMethodTest extends Base
 
     public function testWithPrefix()
     {
-        $builder = $this->builder();
+        $builder = Builder::same();
 
         $this->assertIsString($builder->getPath());
         $this->assertEmpty($builder->getPath());
@@ -48,7 +49,7 @@ class WithPathMethodTest extends Base
 
     public function testSet()
     {
-        $builder = $this->builder()->parse($this->test_url);
+        $builder = Builder::parse($this->test_url);
 
         $builder->withPath('/foo/bar');
 
@@ -58,7 +59,7 @@ class WithPathMethodTest extends Base
 
     public function testEmpty()
     {
-        $builder = $this->builder()->parse($this->psr_url);
+        $builder = Builder::parse($this->psr_url);
 
         $builder->withPath('');
 
@@ -68,7 +69,7 @@ class WithPathMethodTest extends Base
 
     public function testNull()
     {
-        $builder = $this->builder()->parse($this->psr_url);
+        $builder = Builder::parse($this->psr_url);
 
         $builder->withPath(null);
 

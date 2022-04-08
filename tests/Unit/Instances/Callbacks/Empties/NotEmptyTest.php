@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Instances\Callbacks\Empties;
 
-class NotEmptyTest extends Base
+use DragonCode\Support\Facades\Callbacks\Empties;
+use Tests\TestCase;
+
+class NotEmptyTest extends TestCase
 {
     public function testFilter()
     {
-        $callback = $this->call()->notEmpty();
+        $callback = Empties::notEmpty();
 
         $this->assertIsCallable($callback);
 

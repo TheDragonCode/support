@@ -16,13 +16,14 @@
 
 namespace Tests\Unit\Instances\Helpers\Http\Builder;
 
+use DragonCode\Support\Facades\Http\Builder;
 use Tests\Unit\Instances\Helpers\Http\Base;
 
 class RemoveFragmentMethodTest extends Base
 {
     public function testEmpty()
     {
-        $builder = $this->builder()->parse($this->test_url);
+        $builder = Builder::parse($this->test_url);
 
         $this->assertIsString($builder->getFragment());
         $this->assertEmpty($builder->getFragment());
@@ -35,7 +36,7 @@ class RemoveFragmentMethodTest extends Base
 
     public function testRemove()
     {
-        $builder = $this->builder()->parse($this->test_url);
+        $builder = Builder::parse($this->test_url);
 
         $this->assertIsString($builder->getFragment());
         $this->assertEmpty($builder->getFragment());

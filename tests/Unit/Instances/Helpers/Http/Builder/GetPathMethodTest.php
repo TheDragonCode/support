@@ -16,13 +16,14 @@
 
 namespace Tests\Unit\Instances\Helpers\Http\Builder;
 
+use DragonCode\Support\Facades\Http\Builder;
 use Tests\Unit\Instances\Helpers\Http\Base;
 
 class GetPathMethodTest extends Base
 {
     public function testFull()
     {
-        $builder = $this->builder()->parse($this->psr_url);
+        $builder = Builder::parse($this->psr_url);
 
         $this->assertIsString($builder->getPath());
         $this->assertSame('/foo/bar', $builder->getPath());
@@ -30,7 +31,7 @@ class GetPathMethodTest extends Base
 
     public function testEmpty()
     {
-        $builder = $this->builder()->parse($this->test_url);
+        $builder = Builder::parse($this->test_url);
 
         $this->assertIsString($builder->getPath());
         $this->assertEmpty($builder->getPath());

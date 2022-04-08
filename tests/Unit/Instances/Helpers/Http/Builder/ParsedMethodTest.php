@@ -16,6 +16,7 @@
 
 namespace Tests\Unit\Instances\Helpers\Http\Builder;
 
+use DragonCode\Support\Facades\Http\Builder;
 use Tests\Unit\Instances\Helpers\Http\Base;
 
 class ParsedMethodTest extends Base
@@ -24,7 +25,7 @@ class ParsedMethodTest extends Base
     {
         $parsed = parse_url('https://localhost/foo/bar');
 
-        $builder = $this->builder()->parsed($parsed);
+        $builder = Builder::parsed($parsed);
 
         $this->assertSame('https', $builder->getScheme());
         $this->assertSame('localhost', $builder->getHost());
@@ -41,7 +42,7 @@ class ParsedMethodTest extends Base
     {
         $parsed = parse_url($this->psr_url);
 
-        $builder = $this->builder()->parsed($parsed);
+        $builder = Builder::parsed($parsed);
 
         $this->assertSame($this->psr_scheme, $builder->getScheme());
         $this->assertSame($this->psr_user, $builder->getUser());
@@ -69,7 +70,7 @@ class ParsedMethodTest extends Base
             567        => 890,
         ];
 
-        $builder = $this->builder()->parsed($parsed);
+        $builder = Builder::parsed($parsed);
 
         $this->assertSame($this->psr_scheme, $builder->getScheme());
         $this->assertSame($this->psr_user, $builder->getUser());
@@ -84,7 +85,7 @@ class ParsedMethodTest extends Base
 
     public function testParsedEmpty()
     {
-        $builder = $this->builder()->parsed([]);
+        $builder = Builder::parsed([]);
 
         $this->assertEmpty($builder->getScheme());
         $this->assertEmpty($builder->getUser());

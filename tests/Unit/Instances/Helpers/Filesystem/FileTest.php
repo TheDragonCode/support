@@ -18,8 +18,8 @@ namespace Tests\Unit\Instances\Helpers\Filesystem;
 
 use DirectoryIterator;
 use DragonCode\Support\Exceptions\FileNotFoundException;
+use DragonCode\Support\Facades\Helpers\Filesystem\File;
 use DragonCode\Support\Facades\Helpers\Str;
-use DragonCode\Support\Helpers\Filesystem\File;
 use SplFileInfo;
 use Tests\TestCase;
 
@@ -29,7 +29,7 @@ class FileTest extends TestCase
     {
         $available = ['.bar', '.beep', '.foo', '.gitkeep'];
 
-        $names = $this->file()->names($this->fixturesDirectory());
+        $names = File::names($this->fixturesDirectory());
 
         $this->assertSame($available, $names);
     }
@@ -58,7 +58,7 @@ class FileTest extends TestCase
             'stubs/custom.stub',
         ];
 
-        $names = $this->file()->names($this->fixturesDirectory(), null, true);
+        $names = File::names($this->fixturesDirectory(), null, true);
 
         $this->assertSame($available, $names);
     }
@@ -67,7 +67,7 @@ class FileTest extends TestCase
     {
         $available = ['.beep', '.gitkeep'];
 
-        $names = $this->file()->names(
+        $names = File::names(
             $this->fixturesDirectory(),
             static fn (string $name): bool => Str::endsWith($name, 'ep')
         );
@@ -79,9 +79,9 @@ class FileTest extends TestCase
     {
         $path = $this->tempDirectory('foo/bar/baz/foo.txt');
 
-        $this->assertFalse($this->file()->exists($path));
+        $this->assertFalse(File::exists($path));
 
-        $saved = $this->file()->store($path, 'foo', 777);
+        $saved = File::store($path, 'foo', 777);
 
         $this->assertFileExists($path);
         $this->assertSame(realpath($path), $saved);
@@ -92,26 +92,26 @@ class FileTest extends TestCase
         $source = $this->tempDirectory('/foo/bar.txt');
         $target = $this->tempDirectory('/foo/baz.txt');
 
-        $this->assertFalse($this->file()->exists($source));
-        $this->assertFalse($this->file()->exists($target));
+        $this->assertFalse(File::exists($source));
+        $this->assertFalse(File::exists($target));
 
-        $this->file()->store($source, 'foo');
+        File::store($source, 'foo');
 
-        $this->assertTrue($this->file()->exists($source));
-        $this->assertFalse($this->file()->exists($target));
+        $this->assertTrue(File::exists($source));
+        $this->assertFalse(File::exists($target));
 
-        $this->file()->copy($source, $target);
+        File::copy($source, $target);
 
-        $this->assertTrue($this->file()->exists($source));
-        $this->assertTrue($this->file()->exists($target));
+        $this->assertTrue(File::exists($source));
+        $this->assertTrue(File::exists($target));
 
         $this->assertSame('foo', file_get_contents($target));
 
-        $this->file()->store($source, 'qwerty');
-        $this->file()->copy($source, $target);
+        File::store($source, 'qwerty');
+        File::copy($source, $target);
 
-        $this->assertTrue($this->file()->exists($source));
-        $this->assertTrue($this->file()->exists($target));
+        $this->assertTrue(File::exists($source));
+        $this->assertTrue(File::exists($target));
 
         $this->assertSame('qwerty', file_get_contents($target));
     }
@@ -121,41 +121,41 @@ class FileTest extends TestCase
         $source = $this->tempDirectory('/foo/bar.txt');
         $target = $this->tempDirectory('/foo/baz.txt');
 
-        $this->assertFalse($this->file()->exists($source));
-        $this->assertFalse($this->file()->exists($target));
+        $this->assertFalse(File::exists($source));
+        $this->assertFalse(File::exists($target));
 
-        $this->file()->store($source, 'foo');
+        File::store($source, 'foo');
 
-        $this->assertTrue($this->file()->exists($source));
-        $this->assertFalse($this->file()->exists($target));
+        $this->assertTrue(File::exists($source));
+        $this->assertFalse(File::exists($target));
 
-        $this->file()->move($source, $target);
+        File::move($source, $target);
 
-        $this->assertFalse($this->file()->exists($source));
-        $this->assertTrue($this->file()->exists($target));
+        $this->assertFalse(File::exists($source));
+        $this->assertTrue(File::exists($target));
 
         $this->assertSame('foo', file_get_contents($target));
     }
 
     public function testExists()
     {
-        $this->assertFalse($this->file()->exists($this->fixturesDirectory()));
-        $this->assertFalse($this->file()->exists($this->fixturesDirectory('foo.bar')));
+        $this->assertFalse(File::exists($this->fixturesDirectory()));
+        $this->assertFalse(File::exists($this->fixturesDirectory('foo.bar')));
 
-        $this->assertTrue($this->file()->exists($this->fixturesDirectory('Contracts/Contract.php')));
+        $this->assertTrue(File::exists($this->fixturesDirectory('Contracts/Contract.php')));
     }
 
     public function testDeleteAsString()
     {
         $path = $this->tempDirectory('foo.bar');
 
-        $this->file()->store($path, 'foo', 777);
+        File::store($path, 'foo', 777);
 
         $this->assertFileExists($path);
 
-        $this->file()->delete($path);
+        File::delete($path);
 
-        $this->assertFalse($this->file()->exists($path));
+        $this->assertFalse(File::exists($path));
     }
 
     public function testDeleteAsArray()
@@ -164,32 +164,32 @@ class FileTest extends TestCase
         $path2 = $this->tempDirectory('foo2');
         $path3 = $this->tempDirectory('foo3');
 
-        $this->file()->store($path1, 'foo', 777);
-        $this->file()->store($path2, 'foo', 777);
-        $this->file()->store($path3, 'foo', 777);
+        File::store($path1, 'foo', 777);
+        File::store($path2, 'foo', 777);
+        File::store($path3, 'foo', 777);
 
         $this->assertFileExists($path1);
         $this->assertFileExists($path2);
         $this->assertFileExists($path3);
 
-        $this->file()->delete([$path1, $path2, $path3]);
+        File::delete([$path1, $path2, $path3]);
 
-        $this->assertFalse($this->file()->exists($path1));
-        $this->assertFalse($this->file()->exists($path2));
-        $this->assertFalse($this->file()->exists($path3));
+        $this->assertFalse(File::exists($path1));
+        $this->assertFalse(File::exists($path2));
+        $this->assertFalse(File::exists($path3));
     }
 
     public function testEnsureDeleteAsString()
     {
         $path = $this->tempDirectory('foo.bar');
 
-        $this->file()->store($path, 'foo', 777);
+        File::store($path, 'foo', 777);
 
         $this->assertFileExists($path);
 
-        $this->file()->ensureDelete($path);
+        File::ensureDelete($path);
 
-        $this->assertFalse($this->file()->exists($path));
+        $this->assertFalse(File::exists($path));
     }
 
     public function testEnsureDeleteAsArray()
@@ -198,63 +198,63 @@ class FileTest extends TestCase
         $path2 = $this->tempDirectory('foo2');
         $path3 = $this->tempDirectory('foo3');
 
-        $this->file()->store($path1, 'foo', 777);
-        $this->file()->store($path2, 'foo', 777);
-        $this->file()->store($path3, 'foo', 777);
+        File::store($path1, 'foo', 777);
+        File::store($path2, 'foo', 777);
+        File::store($path3, 'foo', 777);
 
         $this->assertFileExists($path1);
         $this->assertFileExists($path2);
         $this->assertFileExists($path3);
 
-        $this->file()->ensureDelete([$path1, $path2, $path3]);
+        File::ensureDelete([$path1, $path2, $path3]);
 
-        $this->assertFalse($this->file()->exists($path1));
-        $this->assertFalse($this->file()->exists($path2));
-        $this->assertFalse($this->file()->exists($path3));
+        $this->assertFalse(File::exists($path1));
+        $this->assertFalse(File::exists($path2));
+        $this->assertFalse(File::exists($path3));
     }
 
     public function testIsFileAsString()
     {
         $path = $this->tempDirectory('foo1');
 
-        $this->assertFalse($this->file()->isFile($path));
+        $this->assertFalse(File::isFile($path));
 
-        $this->file()->store($path, 'foo', 777);
+        File::store($path, 'foo', 777);
 
-        $this->assertTrue($this->file()->isFile($path));
+        $this->assertTrue(File::isFile($path));
     }
 
     public function testIsFileAsSplFileInfo()
     {
         $path = $this->tempDirectory('foo');
 
-        $this->assertFalse($this->file()->isFile($path));
+        $this->assertFalse(File::isFile($path));
 
-        $this->file()->store($path, 'foo', 777);
+        File::store($path, 'foo', 777);
 
         $file = new SplFileInfo($path);
 
-        $this->assertTrue($this->file()->isFile($file));
+        $this->assertTrue(File::isFile($file));
     }
 
     public function testIsFileAsDirectoryIterator()
     {
         $path = $this->tempDirectory();
 
-        $this->file()->store($path . '/foo', 'foo', 777);
+        File::store($path . '/foo', 'foo', 777);
 
         $files = new DirectoryIterator($path);
 
         foreach ($files as $item) {
             $item->isDot()
-                ? $this->assertFalse($this->file()->isFile($item))
-                : $this->assertTrue($this->file()->isFile($item));
+                ? $this->assertFalse(File::isFile($item))
+                : $this->assertTrue(File::isFile($item));
         }
     }
 
     public function testValidateSuccess()
     {
-        $this->file()->validate($this->fixturesDirectory('.gitkeep'));
+        File::validate($this->fixturesDirectory('.gitkeep'));
 
         $this->assertTrue(true);
     }
@@ -263,14 +263,14 @@ class FileTest extends TestCase
     {
         $this->expectException(FileNotFoundException::class);
 
-        $this->file()->validate($this->fixturesDirectory('foo/bar'));
+        File::validate($this->fixturesDirectory('foo/bar'));
     }
 
     public function testValidatedSuccess()
     {
         $path = $this->fixturesDirectory('.gitkeep');
 
-        $result = $this->file()->validated($path);
+        $result = File::validated($path);
 
         $this->assertSame(realpath($path), $result);
     }
@@ -279,11 +279,6 @@ class FileTest extends TestCase
     {
         $this->expectException(FileNotFoundException::class);
 
-        $this->file()->validated($this->fixturesDirectory('foo/bar'));
-    }
-
-    protected function file(): File
-    {
-        return new File();
+        File::validated($this->fixturesDirectory('foo/bar'));
     }
 }

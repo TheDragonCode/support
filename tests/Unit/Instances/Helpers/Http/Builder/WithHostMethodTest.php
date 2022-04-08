@@ -16,13 +16,14 @@
 
 namespace Tests\Unit\Instances\Helpers\Http\Builder;
 
+use DragonCode\Support\Facades\Http\Builder;
 use Tests\Unit\Instances\Helpers\Http\Base;
 
 class WithHostMethodTest extends Base
 {
     public function testSet()
     {
-        $builder = $this->builder();
+        $builder = Builder::same();
 
         $this->assertIsString($builder->getHost());
         $this->assertEmpty($builder->getHost());
@@ -35,7 +36,7 @@ class WithHostMethodTest extends Base
 
     public function testReplace()
     {
-        $builder = $this->builder()->parse($this->test_url);
+        $builder = Builder::parse($this->test_url);
 
         $this->assertIsString($builder->getHost());
         $this->assertSame($this->psr_host, $builder->getHost());
@@ -48,7 +49,7 @@ class WithHostMethodTest extends Base
 
     public function testEmpty()
     {
-        $builder = $this->builder()->parse($this->test_url);
+        $builder = Builder::parse($this->test_url);
 
         $builder->withHost('');
 
@@ -58,7 +59,7 @@ class WithHostMethodTest extends Base
 
     public function testNull()
     {
-        $builder = $this->builder()->parse($this->test_url);
+        $builder = Builder::parse($this->test_url);
 
         $builder->withHost(null);
 

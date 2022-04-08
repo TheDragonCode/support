@@ -17,13 +17,14 @@
 namespace Tests\Unit\Instances\Helpers\Http\Builder;
 
 use DragonCode\Support\Exceptions\NotValidUrlException;
+use DragonCode\Support\Facades\Http\Builder;
 use Tests\Unit\Instances\Helpers\Http\Base;
 
 class ParseMethodTest extends Base
 {
     public function testShort()
     {
-        $builder = $this->builder()->parse('https://localhost/foo/bar');
+        $builder = Builder::parse('https://localhost/foo/bar');
 
         $this->assertSame('https', $builder->getScheme());
         $this->assertSame('localhost', $builder->getHost());
@@ -44,7 +45,7 @@ class ParseMethodTest extends Base
 
     public function testFull()
     {
-        $builder = $this->builder()->parse($this->psr_url);
+        $builder = Builder::parse($this->psr_url);
 
         $this->assertSame($this->psr_scheme, $builder->getScheme());
         $this->assertSame($this->psr_user, $builder->getUser());
@@ -58,7 +59,7 @@ class ParseMethodTest extends Base
 
     public function testComponent()
     {
-        $builder = $this->builder()->parse($this->psr_url, PHP_URL_HOST);
+        $builder = Builder::parse($this->psr_url, PHP_URL_HOST);
 
         $this->assertSame($this->psr_host, $builder->getHost());
 
@@ -76,7 +77,7 @@ class ParseMethodTest extends Base
     {
         $psr = $this->psr();
 
-        $builder = $this->builder()->parse($psr);
+        $builder = Builder::parse($psr);
 
         $this->assertSame($this->psr_scheme, $builder->getScheme());
         $this->assertSame($this->psr_user, $builder->getUser());
@@ -92,7 +93,7 @@ class ParseMethodTest extends Base
     {
         $url = 'https://example.com//foo/bar?id=123#qwerty';
 
-        $builder = $this->builder()->parse($url);
+        $builder = Builder::parse($url);
 
         $this->assertSame('https', $builder->getScheme());
         $this->assertSame('example.com', $builder->getHost());
@@ -107,8 +108,8 @@ class ParseMethodTest extends Base
 
     public function testDoubleCallingToSame()
     {
-        $first  = $this->builder()->parse('https://foo.example.com/foo');
-        $second = $this->builder()->parse('http://bar.example.com/bar');
+        $first  = Builder::parse('https://foo.example.com/foo');
+        $second = Builder::parse('http://bar.example.com/bar');
 
         $this->assertSame('https', $first->getScheme());
         $this->assertSame('foo.example.com', $first->getHost());
@@ -121,8 +122,8 @@ class ParseMethodTest extends Base
 
     public function testDoubleCallingToDiff()
     {
-        $first  = $this->builder()->parse('https://foo.example.com/foo');
-        $second = $this->builder()->parse('http://bar.example.com/bar');
+        $first  = Builder::parse('https://foo.example.com/foo');
+        $second = Builder::parse('http://bar.example.com/bar');
 
         $this->assertSame('https', $first->getScheme());
         $this->assertSame('foo.example.com', $first->getHost());
@@ -135,7 +136,7 @@ class ParseMethodTest extends Base
 
     public function testComponents()
     {
-        $builder = $this->builder()
+        $builder = Builder::same()
             ->parse('https://example.com')
             ->parse($this->psr_url, PHP_URL_SCHEME)
             ->parse($this->psr_url, PHP_URL_HOST)
@@ -157,7 +158,7 @@ class ParseMethodTest extends Base
         $this->expectException(NotValidUrlException::class);
         $this->expectExceptionMessage('The "foo.bar" is not a valid URL.');
 
-        $this->builder()->parse('foo.bar');
+        Builder::parse('foo.bar');
     }
 
     public function testEmpty()
@@ -165,7 +166,7 @@ class ParseMethodTest extends Base
         $this->expectException(NotValidUrlException::class);
         $this->expectExceptionMessage('Empty string is not a valid URL.');
 
-        $this->builder()->parse('');
+        Builder::parse('');
     }
 
     public function testNull()
@@ -173,6 +174,6 @@ class ParseMethodTest extends Base
         $this->expectException(NotValidUrlException::class);
         $this->expectExceptionMessage('Empty string is not a valid URL.');
 
-        $this->builder()->parse(null);
+        Builder::parse(null);
     }
 }

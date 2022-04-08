@@ -17,6 +17,7 @@
 namespace Tests\Unit\Instances\Helpers\Http;
 
 use DragonCode\Support\Exceptions\NotValidUrlException;
+use DragonCode\Support\Facades\Http\Builder as BuilderFacade;
 use DragonCode\Support\Helpers\Http\Builder;
 use DragonCode\Support\Helpers\Http\Url;
 use JetBrains\PhpStorm\Pure;
@@ -163,8 +164,6 @@ class UrlTest extends TestCase
 
     protected function builder(): Builder
     {
-        $builder = new Builder();
-
-        return $builder->parse($this->test_url);
+        return BuilderFacade::parse($this->test_url);
     }
 }

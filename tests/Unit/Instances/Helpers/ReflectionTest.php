@@ -16,7 +16,7 @@
 
 namespace Tests\Unit\Instances\Helpers;
 
-use DragonCode\Support\Helpers\Reflection;
+use DragonCode\Support\Facades\Helpers\Reflection;
 use ReflectionClass;
 use Tests\Fixtures\Instances\Baq;
 use Tests\Fixtures\Instances\Foo;
@@ -26,8 +26,8 @@ class ReflectionTest extends TestCase
 {
     public function testResolve()
     {
-        $this->assertTrue($this->reflection()->resolve(new ReflectionClass(new Foo())) instanceof ReflectionClass);
-        $this->assertTrue($this->reflection()->resolve(new Foo()) instanceof ReflectionClass);
+        $this->assertTrue(Reflection::resolve(new ReflectionClass(new Foo())) instanceof ReflectionClass);
+        $this->assertTrue(Reflection::resolve(new Foo()) instanceof ReflectionClass);
     }
 
     public function testConstants()
@@ -38,21 +38,16 @@ class ReflectionTest extends TestCase
             'BAZ' => 'Baz',
         ];
 
-        $this->assertSame($expected, $this->reflection()->getConstants(Foo::class));
-        $this->assertSame($expected, $this->reflection()->getConstants(new Foo()));
+        $this->assertSame($expected, Reflection::getConstants(Foo::class));
+        $this->assertSame($expected, Reflection::getConstants(new Foo()));
     }
 
     public function testIsStaticMethod()
     {
-        $this->assertTrue($this->reflection()->isStaticMethod(Foo::class, 'callStatic'));
-        $this->assertFalse($this->reflection()->isStaticMethod(Foo::class, 'callDymamic'));
-        $this->assertFalse($this->reflection()->isStaticMethod(Foo::class, 'callEmpty'));
+        $this->assertTrue(Reflection::isStaticMethod(Foo::class, 'callStatic'));
+        $this->assertFalse(Reflection::isStaticMethod(Foo::class, 'callDymamic'));
+        $this->assertFalse(Reflection::isStaticMethod(Foo::class, 'callEmpty'));
 
-        $this->assertFalse($this->reflection()->isStaticMethod(Baq::class, 'toArray'));
-    }
-
-    protected function reflection(): Reflection
-    {
-        return new Reflection();
+        $this->assertFalse(Reflection::isStaticMethod(Baq::class, 'toArray'));
     }
 }

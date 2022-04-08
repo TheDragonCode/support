@@ -16,6 +16,7 @@
 
 namespace Tests\Unit\Instances\Helpers\Http\Builder;
 
+use DragonCode\Support\Facades\Http\Builder;
 use Tests\Unit\Instances\Helpers\Http\Base;
 
 class FromPsrMethodTest extends Base
@@ -24,7 +25,7 @@ class FromPsrMethodTest extends Base
     {
         $psr = $this->psr();
 
-        $builder = $this->builder()->fromPsr($psr);
+        $builder = Builder::fromPsr($psr);
 
         $this->assertSame($this->psr_scheme, $builder->getScheme());
         $this->assertSame($this->psr_user, $builder->getUser());
@@ -50,7 +51,7 @@ class FromPsrMethodTest extends Base
     {
         $psr = $this->psr(true);
 
-        $builder = $this->builder()->fromPsr($psr);
+        $builder = Builder::fromPsr($psr);
 
         $this->assertEmpty($builder->getScheme());
         $this->assertEmpty($builder->getUser());

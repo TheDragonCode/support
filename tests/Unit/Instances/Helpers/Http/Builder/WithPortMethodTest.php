@@ -16,13 +16,14 @@
 
 namespace Tests\Unit\Instances\Helpers\Http\Builder;
 
+use DragonCode\Support\Facades\Http\Builder;
 use Tests\Unit\Instances\Helpers\Http\Base;
 
 class WithPortMethodTest extends Base
 {
     public function testEmpty()
     {
-        $builder = $this->builder()->parse($this->test_url);
+        $builder = Builder::parse($this->test_url);
 
         $this->assertNull($builder->getPort());
 
@@ -34,7 +35,7 @@ class WithPortMethodTest extends Base
 
     public function testReplace()
     {
-        $builder = $this->builder()->parse($this->psr_url);
+        $builder = Builder::parse($this->psr_url);
 
         $this->assertIsNumeric($builder->getPort());
         $this->assertSame($this->psr_port, $builder->getPort());
