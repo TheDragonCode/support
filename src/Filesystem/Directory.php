@@ -133,6 +133,7 @@ class Directory
      * @param array|string $paths
      *
      * @throws \DragonCode\Support\Exceptions\DirectoryNotFoundException
+     *
      * @return void
      */
     public function ensureDelete(array|string $paths): void
