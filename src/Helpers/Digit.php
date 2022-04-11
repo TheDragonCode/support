@@ -107,9 +107,9 @@ class Digit
      *
      * @return string
      */
-    public function convertToString(float $value): string
+    public function toString(float $value): string
     {
-        return $value;
+        return (string) $value;
     }
 
     protected function suffix(int $length = 0): string

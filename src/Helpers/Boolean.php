@@ -78,7 +78,7 @@ class Boolean
      *
      * @return string
      */
-    public function convertToString(bool $value): string
+    public function toString(bool $value): string
     {
         return $value ? 'true' : 'false';
     }

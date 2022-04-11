@@ -22,7 +22,7 @@ namespace Tests\Unit\Helpers\Str;
 use DragonCode\Support\Facades\Helpers\Str;
 use Tests\TestCase;
 
-class ConvertToStringTest extends TestCase
+class ToStringTest extends TestCase
 {
     public function testConvertToString()
     {

@@ -26,10 +26,10 @@ class ConvertToStringTest extends TestCase
 {
     public function testConvertToString()
     {
-        $this->assertSame('true', Boolean::convertToString(true));
-        $this->assertSame('true', Boolean::convertToString(1));
+        $this->assertSame('true', Boolean::toString(true));
+        $this->assertSame('true', Boolean::toString(1));
 
-        $this->assertSame('false', Boolean::convertToString(false));
-        $this->assertSame('false', Boolean::convertToString(0));
+        $this->assertSame('false', Boolean::toString(false));
+        $this->assertSame('false', Boolean::toString(0));
     }
 }
