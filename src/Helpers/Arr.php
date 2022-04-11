@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the "dragon-code/support" project.
  *
@@ -7,7 +8,7 @@
  *
  * @author Andrey Helldar <helldar@ai-rus.com>
  *
- * @copyright 2021 Andrey Helldar
+ * @copyright 2022 Andrey Helldar
  *
  * @license MIT
  *
@@ -22,10 +23,10 @@ use Closure;
 use DragonCode\Contracts\Support\Arrayable;
 use DragonCode\Support\Facades\Callbacks\Empties;
 use DragonCode\Support\Facades\Callbacks\Sorter;
-use DragonCode\Support\Facades\Helpers\Call as CallHelper;
-use DragonCode\Support\Facades\Helpers\Filesystem\File;
-use DragonCode\Support\Facades\Helpers\Instance as InstanceHelper;
-use DragonCode\Support\Facades\Helpers\Reflection as ReflectionHelper;
+use DragonCode\Support\Facades\Filesystem\File;
+use DragonCode\Support\Facades\Instances\Call as CallHelper;
+use DragonCode\Support\Facades\Instances\Instance as InstanceHelper;
+use DragonCode\Support\Facades\Instances\Reflection as ReflectionHelper;
 use DragonCode\Support\Facades\Tools\Stub;
 use DragonCode\Support\Helpers\Ables\Arrayable as ArrayableHelper;
 use DragonCode\Support\Tools\Stub as StubTool;
@@ -766,7 +767,7 @@ class Arr
      * @param bool $sort_keys
      * @param int $json_flags
      */
-    public function store(mixed $array, string $path, bool $is_json = false, bool $sort_keys = false, int $json_flags = 0): void
+    public function store(ArrayAccess|array $array, string $path, bool $is_json = false, bool $sort_keys = false, int $json_flags = 0): void
     {
         $is_json
             ? $this->storeAsJson($path, $array, $sort_keys, $json_flags)
@@ -781,7 +782,7 @@ class Arr
      * @param bool $sort_keys
      * @param int $flags
      */
-    public function storeAsJson(string $path, mixed $array, bool $sort_keys = false, int $flags = 0): void
+    public function storeAsJson(string $path, ArrayAccess|array $array, bool $sort_keys = false, int $flags = 0): void
     {
         $this->prepareToStore($path, StubTool::JSON, $array, static fn (array $array) => json_encode($array, $flags), $sort_keys);
     }
@@ -793,7 +794,7 @@ class Arr
      * @param array|ArrayAccess $array
      * @param bool $sort_keys
      */
-    public function storeAsArray(string $path, mixed $array, bool $sort_keys = false): void
+    public function storeAsArray(string $path, ArrayAccess|array $array, bool $sort_keys = false): void
     {
         $this->prepareToStore($path, StubTool::PHP_ARRAY, $array, static fn (array $array) => var_export($array, true), $sort_keys);
     }
@@ -803,11 +804,11 @@ class Arr
      *
      * @param string $path
      * @param string $stub
-     * @param array|ArrayAccess $array
+     * @param \ArrayAccess|array $array
      * @param callable $replace
      * @param bool $sort_keys
      */
-    protected function prepareToStore(string $path, string $stub, array $array, callable $replace, bool $sort_keys = false): void
+    protected function prepareToStore(string $path, string $stub, ArrayAccess|array $array, callable $replace, bool $sort_keys = false): void
     {
         $array = (array) $array;
 

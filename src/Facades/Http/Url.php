@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the "dragon-code/support" project.
  *
@@ -7,7 +8,7 @@
  *
  * @author Andrey Helldar <helldar@ai-rus.com>
  *
- * @copyright 2021 Andrey Helldar
+ * @copyright 2022 Andrey Helldar
  *
  * @license MIT
  *
@@ -17,13 +18,13 @@
 namespace DragonCode\Support\Facades\Http;
 
 use DragonCode\Support\Facades\Facade;
-use DragonCode\Support\Helpers\Http\Url as Helper;
+use DragonCode\Support\Http\Url as Helper;
 
 /**
- * @method static \DragonCode\Support\Helpers\Http\Builder parse(\DragonCode\Contracts\Http\Builder|string|null $url)
+ * @method static \DragonCode\Support\Http\Builder parse(\DragonCode\Contracts\Http\Builder|string|null $url)
  * @method static bool exists(\DragonCode\Contracts\Http\Builder|string|null $url)
  * @method static bool is(\DragonCode\Contracts\Http\Builder|string|null $url)
- * @method static \DragonCode\Support\Helpers\Http\Builder|\DragonCode\Contracts\Http\Builder|string validated(\DragonCode\Contracts\Http\Builder|string|null $url)
+ * @method static \DragonCode\Support\Http\Builder|\DragonCode\Contracts\Http\Builder|string validated(\DragonCode\Contracts\Http\Builder|string|null $url)
  * @method static string|null default(\DragonCode\Contracts\Http\Builder|string|null $url, \DragonCode\Contracts\Http\Builder|string|null $default)
  * @method static void validate(\DragonCode\Contracts\Http\Builder|string|null $url)
  */

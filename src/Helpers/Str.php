@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the "dragon-code/support" project.
  *
@@ -7,7 +8,7 @@
  *
  * @author Andrey Helldar <helldar@ai-rus.com>
  *
- * @copyright 2021 Andrey Helldar
+ * @copyright 2022 Andrey Helldar
  *
  * @license MIT
  *
@@ -17,7 +18,7 @@
 namespace DragonCode\Support\Helpers;
 
 use DragonCode\Support\Facades\Helpers\Arr as ArrHelper;
-use DragonCode\Support\Facades\Helpers\Call as CallHelper;
+use DragonCode\Support\Facades\Instances\Call as CallHelper;
 use DragonCode\Support\Facades\Tools\Replace;
 use Exception;
 use Illuminate\Contracts\Support\DeferringDisplayableValue;
@@ -123,8 +124,8 @@ class Str
 
         switch (true) {
             case $mod === 0:
-            case $mod           >= 5             && $mod           <= 9:
-            case ($number % 100 >= 11)           && ($number % 100 <= 20):
+            case $mod >= 5 && $mod <= 9:
+            case ($number % 100 >= 11) && ($number % 100 <= 20):
                 $result = $choice[2] ?? '';
                 break;
 

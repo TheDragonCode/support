@@ -8,7 +8,7 @@
  *
  * @author Andrey Helldar <helldar@ai-rus.com>
  *
- * @copyright 2021 Andrey Helldar
+ * @copyright 2022 Andrey Helldar
  *
  * @license MIT
  *
@@ -19,7 +19,7 @@ namespace DragonCode\Support\Facades\Http;
 
 use DragonCode\Contracts\Http\Builder as BuilderContract;
 use DragonCode\Support\Facades\Facade;
-use DragonCode\Support\Helpers\Http\Builder as Support;
+use DragonCode\Support\Http\Builder as Support;
 use Psr\Http\Message\UriInterface;
 
 /**

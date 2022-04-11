@@ -7,7 +7,7 @@
  *
  * @author Andrey Helldar <helldar@ai-rus.com>
  *
- * @copyright 2021 Andrey Helldar
+ * @copyright 2022 Andrey Helldar
  *
  * @license MIT
  *
@@ -17,7 +17,7 @@
 namespace Tests;
 
 use DragonCode\Support\Facades\Facade;
-use DragonCode\Support\Facades\Helpers\Filesystem\Directory;
+use DragonCode\Support\Facades\Filesystem\Directory;
 use DragonCode\Support\Facades\Helpers\Str;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 

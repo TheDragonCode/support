@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the "dragon-code/support" project.
  *
@@ -7,7 +8,7 @@
  *
  * @author Andrey Helldar <helldar@ai-rus.com>
  *
- * @copyright 2021 Andrey Helldar
+ * @copyright 2022 Andrey Helldar
  *
  * @license MIT
  *
@@ -17,7 +18,6 @@
 namespace Tests\Fixtures\Instances;
 
 use ArrayAccess;
-use ReturnTypeWillChange;
 
 class Arrayable implements ArrayAccess
 {
@@ -32,8 +32,7 @@ class Arrayable implements ArrayAccess
         return isset($this->values[$offset]);
     }
 
-    #[ReturnTypeWillChange]
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return $this->values[$offset];
     }

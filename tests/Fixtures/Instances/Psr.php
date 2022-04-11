@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the "dragon-code/support" project.
  *
@@ -7,7 +8,7 @@
  *
  * @author Andrey Helldar <helldar@ai-rus.com>
  *
- * @copyright 2021 Andrey Helldar
+ * @copyright 2022 Andrey Helldar
  *
  * @license MIT
  *
@@ -19,7 +20,7 @@ namespace Tests\Fixtures\Instances;
 use DragonCode\Support\Concerns\Makeable;
 use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\Support\Facades\Helpers\Str;
-use DragonCode\Support\Tools\HttpBuilderPrepare;
+use DragonCode\Support\Http\BuilderPrepare;
 use Psr\Http\Message\UriInterface;
 
 class Psr implements UriInterface
@@ -150,20 +151,20 @@ class Psr implements UriInterface
     protected function prepare(): array
     {
         return [
-            HttpBuilderPrepare::make()->of($this->getScheme())->suffix(':'),
+            BuilderPrepare::make()->of($this->getScheme())->suffix(':'),
 
             '//',
 
-            HttpBuilderPrepare::make()->of($this->user),
-            HttpBuilderPrepare::make()->of($this->password)->prefix(':'),
+            BuilderPrepare::make()->of($this->user),
+            BuilderPrepare::make()->of($this->password)->prefix(':'),
 
             $this->user || $this->password ? '@' : '',
 
-            HttpBuilderPrepare::make()->of($this->getHost()),
-            HttpBuilderPrepare::make()->of($this->getPort())->prefix(':'),
-            HttpBuilderPrepare::make()->of($this->getPath()),
-            HttpBuilderPrepare::make()->of($this->getQuery())->prefix('?'),
-            HttpBuilderPrepare::make()->of($this->getFragment())->prefix('#'),
+            BuilderPrepare::make()->of($this->getHost()),
+            BuilderPrepare::make()->of($this->getPort())->prefix(':'),
+            BuilderPrepare::make()->of($this->getPath()),
+            BuilderPrepare::make()->of($this->getQuery())->prefix('?'),
+            BuilderPrepare::make()->of($this->getFragment())->prefix('#'),
         ];
     }
 }

@@ -7,7 +7,7 @@
  *
  * @author Andrey Helldar <helldar@ai-rus.com>
  *
- * @copyright 2021 Andrey Helldar
+ * @copyright 2022 Andrey Helldar
  *
  * @license MIT
  *
@@ -41,7 +41,7 @@ trait Castable
 
     protected function castKey(string $key): string
     {
-        return $this->casts[$key] ?? 'string';
+        return $this->casts[$key] ?? 'default';
     }
 
     protected function castMethodName(string $key): string
@@ -72,5 +72,10 @@ trait Castable
     protected function castToString(?string $value): string
     {
         return (string) $value;
+    }
+
+    protected function castToDefault(mixed $value): mixed
+    {
+        return $value;
     }
 }
