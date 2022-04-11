@@ -58,7 +58,7 @@ class Stringable implements Contract
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
     #[Pure]
-    public function explode(string $separator, string $map_into = null): Arrayable
+    public function explode(string $separator, ?string $map_into = null): Arrayable
     {
         $array = Arr::of(explode($separator, $this->value));
 
