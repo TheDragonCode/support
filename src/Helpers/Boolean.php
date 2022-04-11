@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the "dragon-code/support" project.
  *
@@ -7,7 +8,7 @@
  *
  * @author Andrey Helldar <helldar@ai-rus.com>
  *
- * @copyright 2021 Andrey Helldar
+ * @copyright 2022 Andrey Helldar
  *
  * @license MIT
  *
@@ -15,6 +16,8 @@
  */
 
 namespace DragonCode\Support\Helpers;
+
+use JetBrains\PhpStorm\Pure;
 
 class Boolean
 {
@@ -25,7 +28,7 @@ class Boolean
      *
      * @return bool
      */
-    public function isTrue($value): bool
+    public function isTrue(mixed $value): bool
     {
         return $this->to($value) === true;
     }
@@ -37,7 +40,7 @@ class Boolean
      *
      * @return bool
      */
-    public function isFalse($value): bool
+    public function isFalse(mixed $value): bool
     {
         return $this->to($value) === false;
     }
@@ -49,7 +52,8 @@ class Boolean
      *
      * @return bool
      */
-    public function to($value): bool
+    #[Pure]
+    public function to(mixed $value): bool
     {
         return (bool) $this->parse($value);
     }
@@ -61,7 +65,7 @@ class Boolean
      *
      * @return bool|null
      */
-    public function parse($value): ?bool
+    public function parse(mixed $value): ?bool
     {
         if (is_null($value)) {
             return null;
@@ -77,7 +81,7 @@ class Boolean
      *
      * @return string
      */
-    public function convertToString(bool $value): string
+    public function toString(bool $value): string
     {
         return $value ? 'true' : 'false';
     }

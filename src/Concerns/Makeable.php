@@ -7,7 +7,7 @@
  *
  * @author Andrey Helldar <helldar@ai-rus.com>
  *
- * @copyright 2021 Andrey Helldar
+ * @copyright 2022 Andrey Helldar
  *
  * @license MIT
  *
@@ -16,9 +16,12 @@
 
 namespace DragonCode\Support\Concerns;
 
+use JetBrains\PhpStorm\Pure;
+
 trait Makeable
 {
-    public static function make(...$parameters)
+    #[Pure]
+    public static function make(...$parameters): static
     {
         return new static(...$parameters);
     }

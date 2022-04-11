@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the "dragon-code/support" project.
  *
@@ -7,7 +8,7 @@
  *
  * @author Andrey Helldar <helldar@ai-rus.com>
  *
- * @copyright 2021 Andrey Helldar
+ * @copyright 2022 Andrey Helldar
  *
  * @license MIT
  *
@@ -29,8 +30,6 @@ class Replace
             return $values;
         }
 
-        return array_map(static function ($value) use ($format) {
-            return sprintf($format, $value);
-        }, $values);
+        return array_map(static fn ($value) => sprintf($format, $value), $values);
     }
 }

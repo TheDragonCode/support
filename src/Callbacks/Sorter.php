@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the "dragon-code/support" project.
  *
@@ -7,7 +8,7 @@
  *
  * @author Andrey Helldar <helldar@ai-rus.com>
  *
- * @copyright 2021 Andrey Helldar
+ * @copyright 2022 Andrey Helldar
  *
  * @license MIT
  *
@@ -17,46 +18,10 @@
 namespace DragonCode\Support\Callbacks;
 
 use DragonCode\Support\Facades\Helpers\Str;
+use JetBrains\PhpStorm\Pure;
 
 class Sorter
 {
-    protected $special_chars = [
-        ' ',
-        '*',
-        '-',
-        '_',
-        '—',
-        '=',
-        '\\',
-        '/',
-        '|',
-        '~',
-        '`',
-        '+',
-        ':',
-        ';',
-        '@',
-        '#',
-        '$',
-        '%',
-        '^',
-        '&',
-        '?',
-        '!',
-        '(',
-        ')',
-        '{',
-        '}',
-        '[',
-        ']',
-        '§',
-        '№',
-        '<',
-        '>',
-        '.',
-        ',',
-    ];
-
     /**
      * Gets an array of special characters.
      *
@@ -64,7 +29,42 @@ class Sorter
      */
     public function specialChars(): array
     {
-        return $this->special_chars;
+        return [
+            ' ',
+            '*',
+            '-',
+            '_',
+            '—',
+            '=',
+            '\\',
+            '/',
+            '|',
+            '~',
+            '`',
+            '+',
+            ':',
+            ';',
+            '@',
+            '#',
+            '$',
+            '%',
+            '^',
+            '&',
+            '?',
+            '!',
+            '(',
+            ')',
+            '{',
+            '}',
+            '[',
+            ']',
+            '§',
+            '№',
+            '<',
+            '>',
+            '.',
+            ',',
+        ];
     }
 
     /**
@@ -101,7 +101,7 @@ class Sorter
      *
      * @return mixed|string|null
      */
-    protected function lower($value)
+    protected function lower($value): mixed
     {
         return is_string($value) ? Str::lower($value) : $value;
     }
@@ -113,6 +113,7 @@ class Sorter
      *
      * @return bool
      */
+    #[Pure]
     protected function hasSpecialChar($value): bool
     {
         return in_array($value, $this->specialChars());

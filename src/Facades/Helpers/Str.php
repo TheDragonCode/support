@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the "dragon-code/support" project.
  *
@@ -7,7 +8,7 @@
  *
  * @author Andrey Helldar <helldar@ai-rus.com>
  *
- * @copyright 2021 Andrey Helldar
+ * @copyright 2022 Andrey Helldar
  *
  * @license MIT
  *
@@ -17,7 +18,7 @@
 namespace DragonCode\Support\Facades\Helpers;
 
 use DragonCode\Support\Facades\Facade;
-use DragonCode\Support\Facades\Helpers\Ables\Stringable;
+use DragonCode\Support\Helpers\Ables\Stringable;
 use DragonCode\Support\Helpers\Str as Helper;
 
 /**
@@ -31,8 +32,10 @@ use DragonCode\Support\Helpers\Str as Helper;
  * @method static bool startsWith(string $haystack, string|string[] $needles)
  * @method static int count(?string $value, string $needle, int $offset = 0)
  * @method static int length(?string $value, string $encoding = null)
+ * @method static string append(?string $value, string $suffix)
  * @method static string ascii(?string $value, string $language = 'en')
  * @method static string convertToString(?string $value)
+ * @method static string prepend(?string $value, string $prefix)
  * @method static string random(int $length = 16)
  * @method static string replace(string $template, array $values, string $key_format = null)
  * @method static string slug(string $title, string $separator = '-', ?string $language = 'en')

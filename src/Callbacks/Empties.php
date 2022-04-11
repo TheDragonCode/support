@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the "dragon-code/support" project.
  *
@@ -7,7 +8,7 @@
  *
  * @author Andrey Helldar <helldar@ai-rus.com>
  *
- * @copyright 2021 Andrey Helldar
+ * @copyright 2022 Andrey Helldar
  *
  * @license MIT
  *
@@ -20,15 +21,11 @@ class Empties
 {
     public function notEmpty(): callable
     {
-        return static function ($value) {
-            return ! empty($value);
-        };
+        return static fn ($value) => ! empty($value) || is_bool($value);
     }
 
     public function notEmptyBoth(): callable
     {
-        return static function ($value, $key) {
-            return ! empty($value) && ! empty($key);
-        };
+        return static fn ($value, $key) => (! empty($value) || is_bool($value)) && ! empty($key);
     }
 }

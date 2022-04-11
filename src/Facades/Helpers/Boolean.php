@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the "dragon-code/support" project.
  *
@@ -7,7 +8,7 @@
  *
  * @author Andrey Helldar <helldar@ai-rus.com>
  *
- * @copyright 2021 Andrey Helldar
+ * @copyright 2022 Andrey Helldar
  *
  * @license MIT
  *
@@ -24,11 +25,11 @@ use DragonCode\Support\Helpers\Boolean as Helper;
  * @method static bool isTrue($value)
  * @method static bool to($value)
  * @method static bool|null parse($value)
- * @method static string convertToString(bool $value)
+ * @method static string toString(bool $value)
  */
 class Boolean extends Facade
 {
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
         return Helper::class;
     }

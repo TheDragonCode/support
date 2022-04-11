@@ -7,7 +7,7 @@
  *
  * @author Andrey Helldar <helldar@ai-rus.com>
  *
- * @copyright 2021 Andrey Helldar
+ * @copyright 2022 Andrey Helldar
  *
  * @license MIT
  *
@@ -17,7 +17,7 @@
 namespace DragonCode\Support\Concerns;
 
 use DragonCode\Support\Exceptions\ForbiddenVariableTypeException;
-use DragonCode\Support\Facades\Helpers\Ables\Arrayable;
+use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\Support\Facades\Helpers\Str;
 
 trait Validation
@@ -26,7 +26,7 @@ trait Validation
      * @param mixed $haystack
      * @param array|string $needles
      */
-    protected function validateType($haystack, $needles): void
+    protected function validateType(mixed $haystack, mixed $needles): void
     {
         $type    = $this->validateGetType($haystack);
         $needles = $this->validateNeedles($needles);
@@ -38,10 +38,7 @@ trait Validation
 
     protected function validateNeedles($values): array
     {
-        return Arrayable::of($values)
-            ->map(static function ($value) {
-                return Str::lower($value);
-            })->get();
+        return Arr::map($values, static fn ($value) => Str::lower($value));
     }
 
     protected function validateGetType($haystack): string

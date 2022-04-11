@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the "dragon-code/support" project.
  *
@@ -7,7 +8,7 @@
  *
  * @author Andrey Helldar <helldar@ai-rus.com>
  *
- * @copyright 2021 Andrey Helldar
+ * @copyright 2022 Andrey Helldar
  *
  * @license MIT
  *
@@ -17,41 +18,37 @@
 namespace Tests\Fixtures\Instances;
 
 use DragonCode\Support\Concerns\Makeable;
-use DragonCode\Support\Facades\Helpers\Ables\Arrayable;
+use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\Support\Facades\Helpers\Str;
-use DragonCode\Support\Tools\HttpBuilderPrepare;
+use DragonCode\Support\Http\BuilderPrepare;
 use Psr\Http\Message\UriInterface;
 
 class Psr implements UriInterface
 {
     use Makeable;
 
-    protected $scheme = '';
+    protected string $scheme = '';
 
-    protected $user = '';
+    protected string $user = '';
 
-    protected $password = '';
+    protected string $password = '';
 
-    protected $host = '';
+    protected string $host = '';
 
-    protected $port;
+    protected ?int $port = null;
 
-    protected $path = '';
+    protected string $path = '';
 
-    protected $query = '';
+    protected string $query = '';
 
-    protected $fragment = '';
+    protected string $fragment = '';
 
-    public function __toString()
+    public function __toString(): string
     {
-        $items = Arrayable::of($this->prepare())
-            ->map(function ($value) {
-                return (string) $value;
-            })
+        return (string) Arr::of($this->prepare())
+            ->map(static fn ($value): string => (string) $value)
             ->filter()
-            ->get();
-
-        return implode('', $items);
+            ->implode('');
     }
 
     public function getScheme(): string
@@ -154,20 +151,20 @@ class Psr implements UriInterface
     protected function prepare(): array
     {
         return [
-            HttpBuilderPrepare::make()->of($this->getScheme())->suffix(':'),
+            BuilderPrepare::make()->of($this->getScheme())->suffix(':'),
 
             '//',
 
-            HttpBuilderPrepare::make()->of($this->user),
-            HttpBuilderPrepare::make()->of($this->password)->prefix(':'),
+            BuilderPrepare::make()->of($this->user),
+            BuilderPrepare::make()->of($this->password)->prefix(':'),
 
             $this->user || $this->password ? '@' : '',
 
-            HttpBuilderPrepare::make()->of($this->getHost()),
-            HttpBuilderPrepare::make()->of($this->getPort())->prefix(':'),
-            HttpBuilderPrepare::make()->of($this->getPath()),
-            HttpBuilderPrepare::make()->of($this->getQuery())->prefix('?'),
-            HttpBuilderPrepare::make()->of($this->getFragment())->prefix('#'),
+            BuilderPrepare::make()->of($this->getHost()),
+            BuilderPrepare::make()->of($this->getPort())->prefix(':'),
+            BuilderPrepare::make()->of($this->getPath()),
+            BuilderPrepare::make()->of($this->getQuery())->prefix('?'),
+            BuilderPrepare::make()->of($this->getFragment())->prefix('#'),
         ];
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the "dragon-code/support" project.
  *
@@ -7,7 +8,7 @@
  *
  * @author Andrey Helldar <helldar@ai-rus.com>
  *
- * @copyright 2021 Andrey Helldar
+ * @copyright 2022 Andrey Helldar
  *
  * @license MIT
  *
@@ -16,20 +17,24 @@
 
 namespace DragonCode\Support\Helpers\Ables;
 
+use ArrayObject;
+use DragonCode\Contracts\Support\Arrayable as ArrayableContract;
+use DragonCode\Support\Concerns\Dumpable;
 use DragonCode\Support\Facades\Helpers\Arr;
+use JetBrains\PhpStorm\Pure;
 
-class Arrayable
+class Arrayable implements ArrayableContract
 {
-    protected $value;
+    use Dumpable;
 
-    public function __construct($value = [])
-    {
-        $this->value = $value;
+    public function __construct(
+        protected ArrayObject|array|null $value = []
+    ) {
     }
 
-    public function of($value = [])
+    public function of(ArrayObject|array|null $value = []): self
     {
-        $this->value = $value;
+        $this->value = (array) $value ?: [];
 
         return $this;
     }
@@ -41,11 +46,10 @@ class Arrayable
      *
      * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
+    #[Pure]
     public function implode(string $separator): Stringable
     {
-        return new Stringable(
-            implode($separator, $this->value)
-        );
+        return new Stringable(implode($separator, $this->value));
     }
 
     /**
@@ -53,7 +57,7 @@ class Arrayable
      *
      * @return array
      */
-    public function get(): array
+    public function toArray(): array
     {
         return $this->value ?: [];
     }
@@ -87,11 +91,11 @@ class Arrayable
     /**
      * Push one a unique element onto the end of array.
      *
-     * @param mixed $values
+     * @param array $values
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
-    public function addUnique($values): self
+    public function addUnique(array $values): self
     {
         return new self(Arr::addUnique($this->value, $values));
     }
@@ -178,7 +182,7 @@ class Arrayable
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
-    public function merge(...$arrays): self
+    public function merge(array ...$arrays): self
     {
         return new self(Arr::merge($this->value, ...$arrays));
     }
@@ -190,19 +194,19 @@ class Arrayable
      *
      * @return $this
      */
-    public function combine(...$arrays): self
+    public function combine(array ...$arrays): self
     {
         return new self(Arr::combine($this->value, ...$arrays));
     }
 
     /**
-     * Get the instance as an array.
+     * Make the instance as an array recursively.
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
-    public function toArray(): self
+    public function resolve(): self
     {
-        return new self(Arr::toArray($this->value));
+        return new self(Arr::resolve($this->value));
     }
 
     /**
@@ -212,7 +216,7 @@ class Arrayable
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
-    public function except($keys): self
+    public function except(array|callable|string $keys): self
     {
         return new self(Arr::except($this->value, $keys));
     }
@@ -224,7 +228,7 @@ class Arrayable
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
-    public function only($keys): self
+    public function only(array|callable|string $keys): self
     {
         return new self(Arr::only($this->value, $keys));
     }
@@ -316,7 +320,7 @@ class Arrayable
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
-    public function push(...$values): self
+    public function push(mixed ...$values): self
     {
         return new self(Arr::push($this->value, ...$values));
     }
@@ -324,12 +328,12 @@ class Arrayable
     /**
      * Assigns a value to an array key.
      *
-     * @param mixed $key
+     * @param string|int|float $key
      * @param mixed $value
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
-    public function set($key, $value = null): self
+    public function set(string|int|float $key, mixed $value = null): self
     {
         return new self(Arr::set($this->value, $key, $value));
     }
@@ -341,7 +345,7 @@ class Arrayable
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
-    public function remove($key): self
+    public function remove(string|int|float $key): self
     {
         return new self(Arr::remove($this->value, $key));
     }
@@ -361,32 +365,12 @@ class Arrayable
     /**
      * Return an array with elements in reverse order.
      *
-     * @param bool $preserve_keys
+     * @param bool $preserve
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
-    public function reverse(bool $preserve_keys = false): self
+    public function reverse(bool $preserve = false): self
     {
-        return new self(Arr::reverse($this->value, $preserve_keys));
-    }
-
-    /**
-     * Outputs the contents of a variable without terminating the application.
-     *
-     * @return $this
-     */
-    public function dump(): self
-    {
-        dump($this->value);
-
-        return $this;
-    }
-
-    /**
-     * Outputs the contents of a variable, terminating the application.
-     */
-    public function dd(): void
-    {
-        dd($this->value);
+        return new self(Arr::reverse($this->value, $preserve));
     }
 }

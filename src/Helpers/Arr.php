@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the "dragon-code/support" project.
  *
@@ -7,7 +8,7 @@
  *
  * @author Andrey Helldar <helldar@ai-rus.com>
  *
- * @copyright 2021 Andrey Helldar
+ * @copyright 2022 Andrey Helldar
  *
  * @license MIT
  *
@@ -20,17 +21,16 @@ use ArrayAccess;
 use ArrayObject;
 use Closure;
 use DragonCode\Contracts\Support\Arrayable;
-use DragonCode\Contracts\Support\Arrayable as DragonCodeArrayable;
 use DragonCode\Support\Facades\Callbacks\Empties;
 use DragonCode\Support\Facades\Callbacks\Sorter;
-use DragonCode\Support\Facades\Helpers\Call as CallHelper;
-use DragonCode\Support\Facades\Helpers\Filesystem\File;
-use DragonCode\Support\Facades\Helpers\Instance;
-use DragonCode\Support\Facades\Helpers\Reflection;
+use DragonCode\Support\Facades\Filesystem\File;
+use DragonCode\Support\Facades\Instances\Call as CallHelper;
+use DragonCode\Support\Facades\Instances\Instance as InstanceHelper;
+use DragonCode\Support\Facades\Instances\Reflection as ReflectionHelper;
 use DragonCode\Support\Facades\Tools\Stub;
 use DragonCode\Support\Helpers\Ables\Arrayable as ArrayableHelper;
 use DragonCode\Support\Tools\Stub as StubTool;
-use Illuminate\Contracts\Support\Arrayable as IlluminateArrayable;
+use Illuminate\Contracts\Support\Arrayable as ArrayableIlluminate;
 
 class Arr
 {
@@ -41,7 +41,7 @@ class Arr
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
-    public function of($value = []): Ables\Arrayable
+    public function of(ArrayObject|array|null $value = []): Ables\Arrayable
     {
         return new Ables\Arrayable($value);
     }
@@ -56,7 +56,7 @@ class Arr
      *
      * @return array
      */
-    public function renameKeys(array $array, callable $callback): array
+    public function renameKeys(ArrayObject|array|null $array, callable $callback): array
     {
         $result = [];
 
@@ -77,11 +77,9 @@ class Arr
      *
      * @return array
      */
-    public function renameKeysMap(array $array, array $map): array
+    public function renameKeysMap(ArrayObject|array|null $array, array $map): array
     {
-        return $this->renameKeys($array, static function ($key) use ($map) {
-            return $map[$key] ?? $key;
-        });
+        return $this->renameKeys($array, static fn ($key) => $map[$key] ?? $key);
     }
 
     /**
@@ -91,7 +89,7 @@ class Arr
      *
      * @return int
      */
-    public function longestStringLength(array $array): int
+    public function longestStringLength(ArrayObject|array|null $array): int
     {
         return ! empty($array) ? max(array_map('mb_strlen', $array)) : 0;
     }
@@ -104,14 +102,14 @@ class Arr
      *
      * @return array
      */
-    public function addUnique(array $array, $values): array
+    public function addUnique(ArrayObject|array $array, mixed $values): array
     {
         if ($this->isArrayable($values)) {
             foreach ($values as $value) {
                 $array = $this->addUnique($array, $value);
             }
         } else {
-            array_push($array, $values);
+            $array[] = $values;
         }
 
         return $this->unique($array);
@@ -133,7 +131,7 @@ class Arr
      *
      * @return array
      */
-    public function unique(array $array, int $flags = SORT_STRING): array
+    public function unique(ArrayObject|array $array, int $flags = SORT_STRING): array
     {
         return array_unique($array, $flags);
     }
@@ -164,7 +162,7 @@ class Arr
      *
      * @return array
      */
-    public function sortByKeys(array $array, array $sorter): array
+    public function sortByKeys(ArrayObject|array $array, array $sorter): array
     {
         $sorter = array_intersect($sorter, array_keys($array));
 
@@ -179,7 +177,7 @@ class Arr
      *
      * @return array
      */
-    public function sort(array $array, ?callable $callback = null): array
+    public function sort(ArrayObject|array $array, ?callable $callback = null): array
     {
         $callback = $callback ?: Sorter::default();
 
@@ -202,7 +200,7 @@ class Arr
      *
      * @return array
      */
-    public function ksort(array $array, ?callable $callback = null): array
+    public function ksort(ArrayObject|array $array, ?callable $callback = null): array
     {
         $callback = $callback ?: Sorter::default();
 
@@ -225,7 +223,7 @@ class Arr
      *
      * @return array
      */
-    public function merge(...$arrays): array
+    public function merge(array ...$arrays): array
     {
         $result = [];
 
@@ -255,7 +253,7 @@ class Arr
      *
      * @return array
      */
-    public function combine(...$arrays): array
+    public function combine(array ...$arrays): array
     {
         $result = [];
 
@@ -277,7 +275,7 @@ class Arr
                     $value = $this->combine($value);
                 }
 
-                array_push($result, $value);
+                $result[] = $value;
             }
         }
 
@@ -291,7 +289,7 @@ class Arr
      *
      * @return array
      */
-    public function wrap($value = null): array
+    public function wrap(mixed $value = null): array
     {
         if (is_array($value)) {
             return $value;
@@ -307,10 +305,10 @@ class Arr
      *
      * @return array
      */
-    public function toArray($value = null): array
+    public function resolve(mixed $value): array
     {
-        if (Instance::of($value, [ArrayObject::class, ArrayableHelper::class])) {
-            $value = CallHelper::runMethods($value, ['getArrayCopy', 'get']);
+        if (InstanceHelper::of($value, [ArrayObject::class, ArrayableHelper::class])) {
+            $value = CallHelper::runMethods($value, ['getArrayCopy', 'get', 'resolve', 'toArray']);
         }
 
         if (is_object($value)) {
@@ -320,7 +318,7 @@ class Arr
         $array = $this->wrap($value);
 
         foreach ($array as &$item) {
-            $item = $this->isArrayable($item) ? $this->toArray($item) : $item;
+            $item = $this->isArrayable($item) ? $this->resolve($item) : $item;
         }
 
         return $array;
@@ -329,18 +327,18 @@ class Arr
     /**
      * Determine if the given key exists in the provided array.
      *
-     * @param array|ArrayAccess $array
+     * @param ArrayAccess|\DragonCode\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Arrayable|array $array |\ArrayAccess $array
      * @param mixed $key
      *
      * @return bool
      */
-    public function exists($array, $key): bool
+    public function exists(mixed $array, mixed $key): bool
     {
         if ($this->existsWithoutDot($array, $key)) {
             return true;
         }
 
-        if (strpos($key, '.') === false) {
+        if (! str_contains($key, '.')) {
             return $this->existsWithoutDot($array, $key);
         }
 
@@ -358,12 +356,12 @@ class Arr
     /**
      * Determine if the given key exists in the provided array without dot divider.
      *
-     * @param array|ArrayAccess $array
+     * @param ArrayAccess|\DragonCode\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Arrayable|array $array |\ArrayAccess $array
      * @param mixed $key
      *
      * @return bool
      */
-    public function existsWithoutDot($array, $key): bool
+    public function existsWithoutDot(mixed $array, mixed $key): bool
     {
         if ($array instanceof ArrayAccess) {
             return $array->offsetExists($key);
@@ -377,13 +375,13 @@ class Arr
      *
      * @see https://github.com/illuminate/collections/blob/master/Arr.php
      *
-     * @param array|ArrayAccess $array
+     * @param ArrayAccess|\DragonCode\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Arrayable|array $array |ArrayAccess $array
      * @param mixed $key
      * @param mixed|null $default
      *
      * @return mixed|null
      */
-    public function get($array, $key, $default = null)
+    public function get(mixed $array, mixed $key, mixed $default = null): mixed
     {
         if (! $this->isArrayable($array)) {
             return $default;
@@ -397,7 +395,7 @@ class Arr
             return $array[$key];
         }
 
-        if (strpos($key, '.') === false) {
+        if (! str_contains((string) $key, '.')) {
             return $array[$key] ?? $default;
         }
 
@@ -421,7 +419,7 @@ class Arr
      *
      * @return mixed|null
      */
-    public function getKey($array, $key, $default = null)
+    public function getKey(mixed $array, mixed $key, mixed $default = null): mixed
     {
         return $this->exists($array, $key) ? $key : $default;
     }
@@ -434,13 +432,11 @@ class Arr
      *
      * @return array
      */
-    public function except($array, $keys): array
+    public function except(mixed $array, mixed $keys): array
     {
         $callback = is_callable($keys)
             ? $keys
-            : static function ($key) use ($keys) {
-                return empty($keys) || ! in_array($key, (array) $keys);
-            };
+            : static fn ($key) => empty($keys) || ! in_array($key, (array) $keys);
 
         return $this->filter((array) $array, $callback, ARRAY_FILTER_USE_KEY);
     }
@@ -453,7 +449,7 @@ class Arr
      *
      * @return array
      */
-    public function only($array, $keys): array
+    public function only(mixed $array, mixed $keys): array
     {
         if (is_callable($keys)) {
             return $this->filter($array, $keys, ARRAY_FILTER_USE_KEY);
@@ -487,7 +483,7 @@ class Arr
      *
      * @return array
      */
-    public function filter($array, ?callable $callback = null, int $mode = 0): array
+    public function filter(mixed $array, ?callable $callback = null, int $mode = 0): array
     {
         if (empty($callback)) {
             $callback = $mode === ARRAY_FILTER_USE_BOTH
@@ -507,9 +503,9 @@ class Arr
      *
      * @return array
      */
-    public function keys($array): array
+    public function keys(mixed $array): array
     {
-        return array_keys($this->toArray($array));
+        return array_keys($this->resolve($array));
     }
 
     /**
@@ -521,9 +517,9 @@ class Arr
      *
      * @return array
      */
-    public function values($array): array
+    public function values(mixed $array): array
     {
-        return array_values($this->toArray($array));
+        return array_values($this->resolve($array));
     }
 
     /**
@@ -535,9 +531,9 @@ class Arr
      *
      * @return array
      */
-    public function flip($array): array
+    public function flip(mixed $array): array
     {
-        return array_flip($this->toArray($array));
+        return array_flip($this->resolve($array));
     }
 
     /**
@@ -548,7 +544,7 @@ class Arr
      *
      * @return array
      */
-    public function flatten(array $array, bool $ignore_keys = true): array
+    public function flatten(mixed $array, bool $ignore_keys = true): array
     {
         $result = [];
 
@@ -571,7 +567,7 @@ class Arr
         return $ignore_keys ? array_values($result) : $result;
     }
 
-    public function flattenKeys(array $array, string $delimiter = '.', ?string $prefix = null): array
+    public function flattenKeys(mixed $array, string $delimiter = '.', ?string $prefix = null): array
     {
         $result = [];
 
@@ -601,7 +597,7 @@ class Arr
      *
      * @return array
      */
-    public function map($array, callable $callback, bool $recursive = false): array
+    public function map(mixed $array, callable $callback, bool $recursive = false): array
     {
         foreach ($array as $key => &$value) {
             if ($recursive && is_array($value)) {
@@ -624,10 +620,10 @@ class Arr
      *
      * @return array
      */
-    public function push($array, ...$values): array
+    public function push(mixed $array, mixed ...$values): array
     {
         foreach ($values as $value) {
-            array_push($array, $value);
+            $array[] = $value;
         }
 
         return $array;
@@ -642,7 +638,7 @@ class Arr
      *
      * @return array
      */
-    public function set($array, $key, $value = null): array
+    public function set(mixed $array, mixed $key, mixed $value = null): array
     {
         if ($this->isArrayable($key)) {
             $array = $this->merge($array, $key);
@@ -661,7 +657,7 @@ class Arr
      *
      * @return array
      */
-    public function remove($array, $key): array
+    public function remove(mixed $array, string|int|float $key): array
     {
         unset($array[$key]);
 
@@ -676,7 +672,7 @@ class Arr
      *
      * @return array
      */
-    public function tap($array, callable $callback): array
+    public function tap(mixed $array, callable $callback): array
     {
         foreach ($array as $key => &$value) {
             $callback($value, $key);
@@ -692,7 +688,7 @@ class Arr
      *
      * @return bool
      */
-    public function isArrayable($value = null): bool
+    public function isArrayable(mixed $value = null): bool
     {
         if (is_array($value) || is_object($value)) {
             return true;
@@ -701,15 +697,15 @@ class Arr
         if (
             is_string($value)
             && method_exists($value, 'toArray')
-            && ! Reflection::isStaticMethod($value, 'toArray')
+            && ! ReflectionHelper::isStaticMethod($value, 'toArray')
         ) {
             return false;
         }
 
         if (
-            Instance::of($value, [
-                DragonCodeArrayable::class,
-                IlluminateArrayable::class,
+            InstanceHelper::of($value, [
+                Arrayable::class,
+                ArrayableIlluminate::class,
                 ArrayableHelper::class,
                 ArrayObject::class,
                 ArrayAccess::class,
@@ -719,7 +715,7 @@ class Arr
             return true;
         }
 
-        return (bool) (Instance::of($value, Closure::class) && method_exists($value, 'toArray'));
+        return InstanceHelper::of($value, Closure::class) && method_exists($value, 'toArray');
     }
 
     /**
@@ -729,7 +725,7 @@ class Arr
      *
      * @return bool
      */
-    public function isEmpty($value): bool
+    public function isEmpty(mixed $value): bool
     {
         $value = is_object($value) && method_exists($value, 'toArray') ? $value->toArray() : $value;
         $value = is_object($value) ? (array) $value : $value;
@@ -744,7 +740,7 @@ class Arr
      *
      * @return bool
      */
-    public function doesntEmpty($value): bool
+    public function doesntEmpty(mixed $value): bool
     {
         return ! $this->isEmpty($value);
     }
@@ -771,7 +767,7 @@ class Arr
      * @param bool $sort_keys
      * @param int $json_flags
      */
-    public function store($array, string $path, bool $is_json = false, bool $sort_keys = false, int $json_flags = 0): void
+    public function store(ArrayAccess|array $array, string $path, bool $is_json = false, bool $sort_keys = false, int $json_flags = 0): void
     {
         $is_json
             ? $this->storeAsJson($path, $array, $sort_keys, $json_flags)
@@ -786,11 +782,9 @@ class Arr
      * @param bool $sort_keys
      * @param int $flags
      */
-    public function storeAsJson(string $path, $array, bool $sort_keys = false, int $flags = 0): void
+    public function storeAsJson(string $path, ArrayAccess|array $array, bool $sort_keys = false, int $flags = 0): void
     {
-        $this->prepareToStore($path, StubTool::JSON, $array, static function (array $array) use ($flags) {
-            return json_encode($array, $flags);
-        }, $sort_keys);
+        $this->prepareToStore($path, StubTool::JSON, $array, static fn (array $array) => json_encode($array, $flags), $sort_keys);
     }
 
     /**
@@ -800,11 +794,9 @@ class Arr
      * @param array|ArrayAccess $array
      * @param bool $sort_keys
      */
-    public function storeAsArray(string $path, $array, bool $sort_keys = false): void
+    public function storeAsArray(string $path, ArrayAccess|array $array, bool $sort_keys = false): void
     {
-        $this->prepareToStore($path, StubTool::PHP_ARRAY, $array, static function (array $array) {
-            return var_export($array, true);
-        }, $sort_keys);
+        $this->prepareToStore($path, StubTool::PHP_ARRAY, $array, static fn (array $array) => var_export($array, true), $sort_keys);
     }
 
     /**
@@ -812,11 +804,11 @@ class Arr
      *
      * @param string $path
      * @param string $stub
-     * @param array|ArrayAccess $array
+     * @param \ArrayAccess|array $array
      * @param callable $replace
      * @param bool $sort_keys
      */
-    protected function prepareToStore(string $path, string $stub, array $array, callable $replace, bool $sort_keys = false): void
+    protected function prepareToStore(string $path, string $stub, ArrayAccess|array $array, callable $replace, bool $sort_keys = false): void
     {
         $array = (array) $array;
 

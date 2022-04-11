@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the "dragon-code/support" project.
  *
@@ -7,7 +8,7 @@
  *
  * @author Andrey Helldar <helldar@ai-rus.com>
  *
- * @copyright 2021 Andrey Helldar
+ * @copyright 2022 Andrey Helldar
  *
  * @license MIT
  *
@@ -17,25 +18,27 @@
 namespace DragonCode\Support\Helpers\Ables;
 
 use DragonCode\Contracts\Support\Stringable as Contract;
+use DragonCode\Support\Concerns\Dumpable;
 use DragonCode\Support\Facades\Helpers\Str;
+use JetBrains\PhpStorm\Pure;
 
 class Stringable implements Contract
 {
-    protected $value;
+    use Dumpable;
 
-    public function __construct(?string $value = null)
-    {
-        $this->value = (string) $value;
+    public function __construct(
+        protected ?string $value = null
+    ) {
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return (string) $this->value;
     }
 
-    public function of($value = [])
+    public function of(?string $value = null): self
     {
-        $this->value = $value;
+        $this->value = (string) $value;
 
         return $this;
     }
@@ -47,6 +50,7 @@ class Stringable implements Contract
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
+    #[Pure]
     public function explode(string $separator): Arrayable
     {
         return new Arrayable(
@@ -108,6 +112,30 @@ class Stringable implements Contract
     public function end(string $suffix): self
     {
         return new self(Str::end($this->value, $suffix));
+    }
+
+    /**
+     * Adds a substring to the end of a string.
+     *
+     * @param string $suffix
+     *
+     * @return $this
+     */
+    public function append(string $suffix): self
+    {
+        return new self(Str::append($this->value, $suffix));
+    }
+
+    /**
+     * Adds a substring to the start of a string.
+     *
+     * @param string $prefix
+     *
+     * @return $this
+     */
+    public function prepend(string $prefix): self
+    {
+        return new self(Str::prepend($this->value, $prefix));
     }
 
     /**
@@ -320,25 +348,5 @@ class Stringable implements Contract
     public function map(callable $callback): self
     {
         return new self(Str::map($this->value, $callback));
-    }
-
-    /**
-     * Outputs the contents of a variable without terminating the application.
-     *
-     * @return $this
-     */
-    public function dump(): self
-    {
-        dump($this->value);
-
-        return $this;
-    }
-
-    /**
-     * Outputs the contents of a variable, terminating the application.
-     */
-    public function dd(): void
-    {
-        dd($this->value);
     }
 }

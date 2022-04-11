@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the "dragon-code/support" project.
  *
@@ -7,7 +8,7 @@
  *
  * @author Andrey Helldar <helldar@ai-rus.com>
  *
- * @copyright 2021 Andrey Helldar
+ * @copyright 2022 Andrey Helldar
  *
  * @license MIT
  *
@@ -17,7 +18,7 @@
 namespace DragonCode\Support\Helpers;
 
 use DragonCode\Support\Facades\Helpers\Arr as ArrHelper;
-use DragonCode\Support\Facades\Helpers\Call as CallHelper;
+use DragonCode\Support\Facades\Instances\Call as CallHelper;
 use DragonCode\Support\Facades\Tools\Replace;
 use Exception;
 use Illuminate\Contracts\Support\DeferringDisplayableValue;
@@ -31,23 +32,23 @@ class Str
      *
      * @var array
      */
-    protected static $snakeCache = [];
+    protected static array $snakeCache = [];
 
     /**
      * The cache of camel-cased words.
      *
      * @var array
      */
-    protected static $camelCache = [];
+    protected static array $camelCache = [];
 
     /**
      * The cache of studly-cased words.
      *
      * @var array
      */
-    protected static $studlyCache = [];
+    protected static array $studlyCache = [];
 
-    protected $escaping_methods = [
+    protected array $escaping_methods = [
         DeferringDisplayableValue::class => 'resolveDisplayableValue',
         Htmlable::class                  => 'toHtml',
     ];
@@ -123,8 +124,8 @@ class Str
 
         switch (true) {
             case $mod === 0:
-            case $mod           >= 5             && $mod           <= 9:
-            case ($number % 100 >= 11)           && ($number % 100 <= 20):
+            case $mod >= 5 && $mod <= 9:
+            case ($number % 100 >= 11) && ($number % 100 <= 20):
                 $result = $choice[2] ?? '';
                 break;
 
@@ -176,6 +177,32 @@ class Str
     }
 
     /**
+     * Adds a substring to the end of a string.
+     *
+     * @param string|null $value
+     * @param string $suffix
+     *
+     * @return string
+     */
+    public function append(?string $value, string $suffix): string
+    {
+        return $value . $suffix;
+    }
+
+    /**
+     * Adds a substring to the start of a string.
+     *
+     * @param string|null $value
+     * @param string $prefix
+     *
+     * @return string
+     */
+    public function prepend(?string $value, string $prefix): string
+    {
+        return $prefix . $value;
+    }
+
+    /**
      * Cap a string with a single instance of a given value.
      *
      * @see https://github.com/illuminate/support/blob/master/Str.php
@@ -202,7 +229,7 @@ class Str
      *
      * @return bool
      */
-    public function is($pattern, $value): bool
+    public function is(array|string $pattern, mixed $value): bool
     {
         $patterns = ArrHelper::wrap($pattern);
 
@@ -245,7 +272,7 @@ class Str
      *
      * @return bool
      */
-    public function startsWith(string $haystack, $needles): bool
+    public function startsWith(string $haystack, mixed $needles): bool
     {
         foreach ((array) $needles as $needle) {
             if ((string) $needle !== '' && str_starts_with($haystack, $needle)) {
@@ -264,7 +291,7 @@ class Str
      *
      * @return bool
      */
-    public function endsWith(string $haystack, $needles): bool
+    public function endsWith(string $haystack, mixed $needles): bool
     {
         foreach ((array) $needles as $needle) {
             if ((string) $needle !== '' && str_ends_with($haystack, $needle)) {
@@ -381,7 +408,7 @@ class Str
      *
      * @return string
      */
-    public function slug(string $title, string $separator = '-', ?string $language = 'en')
+    public function slug(string $title, string $separator = '-', ?string $language = 'en'): string
     {
         $title = $language ? $this->ascii($title, $language) : $title;
 
@@ -521,7 +548,7 @@ class Str
      *
      * @return bool
      */
-    public function contains(string $haystack, $needles): bool
+    public function contains(string $haystack, mixed $needles): bool
     {
         foreach ((array) $needles as $needle) {
             if ((string) $needle !== '' && str_contains($haystack, $needle)) {
@@ -583,7 +610,7 @@ class Str
      *
      * @return bool
      */
-    public function matchContains(string $value, $pattern): bool
+    public function matchContains(string $value, array|string $pattern): bool
     {
         foreach ((array) $pattern as $item) {
             if ($this->match($value, $item) !== null) {
@@ -615,7 +642,7 @@ class Str
      *
      * @return bool
      */
-    public function isEmpty($value): bool
+    public function isEmpty(mixed $value): bool
     {
         $value = is_string($value) ? trim($value) : $value;
 
@@ -629,7 +656,7 @@ class Str
      *
      * @return bool
      */
-    public function doesntEmpty($value): bool
+    public function doesntEmpty(mixed $value): bool
     {
         return ! $this->isEmpty($value);
     }

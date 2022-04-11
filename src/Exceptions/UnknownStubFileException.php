@@ -7,7 +7,7 @@
  *
  * @author Andrey Helldar <helldar@ai-rus.com>
  *
- * @copyright 2021 Andrey Helldar
+ * @copyright 2022 Andrey Helldar
  *
  * @license MIT
  *
@@ -17,9 +17,11 @@
 namespace DragonCode\Support\Exceptions;
 
 use Exception;
+use JetBrains\PhpStorm\Pure;
 
 class UnknownStubFileException extends Exception
 {
+    #[Pure]
     public function __construct(?string $filename)
     {
         $message = 'Unknown stub file: "' . $filename . '"';

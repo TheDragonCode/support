@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the "dragon-code/support" project.
  *
@@ -7,7 +8,7 @@
  *
  * @author Andrey Helldar <helldar@ai-rus.com>
  *
- * @copyright 2021 Andrey Helldar
+ * @copyright 2022 Andrey Helldar
  *
  * @license MIT
  *
@@ -29,17 +30,17 @@ class Foo implements Contract
 
     public const BAZ = 'Baz';
 
-    public static function callStatic()
+    public static function callStatic(): string
     {
         return 'ok';
     }
 
-    public function callDymamic()
+    public function callDymamic(): string
     {
         return 'ok';
     }
 
-    public function callEmpty()
+    public function callEmpty(): bool
     {
         return false;
     }

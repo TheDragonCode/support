@@ -8,7 +8,7 @@
  *
  * @author Andrey Helldar <helldar@ai-rus.com>
  *
- * @copyright 2021 Andrey Helldar
+ * @copyright 2022 Andrey Helldar
  *
  * @license MIT
  *
@@ -17,8 +17,9 @@
 
 namespace DragonCode\Support\Facades\Http;
 
+use DragonCode\Contracts\Http\Builder as BuilderContract;
 use DragonCode\Support\Facades\Facade;
-use DragonCode\Support\Helpers\Http\Builder as Support;
+use DragonCode\Support\Http\Builder as Support;
 use Psr\Http\Message\UriInterface;
 
 /**
@@ -41,7 +42,7 @@ use Psr\Http\Message\UriInterface;
  * @method static string|null getBaseDomain()
  * @method static string|null getDomainLevel(int $level = 0)
  * @method static Support fromPsr(UriInterface $uri)
- * @method static Support parse(string|UriInterface $url, int $component = Support::PHP_URL_ALL)
+ * @method static Support parse(mixed $url, int $component = BuilderContract::PHP_URL_ALL)
  * @method static Support parsed(array $parsed)
  * @method static Support putQuery(string $key, mixed $value)
  * @method static Support removeFragment()
@@ -58,7 +59,7 @@ use Psr\Http\Message\UriInterface;
  */
 class Builder extends Facade
 {
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
         return Support::class;
     }

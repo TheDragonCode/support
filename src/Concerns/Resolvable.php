@@ -7,7 +7,7 @@
  *
  * @author Andrey Helldar <helldar@ai-rus.com>
  *
- * @copyright 2021 Andrey Helldar
+ * @copyright 2022 Andrey Helldar
  *
  * @license MIT
  *
@@ -18,11 +18,11 @@ namespace DragonCode\Support\Concerns;
 
 trait Resolvable
 {
-    protected static $resolved = [];
+    protected static array $resolved = [];
 
-    protected static function resolveInstance($instance, ...$parameters)
+    protected static function resolveInstance(object|string $instance, mixed ...$parameters): mixed
     {
-        $class = is_object($instance) ? get_class($instance) : $instance;
+        $class = self::resolveInstanceClass($instance);
 
         if (isset(self::$resolved[$class])) {
             return self::$resolved[$class];
@@ -31,7 +31,7 @@ trait Resolvable
         return self::$resolved[$class] = is_object($instance) ? $instance : new $instance(...$parameters);
     }
 
-    protected static function resolveCallback(string $value, callable $callback)
+    protected static function resolveCallback(string $value, callable $callback): mixed
     {
         $class = static::getSameClass();
 
@@ -40,6 +40,11 @@ trait Resolvable
         }
 
         return static::$resolved[$class][$value] = $callback($value);
+    }
+
+    protected static function resolveInstanceClass(object|string $instance): string
+    {
+        return is_object($instance) ? get_class($instance) : $instance;
     }
 
     protected static function getSameClass(): string

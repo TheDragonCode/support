@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the "dragon-code/support" project.
  *
@@ -7,7 +8,7 @@
  *
  * @author Andrey Helldar <helldar@ai-rus.com>
  *
- * @copyright 2021 Andrey Helldar
+ * @copyright 2022 Andrey Helldar
  *
  * @license MIT
  *
@@ -16,17 +17,19 @@
 
 namespace Tests\Fixtures\Instances;
 
+use JetBrains\PhpStorm\ArrayShape;
 use Tests\Fixtures\Concerns\Foable;
 
 class Baz extends Bat
 {
     use Foable;
 
-    public $first = 'foo';
+    public string $first = 'foo';
 
-    public $second = 'bar';
+    public string $second = 'bar';
 
-    public function toArray()
+    #[ArrayShape(['qwerty' => 'string'])]
+    public function toArray(): array
     {
         return ['qwerty' => 'Qwerty'];
     }

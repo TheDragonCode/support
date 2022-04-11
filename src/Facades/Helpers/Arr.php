@@ -8,7 +8,7 @@
  *
  * @author Andrey Helldar <helldar@ai-rus.com>
  *
- * @copyright 2021 Andrey Helldar
+ * @copyright 2022 Andrey Helldar
  *
  * @license MIT
  *
@@ -18,10 +18,13 @@
 namespace DragonCode\Support\Facades\Helpers;
 
 use ArrayAccess;
+use ArrayObject;
 use DragonCode\Support\Facades\Facade;
+use DragonCode\Support\Helpers\Ables\Arrayable;
 use DragonCode\Support\Helpers\Arr as Helper;
 
 /**
+ * @method static Arrayable of(ArrayObject|array|null $value = [])
  * @method static array addUnique(array $array, $values)
  * @method static array combine(...$arrays)
  * @method static array except(array $array, array|callable|string $keys)
@@ -38,12 +41,12 @@ use DragonCode\Support\Helpers\Arr as Helper;
  * @method static array remove(array|ArrayAccess $array, mixed $key)
  * @method static array renameKeys(array $array, callable $callback)
  * @method static array renameKeysMap(array $array, array $map)
+ * @method static array resolve($value = null)
  * @method static array reverse(array $array, bool $preserve_keys = false)
  * @method static array set(array|ArrayAccess $array, array|mixed $key, mixed $value = null)
  * @method static array sort(array $array, callable $callback = null)
  * @method static array sortByKeys(array $array, array $sorter)
  * @method static array tap(array|ArrayAccess $array, callable $callback)
- * @method static array toArray($value = null)
  * @method static array unique(array $array, int $flags = SORT_STRING)
  * @method static array values($array)
  * @method static array wrap($value = null)

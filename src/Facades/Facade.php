@@ -7,7 +7,7 @@
  *
  * @author Andrey Helldar <helldar@ai-rus.com>
  *
- * @copyright 2021 Andrey Helldar
+ * @copyright 2022 Andrey Helldar
  *
  * @license MIT
  *
@@ -23,7 +23,7 @@ abstract class Facade
 {
     use Resolvable;
 
-    public static function __callStatic($method, $args)
+    public static function __callStatic($method, $args): mixed
     {
         if ($instance = self::getFacadeRoot()) {
             return $instance->{$method}(...$args);
@@ -42,10 +42,7 @@ abstract class Facade
         self::$resolved = [];
     }
 
-    /**
-     * @return object|string
-     */
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
         throw new RuntimeException('Facade does not implement getFacadeAccessor method.');
     }

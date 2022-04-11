@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the "dragon-code/support" project.
  *
@@ -7,7 +8,7 @@
  *
  * @author Andrey Helldar <helldar@ai-rus.com>
  *
- * @copyright 2021 Andrey Helldar
+ * @copyright 2022 Andrey Helldar
  *
  * @license MIT
  *
@@ -22,13 +23,13 @@ use DragonCode\Support\Helpers\Digit as Helper;
 /**
  * @method static float rounded(float $number, int $length = 4, int $precision = 1)
  * @method static int factorial(int $n = 0)
- * @method static string convertToString(float $value)
- * @method static string shortKey(int $number, string $chars = 'abcdefghijklmnopqrstuvwxyz')
+ * @method static string toChars(int $number, string $chars = 'abcdefghijklmnopqrstuvwxyz')
  * @method static string toShort(float $number, int $precision = 1)
+ * @method static string toString(float $value)
  */
 class Digit extends Facade
 {
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
         return Helper::class;
     }

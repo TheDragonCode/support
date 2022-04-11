@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the "dragon-code/support" project.
  *
@@ -7,7 +8,7 @@
  *
  * @author Andrey Helldar <helldar@ai-rus.com>
  *
- * @copyright 2021 Andrey Helldar
+ * @copyright 2022 Andrey Helldar
  *
  * @license MIT
  *
@@ -15,6 +16,8 @@
  */
 
 namespace DragonCode\Support\Helpers;
+
+use DragonCode\Support\Facades\Helpers\Str as StrHelper;
 
 class Digit
 {
@@ -63,24 +66,21 @@ class Digit
      *
      * @return string
      */
-    public function shortKey(int $number, string $chars = 'abcdefghijklmnopqrstuvwxyz'): string
+    public function toChars(int $number, string $chars = 'abcdefghijklmnopqrstuvwxyz'): string
     {
-        $length = strlen($chars);
-        $mod    = $number % $length;
+        $length = StrHelper::length($chars);
 
-        if ($number - $mod === 0) {
-            return substr($chars, $number, 1);
-        }
-
-        $result = '';
+        $mod = $number % $length;
 
         while ($mod > 0 || $number > 0) {
-            $result = substr($chars, $mod, 1) . $result;
+            $result = StrHelper::of($chars)->substr($mod, 1)->append($result ?? '');
+
             $number = ($number - $mod) / $length;
-            $mod    = $number % $length;
+
+            $mod = $number % $length;
         }
 
-        return $result;
+        return $result ?? StrHelper::substr($chars, $number, 1);
     }
 
     /**
@@ -106,9 +106,9 @@ class Digit
      *
      * @return string
      */
-    public function convertToString(float $value): string
+    public function toString(float $value): string
     {
-        return $value;
+        return (string) $value;
     }
 
     protected function suffix(int $length = 0): string
