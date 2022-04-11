@@ -99,13 +99,17 @@ class Str
     /**
      * Replacing multiple spaces with a single space.
      *
+     * @see https://laravel.com/docs/9.x/helpers#method-str-squish
+     *
      * @param string|null $value
      *
      * @return string|null
      */
-    public function removeSpaces(?string $value): ?string
+    public function squish(?string $value): ?string
     {
-        return $this->pregReplace($value, '!\s+!', ' ');
+        $value = $this->pregReplace($value, '~^\s+|\s+$~u', '');
+
+        return $this->pregReplace($value, '~(\s|\x{3164})+~u', ' ');
     }
 
     /**

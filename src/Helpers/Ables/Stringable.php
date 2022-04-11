@@ -85,9 +85,9 @@ class Stringable implements Contract
      *
      * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
-    public function removeSpaces(): self
+    public function squish(): self
     {
-        return new self(Str::removeSpaces($this->value));
+        return new self(Str::squish($this->value));
     }
 
     /**
