@@ -25,7 +25,7 @@ use DragonCode\Support\Helpers\Boolean as Helper;
  * @method static bool isTrue($value)
  * @method static bool to($value)
  * @method static bool|null parse($value)
- * @method static string convertToString(bool $value)
+ * @method static string toString(bool $value)
  */
 class Boolean extends Facade
 {

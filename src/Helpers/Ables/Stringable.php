@@ -20,6 +20,7 @@ namespace DragonCode\Support\Helpers\Ables;
 use DragonCode\Contracts\Support\Stringable as Contract;
 use DragonCode\Support\Concerns\Dumpable;
 use DragonCode\Support\Facades\Helpers\Str;
+use JetBrains\PhpStorm\Pure;
 
 class Stringable implements Contract
 {
@@ -35,7 +36,7 @@ class Stringable implements Contract
         return (string) $this->value;
     }
 
-    public function of(?string $value = null)
+    public function of(?string $value = null): self
     {
         $this->value = (string) $value;
 
@@ -49,6 +50,7 @@ class Stringable implements Contract
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
+    #[Pure]
     public function explode(string $separator): Arrayable
     {
         return new Arrayable(

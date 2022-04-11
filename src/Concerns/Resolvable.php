@@ -22,7 +22,7 @@ trait Resolvable
 
     protected static function resolveInstance(object|string $instance, mixed ...$parameters): mixed
     {
-        $class = is_object($instance) ? get_class($instance) : $instance;
+        $class = self::resolveInstanceClass($instance);
 
         if (isset(self::$resolved[$class])) {
             return self::$resolved[$class];
@@ -40,6 +40,11 @@ trait Resolvable
         }
 
         return static::$resolved[$class][$value] = $callback($value);
+    }
+
+    protected static function resolveInstanceClass(object|string $instance): string
+    {
+        return is_object($instance) ? get_class($instance) : $instance;
     }
 
     protected static function getSameClass(): string

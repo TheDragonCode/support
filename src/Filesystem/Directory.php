@@ -135,6 +135,8 @@ class Directory
      * @param string $path
      *
      * @throws \DragonCode\Support\Exceptions\DirectoryNotFoundException
+     *
+     * @return bool
      */
     public function ensureDelete(string $path): bool
     {

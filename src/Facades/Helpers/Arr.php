@@ -18,12 +18,13 @@
 namespace DragonCode\Support\Facades\Helpers;
 
 use ArrayAccess;
+use ArrayObject;
 use DragonCode\Support\Facades\Facade;
 use DragonCode\Support\Helpers\Ables\Arrayable;
 use DragonCode\Support\Helpers\Arr as Helper;
 
 /**
- * @method static Arrayable of(mixed $value = [])
+ * @method static Arrayable of(ArrayObject|array|null $value = [])
  * @method static array addUnique(array $array, $values)
  * @method static array combine(...$arrays)
  * @method static array except(array $array, array|callable|string $keys)

@@ -17,24 +17,24 @@
 
 namespace DragonCode\Support\Helpers\Ables;
 
+use ArrayObject;
 use DragonCode\Contracts\Support\Arrayable as ArrayableContract;
 use DragonCode\Support\Concerns\Dumpable;
 use DragonCode\Support\Facades\Helpers\Arr;
+use JetBrains\PhpStorm\Pure;
 
 class Arrayable implements ArrayableContract
 {
     use Dumpable;
 
-    protected mixed $value;
-
-    public function __construct(mixed $value = [])
-    {
-        $this->value = $value;
+    public function __construct(
+        protected ArrayObject|array|null $value = []
+    ) {
     }
 
-    public function of($value = []): self
+    public function of(ArrayObject|array|null $value = []): self
     {
-        $this->value = (array) $value;
+        $this->value = (array) $value ?: [];
 
         return $this;
     }
@@ -46,11 +46,10 @@ class Arrayable implements ArrayableContract
      *
      * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
+    #[Pure]
     public function implode(string $separator): Stringable
     {
-        return new Stringable(
-            implode($separator, $this->value)
-        );
+        return new Stringable(implode($separator, $this->value));
     }
 
     /**
@@ -92,11 +91,11 @@ class Arrayable implements ArrayableContract
     /**
      * Push one a unique element onto the end of array.
      *
-     * @param mixed $values
+     * @param array $values
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
-    public function addUnique($values): self
+    public function addUnique(array $values): self
     {
         return new self(Arr::addUnique($this->value, $values));
     }
@@ -183,7 +182,7 @@ class Arrayable implements ArrayableContract
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
-    public function merge(...$arrays): self
+    public function merge(array ...$arrays): self
     {
         return new self(Arr::merge($this->value, ...$arrays));
     }
@@ -195,7 +194,7 @@ class Arrayable implements ArrayableContract
      *
      * @return $this
      */
-    public function combine(...$arrays): self
+    public function combine(array ...$arrays): self
     {
         return new self(Arr::combine($this->value, ...$arrays));
     }
@@ -217,7 +216,7 @@ class Arrayable implements ArrayableContract
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
-    public function except($keys): self
+    public function except(array|callable|string $keys): self
     {
         return new self(Arr::except($this->value, $keys));
     }
@@ -229,7 +228,7 @@ class Arrayable implements ArrayableContract
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
-    public function only($keys): self
+    public function only(array|callable|string $keys): self
     {
         return new self(Arr::only($this->value, $keys));
     }
@@ -329,12 +328,12 @@ class Arrayable implements ArrayableContract
     /**
      * Assigns a value to an array key.
      *
-     * @param mixed $key
-     * @param mixed|null $value
+     * @param string|int|float $key
+     * @param mixed $value
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
-    public function set(mixed $key, mixed $value = null): self
+    public function set(string|int|float $key, mixed $value = null): self
     {
         return new self(Arr::set($this->value, $key, $value));
     }
@@ -366,12 +365,12 @@ class Arrayable implements ArrayableContract
     /**
      * Return an array with elements in reverse order.
      *
-     * @param bool $preserve_keys
+     * @param bool $preserve
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
-    public function reverse(bool $preserve_keys = false): self
+    public function reverse(bool $preserve = false): self
     {
-        return new self(Arr::reverse($this->value, $preserve_keys));
+        return new self(Arr::reverse($this->value, $preserve));
     }
 }

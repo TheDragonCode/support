@@ -26,6 +26,6 @@ class Empties
 
     public function notEmptyBoth(): callable
     {
-        return static fn ($value, $key) => ! empty($value) || is_bool($value) && ! empty($key);
+        return static fn ($value, $key) => (! empty($value) || is_bool($value)) && ! empty($key);
     }
 }

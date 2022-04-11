@@ -41,7 +41,7 @@ class Arr
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
-    public function of(mixed $value = []): Ables\Arrayable
+    public function of(ArrayObject|array|null $value = []): Ables\Arrayable
     {
         return new Ables\Arrayable($value);
     }
@@ -56,7 +56,7 @@ class Arr
      *
      * @return array
      */
-    public function renameKeys(array $array, callable $callback): array
+    public function renameKeys(ArrayObject|array|null $array, callable $callback): array
     {
         $result = [];
 
@@ -77,7 +77,7 @@ class Arr
      *
      * @return array
      */
-    public function renameKeysMap(array $array, array $map): array
+    public function renameKeysMap(ArrayObject|array|null $array, array $map): array
     {
         return $this->renameKeys($array, static fn ($key) => $map[$key] ?? $key);
     }
@@ -89,7 +89,7 @@ class Arr
      *
      * @return int
      */
-    public function longestStringLength(array $array): int
+    public function longestStringLength(ArrayObject|array|null $array): int
     {
         return ! empty($array) ? max(array_map('mb_strlen', $array)) : 0;
     }
@@ -102,7 +102,7 @@ class Arr
      *
      * @return array
      */
-    public function addUnique(array $array, mixed $values): array
+    public function addUnique(ArrayObject|array $array, mixed $values): array
     {
         if ($this->isArrayable($values)) {
             foreach ($values as $value) {
@@ -131,7 +131,7 @@ class Arr
      *
      * @return array
      */
-    public function unique(array $array, int $flags = SORT_STRING): array
+    public function unique(ArrayObject|array $array, int $flags = SORT_STRING): array
     {
         return array_unique($array, $flags);
     }
@@ -162,7 +162,7 @@ class Arr
      *
      * @return array
      */
-    public function sortByKeys(array $array, array $sorter): array
+    public function sortByKeys(ArrayObject|array $array, array $sorter): array
     {
         $sorter = array_intersect($sorter, array_keys($array));
 
@@ -177,7 +177,7 @@ class Arr
      *
      * @return array
      */
-    public function sort(array $array, ?callable $callback = null): array
+    public function sort(ArrayObject|array $array, ?callable $callback = null): array
     {
         $callback = $callback ?: Sorter::default();
 
@@ -200,7 +200,7 @@ class Arr
      *
      * @return array
      */
-    public function ksort(array $array, ?callable $callback = null): array
+    public function ksort(ArrayObject|array $array, ?callable $callback = null): array
     {
         $callback = $callback ?: Sorter::default();
 

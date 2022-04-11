@@ -21,7 +21,9 @@ namespace Tests\Unit\Helpers\Arr;
 
 use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\Support\Helpers\Ables\Arrayable;
+use DragonCode\Support\Helpers\Arr as ArrHelper;
 use Tests\TestCase;
+use TypeError;
 
 class OfTest extends TestCase
 {
@@ -35,8 +37,13 @@ class OfTest extends TestCase
 
         $this->assertSame([], Arr::of([])->toArray());
         $this->assertInstanceOf(Arrayable::class, Arr::of([]));
+    }
+
+    public function testStringGiven()
+    {
+        $this->expectException(TypeError::class);
+        $this->expectExceptionMessage(ArrHelper::class . '::of(): Argument #1 ($value) must be of type ArrayObject|array|null, string given');
 
         $this->assertSame([], Arr::of('')->toArray());
-        $this->assertInstanceOf(Arrayable::class, Arr::of(''));
     }
 }

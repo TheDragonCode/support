@@ -17,6 +17,8 @@
 
 namespace DragonCode\Support\Helpers;
 
+use JetBrains\PhpStorm\Pure;
+
 class Boolean
 {
     /**
@@ -50,6 +52,7 @@ class Boolean
      *
      * @return bool
      */
+    #[Pure]
     public function to(mixed $value): bool
     {
         return (bool) $this->parse($value);
