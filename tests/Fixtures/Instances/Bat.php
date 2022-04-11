@@ -21,13 +21,9 @@ use Tests\Fixtures\Contracts\Contract;
 
 class Bat implements Contract
 {
-    public ?string $foo;
-
-    public ?string $bar;
-
-    public function __construct(?string $foo = null, ?string $bar = null)
-    {
-        $this->foo = $foo;
-        $this->bar = $bar;
+    public function __construct(
+        public ?string $foo = null,
+        public ?string $bar = null
+    ) {
     }
 }

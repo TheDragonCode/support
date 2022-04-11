@@ -25,7 +25,7 @@ use Tests\Fixtures\Concerns\Foable;
 use Tests\Fixtures\Contracts\Contract;
 use Tests\Fixtures\Instances\Bar;
 use Tests\Fixtures\Instances\Bat;
-use Tests\Fixtures\Instances\Baz;
+use Tests\Fixtures\Instances\Bam;
 use Tests\Fixtures\Instances\Foo;
 use Tests\TestCase;
 
@@ -56,20 +56,20 @@ class OfTest extends TestCase
         $this->assertFalse(Instance::of(new Bar(), Foable::class));
 
         // Baz
-        $this->assertTrue(Instance::of(Baz::class, Bat::class));
-        $this->assertTrue(Instance::of(Baz::class, Contract::class));
-        $this->assertTrue(Instance::of(new Baz(), Bat::class));
-        $this->assertTrue(Instance::of(new Baz(), Contract::class));
-        $this->assertTrue(Instance::of(new Baz(), Foable::class));
+        $this->assertTrue(Instance::of(Bam::class, Bat::class));
+        $this->assertTrue(Instance::of(Bam::class, Contract::class));
+        $this->assertTrue(Instance::of(new Bam(), Bat::class));
+        $this->assertTrue(Instance::of(new Bam(), Contract::class));
+        $this->assertTrue(Instance::of(new Bam(), Foable::class));
     }
 
     public function testOfClass()
     {
-        $this->assertTrue(Instance::of(Baz::class, Bat::class));
-        $this->assertTrue(Instance::of(Baz::class, Foable::class));
-        $this->assertTrue(Instance::of(Baz::class, Contract::class));
+        $this->assertTrue(Instance::of(Bam::class, Bat::class));
+        $this->assertTrue(Instance::of(Bam::class, Foable::class));
+        $this->assertTrue(Instance::of(Bam::class, Contract::class));
 
-        $this->assertFalse(Instance::of(Baz::class, Barable::class));
+        $this->assertFalse(Instance::of(Bam::class, Barable::class));
     }
 
     public function testOfTrait()

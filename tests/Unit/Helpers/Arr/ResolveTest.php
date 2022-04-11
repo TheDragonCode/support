@@ -22,7 +22,7 @@ namespace Tests\Unit\Helpers\Arr;
 use DragonCode\Support\Facades\Helpers\Arr;
 use Tests\Fixtures\Instances\Baq;
 use Tests\Fixtures\Instances\Bar;
-use Tests\Fixtures\Instances\Baz;
+use Tests\Fixtures\Instances\Bam;
 use Tests\TestCase;
 
 class ResolveTest extends TestCase
@@ -35,7 +35,7 @@ class ResolveTest extends TestCase
         $this->assertEquals(['foo'], Arr::resolve('foo'));
 
         $this->assertEquals(['first' => 'Foo', 'second' => 'Bar'], Arr::resolve(new Bar()));
-        $this->assertEquals(['qwerty' => 'Qwerty'], Arr::resolve(new Baz()));
+        $this->assertEquals(['qwerty' => 'Qwerty'], Arr::resolve(new Bam()));
 
         $object = Arr::of(['first' => 'Foo', 'second' => 'Bar']);
 

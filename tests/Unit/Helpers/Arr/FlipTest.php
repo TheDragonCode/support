@@ -21,7 +21,7 @@ namespace Tests\Unit\Helpers\Arr;
 
 use DragonCode\Support\Facades\Helpers\Arr;
 use Tests\Fixtures\Instances\Bar;
-use Tests\Fixtures\Instances\Baz;
+use Tests\Fixtures\Instances\Bam;
 use Tests\TestCase;
 
 class FlipTest extends TestCase
@@ -59,6 +59,6 @@ class FlipTest extends TestCase
         ];
 
         $this->assertSame($expected_bar, Arr::flip(new Bar()));
-        $this->assertSame($expected_baz, Arr::flip(new Baz()));
+        $this->assertSame($expected_baz, Arr::flip(new Bam()));
     }
 }

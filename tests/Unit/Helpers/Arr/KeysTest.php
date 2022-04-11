@@ -21,7 +21,7 @@ namespace Tests\Unit\Helpers\Arr;
 
 use DragonCode\Support\Facades\Helpers\Arr;
 use Tests\Fixtures\Instances\Bar;
-use Tests\Fixtures\Instances\Baz;
+use Tests\Fixtures\Instances\Bam;
 use Tests\TestCase;
 
 class KeysTest extends TestCase
@@ -59,6 +59,6 @@ class KeysTest extends TestCase
         ];
 
         $this->assertSame($expected_bar, Arr::keys(new Bar()));
-        $this->assertSame($expected_baz, Arr::keys(new Baz()));
+        $this->assertSame($expected_baz, Arr::keys(new Bam()));
     }
 }

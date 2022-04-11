@@ -20,7 +20,7 @@ namespace Tests\Fixtures\Instances;
 use JetBrains\PhpStorm\ArrayShape;
 use Tests\Fixtures\Concerns\Foable;
 
-class Baz extends Bat
+class Bam extends Bat
 {
     use Foable;
 

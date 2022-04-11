@@ -23,7 +23,7 @@ use DragonCode\Support\Facades\Helpers\Arr;
 use Tests\Fixtures\Instances\Arrayable;
 use Tests\Fixtures\Instances\Baq;
 use Tests\Fixtures\Instances\Bar;
-use Tests\Fixtures\Instances\Baz;
+use Tests\Fixtures\Instances\Bam;
 use Tests\Fixtures\Instances\Foo;
 use Tests\TestCase;
 
@@ -44,7 +44,7 @@ class IsEmptyTest extends TestCase
         $this->assertTrue(Arr::isEmpty(new Foo()));
 
         $this->assertFalse(Arr::isEmpty(new Bar()));
-        $this->assertFalse(Arr::isEmpty(new Baz()));
+        $this->assertFalse(Arr::isEmpty(new Bam()));
         $this->assertFalse(Arr::isEmpty(new Baq()));
         $this->assertFalse(Arr::isEmpty(new Arrayable()));
     }
