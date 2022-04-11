@@ -597,7 +597,7 @@ class Arr
      *
      * @return array
      */
-    public function map(mixed $array, callable $callback, bool $recursive = false): array
+    public function map(array $array, callable $callback, bool $recursive = false): array
     {
         foreach ($array as $key => &$value) {
             if ($recursive && is_array($value)) {
@@ -605,6 +605,23 @@ class Arr
             } else {
                 $value = is_array($value) ? $value : $callback($value, $key);
             }
+        }
+
+        return $array;
+    }
+
+    /**
+     * Creating a new instance of the given class by passing the value into the constructor.
+     *
+     * @param array $array
+     * @param string $class
+     *
+     * @return array
+     */
+    public function mapInto(array $array, string $class): array
+    {
+        foreach ($array as &$value) {
+            $value = new $class($value);
         }
 
         return $array;

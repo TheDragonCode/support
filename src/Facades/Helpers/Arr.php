@@ -35,6 +35,7 @@ use DragonCode\Support\Helpers\Arr as Helper;
  * @method static array keys($array)
  * @method static array ksort(array $array, callable $callback = null)
  * @method static array map(array|ArrayAccess $array, callable $callback, bool $recursive = false)
+ * @method static array mapInto(array $array, string $class)
  * @method static array merge(...$arrays)
  * @method static array only(array|ArrayAccess $array, array|callable|string $keys)
  * @method static array push(array|ArrayAccess $array, mixed ...$values)
