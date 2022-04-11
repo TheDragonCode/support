@@ -48,7 +48,7 @@ class Str
      */
     protected static array $studlyCache = [];
 
-    protected $escaping_methods = [
+    protected array $escaping_methods = [
         DeferringDisplayableValue::class => 'resolveDisplayableValue',
         Htmlable::class                  => 'toHtml',
     ];
