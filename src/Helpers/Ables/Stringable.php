@@ -252,6 +252,19 @@ class Stringable implements Contract
     }
 
     /**
+     * Replace all occurrences of the search string with the replacement string.
+     *
+     * @param array|string|string[]|int|float $search
+     * @param array|string|string[]|int|float $replace
+     *
+     * @return $this
+     */
+    public function replace(mixed $search, mixed $replace): self
+    {
+        return new self(Str::replace($this->value, $search, $replace));
+    }
+
+    /**
      * Get the portion of a string before the first occurrence of a given value.
      *
      * @param string $search
