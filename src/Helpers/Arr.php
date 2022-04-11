@@ -804,7 +804,7 @@ class Arr
      *
      * @param string $path
      * @param string $stub
-     * @param \ArrayAccess|array $array
+     * @param ArrayAccess|array $array
      * @param callable $replace
      * @param bool $sort_keys
      */
