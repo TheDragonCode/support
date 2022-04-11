@@ -26,7 +26,7 @@ use Tests\TestCase;
 
 class DeleteTest extends TestCase
 {
-    public function testDelete()
+    public function testOne()
     {
         $path = $this->tempDirectory();
 
@@ -36,9 +36,29 @@ class DeleteTest extends TestCase
 
         $this->assertDirectoryExists($path);
 
-        $this->assertTrue(Directory::delete($path));
+        Directory::delete($path);
 
         $this->assertFalse(Directory::exists($path));
+    }
+
+    public function testMany()
+    {
+        $path1 = $this->tempDirectory();
+        $path2 = $this->tempDirectory();
+
+        $this->assertDirectoryDoesNotExist($path1);
+        $this->assertDirectoryDoesNotExist($path2);
+
+        Directory::make($path1);
+        Directory::make($path2);
+
+        $this->assertDirectoryExists($path1);
+        $this->assertDirectoryExists($path2);
+
+        Directory::delete([$path1, $path2]);
+
+        $this->assertFalse(Directory::exists($path1));
+        $this->assertFalse(Directory::exists($path2));
     }
 
     public function testDeleteDoesntExists()
@@ -46,7 +66,7 @@ class DeleteTest extends TestCase
         $this->expectException(DirectoryNotFoundException::class);
         $this->expectExceptionMessage('Directory "qwe" does not exist.');
 
-        $this->assertTrue(Directory::delete('qwe'));
+        Directory::delete('qwe');
     }
 
     public function testDeleteAsFile()

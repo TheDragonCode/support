@@ -102,45 +102,45 @@ class Directory
     /**
      * Delete the directory with all contents in the specified path.
      *
-     * @param string $path
+     * @param array|string $paths
      *
      * @throws \DragonCode\Support\Exceptions\DirectoryNotFoundException
      *
-     * @return bool
+     * @return void
      */
-    public function delete(string $path): bool
+    public function delete(array|string $paths): void
     {
-        if (! $this->isDirectory($path)) {
-            throw new DirectoryNotFoundException($path);
+        foreach ((array) $paths as $path) {
+            if (! $this->isDirectory($path)) {
+                throw new DirectoryNotFoundException($path);
+            }
+
+            $items = new FilesystemIterator($path);
+
+            foreach ($items as $item) {
+                $item->isDir() && ! $item->isLink()
+                    ? $this->delete($item->getPathname())
+                    : FileHelper::delete($item->getPathname());
+            }
+
+            @rmdir($path);
         }
-
-        $items = new FilesystemIterator($path);
-
-        $success = true;
-
-        foreach ($items as $item) {
-            $item->isDir() && ! $item->isLink()
-                ? $this->delete($item->getPathname())
-                : FileHelper::delete($item->getPathname());
-        }
-
-        @rmdir($path);
-
-        return $success;
     }
 
     /**
      * Ensure the directory has been deleted.
      *
-     * @param string $path
+     * @param array|string $path
      *
      * @throws \DragonCode\Support\Exceptions\DirectoryNotFoundException
      *
-     * @return bool
+     * @return void
      */
-    public function ensureDelete(string $path): bool
+    public function ensureDelete(array|string $paths): void
     {
-        return $this->doesntExist($path) || $this->delete($path);
+        foreach ((array) $paths as $path) {
+            $this->doesntExist($path) || $this->delete($path);
+        }
     }
 
     /**

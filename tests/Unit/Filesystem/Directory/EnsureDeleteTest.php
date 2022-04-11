@@ -24,21 +24,35 @@ use Tests\TestCase;
 
 class EnsureDeleteTest extends TestCase
 {
-    public function testEnsureDelete()
+    public function testOne()
+    {
+        $path = $this->tempDirectory();
+
+        $this->assertDirectoryDoesNotExist($path);
+
+        Directory::make($path);
+
+        $this->assertDirectoryExists($path);
+
+        Directory::ensureDelete($path);
+
+        $this->assertDirectoryDoesNotExist($path);
+    }
+
+    public function testMany()
     {
         $path1 = $this->tempDirectory();
-        $path2 = $this->tempDirectory();
+        $path2 = 'foo';
 
         $this->assertDirectoryDoesNotExist($path1);
         $this->assertDirectoryDoesNotExist($path2);
 
-        $this->assertTrue(Directory::make($path1, 777));
+        Directory::make($path1);
 
         $this->assertDirectoryExists($path1);
         $this->assertDirectoryDoesNotExist($path2);
 
-        $this->assertTrue(Directory::ensureDelete($path1));
-        $this->assertTrue(Directory::ensureDelete($path2));
+        Directory::ensureDelete([$path1, $path2]);
 
         $this->assertDirectoryDoesNotExist($path1);
         $this->assertDirectoryDoesNotExist($path2);
