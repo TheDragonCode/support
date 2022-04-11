@@ -38,12 +38,14 @@ class SquishTest extends TestCase
         $this->assertSame('laravel php framework', Str::squish("laravel\t\tphp\n\nframework"));
         $this->assertSame('laravel php framework', Str::squish('   laravel   php   framework   '));
 
-        $this->assertSame('laravel php framework',
+        $this->assertSame(
+            'laravel php framework',
             Str::squish('
             laravel
             php
             framework
-        '));
+        ')
+        );
 
         $this->assertSame('123', Str::squish('   123    '));
         $this->assertSame('だ', Str::squish('だ'));
