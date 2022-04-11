@@ -4,16 +4,17 @@
     "license": "MIT",
     "type": "library",
     "keywords": [
-        "support",
-        "laravel",
-        "symfony",
-        "yii",
-        "yii2",
+        "dragon",
+        "dragon-code",
         "framework",
         "helper",
         "helpers",
-        "dragon-code",
-        "dragon"
+        "laravel",
+        "php",
+        "support",
+        "symfony",
+        "yii",
+        "yii2"
     ],
     "authors": [
         {
@@ -38,7 +39,7 @@
     },
     "require-dev": {
         "illuminate/contracts": "^9.7",
-        "phpunit/phpunit": "^8.0 || ^9.0",
+        "phpunit/phpunit": "^9.0",
         "symfony/var-dumper": "^5.2 || ^6.0"
     },
     "conflict": {
