@@ -26,9 +26,9 @@ class ToStringTest extends TestCase
 {
     public function testConvertToString()
     {
-        $this->assertSame('', Str::convertToString(''));
-        $this->assertSame('null', Str::convertToString(null));
-        $this->assertSame('foo', Str::convertToString('foo'));
-        $this->assertSame('bar', Str::convertToString('bar'));
+        $this->assertSame('', Str::toString(''));
+        $this->assertSame('null', Str::toString(null));
+        $this->assertSame('foo', Str::toString('foo'));
+        $this->assertSame('bar', Str::toString('bar'));
     }
 }

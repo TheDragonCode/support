@@ -687,7 +687,7 @@ class Str
      *
      * @return string
      */
-    public function convertToString(?string $value): string
+    public function toString(?string $value): string
     {
         return is_null($value) ? 'null' : $value;
     }
