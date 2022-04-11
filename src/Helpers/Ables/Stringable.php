@@ -36,6 +36,11 @@ class Stringable implements Contract
         return (string) $this->value;
     }
 
+    public function toString(): string
+    {
+        return (string) $this;
+    }
+
     public function of(?string $value = null): self
     {
         $this->value = (string) $value;
@@ -117,11 +122,11 @@ class Stringable implements Contract
     /**
      * Adds a substring to the end of a string.
      *
-     * @param string $suffix
+     * @param mixed $suffix
      *
      * @return $this
      */
-    public function append(string $suffix): self
+    public function append(mixed $suffix): self
     {
         return new self(Str::append($this->value, $suffix));
     }
@@ -129,11 +134,11 @@ class Stringable implements Contract
     /**
      * Adds a substring to the start of a string.
      *
-     * @param string $prefix
+     * @param mixed $prefix
      *
      * @return $this
      */
-    public function prepend(string $prefix): self
+    public function prepend(mixed $prefix): self
     {
         return new self(Str::prepend($this->value, $prefix));
     }
@@ -239,7 +244,7 @@ class Stringable implements Contract
     }
 
     /**
-     * Replace all occurrences of the search string with the replacement string.
+     * Replace all occurrences of the search string with the replacement string by format.
      *
      * @param array $values
      * @param string|null $key_format

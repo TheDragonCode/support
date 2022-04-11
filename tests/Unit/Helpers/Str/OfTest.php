@@ -36,4 +36,18 @@ class OfTest extends TestCase
         $this->assertSame('foo', (string) Str::of('foo'));
         $this->assertInstanceOf(Stringable::class, Str::of('foo'));
     }
+
+    public function testSome()
+    {
+        $source = 'foo';
+
+        $actual = Str::of($source)
+            ->upper()
+            ->prepend(1)
+            ->append(2)
+            ->replace('O', 0)
+            ->toString();
+
+        $this->assertSame('1F002', $actual);
+    }
 }
