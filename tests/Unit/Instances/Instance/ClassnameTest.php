@@ -22,7 +22,7 @@ namespace Tests\Unit\Instances\Instance;
 use DragonCode\Support\Facades\Instances\Instance;
 use Tests\Fixtures\Contracts\Contract;
 use Tests\Fixtures\Instances\Bar;
-use Tests\Fixtures\Instances\Baz;
+use Tests\Fixtures\Instances\Bam;
 use Tests\Fixtures\Instances\Foo;
 use Tests\TestCase;
 
@@ -32,11 +32,11 @@ class ClassnameTest extends TestCase
     {
         $this->assertSame('Tests\Fixtures\Instances\Foo', Instance::classname(Foo::class));
         $this->assertSame('Tests\Fixtures\Instances\Bar', Instance::classname(Bar::class));
-        $this->assertSame('Tests\Fixtures\Instances\Baz', Instance::classname(Baz::class));
+        $this->assertSame('Tests\Fixtures\Instances\Bam', Instance::classname(Bam::class));
 
         $this->assertSame('Tests\Fixtures\Instances\Foo', Instance::classname(new Foo()));
         $this->assertSame('Tests\Fixtures\Instances\Bar', Instance::classname(new Bar()));
-        $this->assertSame('Tests\Fixtures\Instances\Baz', Instance::classname(new Baz()));
+        $this->assertSame('Tests\Fixtures\Instances\Bam', Instance::classname(new Bam()));
 
         $this->assertSame('Tests\Fixtures\Contracts\Contract', Instance::classname(Contract::class));
 

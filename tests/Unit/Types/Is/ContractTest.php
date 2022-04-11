@@ -22,7 +22,7 @@ namespace Tests\Unit\Types\Is;
 use DragonCode\Support\Facades\Types\Is;
 use Tests\Fixtures\Contracts\Contract;
 use Tests\Fixtures\Instances\Bar;
-use Tests\Fixtures\Instances\Baz;
+use Tests\Fixtures\Instances\Bam;
 use Tests\Fixtures\Instances\Foo;
 use Tests\TestCase;
 
@@ -34,11 +34,11 @@ class ContractTest extends TestCase
 
         $this->assertFalse(Is::contract(Foo::class));
         $this->assertFalse(Is::contract(Bar::class));
-        $this->assertFalse(Is::contract(Baz::class));
+        $this->assertFalse(Is::contract(Bam::class));
 
         $this->assertFalse(Is::contract(new Foo()));
         $this->assertFalse(Is::contract(new Bar()));
-        $this->assertFalse(Is::contract(new Baz()));
+        $this->assertFalse(Is::contract(new Bam()));
 
         $this->assertFalse(Is::contract('foo'));
     }

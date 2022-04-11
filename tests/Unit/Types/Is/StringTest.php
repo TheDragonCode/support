@@ -21,7 +21,7 @@ namespace Tests\Unit\Types\Is;
 
 use DragonCode\Support\Facades\Types\Is;
 use Tests\Fixtures\Instances\Bar;
-use Tests\Fixtures\Instances\Baz;
+use Tests\Fixtures\Instances\Bam;
 use Tests\Fixtures\Instances\Foo;
 use Tests\TestCase;
 
@@ -35,10 +35,10 @@ class StringTest extends TestCase
 
         $this->assertTrue(Is::string(Foo::class));
         $this->assertTrue(Is::string(Bar::class));
-        $this->assertTrue(Is::string(Baz::class));
+        $this->assertTrue(Is::string(Bam::class));
 
         $this->assertFalse(Is::string(new Foo()));
         $this->assertFalse(Is::string(new Bar()));
-        $this->assertFalse(Is::string(new Baz()));
+        $this->assertFalse(Is::string(new Bam()));
     }
 }

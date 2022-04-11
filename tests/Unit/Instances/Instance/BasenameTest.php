@@ -20,8 +20,8 @@ declare(strict_types=1);
 namespace Tests\Unit\Instances\Instance;
 
 use DragonCode\Support\Facades\Instances\Instance;
+use Tests\Fixtures\Instances\Bam;
 use Tests\Fixtures\Instances\Bar;
-use Tests\Fixtures\Instances\Baz;
 use Tests\Fixtures\Instances\Foo;
 use Tests\TestCase;
 
@@ -31,11 +31,11 @@ class BasenameTest extends TestCase
     {
         $this->assertSame('Foo', Instance::basename(Foo::class));
         $this->assertSame('Bar', Instance::basename(Bar::class));
-        $this->assertSame('Baz', Instance::basename(Baz::class));
+        $this->assertSame('Bam', Instance::basename(Bam::class));
 
         $this->assertSame('Foo', Instance::basename(new Foo()));
         $this->assertSame('Bar', Instance::basename(new Bar()));
-        $this->assertSame('Baz', Instance::basename(new Baz()));
+        $this->assertSame('Bam', Instance::basename(new Bam()));
 
         $this->assertNull(Instance::basename('foo'));
     }

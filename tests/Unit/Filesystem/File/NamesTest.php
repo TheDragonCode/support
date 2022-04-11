@@ -49,11 +49,12 @@ class NamesTest extends TestCase
             'Facades/Resolve.php',
             'Foo/Bar/.gitkeep',
             'Instances/Arrayable.php',
+            'Instances/Bam.php',
             'Instances/Baq.php',
             'Instances/Bar.php',
             'Instances/Bat.php',
-            'Instances/Baz.php',
             'Instances/Foo.php',
+            'Instances/Map.php',
             'Instances/Psr.php',
             'stubs/custom.stub',
         ];
