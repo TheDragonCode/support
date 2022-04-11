@@ -177,6 +177,32 @@ class Str
     }
 
     /**
+     * Adds a substring to the end of a string.
+     *
+     * @param string|null $value
+     * @param string $suffix
+     *
+     * @return string
+     */
+    public function append(?string $value, string $suffix): string
+    {
+        return $value . $suffix;
+    }
+
+    /**
+     * Adds a substring to the start of a string.
+     *
+     * @param string|null $value
+     * @param string $prefix
+     *
+     * @return string
+     */
+    public function prepend(?string $value, string $prefix): string
+    {
+        return $prefix . $value;
+    }
+
+    /**
      * Cap a string with a single instance of a given value.
      *
      * @see https://github.com/illuminate/support/blob/master/Str.php

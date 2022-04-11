@@ -25,16 +25,14 @@ class Stringable implements Contract
 {
     use Dumpable;
 
-    protected string $value;
-
-    public function __construct(?string $value = null)
-    {
-        $this->value = (string) $value;
+    public function __construct(
+        protected ?string $value = null
+    ) {
     }
 
     public function __toString(): string
     {
-        return $this->value;
+        return (string) $this->value;
     }
 
     public function of(?string $value = null)
@@ -112,6 +110,30 @@ class Stringable implements Contract
     public function end(string $suffix): self
     {
         return new self(Str::end($this->value, $suffix));
+    }
+
+    /**
+     * Adds a substring to the end of a string.
+     *
+     * @param string $suffix
+     *
+     * @return $this
+     */
+    public function append(string $suffix): self
+    {
+        return new self(Str::append($this->value, $suffix));
+    }
+
+    /**
+     * Adds a substring to the start of a string.
+     *
+     * @param string $prefix
+     *
+     * @return $this
+     */
+    public function prepend(string $prefix): self
+    {
+        return new self(Str::prepend($this->value, $prefix));
     }
 
     /**
