@@ -39,15 +39,16 @@ class OfTest extends TestCase
 
     public function testSome()
     {
-        $source = 'foo';
+        $source = 'foo bar';
 
         $actual = Str::of($source)
             ->upper()
-            ->prepend(1)
-            ->append(2)
-            ->replace('O', 0)
+            ->explode(' ')
+            ->map(fn (string $value) => Str::of($value)->prepend(1)->append(2))
+            ->implode('=')
+            ->replace(['O', 'R'], 0)
             ->toString();
 
-        $this->assertSame('1F002', $actual);
+        $this->assertSame('1F002=1BA02', $actual);
     }
 }
