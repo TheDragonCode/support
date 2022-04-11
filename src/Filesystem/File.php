@@ -20,11 +20,9 @@ namespace DragonCode\Support\Filesystem;
 use DirectoryIterator;
 use DragonCode\Support\Exceptions\FileNotFoundException;
 use DragonCode\Support\Facades\Filesystem\Directory as DirectoryHelper;
-use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\Support\Facades\Helpers\Str;
 use DragonCode\Support\Facades\Instances\Instance;
 use SplFileInfo;
-use Throwable;
 
 class File
 {
@@ -138,25 +136,19 @@ class File
      *
      * @param string|string[] $paths
      *
-     * @return bool
+     * @throws \DragonCode\Support\Exceptions\FileNotFoundException
+     *
+     * @return void
      */
-    public function delete($paths): bool
+    public function delete(array|string $paths): void
     {
-        $paths = Arr::wrap($paths);
-
-        $success = true;
-
-        foreach ($paths as $path) {
-            try {
-                if (! @unlink($path)) {
-                    $success = false;
-                }
-            } catch (Throwable $e) {
-                $success = false;
+        foreach ((array) $paths as $path) {
+            if (! $this->exists($path)) {
+                throw new FileNotFoundException($path);
             }
-        }
 
-        return $success;
+            unlink($path);
+        }
     }
 
     /**
@@ -164,21 +156,15 @@ class File
      *
      * @param array|string $paths
      *
-     * @return bool
+     * @throws \DragonCode\Support\Exceptions\FileNotFoundException
+     *
+     * @return void
      */
-    public function ensureDelete($paths): bool
+    public function ensureDelete(array|string $paths): void
     {
-        $paths = Arr::wrap($paths);
-
-        $success = true;
-
-        foreach ($paths as $path) {
-            if ($this->exists($path) && ! $this->delete($path)) {
-                $success = false;
-            }
+        foreach ((array) $paths as $path) {
+            $this->exists($path) && $this->delete($path);
         }
-
-        return $success;
     }
 
     /**

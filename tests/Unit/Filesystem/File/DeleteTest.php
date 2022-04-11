@@ -28,7 +28,7 @@ class DeleteTest extends TestCase
     {
         $path = $this->tempDirectory('foo.bar');
 
-        File::store($path, 'foo', 777);
+        File::store($path, 'foo');
 
         $this->assertFileExists($path);
 
@@ -43,9 +43,9 @@ class DeleteTest extends TestCase
         $path2 = $this->tempDirectory('foo2');
         $path3 = $this->tempDirectory('foo3');
 
-        File::store($path1, 'foo', 777);
-        File::store($path2, 'foo', 777);
-        File::store($path3, 'foo', 777);
+        File::store($path1, 'foo');
+        File::store($path2, 'foo');
+        File::store($path3, 'foo');
 
         $this->assertFileExists($path1);
         $this->assertFileExists($path2);
