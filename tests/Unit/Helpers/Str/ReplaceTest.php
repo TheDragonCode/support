@@ -31,24 +31,11 @@ class ReplaceTest extends TestCase
         $this->assertSame('Eoo', Str::replace('foo', ['a' => 'Z', 's' => 'X', 'f' => 'E']));
         $this->assertSame('EPP', Str::replace('foo', ['a' => 'Z', 's' => 'X', 'f' => 'E', 'o' => 'P']));
 
-        $this->assertSame('bZr', Str::replace('bar', ['a' => 'Z', 's' => 'X']));
-        $this->assertSame('bZr', Str::replace('bar', ['a' => 'Z', 's' => 'X', 'o' => 'Q']));
-        $this->assertSame('bZr', Str::replace('bar', ['a' => 'Z', 's' => 'X', 'f' => 'E']));
-        $this->assertSame('bZr', Str::replace('bar', ['a' => 'Z', 's' => 'X', 'f' => 'E', 'o' => 'P']));
+        $this->assertSame('foo', Str::replace('foo', ['a', 's'], ['Z', 'X']));
+        $this->assertSame('fQQ', Str::replace('foo', ['a', 's', 'o'], ['Z', 'X', 'Q']));
+        $this->assertSame('Eoo', Str::replace('foo', ['a', 's', 'f'], ['Z', 'X', 'E']));
+        $this->assertSame('EPP', Str::replace('foo', ['a', 's', 'f', 'o'], ['Z', 'X', 'E', 'P']));
 
-        $this->assertSame('foo', Str::replace('foo', ['a' => 'Z', 's' => 'X'], '{%s}'));
-        $this->assertSame('foo', Str::replace('foo', ['a' => 'Z', 's' => 'X', 'o' => 'Q'], '{%s}'));
-        $this->assertSame('foo', Str::replace('foo', ['a' => 'Z', 's' => 'X', 'f' => 'E'], '{%s}'));
-        $this->assertSame('foo', Str::replace('foo', ['a' => 'Z', 's' => 'X', 'f' => 'E', 'o' => 'P'], '{%s}'));
-
-        $this->assertSame('bZr', Str::replace('b{a}r', ['a' => 'Z', 's' => 'X'], '{%s}'));
-        $this->assertSame('bZr', Str::replace('b{a}r', ['a' => 'Z', 's' => 'X', 'o' => 'Q'], '{%s}'));
-        $this->assertSame('bZr', Str::replace('b{a}r', ['a' => 'Z', 's' => 'X', 'f' => 'E'], '{%s}'));
-        $this->assertSame('bZr', Str::replace('b{a}r', ['a' => 'Z', 's' => 'X', 'f' => 'E', 'o' => 'P'], '{%s}'));
-
-        $this->assertSame('bZz', Str::replace('b_a_z', ['a' => 'Z', 's' => 'X'], '_%s_'));
-        $this->assertSame('bZz', Str::replace('b_a_z', ['a' => 'Z', 's' => 'X', 'o' => 'Q'], '_%s_'));
-        $this->assertSame('bZz', Str::replace('b_a_z', ['a' => 'Z', 's' => 'X', 'f' => 'E'], '_%s_'));
-        $this->assertSame('bZz', Str::replace('b_a_z', ['a' => 'Z', 's' => 'X', 'f' => 'E', 'o' => 'P'], '_%s_'));
+        $this->assertSame('f00', Str::replace('foo', 'o', '0'));
     }
 }
