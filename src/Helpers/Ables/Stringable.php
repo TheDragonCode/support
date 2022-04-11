@@ -19,6 +19,7 @@ namespace DragonCode\Support\Helpers\Ables;
 
 use DragonCode\Contracts\Support\Stringable as Contract;
 use DragonCode\Support\Concerns\Dumpable;
+use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\Support\Facades\Helpers\Str;
 use JetBrains\PhpStorm\Pure;
 
@@ -52,15 +53,16 @@ class Stringable implements Contract
      * Split a string by a string.
      *
      * @param string $separator
+     * @param string|null $map_into
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
     #[Pure]
-    public function explode(string $separator): Arrayable
+    public function explode(string $separator, string $map_into = null): Arrayable
     {
-        return new Arrayable(
-            explode($separator, $this->value)
-        );
+        $array = Arr::of(explode($separator, $this->value));
+
+        return $map_into ? $array->mapInto($map_into) : $array;
     }
 
     /**

@@ -43,8 +43,8 @@ class OfTest extends TestCase
 
         $actual = Str::of($source)
             ->upper()
-            ->explode(' ')
-            ->map(fn (string $value) => Str::of($value)->prepend(1)->append(2))
+            ->explode(' ', Stringable::class)
+            ->map(fn (Stringable $value) => $value->prepend(1)->append(2))
             ->implode('=')
             ->replace(['O', 'R'], 0)
             ->toString();

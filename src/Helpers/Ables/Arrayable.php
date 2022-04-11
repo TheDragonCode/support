@@ -276,6 +276,18 @@ class Arrayable implements ArrayableContract
     }
 
     /**
+     * Creating a new instance of the given class by passing the value into the constructor.
+     *
+     * @param string $class
+     *
+     * @return $this
+     */
+    public function mapInto(string $class): self
+    {
+        return new self(Arr::mapInto($this->value, $class));
+    }
+
+    /**
      * Exchanges all keys with their associated values in an array.
      *
      * @see  https://php.net/manual/en/function.array-flip.php
