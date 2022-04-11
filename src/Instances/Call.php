@@ -35,7 +35,7 @@ class Call
      * @param string $method
      * @param mixed ...$parameters
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      *
      * @return mixed
      */
@@ -63,7 +63,8 @@ class Call
      * @param string $method
      * @param mixed ...$parameters
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
+     *
      * @return mixed
      */
     public function runExists(object|callable|string $class, string $method, mixed ...$parameters): mixed
@@ -88,7 +89,8 @@ class Call
      * @param array|string $methods
      * @param mixed ...$parameters
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
+     *
      * @return mixed
      */
     public function runMethods(object|callable|string $class, array|string $methods, mixed ...$parameters): mixed

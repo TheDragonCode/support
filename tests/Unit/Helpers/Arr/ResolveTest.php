@@ -20,9 +20,9 @@ declare(strict_types=1);
 namespace Tests\Unit\Helpers\Arr;
 
 use DragonCode\Support\Facades\Helpers\Arr;
+use Tests\Fixtures\Instances\Bam;
 use Tests\Fixtures\Instances\Baq;
 use Tests\Fixtures\Instances\Bar;
-use Tests\Fixtures\Instances\Bam;
 use Tests\TestCase;
 
 class ResolveTest extends TestCase

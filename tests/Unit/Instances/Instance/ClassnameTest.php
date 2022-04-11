@@ -21,8 +21,8 @@ namespace Tests\Unit\Instances\Instance;
 
 use DragonCode\Support\Facades\Instances\Instance;
 use Tests\Fixtures\Contracts\Contract;
-use Tests\Fixtures\Instances\Bar;
 use Tests\Fixtures\Instances\Bam;
+use Tests\Fixtures\Instances\Bar;
 use Tests\Fixtures\Instances\Foo;
 use Tests\TestCase;
 

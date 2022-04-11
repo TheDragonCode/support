@@ -130,10 +130,9 @@ class Directory
     /**
      * Ensure the directory has been deleted.
      *
-     * @param array|string $path
+     * @param array|string $paths
      *
      * @throws \DragonCode\Support\Exceptions\DirectoryNotFoundException
-     *
      * @return void
      */
     public function ensureDelete(array|string $paths): void
