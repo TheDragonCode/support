@@ -40,7 +40,7 @@ class Stub
     {
         $content = $this->get($stub_file);
 
-        return Str::replace($content, $replace);
+        return Str::replaceFormat($content, $replace);
     }
 
     /**

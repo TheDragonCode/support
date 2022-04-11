@@ -507,7 +507,7 @@ class Str
      *
      * @return string
      */
-    public function replace(string $template, array $values, ?string $key_format = null): string
+    public function replaceFormat(string $template, array $values, ?string $key_format = null): string
     {
         $keys = Replace::toFormatArray(array_keys($values), $key_format);
 
