@@ -183,12 +183,12 @@ class Str
     /**
      * Adds a substring to the end of a string.
      *
-     * @param string|null $value
+     * @param mixed $value
      * @param string $suffix
      *
      * @return string
      */
-    public function append(?string $value, string $suffix): string
+    public function append(mixed $value, string $suffix): string
     {
         return $value . $suffix;
     }
@@ -196,12 +196,12 @@ class Str
     /**
      * Adds a substring to the start of a string.
      *
-     * @param string|null $value
+     * @param mixed $value
      * @param string $prefix
      *
      * @return string
      */
-    public function prepend(?string $value, string $prefix): string
+    public function prepend(mixed $value, string $prefix): string
     {
         return $prefix . $value;
     }
@@ -499,7 +499,7 @@ class Str
     }
 
     /**
-     * Replace all occurrences of the search string with the replacement string.
+     * Replace all occurrences of the search string with the replacement string by format.
      *
      * @param string $template
      * @param array $values
@@ -511,7 +511,26 @@ class Str
     {
         $keys = Replace::toFormatArray(array_keys($values), $key_format);
 
-        return str_replace($keys, array_values($values), $template);
+        return $this->replace($template, $keys, array_values($values));
+    }
+
+    /**
+     * Replace all occurrences of the search string with the replacement string.
+     *
+     * @param string|null $value
+     * @param array|string|string[]|int|float $search
+     * @param array|string|string[]|int|float|null $replace
+     *
+     * @return string
+     */
+    public function replace(?string $value, mixed $search, mixed $replace = null): string
+    {
+        if (is_null($replace) && is_array($search)) {
+            $replace = array_values($search);
+            $search  = array_keys($search);
+        }
+
+        return str_replace($search, $replace, (string) $value);
     }
 
     /**
