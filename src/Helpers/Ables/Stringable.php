@@ -246,9 +246,9 @@ class Stringable implements Contract
      *
      * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
-    public function replace(array $values, ?string $key_format = null): self
+    public function replaceFormat(array $values, ?string $key_format = null): self
     {
-        return new self(Str::replace($this->value, $values, $key_format));
+        return new self(Str::replaceFormat($this->value, $values, $key_format));
     }
 
     /**
