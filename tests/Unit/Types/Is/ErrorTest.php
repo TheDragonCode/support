@@ -21,8 +21,8 @@ namespace Tests\Unit\Types\Is;
 
 use DragonCode\Support\Facades\Types\Is;
 use Exception;
-use Tests\Fixtures\Instances\Bar;
 use Tests\Fixtures\Instances\Bam;
+use Tests\Fixtures\Instances\Bar;
 use Tests\Fixtures\Instances\Foo;
 use Tests\TestCase;
 

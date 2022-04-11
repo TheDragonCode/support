@@ -21,9 +21,9 @@ namespace Tests\Unit\Helpers\Arr;
 
 use DragonCode\Support\Facades\Helpers\Arr;
 use Tests\Fixtures\Instances\Arrayable;
+use Tests\Fixtures\Instances\Bam;
 use Tests\Fixtures\Instances\Baq;
 use Tests\Fixtures\Instances\Bar;
-use Tests\Fixtures\Instances\Bam;
 use Tests\Fixtures\Instances\Foo;
 use Tests\TestCase;
 
