@@ -38,19 +38,9 @@ class Version
         return $this->is($version, 'lt');
     }
 
-    public function lessThan(string $version): bool
-    {
-        return $this->lt($version);
-    }
-
     public function lte(string $version): bool
     {
         return $this->is($version, 'le');
-    }
-
-    public function lessThanOrEqualTo(string $version): bool
-    {
-        return $this->lte($version);
     }
 
     public function gt(string $version): bool
@@ -58,39 +48,19 @@ class Version
         return $this->is($version, 'gt');
     }
 
-    public function greaterThan(string $version): bool
-    {
-        return $this->gt($version);
-    }
-
     public function gte(string $version): bool
     {
         return $this->is($version, 'ge');
     }
 
-    public function greaterThanOrEqualTo(string $version): bool
-    {
-        return $this->gte($version);
-    }
-
-    public function eq(string $version): bool
+    public function equalTo(string $version): bool
     {
         return $this->is($version, 'eq');
     }
 
-    public function equalTo(string $version): bool
-    {
-        return $this->eq($version);
-    }
-
-    public function ne(string $version): bool
-    {
-        return $this->is($version, 'ne');
-    }
-
     public function notEqualTo(string $version): bool
     {
-        return $this->ne($version);
+        return $this->is($version, 'ne');
     }
 
     protected function is(string $version, string $comparator): bool
