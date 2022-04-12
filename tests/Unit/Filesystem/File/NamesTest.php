@@ -27,7 +27,7 @@ class NamesTest extends TestCase
 {
     public function testNames()
     {
-        $available = ['.bar', '.beep', '.foo', '.gitkeep'];
+        $available = ['.bar', '.beep', '.foo', '.gitkeep', 'array.json', 'array.php'];
 
         $names = File::names($this->fixturesDirectory());
 
@@ -56,6 +56,8 @@ class NamesTest extends TestCase
             'Instances/Foo.php',
             'Instances/Map.php',
             'Instances/Psr.php',
+            'array.json',
+            'array.php',
             'stubs/custom.stub',
         ];
 
