@@ -24,7 +24,7 @@ use DragonCode\Contracts\Support\Arrayable;
 use DragonCode\Support\Facades\Callbacks\Empties;
 use DragonCode\Support\Facades\Callbacks\Sorter;
 use DragonCode\Support\Facades\Filesystem\File;
-use DragonCode\Support\Facades\Instances\Call as CallHelper;
+use DragonCode\Support\Facades\Instances\Call;
 use DragonCode\Support\Facades\Instances\Instance as InstanceHelper;
 use DragonCode\Support\Facades\Instances\Reflection as ReflectionHelper;
 use DragonCode\Support\Helpers\Ables\Arrayable as ArrayableHelper;
@@ -73,7 +73,7 @@ class Arr
         $result = [];
 
         foreach ($array as $key => $value) {
-            $new = $callback($key, $value);
+            $new = Call::callback($callback, $key, $value);
 
             $result[$new] = $value;
         }
@@ -320,7 +320,7 @@ class Arr
     public function resolve(mixed $value): array
     {
         if (InstanceHelper::of($value, [ArrayObject::class, ArrayableHelper::class])) {
-            $value = CallHelper::runMethods($value, ['getArrayCopy', 'get', 'resolve', 'toArray']);
+            $value = Call::runMethods($value, ['getArrayCopy', 'get', 'resolve', 'toArray']);
         }
 
         if (is_object($value)) {
@@ -615,7 +615,7 @@ class Arr
             if ($recursive && is_array($value)) {
                 $value = $this->map($value, $callback, $recursive);
             } else {
-                $value = is_array($value) ? $value : $callback($value, $key);
+                $value = is_array($value) ? $value : Call::callback($value, $key);
             }
         }
 
@@ -703,8 +703,8 @@ class Arr
      */
     public function tap(mixed $array, callable $callback): array
     {
-        foreach ($array as $key => &$value) {
-            $callback($value, $key);
+        foreach ($array as $key => $value) {
+            Call::callback($callback, $value, $key);
         }
 
         return $array;

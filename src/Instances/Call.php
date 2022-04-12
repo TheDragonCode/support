@@ -149,10 +149,18 @@ class Call
         return $when ? $this->run($class, $method, ...$parameters) : null;
     }
 
-    protected function callback(mixed $class, mixed ...$parameters): mixed
+    /**
+     * Getting the result of a callback.
+     *
+     * @param mixed $callback
+     * @param mixed ...$parameters
+     *
+     * @return mixed
+     */
+    public function callback(mixed $callback, mixed ...$parameters): mixed
     {
-        if (is_callable($class)) {
-            return $class(...$parameters);
+        if (is_callable($callback)) {
+            return $callback(...$parameters);
         }
 
         return null;

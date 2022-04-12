@@ -16,6 +16,8 @@
 
 namespace DragonCode\Support\Concerns;
 
+use DragonCode\Support\Facades\Instances\Call;
+
 trait Resolvable
 {
     protected static array $resolved = [];
@@ -39,7 +41,7 @@ trait Resolvable
             return static::$resolved[$class][$value];
         }
 
-        return static::$resolved[$class][$value] = $callback($value);
+        return static::$resolved[$class][$value] = Call::callback($callback, $value);
     }
 
     protected static function resolveInstanceClass(object|string $instance): string

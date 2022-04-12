@@ -21,11 +21,13 @@ use DragonCode\Support\Facades\Facade;
 use DragonCode\Support\Instances\Call as Helper;
 
 /**
- * @method static mixed|null run(mixed $class, string $method, ...$parameters)
- * @method static mixed|null runExists(mixed $class, string $method, ...$parameters)
- * @method static mixed|null runMethods($class, $methods, ...$parameters)
- * @method static mixed|null runOf(array $map, $value, ...$parameters)
- * @method static mixed|null when(bool $when, mixed $class, string $method, ...$parameters)
+ * @method static mixed callback(mixed $callback, mixed ...$parameters)
+ * @method static mixed run(mixed $class, string $method, ...$parameters)
+ * @method static mixed runExists(mixed $class, string $method, ...$parameters)
+ * @method static mixed runMethods($class, $methods, ...$parameters)
+ * @method static mixed runOf(array $map, $value, ...$parameters)
+ * @method static mixed value(mixed $callback, array $parameters = [], mixed $default = null)
+ * @method static mixed when(bool $when, mixed $class, string $method, ...$parameters)
  */
 class Call extends Facade
 {
