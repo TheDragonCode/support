@@ -724,4 +724,23 @@ class Str
     {
         return Call::callback($callback, $value);
     }
+
+    /**
+     * Get the portion of a string between two given values.
+     *
+     * @param string|null $value
+     * @param mixed $from
+     * @param mixed $to
+     * @param bool $trim
+     *
+     * @return string
+     */
+    public function between(?string $value, mixed $from, mixed $to, bool $trim = true): string
+    {
+        return $this->of($value)
+            ->before($to)
+            ->after($from)
+            ->when($trim, static fn ($value) => trim($value))
+            ->toString();
+    }
 }
