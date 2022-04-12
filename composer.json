@@ -39,7 +39,9 @@
     },
     "require-dev": {
         "illuminate/contracts": "^9.7",
+        "phpdocumentor/reflection-docblock": "^5.3",
         "phpunit/phpunit": "^9.5",
+        "symfony/console": "^6.0",
         "symfony/var-dumper": "^6.0"
     },
     "conflict": {
@@ -58,6 +60,7 @@
     },
     "autoload-dev": {
         "psr-4": {
+            "DragonCode\\SupportDev\\": "app",
             "Tests\\": "tests"
         }
     },

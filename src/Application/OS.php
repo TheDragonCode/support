@@ -24,41 +24,81 @@ use DragonCode\Support\Facades\Helpers\Str;
  */
 class OS
 {
+    /**
+     * Determines if a system is of type Unix.
+     *
+     * @return bool
+     */
     public function isUnix(): bool
     {
         return ! $this->isWindows() && ! $this->isUnknown();
     }
 
+    /**
+     * Determines if a system is of type Windows.
+     *
+     * @return bool
+     */
     public function isWindows(): bool
     {
         return $this->family() === 'windows';
     }
 
+    /**
+     * Determines if a system is of type BSD.
+     *
+     * @return bool
+     */
     public function isBSD(): bool
     {
         return $this->family() === 'bsd';
     }
 
+    /**
+     * Determines if a system is of type Darwin.
+     *
+     * @return bool
+     */
     public function isDarwin(): bool
     {
         return $this->family() === 'darwin';
     }
 
+    /**
+     * Determines if a system is of type Solaris.
+     *
+     * @return bool
+     */
     public function isSolaris(): bool
     {
         return $this->family() === 'solaris';
     }
 
+    /**
+     * Determines if a system is of type Linux.
+     *
+     * @return bool
+     */
     public function isLinux(): bool
     {
         return $this->family() === 'linux';
     }
 
+    /**
+     * Determines if the current operating system is unknown.
+     *
+     * @return bool
+     */
     public function isUnknown(): bool
     {
         return $this->family() === 'unknown';
     }
 
+    /**
+     * Determines the operating system family.
+     *
+     * @return bool
+     */
     public function family(): string
     {
         return Str::lower(PHP_OS_FAMILY);
