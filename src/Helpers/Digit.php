@@ -17,6 +17,7 @@
 
 namespace DragonCode\Support\Helpers;
 
+use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\Support\Facades\Helpers\Str as StrHelper;
 
 class Digit
@@ -86,13 +87,13 @@ class Digit
     /**
      * Format a number with grouped with divider.
      *
-     * @param float $number
+     * @param float|int $number
      * @param int $length
      * @param int $precision
      *
      * @return float
      */
-    public function rounded(float $number, int $length = 4, int $precision = 1): float
+    public function rounded(float|int $number, int $length = 4, int $precision = 1): float
     {
         $divided = (float) bcpow(10, $length - 4, 2);
 
@@ -106,7 +107,7 @@ class Digit
      *
      * @return string
      */
-    public function toString(float $value): string
+    public function toString(float|int $value): string
     {
         return (string) $value;
     }
@@ -121,6 +122,6 @@ class Digit
             16 => 'T+',
         ];
 
-        return $available[$length] ?? end($available);
+        return $available[$length] ?? Arr::last($available);
     }
 }
