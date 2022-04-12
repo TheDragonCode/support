@@ -19,7 +19,8 @@ namespace DragonCode\Support\Filesystem;
 
 use DirectoryIterator;
 use DragonCode\Support\Exceptions\FileNotFoundException;
-use DragonCode\Support\Facades\Filesystem\Directory as DirectoryHelper;
+use DragonCode\Support\Facades\Filesystem\Directory;
+use DragonCode\Support\Facades\Filesystem\Path;
 use DragonCode\Support\Facades\Helpers\Str;
 use DragonCode\Support\Facades\Instances\Instance;
 use SplFileInfo;
@@ -40,7 +41,7 @@ class File
         $items = [];
 
         /** @var DirectoryIterator $item */
-        foreach (DirectoryHelper::all($path) as $item) {
+        foreach (Directory::all($path) as $item) {
             if ($item->isFile()) {
                 $name = $item->getFilename();
 
@@ -76,7 +77,7 @@ class File
      */
     public function store(string $path, string $content, int $mode = 0755): string
     {
-        DirectoryHelper::ensureDirectory(pathinfo($path, PATHINFO_DIRNAME), $mode);
+        Directory::ensureDirectory(Path::dirname($path), $mode);
 
         file_put_contents($path, $content);
 
@@ -94,7 +95,7 @@ class File
      */
     public function copy(string $source, string $target, int $mode = 0755): void
     {
-        DirectoryHelper::ensureDirectory(pathinfo($target, PATHINFO_DIRNAME), $mode);
+        Directory::ensureDirectory(Path::dirname($target), $mode);
 
         if ($this->exists($target)) {
             $this->delete($target);
@@ -114,7 +115,7 @@ class File
      */
     public function move(string $source, string $target, int $mode = 0755): void
     {
-        DirectoryHelper::ensureDirectory(pathinfo($target, PATHINFO_DIRNAME), $mode);
+        Directory::ensureDirectory(Path::dirname($target), $mode);
 
         if ($this->exists($target)) {
             $this->delete($target);
