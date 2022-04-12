@@ -89,6 +89,8 @@ class File
      * @param string $source
      * @param string $target
      * @param int $mode
+     *
+     * @throws \DragonCode\Support\Exceptions\FileNotFoundException
      */
     public function copy(string $source, string $target, int $mode = 0755): void
     {
@@ -107,6 +109,8 @@ class File
      * @param string $source
      * @param string $target
      * @param int $mode
+     *
+     * @throws \DragonCode\Support\Exceptions\FileNotFoundException
      */
     public function move(string $source, string $target, int $mode = 0755): void
     {
