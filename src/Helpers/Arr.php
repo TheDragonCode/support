@@ -34,7 +34,7 @@ class Arr
     /**
      * Get a new arrayable object from the given array.
      *
-     * @param \ArrayObject|array|null $value
+     * @param ArrayObject|array|null $value
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
@@ -48,7 +48,7 @@ class Arr
      * As the second parameter, a callback function is passed, which determines the actions for processing the value.
      * The output of the function must be a string with a name.
      *
-     * @param \ArrayObject|array|null $array $array
+     * @param ArrayObject|array|null $array $array
      * @param callable $callback
      *
      * @return array
@@ -69,7 +69,7 @@ class Arr
     /**
      * Renaming array keys with map.
      *
-     * @param \ArrayObject|array|null $array $array
+     * @param ArrayObject|array|null $array $array
      * @param array $map
      *
      * @return array
@@ -82,7 +82,7 @@ class Arr
     /**
      * Get the size of the longest text element of the array.
      *
-     * @param \ArrayObject|array|null $array $array
+     * @param ArrayObject|array|null $array $array
      *
      * @return int
      */
@@ -94,7 +94,7 @@ class Arr
     /**
      * Push one a unique element onto the end of array.
      *
-     * @param \ArrayObject|array $array $array
+     * @param ArrayObject|array $array $array
      * @param mixed $values
      *
      * @return array
@@ -123,7 +123,7 @@ class Arr
      *
      * @see https://php.net/manual/en/function.array-unique.php
      *
-     * @param \ArrayObject|array $array $array
+     * @param ArrayObject|array $array $array
      * @param int $flags
      *
      * @return array
@@ -154,7 +154,7 @@ class Arr
      *
      * @see https://gist.github.com/Ellrion/a3145621f936aa9416f4c04987533d8d#file-helper-php
      *
-     * @param \ArrayObject|array $array $array
+     * @param ArrayObject|array $array $array
      * @param array $sorter
      *
      * @return array
@@ -169,7 +169,7 @@ class Arr
     /**
      * Recursively sorting an array by values.
      *
-     * @param \ArrayObject|array $array $array
+     * @param ArrayObject|array $array $array
      * @param callable|null $callback
      *
      * @return array
@@ -192,7 +192,7 @@ class Arr
     /**
      * Recursively sorting an array by keys.
      *
-     * @param \ArrayObject|array $array $array
+     * @param ArrayObject|array $array $array
      * @param callable|null $callback
      *
      * @return array
