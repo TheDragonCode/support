@@ -58,6 +58,7 @@ use DragonCode\Support\Helpers\Arr as Helper;
  * @method static bool isArrayable($value = null)
  * @method static bool isEmpty($value)
  * @method static int longestStringLength(array $array)
+ * @method static mixed first(iterable $array, ?callable $callback = null, mixed $default = null)
  * @method static mixed get(array|ArrayAccess $array, $key, $default = null)
  * @method static mixed getKey(array|ArrayAccess $array, $key, $default = null)
  */

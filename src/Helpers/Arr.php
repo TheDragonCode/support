@@ -786,4 +786,34 @@ class Arr
     {
         return array_reverse($array, $preserve_keys);
     }
+
+    /**
+     * Return the first element in an array passing a given truth test.
+     *
+     * @param iterable $array
+     * @param callable|null $callback
+     * @param mixed|null $default
+     *
+     * @return mixed
+     */
+    public function first(iterable $array, ?callable $callback = null, mixed $default = null): mixed
+    {
+        if (is_null($callback)) {
+            if (empty($array)) {
+                return Call::value($default);
+            }
+
+            foreach ($array as $item) {
+                return $item;
+            }
+        }
+
+        foreach ($array as $key => $value) {
+            if (Call::callback($callback, $value, $key)) {
+                return $value;
+            }
+        }
+
+        return Call::value($default);
+    }
 }
