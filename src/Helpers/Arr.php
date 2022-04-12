@@ -828,4 +828,21 @@ class Arr
 
         return $this->first(array_reverse($array, true), $callback, $default);
     }
+
+    /**
+     * Remove a portion of the array and replace it with something else.
+     *
+     * @see https://php.net/manual/en/function.array-splice.php
+     *
+     * @param array $array
+     * @param int $offset
+     * @param int|null $length
+     * @param mixed $replacement
+     *
+     * @return array
+     */
+    public function splice(array $array, int $offset, ?int $length = null, mixed $replacement = null): array
+    {
+        return array_splice($array, $offset, $length, $replacement);
+    }
 }

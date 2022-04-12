@@ -421,4 +421,20 @@ class Arrayable implements ArrayableContract
     {
         return new self(Arr::reverse($this->value, $preserve));
     }
+
+    /**
+     * Remove a portion of the array and replace it with something else.
+     *
+     * @see https://php.net/manual/en/function.array-splice.php
+     *
+     * @param int $offset
+     * @param int|null $length
+     * @param mixed $replacement
+     *
+     * @return $this
+     */
+    public function splice(int $offset, ?int $length = null, mixed $replacement = null): self
+    {
+        return new self(Arr::splice($this->value, $offset, $length, $replacement));
+    }
 }
