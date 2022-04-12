@@ -23,13 +23,10 @@ use Closure;
 use DragonCode\Contracts\Support\Arrayable;
 use DragonCode\Support\Facades\Callbacks\Empties;
 use DragonCode\Support\Facades\Callbacks\Sorter;
-use DragonCode\Support\Facades\Filesystem\File;
 use DragonCode\Support\Facades\Instances\Call as CallHelper;
 use DragonCode\Support\Facades\Instances\Instance as InstanceHelper;
 use DragonCode\Support\Facades\Instances\Reflection as ReflectionHelper;
-use DragonCode\Support\Facades\Tools\Stub;
 use DragonCode\Support\Helpers\Ables\Arrayable as ArrayableHelper;
-use DragonCode\Support\Tools\Stub as StubTool;
 use Illuminate\Contracts\Support\Arrayable as ArrayableIlluminate;
 
 class Arr
@@ -37,7 +34,7 @@ class Arr
     /**
      * Get a new arrayable object from the given array.
      *
-     * @param array|ArrayAccess|string|null $value
+     * @param \ArrayObject|array|null $value
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
@@ -51,7 +48,7 @@ class Arr
      * As the second parameter, a callback function is passed, which determines the actions for processing the value.
      * The output of the function must be a string with a name.
      *
-     * @param array $array
+     * @param \ArrayObject|array|null $array $array
      * @param callable $callback
      *
      * @return array
@@ -72,7 +69,7 @@ class Arr
     /**
      * Renaming array keys with map.
      *
-     * @param array $array
+     * @param \ArrayObject|array|null $array $array
      * @param array $map
      *
      * @return array
@@ -85,7 +82,7 @@ class Arr
     /**
      * Get the size of the longest text element of the array.
      *
-     * @param array $array
+     * @param \ArrayObject|array|null $array $array
      *
      * @return int
      */
@@ -97,7 +94,7 @@ class Arr
     /**
      * Push one a unique element onto the end of array.
      *
-     * @param array $array
+     * @param \ArrayObject|array $array $array
      * @param mixed $values
      *
      * @return array
@@ -126,7 +123,7 @@ class Arr
      *
      * @see https://php.net/manual/en/function.array-unique.php
      *
-     * @param array $array
+     * @param \ArrayObject|array $array $array
      * @param int $flags
      *
      * @return array
@@ -157,7 +154,7 @@ class Arr
      *
      * @see https://gist.github.com/Ellrion/a3145621f936aa9416f4c04987533d8d#file-helper-php
      *
-     * @param array $array
+     * @param \ArrayObject|array $array $array
      * @param array $sorter
      *
      * @return array
@@ -172,7 +169,7 @@ class Arr
     /**
      * Recursively sorting an array by values.
      *
-     * @param array $array
+     * @param \ArrayObject|array $array $array
      * @param callable|null $callback
      *
      * @return array
@@ -195,7 +192,7 @@ class Arr
     /**
      * Recursively sorting an array by keys.
      *
-     * @param array $array
+     * @param \ArrayObject|array $array $array
      * @param callable|null $callback
      *
      * @return array
@@ -249,7 +246,7 @@ class Arr
     /**
      * Combining arrays without preserving keys.
      *
-     * @param ...$arrays
+     * @param array ...$arrays
      *
      * @return array
      */
@@ -773,70 +770,5 @@ class Arr
     public function reverse(array $array, bool $preserve_keys = false): array
     {
         return array_reverse($array, $preserve_keys);
-    }
-
-    /**
-     * Save array to php or json file.
-     *
-     * @param array|ArrayAccess $array
-     * @param string $path
-     * @param bool $is_json
-     * @param bool $sort_keys
-     * @param int $json_flags
-     */
-    public function store(ArrayAccess|array $array, string $path, bool $is_json = false, bool $sort_keys = false, int $json_flags = 0): void
-    {
-        $is_json
-            ? $this->storeAsJson($path, $array, $sort_keys, $json_flags)
-            : $this->storeAsArray($path, $array, $sort_keys);
-    }
-
-    /**
-     * Save array to json file.
-     *
-     * @param string $path
-     * @param array|ArrayAccess $array
-     * @param bool $sort_keys
-     * @param int $flags
-     */
-    public function storeAsJson(string $path, ArrayAccess|array $array, bool $sort_keys = false, int $flags = 0): void
-    {
-        $this->prepareToStore($path, StubTool::JSON, $array, static fn (array $array) => json_encode($array, $flags), $sort_keys);
-    }
-
-    /**
-     * Save array to php file.
-     *
-     * @param string $path
-     * @param array|ArrayAccess $array
-     * @param bool $sort_keys
-     */
-    public function storeAsArray(string $path, ArrayAccess|array $array, bool $sort_keys = false): void
-    {
-        $this->prepareToStore($path, StubTool::PHP_ARRAY, $array, static fn (array $array) => var_export($array, true), $sort_keys);
-    }
-
-    /**
-     * Prepare an array for writing to a file.
-     *
-     * @param string $path
-     * @param string $stub
-     * @param ArrayAccess|array $array
-     * @param callable $replace
-     * @param bool $sort_keys
-     */
-    protected function prepareToStore(string $path, string $stub, ArrayAccess|array $array, callable $replace, bool $sort_keys = false): void
-    {
-        $array = (array) $array;
-
-        if ($sort_keys) {
-            $this->ksort($array);
-        }
-
-        $content = Stub::replace($stub, [
-            '{{slot}}' => $replace($array),
-        ]);
-
-        File::store($path, $content);
     }
 }
