@@ -38,4 +38,14 @@ class IsTest extends Base
         $this->assertFalse(Url::is('://foo.bar'));
         $this->assertFalse(Url::is('//example.com'));
     }
+
+    public function testDynamicParams()
+    {
+        $this->assertTrue(Url::is('https://localhost?param=%s'));
+
+        $this->assertTrue(Url::is('https://localhost?' . http_build_query([
+                'param' => '%s',
+                'arr'   => ['foo', 'bar'],
+            ])));
+    }
 }
