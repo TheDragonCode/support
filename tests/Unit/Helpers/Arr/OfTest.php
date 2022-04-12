@@ -39,6 +39,17 @@ class OfTest extends TestCase
         $this->assertInstanceOf(Arrayable::class, Arr::of([]));
     }
 
+    public function testGet()
+    {
+        $source = ['foo' => 'Foo'];
+
+        $this->assertSame('Foo', Arr::of($source)->get('foo'));
+        $this->assertNull(Arr::of($source)->get('bar'));
+
+        $this->assertSame('bar', Arr::of($source)->get('qwe', 'bar'));
+        $this->assertSame('bar', Arr::of($source)->get('qwe', fn () => 'bar'));
+    }
+
     public function testStringGiven()
     {
         $this->expectException(TypeError::class);

@@ -320,7 +320,7 @@ class Arr
     public function resolve(mixed $value): array
     {
         if (InstanceHelper::of($value, [ArrayObject::class, ArrayableHelper::class])) {
-            $value = Call::runMethods($value, ['getArrayCopy', 'get', 'resolve', 'toArray']);
+            $value = Call::runMethods($value, ['getArrayCopy', 'resolve', 'toArray']);
         }
 
         if (is_object($value)) {
@@ -396,7 +396,7 @@ class Arr
     public function get(mixed $array, mixed $key, mixed $default = null): mixed
     {
         if (! $this->isArrayable($array)) {
-            return $default;
+            return Call::value($default);
         }
 
         if (is_null($key)) {
@@ -408,14 +408,14 @@ class Arr
         }
 
         if (! str_contains((string) $key, '.')) {
-            return $array[$key] ?? $default;
+            return $array[$key] ?? Call::value($default);
         }
 
         foreach (explode('.', $key) as $segment) {
             if ($this->isArrayable($array) && $this->existsWithoutDot($array, $segment)) {
                 $array = $array[$segment];
             } else {
-                return $default;
+                return Call::value($default);
             }
         }
 
@@ -814,7 +814,7 @@ class Arr
     /**
      * Return the last element in an array passing a given truth test.
      *
-     * @param iterable $array
+     * @param array $array
      * @param callable|null $callback
      * @param mixed|null $default
      *

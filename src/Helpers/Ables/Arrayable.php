@@ -210,6 +210,19 @@ class Arrayable implements ArrayableContract
     }
 
     /**
+     * Get an item from an array.
+     *
+     * @param mixed $key
+     * @param mixed|null $default
+     *
+     * @return mixed
+     */
+    public function get(mixed $key, mixed $default = null): mixed
+    {
+        return Arr::get($this->value, $key, $default);
+    }
+
+    /**
      * Get all of the given array except for a specified array of keys.
      *
      * @param array|callable|string $keys
