@@ -61,6 +61,7 @@ use DragonCode\Support\Helpers\Arr as Helper;
  * @method static mixed first(iterable $array, ?callable $callback = null, mixed $default = null)
  * @method static mixed get(array|ArrayAccess $array, $key, $default = null)
  * @method static mixed getKey(array|ArrayAccess $array, $key, $default = null)
+ * @method static mixed last(array $array, ?callable $callback = null, mixed $default = null)
  */
 class Arr extends Facade
 {

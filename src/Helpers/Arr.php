@@ -790,22 +790,16 @@ class Arr
     /**
      * Return the first element in an array passing a given truth test.
      *
-     * @param iterable $array
+     * @param array $array
      * @param callable|null $callback
      * @param mixed|null $default
      *
      * @return mixed
      */
-    public function first(iterable $array, ?callable $callback = null, mixed $default = null): mixed
+    public function first(array $array, ?callable $callback = null, mixed $default = null): mixed
     {
         if (is_null($callback)) {
-            if (empty($array)) {
-                return Call::value($default);
-            }
-
-            foreach ($array as $item) {
-                return $item;
-            }
+            return empty($array) ? Call::value($default) : reset($array);
         }
 
         foreach ($array as $key => $value) {
@@ -815,5 +809,23 @@ class Arr
         }
 
         return Call::value($default);
+    }
+
+    /**
+     * Return the last element in an array passing a given truth test.
+     *
+     * @param iterable $array
+     * @param callable|null $callback
+     * @param mixed|null $default
+     *
+     * @return mixed
+     */
+    public function last(array $array, ?callable $callback = null, mixed $default = null): mixed
+    {
+        if (is_null($callback)) {
+            return empty($array) ? Call::value($default) : end($array);
+        }
+
+        return $this->first(array_reverse($array, true), $callback, $default);
     }
 }
