@@ -48,18 +48,19 @@ class Arrayable implements ArrayableContract
      *
      * @param mixed $condition
      * @param callable $callback
+     * @param mixed|null $default
      *
      * @return $this
      */
-    public function when(mixed $condition, callable $callback): self
+    public function when(mixed $condition, callable $callback, mixed $default = null): self
     {
-        if (Call::value($condition)) {
-            $value = Call::callback($callback, $this);
+        if (Call::value($condition, $this)) {
+            $value = Call::value($callback, $this);
 
             return new self($value);
         }
 
-        return $this;
+        return ! is_null($default) ? $this->when(true, $default) : $this;
     }
 
     /**
