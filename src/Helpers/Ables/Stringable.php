@@ -21,6 +21,7 @@ use DragonCode\Contracts\Support\Stringable as Contract;
 use DragonCode\Support\Concerns\Dumpable;
 use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\Support\Facades\Helpers\Str;
+use DragonCode\Support\Facades\Instances\Call;
 use JetBrains\PhpStorm\Pure;
 
 class Stringable implements Contract
@@ -45,6 +46,25 @@ class Stringable implements Contract
     public function of(?string $value = null): self
     {
         $this->value = (string) $value;
+
+        return $this;
+    }
+
+    /**
+     * Performing an action on a condition.
+     *
+     * @param mixed $condition
+     * @param callable $callback
+     *
+     * @return $this
+     */
+    public function when(mixed $condition, callable $callback): self
+    {
+        if (Call::value($condition)) {
+            $value = Call::callback($callback, $this->value);
+
+            return new self($value);
+        }
 
         return $this;
     }
