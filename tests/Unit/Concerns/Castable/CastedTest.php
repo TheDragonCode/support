@@ -29,6 +29,7 @@ class CastedTest extends TestCase
     public array $casts = [
         'q2' => 'integer',
         'q3' => 'integer',
+        'q7' => 'string',
     ];
 
     public function testDefault()
@@ -40,6 +41,7 @@ class CastedTest extends TestCase
             'q4' => null,
             'q5' => [],
             'q6' => '',
+            'q7' => 123,
         ];
 
         $expected = [
@@ -49,6 +51,7 @@ class CastedTest extends TestCase
             'q4' => null,
             'q5' => [],
             'q6' => '',
+            'q7' => '123',
         ];
 
         $this->cast($source);

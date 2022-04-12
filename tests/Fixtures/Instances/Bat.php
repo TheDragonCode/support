@@ -17,10 +17,13 @@
 
 namespace Tests\Fixtures\Instances;
 
+use DragonCode\Support\Concerns\Makeable;
 use Tests\Fixtures\Contracts\Contract;
 
 class Bat implements Contract
 {
+    use Makeable;
+
     public function __construct(
         public ?string $foo = null,
         public ?string $bar = null

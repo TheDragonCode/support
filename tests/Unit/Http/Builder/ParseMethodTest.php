@@ -17,6 +17,7 @@
 namespace Tests\Unit\Http\Builder;
 
 use DragonCode\Support\Exceptions\NotValidUrlException;
+use DragonCode\Support\Exceptions\UnknownUrlComponentIndexException;
 use DragonCode\Support\Facades\Http\Builder;
 
 class ParseMethodTest extends Base
@@ -174,5 +175,13 @@ class ParseMethodTest extends Base
         $this->expectExceptionMessage('Empty string is not a valid URL.');
 
         Builder::parse(null);
+    }
+
+    public function testUnknownComponent()
+    {
+        $this->expectException(UnknownUrlComponentIndexException::class);
+        $this->expectExceptionMessage('Unknown URL component index: 9999');
+
+        Builder::parse($this->test_url, 9999);
     }
 }

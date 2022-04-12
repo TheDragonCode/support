@@ -24,6 +24,7 @@ use DragonCode\Support\Exceptions\UnknownUrlComponentIndexException;
 use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\Support\Facades\Helpers\Str;
 use DragonCode\Support\Facades\Http\Url as UrlHelper;
+use JetBrains\PhpStorm\Pure;
 use Psr\Http\Message\UriInterface;
 
 class Builder implements BuilderContract
@@ -612,6 +613,7 @@ class Builder implements BuilderContract
         ];
     }
 
+    #[Pure]
     protected function resolveSame(int $component = self::PHP_URL_ALL): self
     {
         return $component === self::PHP_URL_ALL ? new self() : $this;
