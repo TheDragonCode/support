@@ -18,7 +18,7 @@
 namespace DragonCode\Support\Instances;
 
 use Closure;
-use DragonCode\Support\Facades\Helpers\Arr as ArrHelper;
+use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\Support\Facades\Instances\Instance as InstanceHelper;
 use DragonCode\Support\Facades\Instances\Reflection as ReflectionHelper;
 use DragonCode\Support\Facades\Types\Is as IsHelper;
@@ -99,7 +99,7 @@ class Call
             return $value;
         }
 
-        foreach (ArrHelper::wrap($methods) as $method) {
+        foreach (Arr::wrap($methods) as $method) {
             if ($value = $this->runExists($class, $method, ...$parameters)) {
                 return $value;
             }
@@ -164,6 +164,21 @@ class Call
         }
 
         return null;
+    }
+
+    /**
+     * Execute a callback or return a value.
+     *
+     * @param mixed $callback
+     * @param array $parameters
+     *
+     * @return mixed
+     */
+    public function value(mixed $callback, mixed $parameters = []): mixed
+    {
+        $parameters = Arr::wrap($parameters);
+
+        return is_callable($callback) ? $callback(...$parameters) : $callback;
     }
 
     protected function resolve(object|callable|string $class): object
