@@ -28,6 +28,9 @@ class ExtensionTest extends TestCase
     {
         $this->assertSame('jpg', Path::extension('/foo/bar/qwe/rty.jpg'));
 
+        $this->assertSame('jpg', Path::extension('/foo/bar/qwe/rty.JPG'));
+        $this->assertSame('jpg', Path::extension('/foo/bar/qwe/rty.JpG'));
+
         $this->assertSame('php', Path::extension(__FILE__));
     }
 }

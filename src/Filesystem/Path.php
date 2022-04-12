@@ -2,6 +2,8 @@
 
 namespace DragonCode\Support\Filesystem;
 
+use DragonCode\Support\Facades\Helpers\Str;
+
 class Path
 {
     public function dirname(string $path): string
@@ -16,7 +18,7 @@ class Path
 
     public function extension(string $path): string
     {
-        return pathinfo($path, PATHINFO_EXTENSION);
+        return Str::lower(pathinfo($path, PATHINFO_EXTENSION));
     }
 
     public function filename(string $path): string
