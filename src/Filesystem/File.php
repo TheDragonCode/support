@@ -23,6 +23,7 @@ use DragonCode\Support\Exceptions\UnhandledFileExtensionException;
 use DragonCode\Support\Facades\Filesystem\Directory;
 use DragonCode\Support\Facades\Filesystem\Path;
 use DragonCode\Support\Facades\Helpers\Str;
+use DragonCode\Support\Facades\Instances\Call;
 use DragonCode\Support\Facades\Instances\Instance;
 use SplFileInfo;
 
@@ -46,7 +47,7 @@ class File
             if ($item->isFile()) {
                 $name = $item->getFilename();
 
-                if (! is_callable($callback) || $callback($name)) {
+                if (! is_callable($callback) || Call::callback($callback, $name)) {
                     $items[] = $name;
                 }
             }

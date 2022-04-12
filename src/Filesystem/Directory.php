@@ -21,6 +21,7 @@ use DirectoryIterator;
 use DragonCode\Support\Exceptions\DirectoryNotFoundException;
 use DragonCode\Support\Facades\Filesystem\File as FileHelper;
 use DragonCode\Support\Facades\Helpers\Str;
+use DragonCode\Support\Facades\Instances\Call;
 use DragonCode\Support\Facades\Instances\Instance;
 use FilesystemIterator;
 use SplFileInfo;
@@ -65,7 +66,7 @@ class Directory
             if ($directory->isDir() && ! $directory->isDot()) {
                 $name = $directory->getFilename();
 
-                if (! is_callable($callback) || $callback($name)) {
+                if (! is_callable($callback) || Call::callback($callback, $name)) {
                     $items[] = $name;
                 }
             }
