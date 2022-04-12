@@ -318,7 +318,7 @@ class Stringable implements Contract
      */
     public function trim(string $characters = " \t\n\r\0\x0B"): self
     {
-        return new self(trim($this->value, $characters));
+        return new self(trim((string) $this->value, $characters));
     }
 
     /**
