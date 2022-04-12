@@ -48,6 +48,7 @@ use DragonCode\Support\Helpers\Arr as Helper;
  * @method static array set(array|ArrayAccess $array, array|mixed $key, mixed $value = null)
  * @method static array sort(array $array, callable $callback = null)
  * @method static array sortByKeys(array $array, array $sorter)
+ * @method static array splice(array $array, int $offset, ?int $length = null, mixed $replacement = null)
  * @method static array tap(array|ArrayAccess $array, callable $callback)
  * @method static array unique(array $array, int $flags = SORT_STRING)
  * @method static array values($array)
