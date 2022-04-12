@@ -36,9 +36,9 @@ trait Validation
         }
     }
 
-    protected function validateNeedles($values): array
+    protected function validateNeedles(mixed $values): array
     {
-        return Arr::map($values, static fn ($value) => Str::lower($value));
+        return Arr::map((array) $values, static fn ($value) => Str::lower($value));
     }
 
     protected function validateGetType($haystack): string
