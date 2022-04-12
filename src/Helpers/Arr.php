@@ -23,6 +23,7 @@ use Closure;
 use DragonCode\Contracts\Support\Arrayable;
 use DragonCode\Support\Facades\Callbacks\Empties;
 use DragonCode\Support\Facades\Callbacks\Sorter;
+use DragonCode\Support\Facades\Filesystem\File;
 use DragonCode\Support\Facades\Instances\Call as CallHelper;
 use DragonCode\Support\Facades\Instances\Instance as InstanceHelper;
 use DragonCode\Support\Facades\Instances\Reflection as ReflectionHelper;
@@ -41,6 +42,20 @@ class Arr
     public function of(ArrayObject|array|null $value = []): Ables\Arrayable
     {
         return new Ables\Arrayable($value);
+    }
+
+    /**
+     * Get a new arrayable object from the given array from the php or json array file.
+     *
+     * @param string $path
+     *
+     * @return \DragonCode\Support\Helpers\Ables\Arrayable
+     */
+    public function ofFile(string $path): Ables\Arrayable
+    {
+        $content = File::load($path);
+
+        return $this->of($content);
     }
 
     /**
