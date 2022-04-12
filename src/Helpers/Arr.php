@@ -843,6 +843,8 @@ class Arr
      */
     public function splice(array $array, int $offset, ?int $length = null, mixed $replacement = null): array
     {
-        return array_splice($array, $offset, $length, $replacement);
+        array_splice($array, $offset, $length, $replacement);
+
+        return $array;
     }
 }
