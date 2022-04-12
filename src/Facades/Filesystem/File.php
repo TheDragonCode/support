@@ -23,6 +23,7 @@ use DragonCode\Support\Filesystem\File as Helper;
 use SplFileInfo;
 
 /**
+ * @method static array load(string $path)
  * @method static array names(string $path, callable|null $callback = null, bool $recursive = false)
  * @method static bool exists(string $path)
  * @method static bool isFile(DirectoryIterator|SplFileInfo|string $value)

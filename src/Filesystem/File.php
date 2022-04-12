@@ -19,6 +19,7 @@ namespace DragonCode\Support\Filesystem;
 
 use DirectoryIterator;
 use DragonCode\Support\Exceptions\FileNotFoundException;
+use DragonCode\Support\Exceptions\UnhandledFileExtensionException;
 use DragonCode\Support\Facades\Filesystem\Directory;
 use DragonCode\Support\Facades\Filesystem\Path;
 use DragonCode\Support\Facades\Helpers\Str;
@@ -82,6 +83,28 @@ class File
         file_put_contents($path, $content);
 
         return realpath($path);
+    }
+
+    /**
+     * Load content from the file.
+     *
+     * @param string $path
+     *
+     * @throws \DragonCode\Support\Exceptions\FileNotFoundException
+     *
+     * @return array
+     */
+    public function load(string $path): array
+    {
+        if (! $this->exists($path)) {
+            throw new FileNotFoundException($path);
+        }
+
+        return match (Path::extension($path)) {
+            'php'   => require $path,
+            'json'  => json_decode(file_get_contents($path), true),
+            default => throw new UnhandledFileExtensionException($path)
+        };
     }
 
     /**
