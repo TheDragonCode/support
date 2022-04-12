@@ -24,6 +24,7 @@ use DragonCode\Support\Exceptions\UnknownUrlComponentIndexException;
 use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\Support\Facades\Helpers\Str;
 use DragonCode\Support\Facades\Http\Url as UrlHelper;
+use DragonCode\Support\Helpers\Ables\Stringable;
 use JetBrains\PhpStorm\Pure;
 use Psr\Http\Message\UriInterface;
 
@@ -145,11 +146,10 @@ class Builder implements BuilderContract
      */
     public function getDomainLevel(int $level = 0): string
     {
-        $host = explode('.', $this->getHost());
-
-        $reverse = Arr::reverse($host);
-
-        return $reverse[$level - 1] ?? '';
+        return Str::of($this->getHost())
+            ->explode('.')
+            ->reverse()
+            ->get($level - 1, '');
     }
 
     /**
@@ -176,15 +176,14 @@ class Builder implements BuilderContract
      */
     public function getSubDomain(): string
     {
-        if (Str::count($this->getHost(), '.') > 1) {
-            $host = explode('.', $this->getHost());
-
-            array_splice($host, -2);
-
-            return implode('.', $host);
-        }
-
-        return '';
+        return Str::of($this->getHost())
+            ->when(
+                fn ($host)              => Str::count($host, '.') > 1,
+                fn (Stringable $string) => $string
+                    ->explode('.')
+                    ->splice(-2)
+                    ->implode('.')
+            )->toString();
     }
 
     /**
@@ -194,10 +193,11 @@ class Builder implements BuilderContract
      */
     public function getBaseUrl(): string
     {
-        $schema = $this->getScheme();
-        $host   = $this->getHost();
-
-        return (string) Str::of("$schema://$host")->trim('://');
+        return Str::of('://')
+            ->prepend($this->getScheme())
+            ->append($this->getHost())
+            ->trim('://')
+            ->toString();
     }
 
     /**
@@ -286,9 +286,14 @@ class Builder implements BuilderContract
     {
         $value = $this->get(PHP_URL_PATH);
 
-        $path = (string) Str::of($value)->trim('/')->start('/');
-
-        return $path !== '/' ? $path : '';
+        return Str::of($value)
+            ->trim('/')
+            ->start('/')
+            ->when(
+                fn (Stringable $path) => $path->toString() !== '/',
+                fn (Stringable $path) => $path,
+                ''
+            );
     }
 
     /**
@@ -530,14 +535,12 @@ class Builder implements BuilderContract
      */
     public function toUrl(): string
     {
-        $items = Arr::of($this->prepare())
-            ->map(static fn ($value) => (string) $value)
+        return Arr::of($this->prepare())
+            ->map(static fn (mixed $value) => (string) $value)
             ->filter()
-            ->toArray();
-
-        $url = implode('', $items);
-
-        return $url === '//' ? '' : $url;
+            ->implode('')
+            ->when(fn (Stringable $url) => $url->toString() === '//', '', fn ($url) => $url)
+            ->toString();
     }
 
     protected function componentNameByIndex(int $component): ?string
