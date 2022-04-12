@@ -34,6 +34,7 @@ use DragonCode\Support\Helpers\Str as Helper;
  * @method static int length(?string $value, string $encoding = null)
  * @method static string append(mixed $value, string $suffix)
  * @method static string ascii(?string $value, string $language = 'en')
+ * @method static string between(?string $value, mixed $from, mixed $to, bool $trim = true)
  * @method static string prepend(mixed $value, string $prefix)
  * @method static string random(int $length = 16)
  * @method static string replace(string $template, array|string|int|float $search, array|string|int|float|null $replace = null)

@@ -389,4 +389,19 @@ class Stringable implements Contract
     {
         return new self(Str::map($this->value, $callback));
     }
+
+    /**
+     * Get the portion of a string between two given values.
+     *
+     * @param mixed $from
+     * @param mixed $to
+     * @param bool $trim
+     *
+     * @return \DragonCode\Support\Helpers\Ables\Stringable
+     */
+    #[Pure]
+    public function between(mixed $from, mixed $to, bool $trim = true): self
+    {
+        return new self(Str::between($this->value, $from, $to, $trim));
+    }
 }
