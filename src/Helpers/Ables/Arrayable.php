@@ -21,20 +21,43 @@ use ArrayObject;
 use DragonCode\Contracts\Support\Arrayable as ArrayableContract;
 use DragonCode\Support\Concerns\Dumpable;
 use DragonCode\Support\Facades\Helpers\Arr;
+use DragonCode\Support\Facades\Instances\Call;
+use DragonCode\Support\Facades\Instances\Instance;
 use JetBrains\PhpStorm\Pure;
 
 class Arrayable implements ArrayableContract
 {
     use Dumpable;
 
-    public function __construct(
-        protected ArrayObject|array|null $value = []
-    ) {
+    protected Arrayable|ArrayObject|array|null $value = [];
+
+    public function __construct(Arrayable|ArrayObject|array|null $value = [])
+    {
+        $this->of($value);
     }
 
-    public function of(ArrayObject|array|null $value = []): self
+    public function of(Arrayable|ArrayObject|array|null $value = []): self
     {
-        $this->value = (array) $value ?: [];
+        $this->value = Instance::of($value, Arrayable::class) ? $value->toArray() : (array) $value;
+
+        return $this;
+    }
+
+    /**
+     * Performing an action on a condition.
+     *
+     * @param mixed $condition
+     * @param callable $callback
+     *
+     * @return $this
+     */
+    public function when(mixed $condition, callable $callback): self
+    {
+        if (Call::value($condition)) {
+            $value = Call::callback($callback, $this);
+
+            return new self($value);
+        }
 
         return $this;
     }
