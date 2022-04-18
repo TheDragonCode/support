@@ -35,12 +35,12 @@ class Stringable implements Contract
 
     public function __toString(): string
     {
-        return (string) $this->value;
+        return $this->toString();
     }
 
     public function toString(): string
     {
-        return (string) $this;
+        return Str::toString($this->value);
     }
 
     public function of(?string $value = null): self
@@ -81,7 +81,7 @@ class Stringable implements Contract
     #[Pure]
     public function explode(string $separator, ?string $map_into = null): Arrayable
     {
-        $array = Arr::of(explode($separator, $this->value));
+        $array = Arr::of(explode($separator, $this->toString()));
 
         return $map_into ? $array->mapInto($map_into) : $array;
     }
@@ -95,7 +95,7 @@ class Stringable implements Contract
      */
     public function e(bool $double = true): self
     {
-        return new self(Str::e($this->value, $double));
+        return new self(Str::e($this->toString(), $double));
     }
 
     /**
@@ -105,7 +105,7 @@ class Stringable implements Contract
      */
     public function de(): ?string
     {
-        return new self(Str::de($this->value));
+        return new self(Str::de($this->toString()));
     }
 
     /**
@@ -115,7 +115,7 @@ class Stringable implements Contract
      */
     public function squish(): self
     {
-        return new self(Str::squish($this->value));
+        return new self(Str::squish($this->toString()));
     }
 
     /**
@@ -127,7 +127,7 @@ class Stringable implements Contract
      */
     public function start(string $prefix): self
     {
-        return new self(Str::start($this->value, $prefix));
+        return new self(Str::start($this->toString(), $prefix));
     }
 
     /**
@@ -139,7 +139,7 @@ class Stringable implements Contract
      */
     public function end(string $suffix): self
     {
-        return new self(Str::end($this->value, $suffix));
+        return new self(Str::end($this->toString(), $suffix));
     }
 
     /**
@@ -151,7 +151,7 @@ class Stringable implements Contract
      */
     public function append(mixed $suffix): self
     {
-        return new self(Str::append($this->value, $suffix));
+        return new self(Str::append($this->toString(), $suffix));
     }
 
     /**
@@ -163,7 +163,7 @@ class Stringable implements Contract
      */
     public function prepend(mixed $prefix): self
     {
-        return new self(Str::prepend($this->value, $prefix));
+        return new self(Str::prepend($this->toString(), $prefix));
     }
 
     /**
@@ -175,7 +175,7 @@ class Stringable implements Contract
      */
     public function finish(string $cap = '/'): self
     {
-        return new self(Str::finish($this->value, $cap));
+        return new self(Str::finish($this->toString(), $cap));
     }
 
     /**
@@ -185,7 +185,7 @@ class Stringable implements Contract
      */
     public function lower(): self
     {
-        return new self(Str::lower($this->value));
+        return new self(Str::lower($this->toString()));
     }
 
     /**
@@ -195,7 +195,7 @@ class Stringable implements Contract
      */
     public function upper(): self
     {
-        return new self(Str::upper($this->value));
+        return new self(Str::upper($this->toString()));
     }
 
     /**
@@ -205,7 +205,7 @@ class Stringable implements Contract
      */
     public function studly(): self
     {
-        return new self(Str::studly($this->value));
+        return new self(Str::studly($this->toString()));
     }
 
     /**
@@ -215,7 +215,7 @@ class Stringable implements Contract
      */
     public function camel(): self
     {
-        return new self(Str::camel($this->value));
+        return new self(Str::camel($this->toString()));
     }
 
     /**
@@ -227,7 +227,7 @@ class Stringable implements Contract
      */
     public function snake(?string $delimiter = '_'): self
     {
-        return new self(Str::snake($this->value, $delimiter));
+        return new self(Str::snake($this->toString(), $delimiter));
     }
 
     /**
@@ -240,7 +240,7 @@ class Stringable implements Contract
      */
     public function slug(string $separator = '-', ?string $language = 'en'): self
     {
-        return new self(Str::slug($this->value, $separator, $language));
+        return new self(Str::slug($this->toString(), $separator, $language));
     }
 
     /**
@@ -250,7 +250,7 @@ class Stringable implements Contract
      */
     public function title(): self
     {
-        return new self(Str::title($this->value));
+        return new self(Str::title($this->toString()));
     }
 
     /**
@@ -263,7 +263,7 @@ class Stringable implements Contract
      */
     public function substr(int $start, ?int $length = null): self
     {
-        return new self(Str::substr($this->value, $start, $length));
+        return new self(Str::substr($this->toString(), $start, $length));
     }
 
     /**
@@ -276,7 +276,7 @@ class Stringable implements Contract
      */
     public function replaceFormat(array $values, ?string $key_format = null): self
     {
-        return new self(Str::replaceFormat($this->value, $values, $key_format));
+        return new self(Str::replaceFormat($this->toString(), $values, $key_format));
     }
 
     /**
@@ -289,7 +289,7 @@ class Stringable implements Contract
      */
     public function replace(mixed $search, mixed $replace): self
     {
-        return new self(Str::replace($this->value, $search, $replace));
+        return new self(Str::replace($this->toString(), $search, $replace));
     }
 
     /**
@@ -301,7 +301,7 @@ class Stringable implements Contract
      */
     public function before(string $search): self
     {
-        return new self(Str::before($this->value, $search));
+        return new self(Str::before($this->toString(), $search));
     }
 
     /**
@@ -313,7 +313,7 @@ class Stringable implements Contract
      */
     public function after(string $search): self
     {
-        return new self(Str::after($this->value, $search));
+        return new self(Str::after($this->toString(), $search));
     }
 
     /**
@@ -337,7 +337,19 @@ class Stringable implements Contract
      */
     public function match(string $pattern): self
     {
-        return new self(Str::match($this->value, $pattern));
+        return new self(Str::match($this->toString(), $pattern));
+    }
+
+    /**
+     * Determine if a given string contains a given substring by regex.
+     *
+     * @param array|string $pattern
+     *
+     * @return bool
+     */
+    public function matchContains(array|string $pattern): bool
+    {
+        return Str::matchContains($this->toString(), $pattern);
     }
 
     /**
@@ -350,7 +362,7 @@ class Stringable implements Contract
      */
     public function pregReplace(string $pattern, string $replacement): self
     {
-        return new self(Str::pregReplace($this->value, $pattern, $replacement));
+        return new self(Str::pregReplace($this->toString(), $pattern, $replacement));
     }
 
     /**
@@ -362,7 +374,7 @@ class Stringable implements Contract
      */
     public function ascii(?string $language = 'en'): self
     {
-        return new self(Str::ascii($this->value, $language));
+        return new self(Str::ascii($this->toString(), $language));
     }
 
     /**
@@ -374,7 +386,7 @@ class Stringable implements Contract
      */
     public function map(callable $callback): self
     {
-        return new self(Str::map($this->value, $callback));
+        return new self(Str::map($this->toString(), $callback));
     }
 
     /**
@@ -389,7 +401,7 @@ class Stringable implements Contract
     #[Pure]
     public function between(mixed $from, mixed $to, bool $trim = true): self
     {
-        return new self(Str::between($this->value, $from, $to, $trim));
+        return new self(Str::between($this->toString(), $from, $to, $trim));
     }
 
     /**
@@ -401,7 +413,7 @@ class Stringable implements Contract
      */
     public function trim(string $characters = " \t\n\r\0\x0B"): self
     {
-        return new self(Str::trim($this->value, $characters));
+        return new self(Str::trim($this->toString(), $characters));
     }
 
     /**
@@ -413,7 +425,7 @@ class Stringable implements Contract
      */
     public function ltrim(string $characters = " \t\n\r\0\x0B"): self
     {
-        return new self(Str::ltrim($this->value, $characters));
+        return new self(Str::ltrim($this->toString(), $characters));
     }
 
     /**
@@ -425,6 +437,103 @@ class Stringable implements Contract
      */
     public function rtrim(string $characters = " \t\n\r\0\x0B"): self
     {
-        return new self(Str::rtrim($this->value, $characters));
+        return new self(Str::rtrim($this->toString(), $characters));
+    }
+
+    /**
+     * Determine if a given string matches a given pattern.
+     *
+     * @see https://github.com/illuminate/support/blob/master/Str.php
+     *
+     * @param array|string $pattern
+     *
+     * @return bool
+     */
+    public function is(array|string $pattern): bool
+    {
+        return Str::is($pattern, $this->toString());
+    }
+
+    /**
+     * Determine if a given string starts with a given substring.
+     *
+     * @param mixed $needles
+     *
+     * @return bool
+     */
+    public function startsWith(mixed $needles): bool
+    {
+        return Str::startsWith($this->toString(), $needles);
+    }
+
+    /**
+     * Determine if a given string ends with a given substring.
+     *
+     * @param mixed $needles
+     *
+     * @return bool
+     */
+    public function endsWith(mixed $needles): bool
+    {
+        return Str::endsWith($this->toString(), $needles);
+    }
+
+    /**
+     * Return the length of the given string.
+     *
+     * @see https://github.com/illuminate/support/blob/master/Str.php
+     *
+     * @param string|null $encoding
+     *
+     * @return int
+     */
+    public function length(?string $encoding = null): int
+    {
+        return Str::length($this->toString(), $encoding);
+    }
+
+    /**
+     * Count the number of substring occurrences.
+     *
+     * @param string $needle
+     * @param int $offset
+     *
+     * @return int
+     */
+    public function count(string $needle, int $offset = 0): int
+    {
+        return Str::count($this->value, $needle, $offset);
+    }
+
+    /**
+     * Determine if a given string contains a given substring.
+     *
+     * @param mixed $needles
+     *
+     * @return bool
+     */
+    public function contains(mixed $needles): bool
+    {
+        return Str::contains($this->toString(), $needles);
+    }
+
+    /**
+     * Determines if the value is empty.
+     *
+     * @return bool
+     */
+    public function isEmpty(): bool
+    {
+        return Str::isEmpty($this->value);
+    }
+
+    /**
+     * Determines if the value is doesn't empty.
+     *
+     * @return bool
+     */
+    public function doesntEmpty(): bool
+    {
+        return Str::doesntEmpty($this->value);
     }
 }
