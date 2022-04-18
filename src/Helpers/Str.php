@@ -130,7 +130,7 @@ class Str
         switch (true) {
             case $mod === 0:
             case $mod           >= 5             && $mod           <= 9:
-            case ($number % 100 >= 11)           && ($number % 100 <= 20):
+            case ($number % 100 >= 11) && ($number % 100 <= 20):
                 $result = $choice[2] ?? '';
                 break;
 
@@ -740,7 +740,46 @@ class Str
         return $this->of($value)
             ->before($to)
             ->after($from)
-            ->when($trim, static fn ($value) => trim($value))
+            ->when($trim, fn ($value) => $this->trim($value))
             ->toString();
+    }
+
+    /**
+     * Strip whitespace (or other characters) from the beginning and end of a string.
+     *
+     * @param string|null $string
+     * @param string $characters
+     *
+     * @return string
+     */
+    public function trim(?string $string, string $characters = " \t\n\r\0\x0B"): string
+    {
+        return trim((string) $string, $characters);
+    }
+
+    /**
+     * Strip whitespace (or other characters) from the beginning of a string.
+     *
+     * @param string|null $string
+     * @param string $characters
+     *
+     * @return string
+     */
+    public function ltrim(?string $string, string $characters = " \t\n\r\0\x0B"): string
+    {
+        return ltrim((string) $string, $characters);
+    }
+
+    /**
+     * Strip whitespace (or other characters) from the end of a string.
+     *
+     * @param string|null $string
+     * @param string $characters
+     *
+     * @return string
+     */
+    public function rtrim(?string $string, string $characters = " \t\n\r\0\x0B"): string
+    {
+        return rtrim((string) $string, $characters);
     }
 }

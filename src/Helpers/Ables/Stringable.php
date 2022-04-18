@@ -329,20 +329,6 @@ class Stringable implements Contract
     }
 
     /**
-     * Strip whitespace (or other characters) from the beginning and end of a string.
-     *
-     * @see  https://php.net/manual/en/function.trim.php
-     *
-     * @param string $characters
-     *
-     * @return $this
-     */
-    public function trim(string $characters = " \t\n\r\0\x0B"): self
-    {
-        return new self(trim((string) $this->value, $characters));
-    }
-
-    /**
      * Get the string matching the given pattern.
      *
      * @param string $pattern
@@ -404,5 +390,41 @@ class Stringable implements Contract
     public function between(mixed $from, mixed $to, bool $trim = true): self
     {
         return new self(Str::between($this->value, $from, $to, $trim));
+    }
+
+    /**
+     * Strip whitespace (or other characters) from the beginning and end of a string.
+     *
+     * @param string $characters
+     *
+     * @return $this
+     */
+    public function trim(string $characters = " \t\n\r\0\x0B"): self
+    {
+        return new self(Str::trim($this->value, $characters));
+    }
+
+    /**
+     * Strip whitespace (or other characters) from the beginning of a string.
+     *
+     * @param string $characters
+     *
+     * @return $this
+     */
+    public function ltrim(string $characters = " \t\n\r\0\x0B"): self
+    {
+        return new self(Str::ltrim($this->value, $characters));
+    }
+
+    /**
+     * Strip whitespace (or other characters) from the end of a string.
+     *
+     * @param string $characters
+     *
+     * @return $this
+     */
+    public function rtrim(string $characters = " \t\n\r\0\x0B"): self
+    {
+        return new self(Str::rtrim($this->value, $characters));
     }
 }
