@@ -366,6 +366,19 @@ class Arr
     }
 
     /**
+     * Determine if the given key doesn't exist in the provided array.
+     *
+     * @param ArrayAccess|\DragonCode\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Arrayable|array $array
+     * @param mixed $key
+     *
+     * @return bool
+     */
+    public function doesntExist(mixed $array, mixed $key): bool
+    {
+        return ! $this->exists($array, $key);
+    }
+
+    /**
      * Determine if the given key exists in the provided array without dot divider.
      *
      * @param ArrayAccess|\DragonCode\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Arrayable|array $array |\ArrayAccess $array
@@ -380,6 +393,19 @@ class Arr
         }
 
         return array_key_exists($key, $array);
+    }
+
+    /**
+     * Determine if the given key doesn't exist in the provided array without dot divider.
+     *
+     * @param ArrayAccess|\DragonCode\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Arrayable|array $array |\ArrayAccess $array
+     * @param mixed $key
+     *
+     * @return bool
+     */
+    public function doesntExistWithoutDot(mixed $array, mixed $key): bool
+    {
+        return ! $this->existsWithoutDot($array, $key);
     }
 
     /**

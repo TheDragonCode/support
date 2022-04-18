@@ -247,6 +247,19 @@ class Arrayable implements ArrayableContract
     }
 
     /**
+     * If the element key exists, then return the name of the key, otherwise the default value.
+     *
+     * @param mixed $key
+     * @param mixed|null $default
+     *
+     * @return mixed
+     */
+    public function getKey(mixed $key, mixed $default = null): mixed
+    {
+        return Arr::getKey($this->value, $key, $default);
+    }
+
+    /**
      * Get all of the given array except for a specified array of keys.
      *
      * @param array|callable|string $keys
@@ -297,6 +310,11 @@ class Arrayable implements ArrayableContract
     public function flatten(bool $ignore_keys = true): self
     {
         return new self(Arr::flatten($this->value, $ignore_keys));
+    }
+
+    public function flattenKeys(string $delimiter = '.', ?string $prefix = null): self
+    {
+        return new self(Arr::flattenKeys($this->value, $delimiter, $prefix));
     }
 
     /**
@@ -437,5 +455,109 @@ class Arrayable implements ArrayableContract
     public function splice(int $offset, ?int $length = null, mixed $replacement = null): self
     {
         return new self(Arr::splice($this->value, $offset, $length, $replacement));
+    }
+
+    /**
+     * Get the size of the longest text element of the array.
+     *
+     * @return int
+     */
+    public function longestStringLength(): int
+    {
+        return Arr::longestStringLength($this->value);
+    }
+
+    /**
+     * Determine if the given key exists in the provided array.
+     *
+     * @param mixed $key
+     *
+     * @return bool
+     */
+    public function exists(mixed $key): bool
+    {
+        return Arr::exists($this->value, $key);
+    }
+
+    /**
+     * Determine if the given key doesn't exist in the provided array.
+     *
+     * @param mixed $key
+     *
+     * @return bool
+     */
+    public function doesntExist(mixed $key): bool
+    {
+        return Arr::doesntExist($this->value, $key);
+    }
+
+    /**
+     * Determine if the given key exists in the provided array without dot divider.
+     *
+     * @param mixed $key
+     *
+     * @return bool
+     */
+    public function existsWithoutDot(mixed $key): bool
+    {
+        return Arr::existsWithoutDot($this->value, $key);
+    }
+
+    /**
+     * Determine if the given key doesn't exist in the provided array without dot divider.
+     *
+     * @param mixed $key
+     *
+     * @return bool
+     */
+    public function doesntExistWithoutDot(mixed $key): bool
+    {
+        return Arr::doesntExistWithoutDot($this->value, $key);
+    }
+
+    /**
+     * Determines if the array or arrayable object is empty.
+     *
+     * @return bool
+     */
+    public function isEmpty(): bool
+    {
+        return Arr::isEmpty($this->value);
+    }
+
+    /**
+     * Determines if the value is doesn't empty.
+     *
+     * @return bool
+     */
+    public function doesntEmpty(): bool
+    {
+        return Arr::doesntEmpty($this->value);
+    }
+
+    /**
+     * Return the first element in an array passing a given truth test.
+     *
+     * @param callable|null $callback
+     * @param mixed|null $default
+     *
+     * @return mixed
+     */
+    public function first(?callable $callback = null, mixed $default = null): mixed
+    {
+        return Arr::first($this->value, $callback, $default);
+    }
+
+    /**
+     * Return the last element in an array passing a given truth test.
+     *
+     * @param callable|null $callback
+     * @param mixed|null $default
+     *
+     * @return mixed
+     */
+    public function last(?callable $callback = null, mixed $default = null): mixed
+    {
+        return Arr::last($this->value, $callback, $default);
     }
 }
