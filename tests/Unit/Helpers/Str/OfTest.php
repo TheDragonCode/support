@@ -39,10 +39,13 @@ class OfTest extends TestCase
 
     public function testSome()
     {
-        $source = 'foo bar';
+        $source = ': foo bar -';
 
         $actual = Str::of($source)
             ->upper()
+            ->ltrim(':')
+            ->rtrim('-')
+            ->trim()
             ->explode(' ', Stringable::class)
             ->map(fn (Stringable $value) => $value->prepend(1)->append(2))
             ->implode('=')
