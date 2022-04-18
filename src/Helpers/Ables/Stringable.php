@@ -40,7 +40,7 @@ class Stringable implements Contract
 
     public function toString(): string
     {
-        return Str::toString($this->value);
+        return (string) $this->value;
     }
 
     public function of(?string $value = null): self
