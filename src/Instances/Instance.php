@@ -39,38 +39,17 @@ class Instance
         }
 
         $reflection = $this->resolve($haystack);
-        $classname  = $this->classname($haystack);
 
         foreach (ArrHelper::wrap($needles) as $needle) {
             if (! $this->exists($needle)) {
                 continue;
             }
 
-            $needle_reflection = $this->resolve($needle);
-
-            if ($haystack === $needle) {
-                return true;
-            }
-
-            if ($haystack instanceof $needle) {
-                return true;
-            }
-
-            if (! is_null($classname) && $classname === $this->classname($needle)) {
-                return true;
-            }
-
-            if ($reflection->isSubclassOf($needle)) {
-                return true;
-            }
-
-            if ($reflection->isInterface() && $needle_reflection->isInterface() && $reflection->implementsInterface($needle)) {
-                return true;
-            }
-
             if (in_array($needle, $reflection->getTraitNames(), true)) {
                 return true;
             }
+
+            return is_a($haystack, $needle, true);
         }
 
         return false;
@@ -103,7 +82,7 @@ class Instance
             return get_class($class);
         }
 
-        return class_exists($class) || interface_exists($class) ? $class : null;
+        return class_exists($class) || interface_exists($class) || enum_exists($class) ? $class : null;
     }
 
     /**
@@ -119,7 +98,7 @@ class Instance
             return true;
         }
 
-        return IsHelper::string($haystack) && (class_exists($haystack) || interface_exists($haystack) || trait_exists($haystack));
+        return IsHelper::string($haystack) && (class_exists($haystack) || interface_exists($haystack) || trait_exists($haystack) || enum_exists($haystack));
     }
 
     /**
