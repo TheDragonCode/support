@@ -270,7 +270,7 @@ class Str
     }
 
     /**
-     *  Determine if a given string starts with a given substring.
+     * Determine if a given string starts with a given substring.
      *
      * @param string $haystack
      * @param string|string[] $needles
