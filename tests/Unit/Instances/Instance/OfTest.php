@@ -89,4 +89,11 @@ class OfTest extends TestCase
         $this->assertFalse(Instance::of(Contract::class, Foable::class));
         $this->assertFalse(Instance::of(Contract::class, Barable::class));
     }
+
+    public function testManyChecks()
+    {
+        $this->assertFalse(Instance::of(Foo::class, [Bat::class, Bar::class]));
+
+        $this->assertTrue(Instance::of(Foo::class, [Bat::class, Bar::class, Contract::class]));
+    }
 }
