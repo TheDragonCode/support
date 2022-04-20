@@ -49,7 +49,9 @@ class Instance
                 return true;
             }
 
-            return is_a($haystack, $needle, true);
+            if (is_a($haystack, $needle, true)) {
+                return true;
+            }
         }
 
         return false;
