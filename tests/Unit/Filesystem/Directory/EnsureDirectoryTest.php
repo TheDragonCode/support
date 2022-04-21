@@ -47,7 +47,7 @@ class EnsureDirectoryTest extends TestCase
         $this->assertTrue(Directory::exists($path1));
         $this->assertTrue(Directory::exists($path2));
 
-        Directory::ensureDirectory($path, 0755, true);
+        Directory::ensureDirectory($path, 0o755, true);
 
         $this->assertTrue(Directory::exists($path));
         $this->assertTrue(Directory::doesntExist($path1));
