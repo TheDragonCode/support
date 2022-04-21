@@ -26,7 +26,7 @@ use DragonCode\Support\Helpers\Arr as Helper;
 /**
  * @method static Arrayable of(ArrayObject|array|null $value = [])
  * @method static Arrayable ofFile(string $path)
- * @method static array addUnique(array $array, $values)
+ * @method static array addUnique(array $array, mixed $values)
  * @method static array combine(...$arrays)
  * @method static array except(array $array, array|callable|string $keys)
  * @method static array filter($array, callable $callback = null, int $mode = 0)

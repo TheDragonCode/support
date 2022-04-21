@@ -115,11 +115,11 @@ class Arrayable implements ArrayableContract
     /**
      * Push one a unique element onto the end of array.
      *
-     * @param array $values
+     * @param mixed $values
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
-    public function addUnique(array $values): self
+    public function addUnique(mixed $values): self
     {
         return new self(Arr::addUnique($this->value, $values));
     }
