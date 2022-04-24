@@ -37,12 +37,12 @@ abstract class Facade
         return self::resolveInstance(static::getFacadeAccessor());
     }
 
-    public static function clearResolvedInstances()
+    public static function clearResolvedInstances(): void
     {
         self::$resolved = [];
     }
 
-    protected static function getFacadeAccessor(): string
+    protected static function getFacadeAccessor(): mixed
     {
         throw new RuntimeException('Facade does not implement getFacadeAccessor method.');
     }
