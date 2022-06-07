@@ -610,15 +610,15 @@ class Arr
         $result = [];
 
         foreach ($array as $key => $value) {
+            $new_key = ! empty($prefix) ? $prefix . $delimiter . $key : $key;
+
             if (is_array($value)) {
-                $values = $this->flattenKeys($value, $delimiter, $key);
+                $values = $this->flattenKeys($value, $delimiter, $new_key);
 
                 $result = array_merge($result, $values);
 
                 continue;
             }
-
-            $new_key = ! empty($prefix) ? $prefix . $delimiter . $key : $key;
 
             $result[$new_key] = $value;
         }

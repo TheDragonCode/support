@@ -81,4 +81,49 @@ class FlattenKeysTest extends TestCase
             'b_d' => 'D',
         ], Arr::flattenKeys($array, '_'));
     }
+
+    public function testNested()
+    {
+        $array = [
+            'accepted'    => 'The :attribute must be accepted.',
+            'accepted_if' => 'The :attribute must be accepted when :other is :value.',
+            'active_url'  => 'The :attribute is not a valid URL.',
+
+            'between' => [
+                'numeric' => 'The :attribute must be between :min and :max.',
+                'file'    => 'The :attribute must be between :min and :max kilobytes.',
+                'string'  => 'The :attribute must be between :min and :max characters.',
+                'array'   => 'The :attribute must have between :min and :max items.',
+                'foo'     => [
+                    'bar' => 'Bar',
+                    'baq' => 'Baq',
+                ],
+            ],
+
+            'custom' => [
+                'attribute-name' => [
+                    'rule-name' => 'custom-message',
+                ],
+            ],
+
+            'attributes' => [],
+        ];
+
+        $expected = [
+            'accepted'    => 'The :attribute must be accepted.',
+            'accepted_if' => 'The :attribute must be accepted when :other is :value.',
+            'active_url'  => 'The :attribute is not a valid URL.',
+
+            'between.numeric' => 'The :attribute must be between :min and :max.',
+            'between.file'    => 'The :attribute must be between :min and :max kilobytes.',
+            'between.string'  => 'The :attribute must be between :min and :max characters.',
+            'between.array'   => 'The :attribute must have between :min and :max items.',
+            'between.foo.bar' => 'Bar',
+            'between.foo.baq' => 'Baq',
+
+            'custom.attribute-name.rule-name' => 'custom-message',
+        ];
+
+        $this->assertEquals($expected, Arr::flattenKeys($array));
+    }
 }
