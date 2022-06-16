@@ -44,14 +44,17 @@ class MapTest extends TestCase
             'bar' => 'Bar_44',
             'baz' => 'Baz_66',
 
-            'qwe' => [
-                'qaz' => 11,
-                'wsx' => 22,
-                'edc' => 33,
-            ],
+            'qwe' => 'qaz_wsx_edc',
         ];
 
-        $this->assertSame($expected, Arr::map($source, static fn ($value, $key): string => Str::studly($key) . '_' . ($value * 2)));
+        $this->assertSame($expected,
+            Arr::map($source, static function ($value, $key) {
+                if (is_array($value)) {
+                    return Arr::of($value)->keys()->implode('_')->toString();
+                }
+
+                return Str::studly($key) . '_' . ($value * 2);
+            }));
     }
 
     public function testMapRecursive()
