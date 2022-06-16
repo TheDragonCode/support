@@ -641,7 +641,7 @@ class Arr
             if ($recursive && is_array($value)) {
                 $value = $this->map($value, $callback, $recursive);
             } else {
-                $value = is_array($value) ? $value : Call::callback($callback, $value, $key);
+                $value = Call::callback($callback, $value, $key);
             }
         }
 
