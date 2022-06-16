@@ -47,14 +47,16 @@ class MapTest extends TestCase
             'qwe' => 'qaz_wsx_edc',
         ];
 
-        $this->assertSame($expected,
+        $this->assertSame(
+            $expected,
             Arr::map($source, static function ($value, $key) {
                 if (is_array($value)) {
                     return Arr::of($value)->keys()->implode('_')->toString();
                 }
 
                 return Str::studly($key) . '_' . ($value * 2);
-            }));
+            })
+        );
     }
 
     public function testMapRecursive()
