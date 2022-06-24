@@ -114,16 +114,10 @@ class File
      * @param string $source
      * @param string $target
      * @param int $mode
-     *
-     * @throws \DragonCode\Support\Exceptions\FileNotFoundException
      */
     public function copy(string $source, string $target, int $mode = 0755): void
     {
         Directory::ensureDirectory(Path::dirname($target), $mode);
-
-        if ($this->exists($target)) {
-            $this->delete($target);
-        }
 
         copy($source, $target);
     }
@@ -140,10 +134,6 @@ class File
     public function move(string $source, string $target, int $mode = 0755): void
     {
         Directory::ensureDirectory(Path::dirname($target), $mode);
-
-        if ($this->exists($target)) {
-            $this->delete($target);
-        }
 
         rename($source, $target);
     }

@@ -30,9 +30,11 @@ use SplFileInfo;
  * @method static bool make(string $path, int $mode = 0755)
  * @method static DirectoryIterator all(string $path)
  * @method static string validated(DirectoryIterator|SplFileInfo|string $path)
+ * @method static void copy(string $source, string $target)
  * @method static void delete(array|string $path)
  * @method static void ensureDelete(array|string $path)
  * @method static void ensureDirectory(string $path, int $mode = 0755, bool $can_delete = false)
+ * @method static void move(string $source, string $target)
  * @method static void validate(DirectoryIterator|SplFileInfo|string $path)
  */
 class Directory extends Facade

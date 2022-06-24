@@ -28,13 +28,8 @@ abstract class TestCase extends BaseTestCase
         Facade::clearResolvedInstances();
 
         parent::setUp();
-    }
 
-    protected function tearDown(): void
-    {
         $this->destroyTempDirectory();
-
-        parent::tearDown();
     }
 
     protected function tempDirectory(?string $path = null): string
