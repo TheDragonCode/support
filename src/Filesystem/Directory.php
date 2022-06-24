@@ -19,6 +19,7 @@ namespace DragonCode\Support\Filesystem;
 
 use DirectoryIterator;
 use DragonCode\Support\Exceptions\DirectoryNotFoundException;
+use DragonCode\Support\Exceptions\InvalidDestinationPathException;
 use DragonCode\Support\Facades\Filesystem\File as FileHelper;
 use DragonCode\Support\Facades\Helpers\Str;
 use DragonCode\Support\Facades\Instances\Call;
@@ -98,6 +99,51 @@ class Directory
     public function make(string $path, int $mode = 0755): bool
     {
         return ! $this->doesntExist($path) || mkdir($path, $mode, true);
+    }
+
+    /**
+     * Copies directory.
+     *
+     * @param string $source
+     * @param string $target
+     *
+     * @throws \DragonCode\Support\Exceptions\DirectoryNotFoundException
+     * @throws \DragonCode\Support\Exceptions\InvalidDestinationPathException
+     *
+     * @return void
+     */
+    public function copy(string $source, string $target): void
+    {
+        $this->validate($source);
+        $this->comparePaths($source, $target);
+        $this->ensureDirectory($target);
+
+        foreach (FileHelper::names($source, recursive: true) as $file) {
+            FileHelper::copy(
+                $source . '/' . $file,
+                $target . '/' . $file
+            );
+        }
+    }
+
+    /**
+     * Moving a directory to a new path.
+     *
+     * @param string $source
+     * @param string $target
+     *
+     * @throws \DragonCode\Support\Exceptions\DirectoryNotFoundException
+     * @throws \DragonCode\Support\Exceptions\InvalidDestinationPathException
+     *
+     * @return void
+     */
+    public function move(string $source, string $target): void
+    {
+        $this->validate($source);
+        $this->comparePaths($source, $target);
+        $this->ensureDelete($target);
+
+        rename($source, $target);
     }
 
     /**
@@ -202,6 +248,23 @@ class Directory
         }
 
         return is_dir($value);
+    }
+
+    /**
+     * Comparison of start and end paths.
+     *
+     * @param string $path1
+     * @param string $path2
+     *
+     * @throws \DragonCode\Support\Exceptions\InvalidDestinationPathException
+     *
+     * @return void
+     */
+    public function comparePaths(string $path1, string $path2): void
+    {
+        if ($path1 === $path2 || realpath($path1) === realpath($path2)) {
+            throw new InvalidDestinationPathException(realpath($path1));
+        }
     }
 
     /**
