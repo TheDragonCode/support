@@ -139,11 +139,9 @@ class Directory
      */
     public function move(string $source, string $target): void
     {
-        $this->validate($source);
-        $this->comparePaths($source, $target);
-        $this->ensureDelete($target);
+        $this->copy($source, $target);
 
-        rename($source, $target);
+        $this->ensureDelete($source);
     }
 
     /**

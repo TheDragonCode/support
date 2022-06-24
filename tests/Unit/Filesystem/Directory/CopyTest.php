@@ -22,6 +22,7 @@ namespace Tests\Unit\Filesystem\Directory;
 use DragonCode\Support\Exceptions\DirectoryNotFoundException;
 use DragonCode\Support\Exceptions\InvalidDestinationPathException;
 use DragonCode\Support\Facades\Filesystem\Directory;
+use DragonCode\Support\Facades\Filesystem\File;
 use Tests\TestCase;
 
 class CopyTest extends TestCase
@@ -47,8 +48,6 @@ class CopyTest extends TestCase
         $path1 = $this->fixturesDirectory('Foo');
         $path2 = $this->tempDirectory();
 
-        Directory::ensureDirectory($path1);
-
         $this->assertDirectoryExists($path1);
         $this->assertDirectoryDoesNotExist($path2);
 
@@ -62,6 +61,30 @@ class CopyTest extends TestCase
 
         $this->assertFileExists($path1 . '/Bar/.gitkeep');
         $this->assertFileExists($path2 . '/Bar/.gitkeep');
+    }
+
+    public function testExistTarget()
+    {
+        $path1 = $this->fixturesDirectory('Foo');
+        $path2 = $this->tempDirectory();
+
+        File::store($path2 . '/Custom/.gitkeep', '');
+
+        $this->assertDirectoryExists($path1);
+        $this->assertDirectoryExists($path2);
+
+        $this->assertFileExists($path1 . '/Bar/.gitkeep');
+        $this->assertFileDoesNotExist($path2 . '/Bar/.gitkeep');
+        $this->assertFileExists($path2 . '/Custom/.gitkeep');
+
+        Directory::copy($path1, $path2);
+
+        $this->assertDirectoryExists($path1);
+        $this->assertDirectoryExists($path2);
+
+        $this->assertFileExists($path1 . '/Bar/.gitkeep');
+        $this->assertFileExists($path2 . '/Bar/.gitkeep');
+        $this->assertFileExists($path2 . '/Custom/.gitkeep');
     }
 
     public function testIncorrectSource()
