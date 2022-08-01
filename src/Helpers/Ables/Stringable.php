@@ -103,7 +103,7 @@ class Stringable implements Contract
      *
      * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
-    public function de(): ?string
+    public function de(): self
     {
         return new self(Str::de($this->toString()));
     }
