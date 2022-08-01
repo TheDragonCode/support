@@ -44,8 +44,15 @@ class IsTest extends Base
         $this->assertTrue(Url::is('https://localhost?param=%s'));
 
         $this->assertTrue(Url::is('https://localhost?' . http_build_query([
-            'param' => '%s',
-            'arr'   => ['foo', 'bar'],
-        ])));
+                'param' => '%s',
+                'arr'   => ['foo', 'bar'],
+            ])));
+    }
+
+    public function testCyrillic(): void
+    {
+        $this->assertTrue(Url::is('https://example.com/привет'));
+        $this->assertTrue(Url::is('https://example.com/foo?name=привет'));
+        $this->assertTrue(Url::is('https://example.com/foo?name=hello#привет'));
     }
 }
