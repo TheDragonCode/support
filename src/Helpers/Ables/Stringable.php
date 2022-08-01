@@ -57,7 +57,7 @@ class Stringable implements Contract
      * @param mixed $callback
      * @param mixed $default
      *
-     * @return $this
+     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function when(mixed $condition, mixed $callback, mixed $default = null): self
     {
@@ -91,7 +91,7 @@ class Stringable implements Contract
      *
      * @param bool $double
      *
-     * @return $this
+     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function e(bool $double = true): self
     {
@@ -101,7 +101,7 @@ class Stringable implements Contract
     /**
      * Convert special HTML entities back to characters.
      *
-     * @return string|null
+     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function de(): ?string
     {
@@ -135,7 +135,7 @@ class Stringable implements Contract
      *
      * @param string $suffix
      *
-     * @return $this
+     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function end(string $suffix): self
     {
@@ -147,7 +147,7 @@ class Stringable implements Contract
      *
      * @param mixed $suffix
      *
-     * @return $this
+     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function append(mixed $suffix): self
     {
@@ -159,7 +159,7 @@ class Stringable implements Contract
      *
      * @param mixed $prefix
      *
-     * @return $this
+     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function prepend(mixed $prefix): self
     {
@@ -285,7 +285,7 @@ class Stringable implements Contract
      * @param array|string|string[]|int|float $search
      * @param array|string|string[]|int|float $replace
      *
-     * @return $this
+     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function replace(mixed $search, mixed $replace): self
     {
@@ -321,7 +321,7 @@ class Stringable implements Contract
      *
      * @param int $length
      *
-     * @return $this
+     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function random(int $length = 16): self
     {
@@ -382,7 +382,7 @@ class Stringable implements Contract
      *
      * @param callable $callback
      *
-     * @return $this
+     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function map(callable $callback): self
     {
@@ -409,7 +409,7 @@ class Stringable implements Contract
      *
      * @param string $characters
      *
-     * @return $this
+     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function trim(string $characters = " \t\n\r\0\x0B"): self
     {
@@ -421,7 +421,7 @@ class Stringable implements Contract
      *
      * @param string $characters
      *
-     * @return $this
+     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function ltrim(string $characters = " \t\n\r\0\x0B"): self
     {
@@ -433,7 +433,7 @@ class Stringable implements Contract
      *
      * @param string $characters
      *
-     * @return $this
+     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function rtrim(string $characters = " \t\n\r\0\x0B"): self
     {
