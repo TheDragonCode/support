@@ -254,7 +254,7 @@ class KsortTest extends TestCase
             700 => 'Number 700',
         ];
 
-        $callback = static function ($current, $next) {
+        $callback    = static function ($current, $next) {
             $current = is_string($current) ? Str::lower($current) : $current;
             $next    = is_string($next) ? Str::lower($next) : $next;
 
