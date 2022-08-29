@@ -120,7 +120,8 @@ class Url
             $url = Str::replace((string) $url, array_keys($this->chars), array_values($this->chars));
 
             return filter_var($url, FILTER_VALIDATE_URL) !== false;
-        } catch (Throwable) {
+        }
+        catch (Throwable) {
             return false;
         }
     }
@@ -178,7 +179,8 @@ class Url
             preg_match('/HTTP\/\d{1}\.?\d?\s[2-3]\d{2}/i', $value, $matches);
 
             return count($matches) > 0;
-        } catch (Throwable $e) {
+        }
+        catch (Throwable $e) {
             return false;
         }
     }
