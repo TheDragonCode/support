@@ -236,7 +236,7 @@ class Arr
      *
      * @return array
      */
-    public function merge(array ...$arrays): array
+    public function merge(ArrayObject|array ...$arrays): array
     {
         $result = [];
 
@@ -266,7 +266,7 @@ class Arr
      *
      * @return array
      */
-    public function combine(array ...$arrays): array
+    public function combine(ArrayObject|array ...$arrays): array
     {
         $result = [];
 
@@ -640,7 +640,7 @@ class Arr
      *
      * @return array
      */
-    public function map(array $array, callable $callback, bool $recursive = false): array
+    public function map(ArrayObject|array $array, callable $callback, bool $recursive = false): array
     {
         foreach ($array as $key => &$value) {
             if ($recursive && is_array($value)) {
@@ -662,7 +662,7 @@ class Arr
      *
      * @return array
      */
-    public function mapInto(array $array, string $class): array
+    public function mapInto(ArrayObject|array $array, string $class): array
     {
         foreach ($array as &$value) {
             $value = new $class($value);
@@ -815,7 +815,7 @@ class Arr
      *
      * @return array
      */
-    public function reverse(array $array, bool $preserve_keys = false): array
+    public function reverse(ArrayObject|array $array, bool $preserve_keys = false): array
     {
         return array_reverse($array, $preserve_keys);
     }
@@ -829,7 +829,7 @@ class Arr
      *
      * @return mixed
      */
-    public function first(array $array, ?callable $callback = null, mixed $default = null): mixed
+    public function first(ArrayObject|array $array, ?callable $callback = null, mixed $default = null): mixed
     {
         if (is_null($callback)) {
             return empty($array) ? Call::value($default) : reset($array);
@@ -853,7 +853,7 @@ class Arr
      *
      * @return mixed
      */
-    public function last(array $array, ?callable $callback = null, mixed $default = null): mixed
+    public function last(ArrayObject|array $array, ?callable $callback = null, mixed $default = null): mixed
     {
         if (is_null($callback)) {
             return empty($array) ? Call::value($default) : end($array);
@@ -874,10 +874,22 @@ class Arr
      *
      * @return array
      */
-    public function splice(array $array, int $offset, ?int $length = null, mixed $replacement = null): array
+    public function splice(ArrayObject|array $array, int $offset, ?int $length = null, mixed $replacement = null): array
     {
         array_splice($array, $offset, $length, $replacement);
 
         return $array;
+    }
+
+    /**
+     * Returns the number of array elements.
+     *
+     * @param \ArrayObject|array $array
+     *
+     * @return int
+     */
+    public function count(ArrayObject|array $array): int
+    {
+        return InstanceHelper::of($array, ArrayObject::class) ? $array->count() : count($array);
     }
 }
