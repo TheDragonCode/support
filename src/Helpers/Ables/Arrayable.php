@@ -560,4 +560,16 @@ class Arrayable implements ArrayableContract
     {
         return Arr::last($this->value, $callback, $default);
     }
+
+    /**
+     * Returns the number of array elements.
+     *
+     * @param \ArrayObject|array $array
+     *
+     * @return int
+     */
+    public function count(ArrayObject|array $array): int
+    {
+        return Arr::count($array);
+    }
 }
