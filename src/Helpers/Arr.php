@@ -884,7 +884,7 @@ class Arr
     /**
      * Returns the number of array elements.
      *
-     * @param \ArrayObject|array $array
+     * @param ArrayObject|array $array
      *
      * @return int
      */
