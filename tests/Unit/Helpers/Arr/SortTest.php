@@ -242,7 +242,7 @@ class SortTest extends TestCase
             ],
         ];
 
-        $callback = static function ($current, $next) {
+        $callback    = static function ($current, $next) {
             $current = is_string($current) ? Str::lower($current) : $current;
             $next    = is_string($next) ? Str::lower($next) : $next;
 

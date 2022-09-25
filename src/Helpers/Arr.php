@@ -120,7 +120,8 @@ class Arr
             foreach ($values as $value) {
                 $array = $this->addUnique($array, $value);
             }
-        } else {
+        }
+        else {
             $array[] = $values;
         }
 
@@ -357,7 +358,8 @@ class Arr
         foreach (explode('.', $key) as $segment) {
             if ($this->isArrayable($array) && $this->exists($array, $segment)) {
                 $array = $array[$segment];
-            } else {
+            }
+            else {
                 return false;
             }
         }
@@ -440,7 +442,8 @@ class Arr
         foreach (explode('.', $key) as $segment) {
             if ($this->isArrayable($array) && $this->existsWithoutDot($array, $segment)) {
                 $array = $array[$segment];
-            } else {
+            }
+            else {
                 return Call::value($default);
             }
         }
@@ -498,9 +501,11 @@ class Arr
         foreach ((array) $keys as $index => $key) {
             if (is_array($key) && isset($array[$index])) {
                 $result[$index] = $this->only($array[$index], $key);
-            } elseif (is_array($key) && ! isset($array[$index])) {
+            }
+            elseif (is_array($key) && ! isset($array[$index])) {
                 continue;
-            } elseif (isset($array[$key])) {
+            }
+            elseif (isset($array[$key])) {
                 $result[$key] = $array[$key];
             }
         }
@@ -698,7 +703,8 @@ class Arr
     {
         if ($this->isArrayable($key)) {
             $array = $this->merge($array, $key);
-        } else {
+        }
+        else {
             $array[$key] = $value;
         }
 
@@ -878,7 +884,7 @@ class Arr
     /**
      * Returns the number of array elements.
      *
-     * @param \ArrayObject|array $array
+     * @param ArrayObject|array $array
      *
      * @return int
      */

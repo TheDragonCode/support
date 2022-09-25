@@ -178,7 +178,7 @@ class Builder implements BuilderContract
     {
         return Str::of($this->getHost())
             ->when(
-                fn ($host)              => Str::count($host, '.') > 1,
+                fn ($host) => Str::count($host, '.') > 1,
                 fn (Stringable $string) => $string
                     ->explode('.')
                     ->splice(-2)
