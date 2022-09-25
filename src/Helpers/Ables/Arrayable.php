@@ -564,12 +564,10 @@ class Arrayable implements ArrayableContract
     /**
      * Returns the number of array elements.
      *
-     * @param \ArrayObject|array $array
-     *
      * @return int
      */
-    public function count(ArrayObject|array $array): int
+    public function count(): int
     {
-        return Arr::count($array);
+        return Arr::count($this->value);
     }
 }
