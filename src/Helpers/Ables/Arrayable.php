@@ -570,4 +570,24 @@ class Arrayable implements ArrayableContract
     {
         return Arr::count($this->value);
     }
+
+    /**
+     * Returns an object filled with the value of the array.
+     *
+     * @param string $instance
+     *
+     * @return mixed
+     */
+    public function toInstance(string $instance): mixed
+    {
+        if (method_exists($instance, '__invoke')) {
+            $instance = new $instance;
+
+            call_user_func([$instance, '__invoke'], $this->value);
+
+            return $instance;
+        }
+
+        return new $instance($this->value);
+    }
 }
