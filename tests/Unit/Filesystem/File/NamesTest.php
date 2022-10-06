@@ -54,6 +54,7 @@ class NamesTest extends TestCase
             'Instances/Bar.php',
             'Instances/Bat.php',
             'Instances/Foo.php',
+            'Instances/Invokable.php',
             'Instances/Map.php',
             'Instances/Psr.php',
             'array.json',
