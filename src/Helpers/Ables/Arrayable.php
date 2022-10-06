@@ -581,7 +581,7 @@ class Arrayable implements ArrayableContract
     public function toInstance(string $instance): mixed
     {
         if (method_exists($instance, '__invoke')) {
-            $instance = new $instance;
+            $instance = new $instance();
 
             call_user_func([$instance, '__invoke'], $this->value);
 
