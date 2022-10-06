@@ -12,7 +12,7 @@ jobs:
             fail-fast: true
             matrix:
                 php: [ "8.0", "8.1" ]
-                prefer: [ "lower", "stable" ]
+                prefer: [ "lowest", "stable" ]
 
         name: PHP ${{ matrix.php }}, ${{ matrix.prefer }}
 
