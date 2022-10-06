@@ -22,6 +22,7 @@ use DragonCode\Support\Exceptions\FileNotFoundException;
 use DragonCode\Support\Exceptions\UnhandledFileExtensionException;
 use DragonCode\Support\Facades\Filesystem\Directory;
 use DragonCode\Support\Facades\Filesystem\Path;
+use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\Support\Facades\Helpers\Str;
 use DragonCode\Support\Facades\Instances\Call;
 use DragonCode\Support\Facades\Instances\Instance;
@@ -29,6 +30,38 @@ use SplFileInfo;
 
 class File
 {
+    /**
+     * Get a list of filenames with a full paths.
+     *
+     * @param string $path
+     * @param callable|null $callback
+     * @param bool $recursive
+     *
+     * @return array
+     */
+    public function allPaths(string $path, ?callable $callback = null, bool $recursive = false): array
+    {
+        $items = [];
+
+        foreach (Directory::all($path) as $item) {
+            if ($item->isFile()) {
+                if (! is_callable($callback) || Call::callback($callback, $item->getRealPath())) {
+                    $items[] = $item->getRealPath();
+                }
+            }
+
+            if ($recursive && $item->isDir() && ! $item->isDot()) {
+                $files = $this->allPaths($item->getRealPath(), $callback, $recursive);
+
+                $items = array_merge($items, $files);
+            }
+        }
+
+        sort($items);
+
+        return array_values($items);
+    }
+
     /**
      * Get a list of filenames along a path.
      *
@@ -40,32 +73,11 @@ class File
      */
     public function names(string $path, ?callable $callback = null, bool $recursive = false): array
     {
-        $items = [];
-
-        /** @var DirectoryIterator $item */
-        foreach (Directory::all($path) as $item) {
-            if ($item->isFile()) {
-                $name = $item->getFilename();
-
-                if (! is_callable($callback) || Call::callback($callback, $name)) {
-                    $items[] = $name;
-                }
-            }
-
-            if ($recursive && $item->isDir() && ! $item->isDot()) {
-                $prefix = (string) Str::of($item->getRealPath())
-                    ->after(realpath($path))
-                    ->trim('\\/');
-
-                foreach ($this->names($item->getRealPath(), $callback, $recursive) as $value) {
-                    $items[] = $prefix . '/' . $value;
-                }
-            }
-        }
-
-        sort($items);
-
-        return array_values($items);
+        return Arr::of(
+            $this->allPaths($path, $callback, $recursive)
+        )
+            ->map(fn (string $value) => Str::of($value)->after(realpath($path))->trim('\\/')->toString())
+            ->toArray();
     }
 
     /**

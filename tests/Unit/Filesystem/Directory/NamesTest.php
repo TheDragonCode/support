@@ -42,7 +42,7 @@ class NamesTest extends TestCase
             'Exceptions',
             'Facades',
             'Foo',
-            'Foo/Bar',
+            'Foo' . DIRECTORY_SEPARATOR . 'Bar',
             'Instances',
             'stubs',
         ];
