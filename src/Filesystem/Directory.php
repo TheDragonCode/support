@@ -21,6 +21,7 @@ use DirectoryIterator;
 use DragonCode\Support\Exceptions\DirectoryNotFoundException;
 use DragonCode\Support\Exceptions\InvalidDestinationPathException;
 use DragonCode\Support\Facades\Filesystem\File as FileHelper;
+use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\Support\Facades\Helpers\Str;
 use DragonCode\Support\Facades\Instances\Call;
 use DragonCode\Support\Facades\Instances\Instance;
@@ -38,13 +39,47 @@ class Directory
      *
      * @return DirectoryIterator|DirectoryIterator[]
      */
-    public function all(string $path): DirectoryIterator|array
+    public function all(string $path): DirectoryIterator
     {
         if ($this->doesntExist($path)) {
             throw new DirectoryNotFoundException($path);
         }
 
         return new DirectoryIterator($path);
+    }
+
+    /**
+     * Get a list of directory paths.
+     *
+     * @param string $path
+     * @param callable|null $callback
+     * @param bool $recursive
+     *
+     * @throws \DragonCode\Support\Exceptions\DirectoryNotFoundException
+     *
+     * @return array
+     */
+    public function allPaths(string $path, ?callable $callback = null, bool $recursive = false): array
+    {
+        $items = [];
+
+        foreach ($this->all($path) as $directory) {
+            if ($directory->isDir() && ! $directory->isDot()) {
+                if (! is_callable($callback) || Call::callback($callback, $directory->getRealPath())) {
+                    $items[] = $directory->getRealPath();
+                }
+            }
+
+            if ($recursive && $directory->isDir() && ! $directory->isDot()) {
+                $directories = $this->allPaths($directory->getRealPath(), $callback, $recursive);
+
+                $items = array_merge($items, $directories);
+            }
+        }
+
+        sort($items);
+
+        return array_values($items);
     }
 
     /**
@@ -60,32 +95,11 @@ class Directory
      */
     public function names(string $path, ?callable $callback = null, bool $recursive = false): array
     {
-        $items = [];
-
-        /** @var DirectoryIterator $directory */
-        foreach ($this->all($path) as $directory) {
-            if ($directory->isDir() && ! $directory->isDot()) {
-                $name = $directory->getFilename();
-
-                if (! is_callable($callback) || Call::callback($callback, $name)) {
-                    $items[] = $name;
-                }
-            }
-
-            if ($recursive && $directory->isDir() && ! $directory->isDot()) {
-                $prefix = (string) Str::of($directory->getRealPath())
-                    ->after(realpath($path))
-                    ->trim('\\/');
-
-                foreach ($this->names($directory->getRealPath(), $callback, $recursive) as $value) {
-                    $items[] = $prefix . '/' . $value;
-                }
-            }
-        }
-
-        sort($items);
-
-        return array_values($items);
+        return Arr::of(
+            $this->allPaths($path, $callback, $recursive)
+        )
+            ->map(fn (string $value) => Str::of($value)->after(realpath($path))->trim('\\/')->toString())
+            ->toArray();
     }
 
     /**
