@@ -14,7 +14,7 @@ jobs:
                 php: [ "8.0", "8.1" ]
                 prefer: [ "lower", "stable" ]
 
-        name: PHP ${{ matrix.php }}, Prefer ${{ matrix.prefer }}
+        name: PHP ${{ matrix.php }}, ${{ matrix.prefer }}
 
         steps:
             -   name: Checkout code

@@ -37,7 +37,7 @@ class Directory
      *
      * @throws \DragonCode\Support\Exceptions\DirectoryNotFoundException
      *
-     * @return \DirectoryIterator|\DirectoryIterator[]
+     * @return DirectoryIterator|DirectoryIterator[]
      */
     public function all(string $path): DirectoryIterator
     {
