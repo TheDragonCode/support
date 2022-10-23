@@ -15,6 +15,8 @@
  * @see https://github.com/TheDragonCode/support
  */
 
+declare(strict_types=1);
+
 return [
     'foo' => 'Foo',
     'bar' => 'Bar',
