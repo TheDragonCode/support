@@ -44,15 +44,16 @@ class Digit
      *
      * @param float $number
      * @param int $precision
+     * @param string|null $suffix
      *
      * @return string
      */
-    public function toShort(float $number, int $precision = 1): string
+    public function toShort(float $number, int $precision = 1, ?string $suffix = null): string
     {
         $length = strlen((string) ((int) $number));
         $length = ceil($length / 3) * 3 + 1;
 
-        $suffix = $this->suffix($length);
+        $suffix = $this->suffix($length, $suffix);
         $value  = $this->rounded($number, $length, $precision);
 
         return $value . $suffix;
@@ -112,14 +113,14 @@ class Digit
         return (string) $value;
     }
 
-    protected function suffix(int $length = 0): string
+    protected function suffix(int $length = 0, ?string $suffix = null): string
     {
         $available = [
-            4  => '',
-            7  => 'K',
-            10 => 'M',
-            13 => 'B',
-            16 => 'T+',
+            4  => '' . $suffix,
+            7  => 'K' . $suffix,
+            10 => 'M' . $suffix,
+            13 => 'B' . $suffix,
+            16 => 'T' . $suffix . '+',
         ];
 
         return $available[$length] ?? Arr::last($available);
