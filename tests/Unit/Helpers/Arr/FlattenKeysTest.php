@@ -89,7 +89,7 @@ class FlattenKeysTest extends TestCase
             'accepted_if' => 'The :attribute must be accepted when :other is :value.',
             'active_url'  => 'The :attribute is not a valid URL.',
 
-            'between' => [
+            'between'     => [
                 'numeric' => 'The :attribute must be between :min and :max.',
                 'file'    => 'The :attribute must be between :min and :max kilobytes.',
                 'string'  => 'The :attribute must be between :min and :max characters.',
@@ -100,26 +100,26 @@ class FlattenKeysTest extends TestCase
                 ],
             ],
 
-            'custom' => [
+            'custom'      => [
                 'attribute-name' => [
                     'rule-name' => 'custom-message',
                 ],
             ],
 
-            'attributes' => [],
+            'attributes'  => [],
         ];
 
         $expected = [
-            'accepted'    => 'The :attribute must be accepted.',
-            'accepted_if' => 'The :attribute must be accepted when :other is :value.',
-            'active_url'  => 'The :attribute is not a valid URL.',
+            'accepted'                        => 'The :attribute must be accepted.',
+            'accepted_if'                     => 'The :attribute must be accepted when :other is :value.',
+            'active_url'                      => 'The :attribute is not a valid URL.',
 
-            'between.numeric' => 'The :attribute must be between :min and :max.',
-            'between.file'    => 'The :attribute must be between :min and :max kilobytes.',
-            'between.string'  => 'The :attribute must be between :min and :max characters.',
-            'between.array'   => 'The :attribute must have between :min and :max items.',
-            'between.foo.bar' => 'Bar',
-            'between.foo.baq' => 'Baq',
+            'between.numeric'                 => 'The :attribute must be between :min and :max.',
+            'between.file'                    => 'The :attribute must be between :min and :max kilobytes.',
+            'between.string'                  => 'The :attribute must be between :min and :max characters.',
+            'between.array'                   => 'The :attribute must have between :min and :max items.',
+            'between.foo.bar'                 => 'Bar',
+            'between.foo.baq'                 => 'Baq',
 
             'custom.attribute-name.rule-name' => 'custom-message',
         ];

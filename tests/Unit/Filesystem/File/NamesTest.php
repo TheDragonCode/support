@@ -27,7 +27,16 @@ class NamesTest extends TestCase
 {
     public function testNames()
     {
-        $available = ['.bar', '.beep', '.foo', '.gitkeep', 'array.json', 'array.php'];
+        $available = [
+            '.bar',
+            '.beep',
+            '.foo',
+            '.gitkeep',
+            'array-incorrect.json',
+            'array-incorrect.php',
+            'array.json',
+            'array.php',
+        ];
 
         $names = File::names($this->fixturesDirectory());
 
@@ -57,6 +66,8 @@ class NamesTest extends TestCase
             'Instances' . DIRECTORY_SEPARATOR . 'Invokable.php',
             'Instances' . DIRECTORY_SEPARATOR . 'Map.php',
             'Instances' . DIRECTORY_SEPARATOR . 'Psr.php',
+            'array-incorrect.json',
+            'array-incorrect.php',
             'array.json',
             'array.php',
             'stubs' . DIRECTORY_SEPARATOR . 'custom.stub',

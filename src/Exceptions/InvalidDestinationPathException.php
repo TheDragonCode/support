@@ -27,8 +27,6 @@ class InvalidDestinationPathException extends Exception
     #[Pure]
     public function __construct(?string $path)
     {
-        $message = 'The start and end paths must not be the same: ' . $path;
-
-        parent::__construct($message);
+        parent::__construct('The start and end paths must not be the same: ' . $path);
     }
 }

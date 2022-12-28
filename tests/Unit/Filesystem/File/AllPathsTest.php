@@ -32,6 +32,8 @@ class AllPathsTest extends TestCase
             realpath($this->fixturesDirectory('.beep')),
             realpath($this->fixturesDirectory('.foo')),
             realpath($this->fixturesDirectory('.gitkeep')),
+            realpath($this->fixturesDirectory('array-incorrect.json')),
+            realpath($this->fixturesDirectory('array-incorrect.php')),
             realpath($this->fixturesDirectory('array.json')),
             realpath($this->fixturesDirectory('array.php')),
         ];
@@ -64,6 +66,8 @@ class AllPathsTest extends TestCase
             realpath($this->fixturesDirectory('Instances/Invokable.php')),
             realpath($this->fixturesDirectory('Instances/Map.php')),
             realpath($this->fixturesDirectory('Instances/Psr.php')),
+            realpath($this->fixturesDirectory('array-incorrect.json')),
+            realpath($this->fixturesDirectory('array-incorrect.php')),
             realpath($this->fixturesDirectory('array.json')),
             realpath($this->fixturesDirectory('array.php')),
             realpath($this->fixturesDirectory('stubs/custom.stub')),

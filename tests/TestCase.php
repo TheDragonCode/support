@@ -47,7 +47,7 @@ abstract class TestCase extends BaseTestCase
     {
         $path = ! empty($path) ? ltrim($path, '/') : '';
 
-        return __DIR__ . '/Fixtures/' . $path;
+        return realpath(__DIR__ . '/Fixtures/' . $path);
     }
 
     protected function destroyTempDirectory()

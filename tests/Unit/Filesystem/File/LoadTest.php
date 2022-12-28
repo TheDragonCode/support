@@ -20,6 +20,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Filesystem\File;
 
 use DragonCode\Support\Exceptions\FileNotFoundException;
+use DragonCode\Support\Exceptions\FileSyntaxErrorException;
 use DragonCode\Support\Exceptions\UnhandledFileExtensionException;
 use DragonCode\Support\Facades\Filesystem\File;
 use Tests\TestCase;
@@ -36,6 +37,17 @@ class LoadTest extends TestCase
         $this->assertSame($expected, File::load($this->fixturesDirectory('array.php')));
     }
 
+    public function testIncorrectPhp()
+    {
+        $path = $this->fixturesDirectory('array-incorrect.php');
+
+        $this->expectException(FileSyntaxErrorException::class);
+        $this->expectExceptionMessage('incorrect structure or is corrupted');
+        $this->expectExceptionMessage($path);
+
+        File::load($path);
+    }
+
     public function testJson()
     {
         $expected = [
@@ -44,6 +56,17 @@ class LoadTest extends TestCase
         ];
 
         $this->assertSame($expected, File::load($this->fixturesDirectory('array.json')));
+    }
+
+    public function testIncorrectJson()
+    {
+        $path = $this->fixturesDirectory('array-incorrect.json');
+
+        $this->expectException(FileSyntaxErrorException::class);
+        $this->expectExceptionMessage('incorrect structure or is corrupted');
+        $this->expectExceptionMessage($path);
+
+        File::load($path);
     }
 
     public function testFileNotFoundException()
