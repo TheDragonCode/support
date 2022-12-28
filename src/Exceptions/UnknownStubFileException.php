@@ -24,8 +24,6 @@ class UnknownStubFileException extends Exception
     #[Pure]
     public function __construct(?string $filename)
     {
-        $message = 'Unknown stub file: "' . $filename . '"';
-
-        parent::__construct($message, 400);
+        parent::__construct('Unknown stub file: "' . $filename . '"', 400);
     }
 }

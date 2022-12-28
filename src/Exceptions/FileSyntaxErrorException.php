@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the "dragon-code/support" project.
  *
@@ -14,16 +15,16 @@
  * @see https://github.com/TheDragonCode/support
  */
 
+declare(strict_types=1);
+
 namespace DragonCode\Support\Exceptions;
 
-use Exception;
-use JetBrains\PhpStorm\Pure;
+use ParseError;
 
-class FileNotFoundException extends Exception
+class FileSyntaxErrorException extends ParseError
 {
-    #[Pure]
-    public function __construct(?string $path)
+    public function __construct(string $filename)
     {
-        parent::__construct('File "' . $path . '" does not exist.');
+        parent::__construct("File \"$filename\" has an incorrect structure or is corrupted.");
     }
 }

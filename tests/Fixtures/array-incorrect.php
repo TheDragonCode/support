@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the "dragon-code/support" project.
  *
@@ -14,16 +15,9 @@
  * @see https://github.com/TheDragonCode/support
  */
 
-namespace DragonCode\Support\Exceptions;
+declare(strict_types=1);
 
-use Exception;
-use JetBrains\PhpStorm\Pure;
-
-class FileNotFoundException extends Exception
-{
-    #[Pure]
-    public function __construct(?string $path)
-    {
-        parent::__construct('File "' . $path . '" does not exist.');
-    }
-}
+return [
+    'foo' => 'Foo'
+    'bar' => 'Bar',
+];

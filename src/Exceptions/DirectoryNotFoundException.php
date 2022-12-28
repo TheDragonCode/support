@@ -24,8 +24,6 @@ class DirectoryNotFoundException extends Exception
     #[Pure]
     public function __construct(?string $path)
     {
-        $message = 'Directory "' . $path . '" does not exist.';
-
-        parent::__construct($message);
+        parent::__construct('Directory "' . $path . '" does not exist.');
     }
 }
