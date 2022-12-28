@@ -25,6 +25,8 @@ class FileSyntaxErrorException extends ParseError
 {
     public function __construct(string $filename)
     {
-        parent::__construct("File \"$filename\" has an incorrect structure or is corrupted.");
+        $path = realpath($filename);
+
+        parent::__construct("File \"$path\" has an incorrect structure or is corrupted.");
     }
 }

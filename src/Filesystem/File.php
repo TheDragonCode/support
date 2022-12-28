@@ -122,6 +122,9 @@ class File
                 default => throw new UnhandledFileExtensionException($path)
             };
         }
+        catch (FileNotFoundException|UnhandledFileExtensionException $e) {
+            throw $e;
+        }
         catch (Throwable) {
             throw new FileSyntaxErrorException($path);
         }
