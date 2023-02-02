@@ -8,7 +8,7 @@
  *
  * @author Andrey Helldar <helldar@ai-rus.com>
  *
- * @copyright 2022 Andrey Helldar
+ * @copyright 2023 Andrey Helldar
  *
  * @license MIT
  *
@@ -52,6 +52,10 @@ class NamesTest extends TestCase
             '.gitkeep',
             'Concerns' . DIRECTORY_SEPARATOR . 'Barable.php',
             'Concerns' . DIRECTORY_SEPARATOR . 'Foable.php',
+            'Concerns' . DIRECTORY_SEPARATOR . 'NestedClass.php',
+            'Concerns' . DIRECTORY_SEPARATOR . 'NestedLevel2.php',
+            'Concerns' . DIRECTORY_SEPARATOR . 'NestedLevel3.php',
+            'Concerns' . DIRECTORY_SEPARATOR . 'NestedLevel4.php',
             'Contracts' . DIRECTORY_SEPARATOR . 'Contract.php',
             'Exceptions' . DIRECTORY_SEPARATOR . 'AnyException.php',
             'Facades' . DIRECTORY_SEPARATOR . 'NotImplement.php',

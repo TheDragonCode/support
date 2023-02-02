@@ -8,7 +8,7 @@
  *
  * @author Andrey Helldar <helldar@ai-rus.com>
  *
- * @copyright 2022 Andrey Helldar
+ * @copyright 2023 Andrey Helldar
  *
  * @license MIT
  *
@@ -52,6 +52,10 @@ class AllPathsTest extends TestCase
             realpath($this->fixturesDirectory('.gitkeep')),
             realpath($this->fixturesDirectory('Concerns/Barable.php')),
             realpath($this->fixturesDirectory('Concerns/Foable.php')),
+            realpath($this->fixturesDirectory('Concerns/NestedClass.php')),
+            realpath($this->fixturesDirectory('Concerns/NestedLevel2.php')),
+            realpath($this->fixturesDirectory('Concerns/NestedLevel3.php')),
+            realpath($this->fixturesDirectory('Concerns/NestedLevel4.php')),
             realpath($this->fixturesDirectory('Contracts/Contract.php')),
             realpath($this->fixturesDirectory('Exceptions/AnyException.php')),
             realpath($this->fixturesDirectory('Facades/NotImplement.php')),
