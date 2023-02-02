@@ -117,6 +117,10 @@ class Instance
 
     protected function findTrait(ReflectionClass $haystack, object|string $needle): bool
     {
+        if (in_array($needle, $haystack->getTraitNames(), true)) {
+            return true;
+        }
+
         foreach ($haystack->getTraits() as $trait) {
             if (in_array($needle, $trait->getTraitNames(), true)) {
                 return true;
