@@ -19,7 +19,6 @@ declare(strict_types=1);
 
 namespace Tests\Fixtures\Concerns;
 
-trait Foable
+trait NestedLevel4
 {
-    use NestedLevel2;
 }

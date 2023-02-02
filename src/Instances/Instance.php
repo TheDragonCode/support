@@ -8,7 +8,7 @@
  *
  * @author Andrey Helldar <helldar@ai-rus.com>
  *
- * @copyright 2022 Andrey Helldar
+ * @copyright 2023 Andrey Helldar
  *
  * @license MIT
  *
@@ -45,7 +45,7 @@ class Instance
                 continue;
             }
 
-            if (in_array($needle, $reflection->getTraitNames(), true)) {
+            if ($this->findTrait($reflection, $needle)) {
                 return true;
             }
 
@@ -113,5 +113,20 @@ class Instance
     protected function resolve(object|string $class): ReflectionClass
     {
         return ReflectionHelper::resolve($class);
+    }
+
+    protected function findTrait(ReflectionClass $haystack, object|string $needle): bool
+    {
+        foreach ($haystack->getTraits() as $trait) {
+            if (in_array($needle, $trait->getTraitNames(), true)) {
+                return true;
+            }
+
+            if ($this->findTrait($trait, $needle)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

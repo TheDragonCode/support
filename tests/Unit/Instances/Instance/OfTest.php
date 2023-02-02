@@ -8,7 +8,7 @@
  *
  * @author Andrey Helldar <helldar@ai-rus.com>
  *
- * @copyright 2022 Andrey Helldar
+ * @copyright 2023 Andrey Helldar
  *
  * @license MIT
  *
@@ -22,6 +22,10 @@ namespace Tests\Unit\Instances\Instance;
 use DragonCode\Support\Facades\Instances\Instance;
 use Tests\Fixtures\Concerns\Barable;
 use Tests\Fixtures\Concerns\Foable;
+use Tests\Fixtures\Concerns\NestedClass;
+use Tests\Fixtures\Concerns\NestedLevel2;
+use Tests\Fixtures\Concerns\NestedLevel3;
+use Tests\Fixtures\Concerns\NestedLevel4;
 use Tests\Fixtures\Contracts\Contract;
 use Tests\Fixtures\Instances\Bam;
 use Tests\Fixtures\Instances\Bar;
@@ -75,6 +79,9 @@ class OfTest extends TestCase
     public function testOfTrait()
     {
         $this->assertTrue(Instance::of(Foable::class, Foable::class));
+        $this->assertTrue(Instance::of(NestedClass::class, NestedLevel2::class));
+        $this->assertTrue(Instance::of(NestedClass::class, NestedLevel3::class));
+        $this->assertTrue(Instance::of(NestedClass::class, NestedLevel4::class));
 
         $this->assertFalse(Instance::of(Foable::class, Bat::class));
         $this->assertFalse(Instance::of(Foable::class, Barable::class));

@@ -19,7 +19,7 @@ declare(strict_types=1);
 
 namespace Tests\Fixtures\Concerns;
 
-trait Foable
+class NestedClass
 {
-    use NestedLevel2;
+    use Foable;
 }
