@@ -58,8 +58,8 @@
         "voku/portable-ascii": "^1.4.8 || ^2.0.1"
     },
     "require-dev": {
-        "illuminate/contracts": "^9.7",
-        "phpunit/phpunit": "^9.5",
+        "illuminate/contracts": "^10.0",
+        "phpunit/phpunit": "^9.6",
         "symfony/var-dumper": "^6.0"
     },
     "conflict": {
