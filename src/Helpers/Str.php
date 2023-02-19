@@ -8,7 +8,7 @@
  *
  * @author Andrey Helldar <helldar@ai-rus.com>
  *
- * @copyright 2022 Andrey Helldar
+ * @copyright 2023 Andrey Helldar
  *
  * @license MIT
  *
@@ -129,8 +129,8 @@ class Str
 
         switch (true) {
             case $mod === 0:
-            case $mod           >= 5             && $mod           <= 9:
-            case ($number % 100 >= 11)           && ($number % 100 <= 20):
+            case $mod >= 5             && $mod <= 9:
+            case ($number % 100 >= 11) && ($number % 100 <= 20):
                 $result = $choice[2] ?? '';
                 break;
 
@@ -624,6 +624,23 @@ class Str
         preg_match($pattern, $value, $matches);
 
         return ! $matches ? null : ($matches[1] ?? $matches[0]);
+    }
+
+    /**
+     * Get the all string matching the given pattern.
+     *
+     * @see https://github.com/illuminate/support/blob/master/Str.php
+     *
+     * @param string $value
+     * @param string $pattern
+     *
+     * @return array|null
+     */
+    public function matchAll(string $value, string $pattern): ?array
+    {
+        preg_match_all($pattern, $value, $matches);
+
+        return empty($matches[0]) ? null : ($matches[1] ?? $matches[0]);
     }
 
     /**

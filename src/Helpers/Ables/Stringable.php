@@ -8,7 +8,7 @@
  *
  * @author Andrey Helldar <helldar@ai-rus.com>
  *
- * @copyright 2022 Andrey Helldar
+ * @copyright 2023 Andrey Helldar
  *
  * @license MIT
  *
@@ -338,6 +338,18 @@ class Stringable implements Contract
     public function match(string $pattern): self
     {
         return new self(Str::match($this->toString(), $pattern));
+    }
+
+    /**
+     * Get the all string matching the given pattern.
+     *
+     * @param string $pattern
+     *
+     * @return \DragonCode\Support\Helpers\Ables\Arrayable
+     */
+    public function matchAll(string $pattern): Arrayable
+    {
+        return Arr::of(Str::matchAll($this->toString(), $pattern));
     }
 
     /**

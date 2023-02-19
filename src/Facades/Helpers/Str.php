@@ -8,7 +8,7 @@
  *
  * @author Andrey Helldar <helldar@ai-rus.com>
  *
- * @copyright 2022 Andrey Helldar
+ * @copyright 2023 Andrey Helldar
  *
  * @license MIT
  *
@@ -23,6 +23,7 @@ use DragonCode\Support\Helpers\Str as Helper;
 
 /**
  * @method static Stringable of(?string $value)
+ * @method static array|null matchAll(string $value, string $pattern)
  * @method static bool contains(string $haystack, $needles)
  * @method static bool doesntEmpty($value)
  * @method static bool endsWith(string $haystack, string|string[] $needles)
