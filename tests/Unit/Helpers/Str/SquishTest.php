@@ -8,7 +8,7 @@
  *
  * @author Andrey Helldar <helldar@ai-rus.com>
  *
- * @copyright 2022 Andrey Helldar
+ * @copyright 2023 Andrey Helldar
  *
  * @license MIT
  *
@@ -46,6 +46,8 @@ class SquishTest extends TestCase
             framework
         ')
         );
+
+        $this->assertSame('laravel php framework', Str::squish('laravelᅠᅠᅠᅠᅠᅠᅠᅠᅠᅠphpᅠᅠframework'));
 
         $this->assertSame('123', Str::squish('   123    '));
         $this->assertSame('だ', Str::squish('だ'));

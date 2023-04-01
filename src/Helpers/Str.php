@@ -108,9 +108,9 @@ class Str
      */
     public function squish(?string $value): ?string
     {
-        $value = $this->pregReplace($value, '~^\s+|\s+$~u', '');
+        $value = $this->pregReplace($value, '~^[\s\x{FEFF}]+|[\s\x{FEFF}]+$~u', '');
 
-        return $this->pregReplace($value, '~(\s|\x{3164})+~u', ' ');
+        return $this->pregReplace($value, '~(\s|\x{3164}|\x{1160})+~u', ' ');
     }
 
     /**
