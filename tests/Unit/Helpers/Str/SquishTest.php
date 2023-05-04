@@ -34,20 +34,20 @@ class SquishTest extends TestCase
         $this->assertEquals('foo bar baz', Str::squish('foo  bar     baz'));
         $this->assertEquals('foo bar baz', Str::squish('foo    bar baz'));
 
-        $this->assertSame('laravel php framework', Str::squish(' laravel   php  framework '));
-        $this->assertSame('laravel php framework', Str::squish("laravel\t\tphp\n\nframework"));
-        $this->assertSame('laravel php framework', Str::squish('   laravel   php   framework   '));
+        $this->assertSame('the dragon code', Str::squish(' the   dragon  code '));
+        $this->assertSame('the dragon code', Str::squish("the\t\tdragon\n\ncode"));
+        $this->assertSame('the dragon code', Str::squish('   the   dragon   code   '));
 
         $this->assertSame(
-            'laravel php framework',
+            'the dragon code',
             Str::squish('
-            laravel
-            php
-            framework
+            the
+            dragon
+            code
         ')
         );
 
-        $this->assertSame('laravel php framework', Str::squish('laravelᅠᅠᅠᅠᅠᅠᅠᅠᅠᅠphpᅠᅠframework'));
+        $this->assertSame('the dragon code', Str::squish('theᅠᅠᅠᅠᅠᅠᅠᅠᅠᅠdragonᅠᅠcode'));
 
         $this->assertSame('123', Str::squish('   123    '));
         $this->assertSame('だ', Str::squish('だ'));
@@ -55,6 +55,6 @@ class SquishTest extends TestCase
         $this->assertSame('だ', Str::squish('   だ    '));
         $this->assertSame('ム', Str::squish('   ム    '));
 
-        $this->assertSame('laravel php framework', Str::squish('laravelㅤㅤㅤphpㅤframework'));
+        $this->assertSame('the dragon code', Str::squish('theㅤㅤㅤdragonㅤcode'));
     }
 }
