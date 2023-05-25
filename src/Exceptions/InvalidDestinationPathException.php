@@ -20,13 +20,11 @@ declare(strict_types=1);
 namespace DragonCode\Support\Exceptions;
 
 use Exception;
-use JetBrains\PhpStorm\Pure;
 
 class InvalidDestinationPathException extends Exception
 {
-    #[Pure]
     public function __construct(?string $path)
     {
-        parent::__construct('The start and end paths must not be the same: ' . $path);
+        parent::__construct("The start and end paths must not be the same: \"$path\"");
     }
 }

@@ -16,12 +16,10 @@
 
 namespace DragonCode\Support\Exceptions;
 
-use JetBrains\PhpStorm\Pure;
 use LogicException;
 
 class UnknownUrlComponentIndexException extends LogicException
 {
-    #[Pure]
     public function __construct(int $component)
     {
         parent::__construct('Unknown URL component index: ' . $component);

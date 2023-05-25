@@ -17,13 +17,11 @@
 namespace DragonCode\Support\Exceptions;
 
 use Exception;
-use JetBrains\PhpStorm\Pure;
 
 class UnknownStubFileException extends Exception
 {
-    #[Pure]
     public function __construct(?string $filename)
     {
-        parent::__construct('Unknown stub file: "' . $filename . '"', 400);
+        parent::__construct("Unknown stub file: \"$filename\"", 400);
     }
 }

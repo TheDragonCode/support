@@ -17,13 +17,11 @@
 namespace DragonCode\Support\Exceptions;
 
 use Exception;
-use JetBrains\PhpStorm\Pure;
 
 class DirectoryNotFoundException extends Exception
 {
-    #[Pure]
     public function __construct(?string $path)
     {
-        parent::__construct('Directory "' . $path . '" does not exist.');
+        parent::__construct("Path \"$path\" does not exist.");
     }
 }

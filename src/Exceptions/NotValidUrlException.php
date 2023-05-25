@@ -17,27 +17,11 @@
 namespace DragonCode\Support\Exceptions;
 
 use Exception;
-use JetBrains\PhpStorm\Pure;
 
 class NotValidUrlException extends Exception
 {
-    #[Pure]
     public function __construct(?string $url)
     {
-        $value = $this->value($url);
-
-        $message = $this->message($value);
-
-        parent::__construct($message, 412);
-    }
-
-    protected function value(?string $url): string
-    {
-        return ! empty($url) ? 'The "' . $url . '"' : 'Empty string';
-    }
-
-    protected function message(string $value): string
-    {
-        return $value . ' is not a valid URL.';
+        parent::__construct("The \"$url\" is not a valid URL.", 412);
     }
 }

@@ -16,17 +16,13 @@
 
 namespace DragonCode\Support\Exceptions;
 
-use JetBrains\PhpStorm\Pure;
 use LogicException;
 
 class ForbiddenVariableTypeException extends LogicException
 {
-    #[Pure]
     public function __construct(string $haystack, array|string $needles)
     {
-        $needles = $this->needles($needles);
-
-        $message = $this->message($haystack, $needles);
+        $message = $this->message($haystack, $this->needles($needles));
 
         parent::__construct($message);
     }
