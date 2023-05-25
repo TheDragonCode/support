@@ -27,8 +27,8 @@ class ReplaceTest extends TestCase
 {
     public function testReplacePhp()
     {
-        $this->assertSame("<?php\n\ndeclare(strict_types=1);\n\nreturn {{slot}};\n", Stub::replace(Tool::PHP_ARRAY, []));
-        $this->assertSame("<?php\n\ndeclare(strict_types=1);\n\nreturn 'foo';\n", Stub::replace(Tool::PHP_ARRAY, ['{{slot}}' => '\'foo\'']));
+        $this->assertSame("<?php\n\ndeclare(strict_types=1);\n\nreturn {{slot}};\n", Stub::replace(Tool::PHP, []));
+        $this->assertSame("<?php\n\ndeclare(strict_types=1);\n\nreturn 'foo';\n", Stub::replace(Tool::PHP, ['{{slot}}' => '\'foo\'']));
     }
 
     public function testReplaceJson()

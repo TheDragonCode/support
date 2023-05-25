@@ -28,9 +28,9 @@ class Boolean
      *
      * @return bool
      */
-    public function isTrue(mixed $value): bool
+    public static function isTrue(mixed $value): bool
     {
-        return $this->to($value) === true;
+        return static::to($value) === true;
     }
 
     /**
@@ -40,9 +40,9 @@ class Boolean
      *
      * @return bool
      */
-    public function isFalse(mixed $value): bool
+    public static function isFalse(mixed $value): bool
     {
-        return $this->to($value) === false;
+        return static::to($value) === false;
     }
 
     /**
@@ -53,9 +53,9 @@ class Boolean
      * @return bool
      */
     #[Pure]
-    public function to(mixed $value): bool
+    public static function to(mixed $value): bool
     {
-        return (bool) $this->parse($value);
+        return (bool) static::parse($value);
     }
 
     /**
@@ -65,7 +65,7 @@ class Boolean
      *
      * @return bool|null
      */
-    public function parse(mixed $value): ?bool
+    public static function parse(mixed $value): ?bool
     {
         if (is_null($value)) {
             return null;
@@ -81,7 +81,7 @@ class Boolean
      *
      * @return string
      */
-    public function toString(bool $value): string
+    public static function toString(bool $value): string
     {
         return $value ? 'true' : 'false';
     }

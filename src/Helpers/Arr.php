@@ -21,13 +21,12 @@ use ArrayAccess;
 use ArrayObject;
 use Closure;
 use DragonCode\Contracts\Support\Arrayable;
-use DragonCode\Support\Facades\Callbacks\Empties;
-use DragonCode\Support\Facades\Callbacks\Sorter;
-use DragonCode\Support\Facades\Filesystem\File;
-use DragonCode\Support\Facades\Instances\Call;
-use DragonCode\Support\Facades\Instances\Instance as InstanceHelper;
-use DragonCode\Support\Facades\Instances\Reflection as ReflectionHelper;
-use DragonCode\Support\Helpers\Ables\Arrayable as ArrayableHelper;
+use DragonCode\Support\Callbacks\Empties;
+use DragonCode\Support\Callbacks\Sorter;
+use DragonCode\Support\Filesystem\File;
+use DragonCode\Support\Instances\Call;
+use DragonCode\Support\Instances\Instance;
+use DragonCode\Support\Instances\Reflection;
 use Illuminate\Contracts\Support\Arrayable as ArrayableIlluminate;
 
 class Arr
@@ -35,27 +34,24 @@ class Arr
     /**
      * Get a new arrayable object from the given array.
      *
-     * @param ArrayObject|array|null $value
+     * @param \DragonCode\Support\Helpers\Ables\Arrayable|\ArrayObject|array|string|null $value
+     * @param string|null $key
      *
+     * @throws \DragonCode\Support\Exceptions\FileNotFoundException
+     * @throws \DragonCode\Support\Exceptions\UnhandledFileExtensionException
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
-    public function of(ArrayObject|array|null $value = []): Ables\Arrayable
+    public static function of(Ables\Arrayable|ArrayObject|array|string|null $value = [], ?string $key = null): Ables\Arrayable
     {
+        if (is_string($value) && File::exists($value)) {
+            $value = File::load($value);
+
+            if ($key) {
+                $value = static::get($value, $key);
+            }
+        }
+
         return new Ables\Arrayable($value);
-    }
-
-    /**
-     * Get a new arrayable object from the given array from the php or json array file.
-     *
-     * @param string $path
-     *
-     * @return \DragonCode\Support\Helpers\Ables\Arrayable
-     */
-    public function ofFile(string $path): Ables\Arrayable
-    {
-        $content = File::load($path);
-
-        return $this->of($content);
     }
 
     /**
@@ -68,7 +64,7 @@ class Arr
      *
      * @return array
      */
-    public function renameKeys(ArrayObject|array|null $array, callable $callback): array
+    public static function renameKeys(ArrayObject|array|null $array, callable $callback): array
     {
         $result = [];
 
@@ -89,9 +85,9 @@ class Arr
      *
      * @return array
      */
-    public function renameKeysMap(ArrayObject|array|null $array, array $map): array
+    public static function renameKeysMap(ArrayObject|array|null $array, array $map): array
     {
-        return $this->renameKeys($array, static fn ($key) => $map[$key] ?? $key);
+        return static::renameKeys($array, static fn ($key) => $map[$key] ?? $key);
     }
 
     /**
@@ -101,7 +97,7 @@ class Arr
      *
      * @return int
      */
-    public function longestStringLength(ArrayObject|array|null $array): int
+    public static function longestStringLength(ArrayObject|array|null $array): int
     {
         return ! empty($array) ? max(array_map('mb_strlen', $array)) : 0;
     }
@@ -114,18 +110,18 @@ class Arr
      *
      * @return array
      */
-    public function addUnique(ArrayObject|array $array, mixed $values): array
+    public static function addUnique(ArrayObject|array $array, mixed $values): array
     {
-        if ($this->isArrayable($values)) {
+        if (static::isArrayable($values)) {
             foreach ($values as $value) {
-                $array = $this->addUnique($array, $value);
+                $array = static::addUnique($array, $value);
             }
         }
         else {
             $array[] = $values;
         }
 
-        return $this->unique($array);
+        return static::unique($array);
     }
 
     /**
@@ -144,7 +140,7 @@ class Arr
      *
      * @return array
      */
-    public function unique(ArrayObject|array $array, int $flags = SORT_STRING): array
+    public static function unique(ArrayObject|array $array, int $flags = SORT_STRING): array
     {
         return array_unique($array, $flags);
     }
@@ -175,7 +171,7 @@ class Arr
      *
      * @return array
      */
-    public function sortByKeys(ArrayObject|array $array, array $sorter): array
+    public static function sortByKeys(ArrayObject|array $array, array $sorter): array
     {
         $sorter = array_intersect($sorter, array_keys($array));
 
@@ -190,7 +186,7 @@ class Arr
      *
      * @return array
      */
-    public function sort(ArrayObject|array $array, ?callable $callback = null): array
+    public static function sort(ArrayObject|array $array, ?callable $callback = null): array
     {
         $callback = $callback ?: Sorter::default();
 
@@ -198,7 +194,7 @@ class Arr
 
         foreach ($array as &$value) {
             if (is_array($value)) {
-                $value = $this->sort($value, $callback);
+                $value = static::sort($value, $callback);
             }
         }
 
@@ -213,7 +209,7 @@ class Arr
      *
      * @return array
      */
-    public function ksort(ArrayObject|array $array, ?callable $callback = null): array
+    public static function ksort(ArrayObject|array $array, ?callable $callback = null): array
     {
         $callback = $callback ?: Sorter::default();
 
@@ -221,7 +217,7 @@ class Arr
 
         foreach ($array as &$value) {
             if (is_array($value)) {
-                $value = $this->ksort($value, $callback);
+                $value = static::ksort($value, $callback);
             }
         }
 
@@ -236,7 +232,7 @@ class Arr
      *
      * @return array
      */
-    public function merge(ArrayObject|array ...$arrays): array
+    public static function merge(ArrayObject|array ...$arrays): array
     {
         $result = [];
 
@@ -249,7 +245,7 @@ class Arr
                         $prev_value = [];
                     }
 
-                    $value = $this->merge($prev_value, $value);
+                    $value = static::merge($prev_value, $value);
                 }
 
                 $result[$key] = $value;
@@ -266,7 +262,7 @@ class Arr
      *
      * @return array
      */
-    public function combine(ArrayObject|array ...$arrays): array
+    public static function combine(ArrayObject|array ...$arrays): array
     {
         $result = [];
 
@@ -279,13 +275,13 @@ class Arr
                         $prev_value = [];
                     }
 
-                    $result[$key] = $this->combine($prev_value, $value);
+                    $result[$key] = static::combine($prev_value, $value);
 
                     continue;
                 }
 
                 if (is_array($value)) {
-                    $value = $this->combine($value);
+                    $value = static::combine($value);
                 }
 
                 $result[] = $value;
@@ -302,7 +298,7 @@ class Arr
      *
      * @return array
      */
-    public function wrap(mixed $value = null): array
+    public static function wrap(mixed $value = null): array
     {
         if (is_array($value)) {
             return $value;
@@ -318,9 +314,9 @@ class Arr
      *
      * @return array
      */
-    public function resolve(mixed $value): array
+    public static function resolve(mixed $value): array
     {
-        if (InstanceHelper::of($value, [ArrayObject::class, ArrayableHelper::class])) {
+        if (Instance::of($value, [ArrayObject::class, Ables\Arrayable::class])) {
             $value = Call::runMethods($value, ['getArrayCopy', 'resolve', 'toArray']);
         }
 
@@ -328,10 +324,10 @@ class Arr
             $value = method_exists($value, 'toArray') ? $value->toArray() : get_object_vars($value);
         }
 
-        $array = $this->wrap($value);
+        $array = static::wrap($value);
 
         foreach ($array as &$item) {
-            $item = $this->isArrayable($item) ? $this->resolve($item) : $item;
+            $item = static::isArrayable($item) ? static::resolve($item) : $item;
         }
 
         return $array;
@@ -345,18 +341,18 @@ class Arr
      *
      * @return bool
      */
-    public function exists(mixed $array, mixed $key): bool
+    public static function exists(mixed $array, mixed $key): bool
     {
-        if ($this->existsWithoutDot($array, $key)) {
+        if (static::existsWithoutDot($array, $key)) {
             return true;
         }
 
         if (! str_contains($key, '.')) {
-            return $this->existsWithoutDot($array, $key);
+            return static::existsWithoutDot($array, $key);
         }
 
         foreach (explode('.', $key) as $segment) {
-            if ($this->isArrayable($array) && $this->exists($array, $segment)) {
+            if (static::isArrayable($array) && static::exists($array, $segment)) {
                 $array = $array[$segment];
             }
             else {
@@ -375,9 +371,9 @@ class Arr
      *
      * @return bool
      */
-    public function doesntExist(mixed $array, mixed $key): bool
+    public static function doesntExist(mixed $array, mixed $key): bool
     {
-        return ! $this->exists($array, $key);
+        return ! static::exists($array, $key);
     }
 
     /**
@@ -388,7 +384,7 @@ class Arr
      *
      * @return bool
      */
-    public function existsWithoutDot(mixed $array, mixed $key): bool
+    public static function existsWithoutDot(mixed $array, mixed $key): bool
     {
         if ($array instanceof ArrayAccess) {
             return $array->offsetExists($key);
@@ -405,9 +401,9 @@ class Arr
      *
      * @return bool
      */
-    public function doesntExistWithoutDot(mixed $array, mixed $key): bool
+    public static function doesntExistWithoutDot(mixed $array, mixed $key): bool
     {
-        return ! $this->existsWithoutDot($array, $key);
+        return ! static::existsWithoutDot($array, $key);
     }
 
     /**
@@ -421,9 +417,9 @@ class Arr
      *
      * @return mixed|null
      */
-    public function get(mixed $array, mixed $key, mixed $default = null): mixed
+    public static function get(mixed $array, mixed $key, mixed $default = null): mixed
     {
-        if (! $this->isArrayable($array)) {
+        if (! static::isArrayable($array)) {
             return Call::value($default);
         }
 
@@ -431,7 +427,7 @@ class Arr
             return $array;
         }
 
-        if ($this->existsWithoutDot($array, $key)) {
+        if (static::existsWithoutDot($array, $key)) {
             return $array[$key];
         }
 
@@ -440,7 +436,7 @@ class Arr
         }
 
         foreach (explode('.', $key) as $segment) {
-            if ($this->isArrayable($array) && $this->existsWithoutDot($array, $segment)) {
+            if (static::isArrayable($array) && static::existsWithoutDot($array, $segment)) {
                 $array = $array[$segment];
             }
             else {
@@ -460,9 +456,9 @@ class Arr
      *
      * @return mixed|null
      */
-    public function getKey(mixed $array, mixed $key, mixed $default = null): mixed
+    public static function getKey(mixed $array, mixed $key, mixed $default = null): mixed
     {
-        return $this->exists($array, $key) ? $key : $default;
+        return static::exists($array, $key) ? $key : $default;
     }
 
     /**
@@ -473,13 +469,13 @@ class Arr
      *
      * @return array
      */
-    public function except(mixed $array, mixed $keys): array
+    public static function except(mixed $array, mixed $keys): array
     {
         $callback = is_callable($keys)
             ? $keys
             : static fn ($key) => empty($keys) || ! in_array($key, (array) $keys);
 
-        return $this->filter((array) $array, $callback, ARRAY_FILTER_USE_KEY);
+        return static::filter((array) $array, $callback, ARRAY_FILTER_USE_KEY);
     }
 
     /**
@@ -490,17 +486,17 @@ class Arr
      *
      * @return array
      */
-    public function only(mixed $array, mixed $keys): array
+    public static function only(mixed $array, mixed $keys): array
     {
         if (is_callable($keys)) {
-            return $this->filter($array, $keys, ARRAY_FILTER_USE_KEY);
+            return static::filter($array, $keys, ARRAY_FILTER_USE_KEY);
         }
 
         $result = [];
 
         foreach ((array) $keys as $index => $key) {
             if (is_array($key) && isset($array[$index])) {
-                $result[$index] = $this->only($array[$index], $key);
+                $result[$index] = static::only($array[$index], $key);
             }
             elseif (is_array($key) && ! isset($array[$index])) {
                 continue;
@@ -526,7 +522,7 @@ class Arr
      *
      * @return array
      */
-    public function filter(mixed $array, ?callable $callback = null, int $mode = 0): array
+    public static function filter(mixed $array, ?callable $callback = null, int $mode = 0): array
     {
         if (empty($callback)) {
             $callback = $mode === ARRAY_FILTER_USE_BOTH
@@ -546,9 +542,9 @@ class Arr
      *
      * @return array
      */
-    public function keys(mixed $array): array
+    public static function keys(mixed $array): array
     {
-        return array_keys($this->resolve($array));
+        return array_keys(static::resolve($array));
     }
 
     /**
@@ -560,9 +556,9 @@ class Arr
      *
      * @return array
      */
-    public function values(mixed $array): array
+    public static function values(mixed $array): array
     {
-        return array_values($this->resolve($array));
+        return array_values(static::resolve($array));
     }
 
     /**
@@ -574,9 +570,9 @@ class Arr
      *
      * @return array
      */
-    public function flip(mixed $array): array
+    public static function flip(mixed $array): array
     {
-        return array_flip($this->resolve($array));
+        return array_flip(static::resolve($array));
     }
 
     /**
@@ -587,20 +583,20 @@ class Arr
      *
      * @return array
      */
-    public function flatten(mixed $array, bool $ignore_keys = true): array
+    public static function flatten(mixed $array, bool $ignore_keys = true): array
     {
         $result = [];
 
         foreach ($array as $key => $item) {
-            if (! $this->isArrayable($item)) {
+            if (! static::isArrayable($item)) {
                 $result = $ignore_keys
-                    ? $this->push($result, $item)
-                    : $this->set($result, $key, $item);
+                    ? static::push($result, $item)
+                    : static::set($result, $key, $item);
 
                 continue;
             }
 
-            $flatten = $this->flatten($item, $ignore_keys);
+            $flatten = static::flatten($item, $ignore_keys);
 
             $values = $ignore_keys ? array_values($flatten) : $flatten;
 
@@ -610,7 +606,7 @@ class Arr
         return $ignore_keys ? array_values($result) : $result;
     }
 
-    public function flattenKeys(mixed $array, string $delimiter = '.', ?string $prefix = null): array
+    public static function flattenKeys(mixed $array, string $delimiter = '.', ?string $prefix = null): array
     {
         $result = [];
 
@@ -618,7 +614,7 @@ class Arr
             $new_key = ! empty($prefix) ? $prefix . $delimiter . $key : $key;
 
             if (is_array($value)) {
-                $values = $this->flattenKeys($value, $delimiter, $new_key);
+                $values = static::flattenKeys($value, $delimiter, $new_key);
 
                 $result = array_merge($result, $values);
 
@@ -640,11 +636,11 @@ class Arr
      *
      * @return array
      */
-    public function map(ArrayObject|array $array, callable $callback, bool $recursive = false): array
+    public static function map(ArrayObject|array $array, callable $callback, bool $recursive = false): array
     {
         foreach ($array as $key => &$value) {
             if ($recursive && is_array($value)) {
-                $value = $this->map($value, $callback, $recursive);
+                $value = static::map($value, $callback, $recursive);
             }
             else {
                 $value = Call::callback($callback, $value, $key);
@@ -662,7 +658,7 @@ class Arr
      *
      * @return array
      */
-    public function mapInto(ArrayObject|array $array, string $class): array
+    public static function mapInto(ArrayObject|array $array, string $class): array
     {
         foreach ($array as &$value) {
             $value = new $class($value);
@@ -681,7 +677,7 @@ class Arr
      *
      * @return array
      */
-    public function push(mixed $array, mixed ...$values): array
+    public static function push(mixed $array, mixed ...$values): array
     {
         foreach ($values as $value) {
             $array[] = $value;
@@ -699,10 +695,10 @@ class Arr
      *
      * @return array
      */
-    public function set(mixed $array, mixed $key, mixed $value = null): array
+    public static function set(mixed $array, mixed $key, mixed $value = null): array
     {
-        if ($this->isArrayable($key)) {
-            $array = $this->merge($array, $key);
+        if (static::isArrayable($key)) {
+            $array = static::merge($array, $key);
         }
         else {
             $array[$key] = $value;
@@ -719,7 +715,7 @@ class Arr
      *
      * @return array
      */
-    public function remove(mixed $array, string|int|float $key): array
+    public static function forget(mixed $array, string|int|float $key): array
     {
         unset($array[$key]);
 
@@ -734,7 +730,7 @@ class Arr
      *
      * @return array
      */
-    public function tap(mixed $array, callable $callback): array
+    public static function tap(mixed $array, callable $callback): array
     {
         foreach ($array as $key => $value) {
             Call::callback($callback, $value, $key);
@@ -750,7 +746,7 @@ class Arr
      *
      * @return bool
      */
-    public function isArrayable(mixed $value = null): bool
+    public static function isArrayable(mixed $value = null): bool
     {
         if (is_array($value) || is_object($value)) {
             return true;
@@ -759,16 +755,16 @@ class Arr
         if (
             is_string($value)
             && method_exists($value, 'toArray')
-            && ! ReflectionHelper::isStaticMethod($value, 'toArray')
+            && ! Reflection::isStaticMethod($value, 'toArray')
         ) {
             return false;
         }
 
         if (
-            InstanceHelper::of($value, [
+            Instance::of($value, [
                 Arrayable::class,
                 ArrayableIlluminate::class,
-                ArrayableHelper::class,
+                Ables\Arrayable::class,
                 ArrayObject::class,
                 ArrayAccess::class,
                 Arrayable::class,
@@ -777,7 +773,7 @@ class Arr
             return true;
         }
 
-        return InstanceHelper::of($value, Closure::class) && method_exists($value, 'toArray');
+        return Instance::of($value, Closure::class) && method_exists($value, 'toArray');
     }
 
     /**
@@ -787,7 +783,7 @@ class Arr
      *
      * @return bool
      */
-    public function isEmpty(mixed $value): bool
+    public static function isEmpty(mixed $value): bool
     {
         $value = is_object($value) && method_exists($value, 'toArray') ? $value->toArray() : $value;
         $value = is_object($value) ? (array) $value : $value;
@@ -802,9 +798,9 @@ class Arr
      *
      * @return bool
      */
-    public function doesntEmpty(mixed $value): bool
+    public static function doesntEmpty(mixed $value): bool
     {
-        return ! $this->isEmpty($value);
+        return ! static::isEmpty($value);
     }
 
     /**
@@ -815,7 +811,7 @@ class Arr
      *
      * @return array
      */
-    public function reverse(ArrayObject|array $array, bool $preserve_keys = false): array
+    public static function reverse(ArrayObject|array $array, bool $preserve_keys = false): array
     {
         return array_reverse($array, $preserve_keys);
     }
@@ -829,7 +825,7 @@ class Arr
      *
      * @return mixed
      */
-    public function first(ArrayObject|array $array, ?callable $callback = null, mixed $default = null): mixed
+    public static function first(ArrayObject|array $array, ?callable $callback = null, mixed $default = null): mixed
     {
         if (is_null($callback)) {
             return empty($array) ? Call::value($default) : reset($array);
@@ -853,13 +849,13 @@ class Arr
      *
      * @return mixed
      */
-    public function last(ArrayObject|array $array, ?callable $callback = null, mixed $default = null): mixed
+    public static function last(ArrayObject|array $array, ?callable $callback = null, mixed $default = null): mixed
     {
         if (is_null($callback)) {
             return empty($array) ? Call::value($default) : end($array);
         }
 
-        return $this->first(array_reverse($array, true), $callback, $default);
+        return static::first(array_reverse($array, true), $callback, $default);
     }
 
     /**
@@ -874,7 +870,7 @@ class Arr
      *
      * @return array
      */
-    public function splice(ArrayObject|array $array, int $offset, ?int $length = null, mixed $replacement = null): array
+    public static function splice(ArrayObject|array $array, int $offset, ?int $length = null, mixed $replacement = null): array
     {
         array_splice($array, $offset, $length, $replacement);
 
@@ -888,8 +884,8 @@ class Arr
      *
      * @return int
      */
-    public function count(ArrayObject|array $array): int
+    public static function count(ArrayObject|array $array): int
     {
-        return InstanceHelper::of($array, ArrayObject::class) ? $array->count() : count($array);
+        return Instance::of($array, ArrayObject::class) ? $array->count() : count($array);
     }
 }

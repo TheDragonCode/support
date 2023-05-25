@@ -20,11 +20,10 @@ namespace DragonCode\Support\Filesystem;
 use DirectoryIterator;
 use DragonCode\Support\Exceptions\DirectoryNotFoundException;
 use DragonCode\Support\Exceptions\InvalidDestinationPathException;
-use DragonCode\Support\Facades\Filesystem\File as FileHelper;
-use DragonCode\Support\Facades\Helpers\Arr;
-use DragonCode\Support\Facades\Helpers\Str;
-use DragonCode\Support\Facades\Instances\Call;
-use DragonCode\Support\Facades\Instances\Instance;
+use DragonCode\Support\Helpers\Arr;
+use DragonCode\Support\Helpers\Str;
+use DragonCode\Support\Instances\Call;
+use DragonCode\Support\Instances\Instance;
 use FilesystemIterator;
 use SplFileInfo;
 
@@ -37,11 +36,11 @@ class Directory
      *
      * @throws \DragonCode\Support\Exceptions\DirectoryNotFoundException
      *
-     * @return DirectoryIterator|DirectoryIterator[]
+     * @return \DirectoryIterator
      */
-    public function all(string $path): DirectoryIterator
+    public static function all(string $path): DirectoryIterator
     {
-        if ($this->doesntExist($path)) {
+        if (static::doesntExist($path)) {
             throw new DirectoryNotFoundException($path);
         }
 
@@ -59,25 +58,23 @@ class Directory
      *
      * @return array
      */
-    public function allPaths(string $path, ?callable $callback = null, bool $recursive = false): array
+    public static function paths(string $path, ?callable $callback = null, bool $recursive = true): array
     {
         $items = [];
 
-        foreach ($this->all($path) as $directory) {
-            if ($directory->isDir() && ! $directory->isDot()) {
-                if (! is_callable($callback) || Call::callback($callback, $directory->getRealPath())) {
-                    $items[] = $directory->getRealPath();
-                }
+        foreach (static::all($path) as $directory) {
+            if ($directory->isDot() || ! $directory->isDir()) {
+                continue;
             }
 
-            if ($recursive && $directory->isDir() && ! $directory->isDot()) {
-                $directories = $this->allPaths($directory->getRealPath(), $callback, $recursive);
+            if (is_null($callback) || Call::callback($callback, $directory->getRealPath())) {
+                $items[] = $directory->getRealPath();
+            }
 
-                $items = array_merge($items, $directories);
+            if ($recursive) {
+                $items += static::paths($directory->getRealPath(), $callback, $recursive);
             }
         }
-
-        sort($items);
 
         return array_values($items);
     }
@@ -93,10 +90,10 @@ class Directory
      *
      * @return array
      */
-    public function names(string $path, ?callable $callback = null, bool $recursive = false): array
+    public static function names(string $path, ?callable $callback = null, bool $recursive = true): array
     {
         return Arr::of(
-            $this->allPaths($path, $callback, $recursive)
+            static::paths($path, $callback, $recursive)
         )
             ->map(fn (string $value) => Str::of($value)->after(realpath($path))->trim('\\/')->toString())
             ->toArray();
@@ -110,9 +107,9 @@ class Directory
      *
      * @return bool
      */
-    public function make(string $path, int $mode = 0755): bool
+    public static function make(string $path, int $mode = 0755): bool
     {
-        return ! $this->doesntExist($path) || mkdir($path, $mode, true);
+        return static::exists($path) || mkdir($path, $mode, true);
     }
 
     /**
@@ -126,14 +123,14 @@ class Directory
      *
      * @return void
      */
-    public function copy(string $source, string $target): void
+    public static function copy(string $source, string $target): void
     {
-        $this->validate($source);
-        $this->comparePaths($source, $target);
-        $this->ensureDirectory($target);
+        static::validate($source);
+        static::comparePaths($source, $target);
+        static::ensureDirectory($target);
 
-        foreach (FileHelper::names($source, recursive: true) as $file) {
-            FileHelper::copy(
+        foreach (File::names($source, recursive: true) as $file) {
+            File::copy(
                 $source . '/' . $file,
                 $target . '/' . $file
             );
@@ -151,11 +148,11 @@ class Directory
      *
      * @return void
      */
-    public function move(string $source, string $target): void
+    public static function move(string $source, string $target): void
     {
-        $this->copy($source, $target);
+        static::copy($source, $target);
 
-        $this->ensureDelete($source);
+        static::ensureDelete($source);
     }
 
     /**
@@ -167,10 +164,10 @@ class Directory
      *
      * @return void
      */
-    public function delete(array|string $paths): void
+    public static function delete(array|string $paths): void
     {
         foreach ((array) $paths as $path) {
-            if (! $this->isDirectory($path)) {
+            if (! static::isDirectory($path)) {
                 throw new DirectoryNotFoundException($path);
             }
 
@@ -178,8 +175,8 @@ class Directory
 
             foreach ($items as $item) {
                 $item->isDir() && ! $item->isLink()
-                    ? $this->delete($item->getPathname())
-                    : FileHelper::delete($item->getPathname());
+                    ? static::delete($item->getPathname())
+                    : File::delete($item->getPathname());
             }
 
             @rmdir($path);
@@ -195,10 +192,10 @@ class Directory
      *
      * @return void
      */
-    public function ensureDelete(array|string $paths): void
+    public static function ensureDelete(array|string $paths): void
     {
         foreach ((array) $paths as $path) {
-            $this->doesntExist($path) || $this->delete($path);
+            static::doesntExist($path) || static::delete($path);
         }
     }
 
@@ -207,18 +204,11 @@ class Directory
      *
      * @param string $path
      * @param int $mode
-     * @param bool $can_delete
-     *
-     * @throws \DragonCode\Support\Exceptions\DirectoryNotFoundException
      */
-    public function ensureDirectory(string $path, int $mode = 0755, bool $can_delete = false): void
+    public static function ensureDirectory(string $path, int $mode = 0755): void
     {
-        if ($can_delete && $this->exists($path)) {
-            $this->delete($path);
-        }
-
-        if ($this->doesntExist($path)) {
-            $this->make($path, $mode);
+        if (static::doesntExist($path)) {
+            static::make($path, $mode);
         }
     }
 
@@ -229,7 +219,7 @@ class Directory
      *
      * @return bool
      */
-    public function exists(string $path): bool
+    public static function exists(string $path): bool
     {
         return file_exists($path) && is_dir($path);
     }
@@ -241,9 +231,9 @@ class Directory
      *
      * @return bool
      */
-    public function doesntExist(string $path): bool
+    public static function doesntExist(string $path): bool
     {
-        return ! $this->exists($path);
+        return ! static::exists($path);
     }
 
     /**
@@ -253,13 +243,42 @@ class Directory
      *
      * @return bool
      */
-    public function isDirectory(mixed $value): bool
+    public static function isDirectory(mixed $value): bool
     {
         if (Instance::of($value, [SplFileInfo::class, DirectoryIterator::class])) {
             return $value->isDir();
         }
 
         return is_dir($value);
+    }
+
+    /**
+     * Checks the existence of a directory.
+     *
+     * @param DirectoryIterator|SplFileInfo|string $path
+     *
+     * @throws \DragonCode\Support\Exceptions\DirectoryNotFoundException
+     */
+    public static function validate(DirectoryIterator|SplFileInfo|string $path): void
+    {
+        if (! static::isDirectory($path)) {
+            throw new DirectoryNotFoundException($path);
+        }
+    }
+
+    /**
+     * Checks the existence of a directory and return full path if exists.
+     *
+     * @param \DirectoryIterator|\SplFileInfo|string $path
+     *
+     * @throws \DragonCode\Support\Exceptions\DirectoryNotFoundException
+     * @return string
+     */
+    public static function validated(DirectoryIterator|SplFileInfo|string $path): string
+    {
+        static::validate($path);
+
+        return realpath($path);
     }
 
     /**
@@ -272,40 +291,10 @@ class Directory
      *
      * @return void
      */
-    public function comparePaths(string $path1, string $path2): void
+    protected static function comparePaths(string $path1, string $path2): void
     {
         if ($path1 === $path2 || realpath($path1) === realpath($path2)) {
             throw new InvalidDestinationPathException(realpath($path1));
         }
-    }
-
-    /**
-     * Checks the existence of a directory.
-     *
-     * @param DirectoryIterator|SplFileInfo|string $path
-     *
-     * @throws \DragonCode\Support\Exceptions\DirectoryNotFoundException
-     */
-    public function validate(string $path): void
-    {
-        if (! $this->isDirectory($path)) {
-            throw new DirectoryNotFoundException($path);
-        }
-    }
-
-    /**
-     * Checks the existence of a directory and return full path if exist.
-     *
-     * @param DirectoryIterator|SplFileInfo|string $path
-     *
-     * @throws \DragonCode\Support\Exceptions\DirectoryNotFoundException
-     *
-     * @return string
-     */
-    public function validated(string $path): string
-    {
-        $this->validate($path);
-
-        return realpath($path);
     }
 }

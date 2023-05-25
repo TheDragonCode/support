@@ -73,7 +73,7 @@ class Sorter
      */
     public static function default(): callable
     {
-        return function ($current, $next) {
+        return function (mixed $current, mixed $next) {
             $current = static::lower($current);
             $next    = static::lower($next);
 

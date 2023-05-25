@@ -23,7 +23,7 @@ abstract class Facade
 {
     use Resolvable;
 
-    public static function __callStatic($method, $args): mixed
+    public function __callStatic($method, $args): mixed
     {
         if ($instance = self::getFacadeRoot()) {
             return $instance->{$method}(...$args);

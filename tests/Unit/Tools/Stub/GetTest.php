@@ -29,7 +29,7 @@ class GetTest extends TestCase
 {
     public function testGetPhp()
     {
-        $this->assertSame("<?php\n\ndeclare(strict_types=1);\n\nreturn {{slot}};\n", Stub::get(Tool::PHP_ARRAY));
+        $this->assertSame("<?php\n\ndeclare(strict_types=1);\n\nreturn {{slot}};\n", Stub::get(Tool::PHP));
     }
 
     public function testGetJson()

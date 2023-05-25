@@ -17,23 +17,11 @@
 
 namespace DragonCode\Support\Facades\Http;
 
-use DragonCode\Support\Facades\Facade;
 use DragonCode\Support\Http\Url as Helper;
 
 /**
- * @method static \DragonCode\Support\Http\Builder parse(\DragonCode\Contracts\Http\Builder|string|null $url)
- * @method static bool exists(\DragonCode\Contracts\Http\Builder|string|null $url)
- * @method static bool is(\DragonCode\Contracts\Http\Builder|string|null $url)
- * @method static \DragonCode\Support\Http\Builder|\DragonCode\Contracts\Http\Builder|string validated(\DragonCode\Contracts\Http\Builder|string|null $url)
- * @method static string|null default(\DragonCode\Contracts\Http\Builder|string|null $url, \DragonCode\Contracts\Http\Builder|string|null $default)
- * @method static void validate(\DragonCode\Contracts\Http\Builder|string|null $url)
- *
- * @deprecated Will be removed in version 8.0
+ * @deprecated Will be removed in version 8.0. Use DragonCode\Support\Http\Url instead.
  */
-class Url extends Facade
+class Url extends Helper
 {
-    protected static function getFacadeAccessor(): string
-    {
-        return Helper::class;
-    }
 }

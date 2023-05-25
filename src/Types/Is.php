@@ -17,13 +17,15 @@
 
 namespace DragonCode\Support\Types;
 
-use DragonCode\Support\Facades\Helpers\Arr as ArrHelper;
-use DragonCode\Support\Facades\Helpers\Boolean as BooleanHelper;
-use DragonCode\Support\Facades\Helpers\Str as StrHelper;
-use DragonCode\Support\Facades\Instances\Instance as InstanceHelper;
-use DragonCode\Support\Facades\Instances\Reflection as ReflectionHelper;
+use DragonCode\Support\Helpers\Arr;
+use DragonCode\Support\Helpers\Boolean;
+use DragonCode\Support\Helpers\Str;
+use DragonCode\Support\Instances\Instance;
 use Exception;
+use ReflectionAttribute;
 use ReflectionClass;
+use ReflectionMethod;
+use ReflectionProperty;
 use Throwable;
 
 class Is
@@ -35,13 +37,13 @@ class Is
      *
      * @return bool
      */
-    public function isEmpty(mixed $value): bool
+    public static function isEmpty(mixed $value): bool
     {
         if (is_numeric($value) || is_bool($value)) {
             return false;
         }
 
-        return empty($value) || StrHelper::isEmpty($value) || ArrHelper::isEmpty($value);
+        return empty($value) || Str::isEmpty($value) || Arr::isEmpty($value);
     }
 
     /**
@@ -51,9 +53,9 @@ class Is
      *
      * @return bool
      */
-    public function doesntEmpty(mixed $value): bool
+    public static function doesntEmpty(mixed $value): bool
     {
-        return ! $this->isEmpty($value);
+        return ! static::isEmpty($value);
     }
 
     /**
@@ -63,7 +65,7 @@ class Is
      *
      * @return bool
      */
-    public function object(mixed $value): bool
+    public static function object(mixed $value): bool
     {
         return is_object($value);
     }
@@ -75,7 +77,7 @@ class Is
      *
      * @return bool
      */
-    public function string(mixed $value): bool
+    public static function string(mixed $value): bool
     {
         return is_string($value);
     }
@@ -87,9 +89,9 @@ class Is
      *
      * @return bool
      */
-    public function boolean(mixed $value): bool
+    public static function boolean(mixed $value): bool
     {
-        $result = BooleanHelper::parse($value);
+        $result = Boolean::parse($value);
 
         return is_bool($result);
     }
@@ -99,17 +101,37 @@ class Is
      *
      * @param mixed $value
      *
+     * @throws \ReflectionException
+     *
      * @return bool
      */
-    public function contract(mixed $value): bool
+    public static function contract(mixed $value): bool
     {
-        if (is_string($value)) {
-            $class = InstanceHelper::classname($value);
+        return ! empty($value) && interface_exists($value);
+    }
 
-            return ! empty($class) && interface_exists($class);
-        }
+    /**
+     * Find whether the type of a variable is enum.
+     *
+     * @param mixed $value
+     *
+     * @return bool
+     */
+    public static function enum(mixed $value): bool
+    {
+        return ! empty($value) && enum_exists($value);
+    }
 
-        return ReflectionHelper::resolve($value)->isInterface();
+    /**
+     * Find whether the type of a variable is trait.
+     *
+     * @param mixed $value
+     *
+     * @return bool
+     */
+    public static function trait(mixed $value): bool
+    {
+        return ! empty($class) && trait_exists($value);
     }
 
     /**
@@ -119,9 +141,9 @@ class Is
      *
      * @return bool
      */
-    public function error(mixed $value): bool
+    public static function exception(mixed $value): bool
     {
-        return InstanceHelper::of($value, [Exception::class, Throwable::class]);
+        return Instance::of($value, [Exception::class, Throwable::class]);
     }
 
     /**
@@ -131,8 +153,44 @@ class Is
      *
      * @return bool
      */
-    public function reflectionClass(mixed $value): bool
+    public static function reflectionClass(mixed $value): bool
     {
         return $value instanceof ReflectionClass;
+    }
+
+    /**
+     * Find whether the type of a variable is ReflectionMethod.
+     *
+     * @param mixed $value
+     *
+     * @return bool
+     */
+    public static function reflectionMethod(mixed $value): bool
+    {
+        return $value instanceof ReflectionMethod;
+    }
+
+    /**
+     * Find whether the type of a variable is ReflectionAttribute.
+     *
+     * @param mixed $value
+     *
+     * @return bool
+     */
+    public static function reflectionAttribute(mixed $value): bool
+    {
+        return $value instanceof ReflectionAttribute;
+    }
+
+    /**
+     * Find whether the type of a variable is ReflectionProperty.
+     *
+     * @param mixed $value
+     *
+     * @return bool
+     */
+    public static function reflectionProperty(mixed $value): bool
+    {
+        return $value instanceof ReflectionProperty;
     }
 }

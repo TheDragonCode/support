@@ -102,7 +102,7 @@ class Url
      *
      * @return \DragonCode\Support\Http\Builder
      */
-    public function parse(UriInterface|string|null $url): Builder
+    public static function parse(UriInterface|string|null $url): Builder
     {
         return UrlBuilder::parse($url);
     }
@@ -114,10 +114,10 @@ class Url
      *
      * @return bool
      */
-    public function is(mixed $url): bool
+    public static function is(mixed $url): bool
     {
         try {
-            $url = Str::replace((string) $url, array_keys($this->chars), array_values($this->chars));
+            $url = Str::replace((string) $url, array_keys(static::chars), array_values(static::chars));
 
             return filter_var($url, FILTER_VALIDATE_URL) !== false;
         }
@@ -133,9 +133,9 @@ class Url
      *
      * @throws \DragonCode\Support\Exceptions\NotValidUrlException
      */
-    public function validate(mixed $url): void
+    public static function validate(mixed $url): void
     {
-        if (! $this->is($url)) {
+        if (! static::is($url)) {
             throw new NotValidUrlException((string) $url);
         }
     }
@@ -149,9 +149,9 @@ class Url
      *
      * @return BuilderContract|\DragonCode\Support\Http\Builder|string
      */
-    public function validated(mixed $url): mixed
+    public static function validated(mixed $url): mixed
     {
-        $this->validate($url);
+        static::validate($url);
 
         return $url;
     }
@@ -165,9 +165,9 @@ class Url
      *
      * @return bool
      */
-    public function exists(UriInterface|string|null $url): bool
+    public static function exists(UriInterface|string|null $url): bool
     {
-        $this->validate($url);
+        static::validate($url);
 
         try {
             $headers = get_headers($url);
@@ -195,10 +195,10 @@ class Url
      *
      * @return string|null
      */
-    public function default(UriInterface|string $url, UriInterface|string $default): string
+    public static function default(UriInterface|string $url, UriInterface|string $default): string
     {
-        $value = $this->exists($url) ? $url : $default;
+        $value = static::exists($url) ? $url : $default;
 
-        return $this->validated($value);
+        return static::validated($value);
     }
 }

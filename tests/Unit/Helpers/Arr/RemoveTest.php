@@ -35,6 +35,6 @@ class RemoveTest extends TestCase
             'foo' => 'Foo',
         ];
 
-        $this->assertSame($expected, Arr::remove($source, 'bar'));
+        $this->assertSame($expected, Arr::forget($source, 'bar'));
     }
 }

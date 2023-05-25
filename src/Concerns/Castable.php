@@ -26,21 +26,21 @@ trait Castable
     protected function cast(array &$source): void
     {
         foreach ($source as $key => &$value) {
-            $value = $this->castValue($key, $value);
+            $value = static::castValue($key, $value);
         }
     }
 
     protected function castValue(string $key, mixed $value): mixed
     {
-        $cast   = $this->castKey($key);
-        $method = $this->castMethodName($cast);
+        $cast   = static::castKey($key);
+        $method = static::castMethodName($cast);
 
-        return $this->{$method}($value);
+        return static::{$method}($value);
     }
 
     protected function castKey(string $key): string
     {
-        return $this->casts[$key] ?? 'default';
+        return static::casts[$key] ?? 'default';
     }
 
     protected function castMethodName(string $key): string

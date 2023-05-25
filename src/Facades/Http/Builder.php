@@ -17,16 +17,11 @@
 
 namespace DragonCode\Support\Facades\Http;
 
-use DragonCode\Support\Facades\Facade;
-use DragonCode\Support\Http\Builder as Support;
+use DragonCode\Support\Http\Builder as Helper;
 
 /**
- * @deprecated Will be removed in version 8.0. Use DragonCode\Support\ instead.
+ * @deprecated Will be removed in version 8.0. Use DragonCode\Support\Http\Url instead.
  */
-class Builder extends Facade
+class Builder extends Helper
 {
-    protected static function getFacadeAccessor(): string
-    {
-        return Support::class;
-    }
 }

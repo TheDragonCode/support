@@ -21,11 +21,11 @@ class Empties
 {
     public static function notEmpty(): callable
     {
-        return static fn ($value) => ! empty($value) || is_bool($value);
+        return static fn (mixed $value) => ! empty($value) || is_bool($value);
     }
 
     public static function notEmptyBoth(): callable
     {
-        return static fn ($value, $key) => (! empty($value) || is_bool($value)) && ! empty($key);
+        return static fn (mixed $value, mixed $key) => (! empty($value) || is_bool($value)) && ! empty($key);
     }
 }

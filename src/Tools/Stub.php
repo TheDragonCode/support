@@ -18,27 +18,27 @@
 namespace DragonCode\Support\Tools;
 
 use DragonCode\Support\Exceptions\UnknownStubFileException;
-use DragonCode\Support\Facades\Helpers\Str;
+use DragonCode\Support\Helpers\Str;
 
 class Stub
 {
-    public const PHP_ARRAY = 'php_array.stub';
-
     public const JSON = 'json.stub';
+
+    public const PHP = 'php.stub';
 
     /**
      * Replace the contents of the template file.
      *
-     * @param string $stub_file
+     * @param string $stub
      * @param array $replace
      *
      * @throws \DragonCode\Support\Exceptions\UnknownStubFileException
      *
      * @return string
      */
-    public function replace(string $stub_file, array $replace): string
+    public static function replace(string $stub, array $replace): string
     {
-        $content = $this->get($stub_file);
+        $content = static::get($stub);
 
         return Str::replaceFormat($content, $replace);
     }
@@ -52,9 +52,9 @@ class Stub
      *
      * @return string
      */
-    public function get(string $filename): string
+    public static function get(string $filename): string
     {
-        if ($path = $this->path($filename)) {
+        if ($path = static::path($filename)) {
             return file_get_contents($path);
         }
 
@@ -68,9 +68,9 @@ class Stub
      *
      * @return string|null
      */
-    protected function path(string $filename): ?string
+    protected static function path(string $filename): ?string
     {
-        $path = $this->isCustom($filename) ? $filename : __DIR__ . '/../../resources/stubs/' . $filename;
+        $path = static::isCustom($filename) ? $filename : __DIR__ . '/../../resources/stubs/' . $filename;
 
         return realpath($path);
     }
@@ -85,7 +85,7 @@ class Stub
      *
      * @return bool
      */
-    protected function isCustom(string $path): bool
+    protected static function isCustom(string $path): bool
     {
         return file_exists($path);
     }

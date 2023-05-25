@@ -17,9 +17,8 @@
 
 namespace DragonCode\Support\Instances;
 
-use DragonCode\Support\Facades\Helpers\Arr as ArrHelper;
-use DragonCode\Support\Facades\Instances\Reflection as ReflectionHelper;
-use DragonCode\Support\Facades\Types\Is as IsHelper;
+use DragonCode\Support\Helpers\Arr;
+use DragonCode\Support\Types\Is;
 use ReflectionClass;
 
 class Instance
@@ -32,20 +31,20 @@ class Instance
      *
      * @return bool
      */
-    public function of(mixed $haystack, mixed $needles): bool
+    public static function of(mixed $haystack, mixed $needles): bool
     {
-        if (! $this->exists($haystack)) {
+        if (! static::exists($haystack)) {
             return false;
         }
 
-        $reflection = $this->resolve($haystack);
+        $reflection = static::resolve($haystack);
 
-        foreach (ArrHelper::wrap($needles) as $needle) {
-            if (! $this->exists($needle)) {
+        foreach (Arr::wrap($needles) as $needle) {
+            if (! static::exists($needle)) {
                 continue;
             }
 
-            if ($this->findTrait($reflection, $needle)) {
+            if (static::findTrait($reflection, $needle)) {
                 return true;
             }
 
@@ -64,9 +63,9 @@ class Instance
      *
      * @return string|null
      */
-    public function basename(object|string $class): ?string
+    public static function basename(object|string $class): ?string
     {
-        $class = $this->classname($class);
+        $class = static::classname($class);
 
         return basename(str_replace('\\', '/', (string) $class)) ?: null;
     }
@@ -78,13 +77,13 @@ class Instance
      *
      * @return string|null
      */
-    public function classname(object|string $class = null): ?string
+    public static function classname(object|string $class = null): ?string
     {
-        if (IsHelper::object($class)) {
+        if (Is::object($class)) {
             return get_class($class);
         }
 
-        return class_exists($class) || interface_exists($class) || enum_exists($class) ? $class : null;
+        return static::exists($class) ? $class : null;
     }
 
     /**
@@ -94,13 +93,20 @@ class Instance
      *
      * @return bool
      */
-    public function exists(mixed $haystack): bool
+    public static function exists(mixed $haystack): bool
     {
-        if (IsHelper::object($haystack)) {
+        if (Is::object($haystack)) {
             return true;
         }
 
-        return IsHelper::string($haystack) && (class_exists($haystack) || interface_exists($haystack) || trait_exists($haystack) || enum_exists($haystack));
+        if (! Is::string($haystack)) {
+            return false;
+        }
+
+        return class_exists($haystack)
+            || interface_exists($haystack)
+            || trait_exists($haystack)
+            || enum_exists($haystack);
     }
 
     /**
@@ -108,14 +114,16 @@ class Instance
      *
      * @param object|string $class
      *
+     * @throws \ReflectionException
+     *
      * @return ReflectionClass
      */
-    protected function resolve(object|string $class): ReflectionClass
+    protected static function resolve(object|string $class): ReflectionClass
     {
-        return ReflectionHelper::resolve($class);
+        return Reflection::resolve($class);
     }
 
-    protected function findTrait(ReflectionClass $haystack, object|string $needle): bool
+    protected static function findTrait(ReflectionClass $haystack, object|string $needle): bool
     {
         if (in_array($needle, $haystack->getTraitNames(), true)) {
             return true;
@@ -126,7 +134,7 @@ class Instance
                 return true;
             }
 
-            if ($this->findTrait($trait, $needle)) {
+            if (static::findTrait($trait, $needle)) {
                 return true;
             }
         }

@@ -63,7 +63,7 @@ class Str
      *
      * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
-    public function of(?string $value): Ables\Stringable
+    public static function of(?string $value): Ables\Stringable
     {
         return new Ables\Stringable($value);
     }
@@ -76,9 +76,9 @@ class Str
      *
      * @return string|null
      */
-    public function e(?string $value, bool $double = true): ?string
+    public static function e(?string $value, bool $double = true): ?string
     {
-        if ($escaped = CallHelper::runOf($this->escaping_methods, $value)) {
+        if ($escaped = CallHelper::runOf(static::escaping_methods, $value)) {
             return $escaped;
         }
 
@@ -92,7 +92,7 @@ class Str
      *
      * @return string|null
      */
-    public function de(?string $value): ?string
+    public static function de(?string $value): ?string
     {
         return htmlspecialchars_decode($value, ENT_QUOTES);
     }
@@ -106,11 +106,11 @@ class Str
      *
      * @return string|null
      */
-    public function squish(?string $value): ?string
+    public static function squish(?string $value): ?string
     {
-        $value = $this->pregReplace($value, '~^[\s\x{FEFF}]+|[\s\x{FEFF}]+$~u', '');
+        $value = static::pregReplace($value, '~^[\s\x{FEFF}]+|[\s\x{FEFF}]+$~u', '');
 
-        return $this->pregReplace($value, '~(\s|\x{3164}|\x{1160})+~u', ' ');
+        return static::pregReplace($value, '~(\s|\x{3164}|\x{1160})+~u', ' ');
     }
 
     /**
@@ -122,7 +122,7 @@ class Str
      *
      * @return string
      */
-    public function choice(float $number, array $choice = [], ?string $extra = null): string
+    public static function choice(float $number, array $choice = [], ?string $extra = null): string
     {
         $number = (int) $number;
         $mod    = $number % 10;
@@ -159,7 +159,7 @@ class Str
      *
      * @return string
      */
-    public function start(?string $value, string $prefix): string
+    public static function start(?string $value, string $prefix): string
     {
         $quoted = preg_quote($prefix, '/');
 
@@ -174,7 +174,7 @@ class Str
      *
      * @return string
      */
-    public function end(?string $value, string $suffix): string
+    public static function end(?string $value, string $suffix): string
     {
         $quoted = preg_quote($suffix, '/');
 
@@ -189,7 +189,7 @@ class Str
      *
      * @return string
      */
-    public function append(mixed $value, string $suffix): string
+    public static function append(mixed $value, string $suffix): string
     {
         return $value . $suffix;
     }
@@ -202,7 +202,7 @@ class Str
      *
      * @return string
      */
-    public function prepend(mixed $value, string $prefix): string
+    public static function prepend(mixed $value, string $prefix): string
     {
         return $prefix . $value;
     }
@@ -217,7 +217,7 @@ class Str
      *
      * @return string
      */
-    public function finish(string $value, string $cap = '/'): string
+    public static function finish(string $value, string $cap = '/'): string
     {
         $quoted = preg_quote($cap, '/');
 
@@ -234,7 +234,7 @@ class Str
      *
      * @return bool
      */
-    public function is(array|string $pattern, mixed $value): bool
+    public static function is(array|string $pattern, mixed $value): bool
     {
         $patterns = ArrHelper::wrap($pattern);
 
@@ -277,7 +277,7 @@ class Str
      *
      * @return bool
      */
-    public function startsWith(string $haystack, mixed $needles): bool
+    public static function startsWith(string $haystack, mixed $needles): bool
     {
         foreach ((array) $needles as $needle) {
             if ((string) $needle !== '' && str_starts_with($haystack, $needle)) {
@@ -296,7 +296,7 @@ class Str
      *
      * @return bool
      */
-    public function endsWith(string $haystack, mixed $needles): bool
+    public static function endsWith(string $haystack, mixed $needles): bool
     {
         foreach ((array) $needles as $needle) {
             if ((string) $needle !== '' && str_ends_with($haystack, $needle)) {
@@ -316,7 +316,7 @@ class Str
      *
      * @return string
      */
-    public function lower(?string $value): string
+    public static function lower(?string $value): string
     {
         return mb_strtolower($value, 'UTF-8');
     }
@@ -330,7 +330,7 @@ class Str
      *
      * @return string
      */
-    public function upper(?string $value): ?string
+    public static function upper(?string $value): ?string
     {
         return mb_strtoupper($value, 'UTF-8');
     }
@@ -344,7 +344,7 @@ class Str
      *
      * @return string|null
      */
-    public function studly(?string $value): ?string
+    public static function studly(?string $value): ?string
     {
         $key = $value;
 
@@ -366,13 +366,13 @@ class Str
      *
      * @return string|null
      */
-    public function camel(?string $value): ?string
+    public static function camel(?string $value): ?string
     {
         if (isset(self::$camelCache[$value])) {
             return self::$camelCache[$value];
         }
 
-        return self::$camelCache[$value] = lcfirst($this->studly($value));
+        return self::$camelCache[$value] = lcfirst(static::studly($value));
     }
 
     /**
@@ -385,7 +385,7 @@ class Str
      *
      * @return string|null
      */
-    public function snake(?string $value, string $delimiter = '_'): ?string
+    public static function snake(?string $value, string $delimiter = '_'): ?string
     {
         $key = $value;
 
@@ -396,7 +396,7 @@ class Str
         if (! ctype_lower($value)) {
             $value = preg_replace('/\s+/u', '', ucwords($value));
 
-            $value = $this->lower(preg_replace('/(.)(?=[A-Z])/u', '$1' . $delimiter, $value));
+            $value = static::lower(preg_replace('/(.)(?=[A-Z])/u', '$1' . $delimiter, $value));
         }
 
         return self::$snakeCache[$key][$delimiter] = $value;
@@ -413,9 +413,9 @@ class Str
      *
      * @return string
      */
-    public function slug(string $title, string $separator = '-', ?string $language = 'en'): string
+    public static function slug(string $title, string $separator = '-', ?string $language = 'en'): string
     {
-        $title = $language ? $this->ascii($title, $language) : $title;
+        $title = $language ? static::ascii($title, $language) : $title;
 
         // Convert all dashes/underscores into separator
         $flip = $separator === '-' ? '_' : '-';
@@ -426,7 +426,7 @@ class Str
         $title = str_replace('@', $separator . 'at' . $separator, $title);
 
         // Remove all characters that are not the separator, letters, numbers, or whitespace.
-        $title = preg_replace('![^' . preg_quote($separator) . '\pL\pN\s]+!u', '', $this->lower($title));
+        $title = preg_replace('![^' . preg_quote($separator) . '\pL\pN\s]+!u', '', static::lower($title));
 
         // Replace all separator characters and whitespace by a single separator
         $title = preg_replace('![' . preg_quote($separator) . '\s]+!u', $separator, $title);
@@ -443,7 +443,7 @@ class Str
      *
      * @return string|null
      */
-    public function title(?string $value): ?string
+    public static function title(?string $value): ?string
     {
         if (is_numeric($value)) {
             return $value;
@@ -462,7 +462,7 @@ class Str
      *
      * @return int
      */
-    public function length(?string $value, ?string $encoding = null): int
+    public static function length(?string $value, ?string $encoding = null): int
     {
         return $encoding
             ? mb_strlen($value, $encoding)
@@ -478,7 +478,7 @@ class Str
      *
      * @return int
      */
-    public function count(?string $value, string $needle, int $offset = 0): int
+    public static function count(?string $value, string $needle, int $offset = 0): int
     {
         return substr_count((string) $value, $needle, $offset);
     }
@@ -494,7 +494,7 @@ class Str
      *
      * @return string|null
      */
-    public function substr(string $string, int $start, ?int $length = null): ?string
+    public static function substr(string $string, int $start, ?int $length = null): ?string
     {
         return mb_substr($string, $start, $length, 'UTF-8');
     }
@@ -508,11 +508,11 @@ class Str
      *
      * @return string
      */
-    public function replaceFormat(string $template, array $values, ?string $key_format = null): string
+    public static function replaceFormat(string $template, array $values, ?string $key_format = null): string
     {
         $keys = Replace::toFormatArray(array_keys($values), $key_format);
 
-        return $this->replace($template, $keys, array_values($values));
+        return static::replace($template, $keys, array_values($values));
     }
 
     /**
@@ -524,7 +524,7 @@ class Str
      *
      * @return string
      */
-    public function replace(?string $value, mixed $search, mixed $replace = null): string
+    public static function replace(?string $value, mixed $search, mixed $replace = null): string
     {
         if (is_null($replace) && is_array($search)) {
             $replace = array_values($search);
@@ -544,7 +544,7 @@ class Str
      *
      * @return string
      */
-    public function before(string $subject, string $search): ?string
+    public static function before(string $subject, string $search): ?string
     {
         return ! empty($search) ? explode($search, $subject)[0] : null;
     }
@@ -559,7 +559,7 @@ class Str
      *
      * @return string
      */
-    public function after(string $subject, string $search): ?string
+    public static function after(string $subject, string $search): ?string
     {
         return ! empty($search) ? array_reverse(explode($search, $subject, 2))[0] : null;
     }
@@ -572,7 +572,7 @@ class Str
      *
      * @return bool
      */
-    public function contains(string $haystack, mixed $needles): bool
+    public static function contains(string $haystack, mixed $needles): bool
     {
         foreach ((array) $needles as $needle) {
             if ((string) $needle !== '' && str_contains($haystack, $needle)) {
@@ -594,7 +594,7 @@ class Str
      *
      * @return string
      */
-    public function random(int $length = 16): string
+    public static function random(int $length = 16): string
     {
         $string = '';
 
@@ -619,7 +619,7 @@ class Str
      *
      * @return string|null
      */
-    public function match(string $value, string $pattern): ?string
+    public static function match(string $value, string $pattern): ?string
     {
         preg_match($pattern, $value, $matches);
 
@@ -636,7 +636,7 @@ class Str
      *
      * @return array|null
      */
-    public function matchAll(string $value, string $pattern): ?array
+    public static function matchAll(string $value, string $pattern): ?array
     {
         preg_match_all($pattern, $value, $matches);
 
@@ -651,10 +651,10 @@ class Str
      *
      * @return bool
      */
-    public function matchContains(string $value, array|string $pattern): bool
+    public static function matchContains(string $value, array|string $pattern): bool
     {
         foreach ((array) $pattern as $item) {
-            if ($this->match($value, $item) !== null) {
+            if (static::match($value, $item) !== null) {
                 return true;
             }
         }
@@ -671,7 +671,7 @@ class Str
      *
      * @return string|null
      */
-    public function pregReplace(?string $value, string $pattern, string $replacement): ?string
+    public static function pregReplace(?string $value, string $pattern, string $replacement): ?string
     {
         return preg_replace($pattern, $replacement, (string) $value);
     }
@@ -683,7 +683,7 @@ class Str
      *
      * @return bool
      */
-    public function isEmpty(mixed $value): bool
+    public static function isEmpty(mixed $value): bool
     {
         $value = is_string($value) ? trim($value) : $value;
 
@@ -697,9 +697,9 @@ class Str
      *
      * @return bool
      */
-    public function doesntEmpty(mixed $value): bool
+    public static function doesntEmpty(mixed $value): bool
     {
-        return ! $this->isEmpty($value);
+        return ! static::isEmpty($value);
     }
 
     /**
@@ -712,7 +712,7 @@ class Str
      *
      * @return string
      */
-    public function ascii(?string $value, ?string $language = 'en'): string
+    public static function ascii(?string $value, ?string $language = 'en'): string
     {
         return ASCII::to_ascii((string) $value, $language);
     }
@@ -724,7 +724,7 @@ class Str
      *
      * @return string
      */
-    public function toString(?string $value): string
+    public static function toString(?string $value): string
     {
         return is_null($value) ? 'null' : $value;
     }
@@ -737,7 +737,7 @@ class Str
      *
      * @return string|null
      */
-    public function map(?string $value, callable $callback): ?string
+    public static function map(?string $value, callable $callback): ?string
     {
         return Call::callback($callback, $value);
     }
@@ -752,12 +752,12 @@ class Str
      *
      * @return string
      */
-    public function between(?string $value, mixed $from, mixed $to, bool $trim = true): string
+    public static function between(?string $value, mixed $from, mixed $to, bool $trim = true): string
     {
-        return $this->of($value)
+        return static::of($value)
             ->before($to)
             ->after($from)
-            ->when($trim, fn ($value) => $this->trim($value))
+            ->when($trim, fn ($value) => static::trim($value))
             ->toString();
     }
 
@@ -769,7 +769,7 @@ class Str
      *
      * @return string
      */
-    public function trim(?string $string, string $characters = " \t\n\r\0\x0B"): string
+    public static function trim(?string $string, string $characters = " \t\n\r\0\x0B"): string
     {
         return trim((string) $string, $characters);
     }
@@ -782,7 +782,7 @@ class Str
      *
      * @return string
      */
-    public function ltrim(?string $string, string $characters = " \t\n\r\0\x0B"): string
+    public static function ltrim(?string $string, string $characters = " \t\n\r\0\x0B"): string
     {
         return ltrim((string) $string, $characters);
     }
@@ -795,7 +795,7 @@ class Str
      *
      * @return string
      */
-    public function rtrim(?string $string, string $characters = " \t\n\r\0\x0B"): string
+    public static function rtrim(?string $string, string $characters = " \t\n\r\0\x0B"): string
     {
         return rtrim((string) $string, $characters);
     }

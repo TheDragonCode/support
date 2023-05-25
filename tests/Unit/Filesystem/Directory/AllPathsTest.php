@@ -37,7 +37,7 @@ class AllPathsTest extends TestCase
             realpath($this->fixturesDirectory('stubs')),
         ];
 
-        $names = Directory::allPaths($this->fixturesDirectory());
+        $names = Directory::paths($this->fixturesDirectory());
 
         $this->assertSame($available, $names);
     }
@@ -55,7 +55,7 @@ class AllPathsTest extends TestCase
             realpath($this->fixturesDirectory('stubs')),
         ];
 
-        $names = Directory::allPaths($this->fixturesDirectory(), recursive: true);
+        $names = Directory::paths($this->fixturesDirectory(), recursive: true);
 
         $this->assertSame($available, $names);
     }
@@ -67,7 +67,7 @@ class AllPathsTest extends TestCase
             realpath($this->fixturesDirectory('Instances')),
         ];
 
-        $names = Directory::allPaths(
+        $names = Directory::paths(
             $this->fixturesDirectory(),
             static fn (string $name): bool => Str::endsWith($name, 'es')
         );

@@ -35,39 +35,39 @@ class BuilderPrepare implements Stringable
 
     public function __toString(): string
     {
-        if (! empty($this->of)) {
-            return (string) $this->prefixed();
+        if (! empty(static::of)) {
+            return (string) static::prefixed();
         }
 
-        return $this->default;
+        return static::default;
     }
 
-    public function of(mixed $value): self
+    public static function of(mixed $value): self
     {
-        $this->of = (string) $value;
+        static::of = (string) $value;
 
         return $this;
     }
 
-    public function prefix(string $value): self
+    public static function prefix(string $value): self
     {
-        $this->prefix = $value;
+        static::prefix = $value;
 
         return $this;
     }
 
-    public function suffix(string $value): self
+    public static function suffix(string $value): self
     {
-        $this->suffix = $value;
+        static::suffix = $value;
 
         return $this;
     }
 
     protected function prefixed(): ?string
     {
-        return (string) Str::of($this->of)
-            ->start($this->prefix)
-            ->finish($this->suffix)
+        return (string) Str::of(static::of)
+            ->start(static::prefix)
+            ->finish(static::suffix)
             ->trim();
     }
 }

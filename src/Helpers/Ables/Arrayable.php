@@ -20,27 +20,18 @@ namespace DragonCode\Support\Helpers\Ables;
 use ArrayObject;
 use DragonCode\Contracts\Support\Arrayable as ArrayableContract;
 use DragonCode\Support\Concerns\Dumpable;
-use DragonCode\Support\Facades\Helpers\Arr;
-use DragonCode\Support\Facades\Instances\Call;
-use DragonCode\Support\Facades\Instances\Instance;
-use JetBrains\PhpStorm\Pure;
+use DragonCode\Support\Helpers\Arr;
+use DragonCode\Support\Instances\Call;
+use DragonCode\Support\Instances\Instance;
 
 class Arrayable implements ArrayableContract
 {
     use Dumpable;
 
-    protected Arrayable|ArrayObject|array|null $value = [];
-
-    public function __construct(Arrayable|ArrayObject|array|null $value = [])
-    {
-        $this->of($value);
-    }
-
-    public function of(Arrayable|ArrayObject|array|null $value = []): self
-    {
+    public function __construct(
+        protected ArrayableContract|ArrayObject|array|string|null $value = []
+    ) {
         $this->value = Instance::of($value, Arrayable::class) ? $value->toArray() : (array) $value;
-
-        return $this;
     }
 
     /**
@@ -52,12 +43,12 @@ class Arrayable implements ArrayableContract
      *
      * @return $this
      */
-    public function when(mixed $condition, callable $callback, mixed $default = null): self
+    public function when(mixed $condition, callable $callback, mixed $default = null): static
     {
         if (Call::value($condition, $this)) {
             $value = Call::value($callback, $this);
 
-            return new self($value);
+            return new static($value);
         }
 
         return ! is_null($default) ? $this->when(true, $default) : $this;
@@ -70,7 +61,6 @@ class Arrayable implements ArrayableContract
      *
      * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
-    #[Pure]
     public function implode(string $separator): Stringable
     {
         return new Stringable(implode($separator, $this->value));
@@ -95,9 +85,9 @@ class Arrayable implements ArrayableContract
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
-    public function renameKeys(callable $callback): self
+    public function renameKeys(callable $callback): static
     {
-        return new self(Arr::renameKeys($this->value, $callback));
+        return new static(Arr::renameKeys($this->value, $callback));
     }
 
     /**
@@ -107,9 +97,9 @@ class Arrayable implements ArrayableContract
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
-    public function renameKeysMap(array $map): self
+    public function renameKeysMap(array $map): static
     {
-        return new self(Arr::renameKeysMap($this->value, $map));
+        return new static(Arr::renameKeysMap($this->value, $map));
     }
 
     /**
@@ -119,9 +109,9 @@ class Arrayable implements ArrayableContract
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
-    public function addUnique(mixed $values): self
+    public function addUnique(mixed $values): static
     {
-        return new self(Arr::addUnique($this->value, $values));
+        return new static(Arr::addUnique($this->value, $values));
     }
 
     /**
@@ -139,9 +129,9 @@ class Arrayable implements ArrayableContract
      *
      * @return $this
      */
-    public function unique(int $flags = SORT_STRING): self
+    public function unique(int $flags = SORT_STRING): static
     {
-        return new self(Arr::unique($this->value, $flags));
+        return new static(Arr::unique($this->value, $flags));
     }
 
     /**
@@ -169,9 +159,9 @@ class Arrayable implements ArrayableContract
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
-    public function sortByKeys(array $sorter): self
+    public function sortByKeys(array $sorter): static
     {
-        return new self(Arr::sortByKeys($this->value, $sorter));
+        return new static(Arr::sortByKeys($this->value, $sorter));
     }
 
     /**
@@ -181,9 +171,9 @@ class Arrayable implements ArrayableContract
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
-    public function sort(?callable $callback = null): self
+    public function sort(?callable $callback = null): static
     {
-        return new self(Arr::sort($this->value, $callback));
+        return new static(Arr::sort($this->value, $callback));
     }
 
     /**
@@ -193,9 +183,9 @@ class Arrayable implements ArrayableContract
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
-    public function ksort(?callable $callback = null): self
+    public function ksort(?callable $callback = null): static
     {
-        return new self(Arr::ksort($this->value, $callback));
+        return new static(Arr::ksort($this->value, $callback));
     }
 
     /**
@@ -206,9 +196,9 @@ class Arrayable implements ArrayableContract
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
-    public function merge(array ...$arrays): self
+    public function merge(array ...$arrays): static
     {
-        return new self(Arr::merge($this->value, ...$arrays));
+        return new static(Arr::merge($this->value, ...$arrays));
     }
 
     /**
@@ -218,9 +208,9 @@ class Arrayable implements ArrayableContract
      *
      * @return $this
      */
-    public function combine(array ...$arrays): self
+    public function combine(array ...$arrays): static
     {
-        return new self(Arr::combine($this->value, ...$arrays));
+        return new static(Arr::combine($this->value, ...$arrays));
     }
 
     /**
@@ -228,9 +218,9 @@ class Arrayable implements ArrayableContract
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
-    public function resolve(): self
+    public function resolve(): static
     {
-        return new self(Arr::resolve($this->value));
+        return new static(Arr::resolve($this->value));
     }
 
     /**
@@ -244,6 +234,19 @@ class Arrayable implements ArrayableContract
     public function get(mixed $key, mixed $default = null): mixed
     {
         return Arr::get($this->value, $key, $default);
+    }
+
+    /**
+     * Get value by key from array and return object.
+     *
+     * @param mixed $key
+     * @param mixed $default
+     *
+     * @return $this
+     */
+    public function take(mixed $key, mixed $default = null): static
+    {
+        return new static(Arr::get($this->value, $key, $default));
     }
 
     /**
@@ -266,9 +269,9 @@ class Arrayable implements ArrayableContract
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
-    public function except(array|callable|string $keys): self
+    public function except(array|callable|string $keys): static
     {
-        return new self(Arr::except($this->value, $keys));
+        return new static(Arr::except($this->value, $keys));
     }
 
     /**
@@ -278,9 +281,9 @@ class Arrayable implements ArrayableContract
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
-    public function only(array|callable|string $keys): self
+    public function only(array|callable|string $keys): static
     {
-        return new self(Arr::only($this->value, $keys));
+        return new static(Arr::only($this->value, $keys));
     }
 
     /**
@@ -295,26 +298,26 @@ class Arrayable implements ArrayableContract
      *
      * @return $this
      */
-    public function filter(?callable $callback = null, int $mode = 0): self
+    public function filter(?callable $callback = null, int $mode = 0): static
     {
-        return new self(Arr::filter($this->value, $callback, $mode));
+        return new static(Arr::filter($this->value, $callback, $mode));
     }
 
     /**
      * Flatten a multi-dimensional array into a single level.
      *
-     * @param bool $ignore_keys
+     * @param bool $ignoreKeys
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
-    public function flatten(bool $ignore_keys = true): self
+    public function flatten(bool $ignoreKeys = true): static
     {
-        return new self(Arr::flatten($this->value, $ignore_keys));
+        return new static(Arr::flatten($this->value, $ignoreKeys));
     }
 
-    public function flattenKeys(string $delimiter = '.', ?string $prefix = null): self
+    public function flattenKeys(string $delimiter = '.', ?string $prefix = null): static
     {
-        return new self(Arr::flattenKeys($this->value, $delimiter, $prefix));
+        return new static(Arr::flattenKeys($this->value, $delimiter, $prefix));
     }
 
     /**
@@ -325,9 +328,9 @@ class Arrayable implements ArrayableContract
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
-    public function map(callable $callback, bool $recursive = false): self
+    public function map(callable $callback, bool $recursive = false): static
     {
-        return new self(Arr::map($this->value, $callback, $recursive));
+        return new static(Arr::map($this->value, $callback, $recursive));
     }
 
     /**
@@ -337,9 +340,9 @@ class Arrayable implements ArrayableContract
      *
      * @return $this
      */
-    public function mapInto(string $class): self
+    public function mapInto(string $class): static
     {
-        return new self(Arr::mapInto($this->value, $class));
+        return new static(Arr::mapInto($this->value, $class));
     }
 
     /**
@@ -349,9 +352,9 @@ class Arrayable implements ArrayableContract
      *
      * @return $this
      */
-    public function flip(): self
+    public function flip(): static
     {
-        return new self(Arr::flip($this->value));
+        return new static(Arr::flip($this->value));
     }
 
     /**
@@ -361,9 +364,9 @@ class Arrayable implements ArrayableContract
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
-    public function keys(): self
+    public function keys(): static
     {
-        return new self(Arr::keys($this->value));
+        return new static(Arr::keys($this->value));
     }
 
     /**
@@ -373,9 +376,9 @@ class Arrayable implements ArrayableContract
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
-    public function values(): self
+    public function values(): static
     {
-        return new self(Arr::values($this->value));
+        return new static(Arr::values($this->value));
     }
 
     /**
@@ -387,9 +390,9 @@ class Arrayable implements ArrayableContract
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
-    public function push(mixed ...$values): self
+    public function push(mixed ...$values): static
     {
-        return new self(Arr::push($this->value, ...$values));
+        return new static(Arr::push($this->value, ...$values));
     }
 
     /**
@@ -400,9 +403,9 @@ class Arrayable implements ArrayableContract
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
-    public function set(string|int|float $key, mixed $value = null): self
+    public function set(string|int|float $key, mixed $value = null): static
     {
-        return new self(Arr::set($this->value, $key, $value));
+        return new static(Arr::set($this->value, $key, $value));
     }
 
     /**
@@ -412,9 +415,9 @@ class Arrayable implements ArrayableContract
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
-    public function remove(string|int|float $key): self
+    public function forget(string|int|float $key): static
     {
-        return new self(Arr::remove($this->value, $key));
+        return new static(Arr::forget($this->value, $key));
     }
 
     /**
@@ -424,9 +427,9 @@ class Arrayable implements ArrayableContract
      *
      * @return $this
      */
-    public function tap(callable $callback): self
+    public function tap(callable $callback): static
     {
-        return new self(Arr::tap($this->value, $callback));
+        return new static(Arr::tap($this->value, $callback));
     }
 
     /**
@@ -436,9 +439,9 @@ class Arrayable implements ArrayableContract
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
-    public function reverse(bool $preserve = false): self
+    public function reverse(bool $preserve = false): static
     {
-        return new self(Arr::reverse($this->value, $preserve));
+        return new static(Arr::reverse($this->value, $preserve));
     }
 
     /**
@@ -452,9 +455,9 @@ class Arrayable implements ArrayableContract
      *
      * @return $this
      */
-    public function splice(int $offset, ?int $length = null, mixed $replacement = null): self
+    public function splice(int $offset, ?int $length = null, mixed $replacement = null): static
     {
-        return new self(Arr::splice($this->value, $offset, $length, $replacement));
+        return new static(Arr::splice($this->value, $offset, $length, $replacement));
     }
 
     /**
@@ -574,20 +577,20 @@ class Arrayable implements ArrayableContract
     /**
      * Returns an object filled with the value of the array.
      *
-     * @param string $instance
+     * @param string $class
      *
      * @return mixed
      */
-    public function toInstance(string $instance): mixed
+    public function toInstance(string $class): mixed
     {
-        if (method_exists($instance, '__invoke')) {
-            $instance = new $instance();
+        if (method_exists($class, '__invoke')) {
+            $class = new $class();
 
-            call_user_func([$instance, '__invoke'], $this->value);
+            call_user_func([$class, '__invoke'], $this->value);
 
-            return $instance;
+            return $class;
         }
 
-        return new $instance($this->value);
+        return new $class($this->value);
     }
 }

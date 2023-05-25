@@ -17,7 +17,7 @@
 
 namespace DragonCode\Support\Instances;
 
-use DragonCode\Support\Facades\Types\Is as IsHelper;
+use DragonCode\Support\Types\Is as IsHelper;
 use ReflectionClass;
 use ReflectionException;
 
@@ -32,7 +32,7 @@ class Reflection
      *
      * @return ReflectionClass
      */
-    public function resolve(object|string $class): ReflectionClass
+    public static function resolve(object|string $class): ReflectionClass
     {
         return IsHelper::reflectionClass($class) ? $class : new ReflectionClass($class);
     }
@@ -46,13 +46,28 @@ class Reflection
      *
      * @return array
      */
-    public function getConstants(object|string $class): array
+    public static function getConstants(object|string $class): array
     {
-        return $this->resolve($class)->getConstants();
+        return static::resolve($class)->getConstants();
     }
 
-    public function isStaticMethod(object|string $class, string $method): bool
+    public static function isStaticMethod(object|string $class, string $method): bool
     {
-        return $this->resolve($class)->getMethod($method)->isStatic();
+        return static::resolve($class)->getMethod($method)->isStatic();
+    }
+
+    public static function isPublicMethod(object|string $class, string $method): bool
+    {
+        return static::resolve($class)->getMethod($method)->isPublic();
+    }
+
+    public static function isProtectedMethod(object|string $class, string $method): bool
+    {
+        return static::resolve($class)->getMethod($method)->isProtected();
+    }
+
+    public static function isPrivateMethod(object|string $class, string $method): bool
+    {
+        return static::resolve($class)->getMethod($method)->isPrivate();
     }
 }

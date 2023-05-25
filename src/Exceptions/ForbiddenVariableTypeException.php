@@ -22,7 +22,7 @@ class ForbiddenVariableTypeException extends LogicException
 {
     public function __construct(string $haystack, array|string $needles)
     {
-        $message = $this->message($haystack, $this->needles($needles));
+        $message = static::message($haystack, static::needles($needles));
 
         parent::__construct($message);
     }

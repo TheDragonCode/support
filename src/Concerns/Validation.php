@@ -24,8 +24,8 @@ trait Validation
 {
     protected function validateType(mixed $haystack, mixed $needles): void
     {
-        $type    = $this->validateGetType($haystack);
-        $needles = $this->validateNeedles($needles);
+        $type    = static::validateGetType($haystack);
+        $needles = static::validateNeedles($needles);
 
         if (! Str::contains($type, $needles)) {
             throw new ForbiddenVariableTypeException($type, $needles);

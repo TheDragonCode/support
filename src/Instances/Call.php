@@ -39,18 +39,18 @@ class Call
      *
      * @return mixed
      */
-    public function run(object|callable|string $class, string $method, mixed ...$parameters): mixed
+    public static function run(object|callable|string $class, string $method, mixed ...$parameters): mixed
     {
-        $this->validate($class);
+        static::validate($class);
 
-        if ($value = $this->callback($class, $method, ...$parameters)) {
+        if ($value = static::callback($class, $method, ...$parameters)) {
             return $value;
         }
 
-        $reflect = $this->reflection($class)->getMethod($method);
+        $reflect = static::reflection($class)->getMethod($method);
 
         if (! $reflect->isStatic() && ! InstanceHelper::of($class, Closure::class)) {
-            $class = $this->resolve($class);
+            $class = static::resolve($class);
         }
 
         return call_user_func([$class, $method], ...$parameters);
@@ -67,16 +67,16 @@ class Call
      *
      * @return mixed
      */
-    public function runExists(object|callable|string $class, string $method, mixed ...$parameters): mixed
+    public static function runExists(object|callable|string $class, string $method, mixed ...$parameters): mixed
     {
-        $this->validate($class);
+        static::validate($class);
 
-        if ($value = $this->callback($class, $method, ...$parameters)) {
+        if ($value = static::callback($class, $method, ...$parameters)) {
             return $value;
         }
 
         if (method_exists($class, $method)) {
-            return $this->run($class, $method, ...$parameters);
+            return static::run($class, $method, ...$parameters);
         }
 
         return null;
@@ -93,14 +93,14 @@ class Call
      *
      * @return mixed
      */
-    public function runMethods(object|callable|string $class, array|string $methods, mixed ...$parameters): mixed
+    public static function runMethods(object|callable|string $class, array|string $methods, mixed ...$parameters): mixed
     {
-        if ($value = $this->callback($class, $methods, ...$parameters)) {
+        if ($value = static::callback($class, $methods, ...$parameters)) {
             return $value;
         }
 
         foreach (Arr::wrap($methods) as $method) {
-            if ($value = $this->runExists($class, $method, ...$parameters)) {
+            if ($value = static::runExists($class, $method, ...$parameters)) {
                 return $value;
             }
         }
@@ -119,12 +119,12 @@ class Call
      *
      * @return mixed|null
      */
-    public function runOf(array $map, mixed $value, mixed ...$parameters): mixed
+    public static function runOf(array $map, mixed $value, mixed ...$parameters): mixed
     {
-        if ($this->validated($value)) {
+        if (static::validated($value)) {
             foreach ($map as $class => $method) {
                 if (InstanceHelper::of($value, $class)) {
-                    return $this->runExists($value, $method, ...$parameters);
+                    return static::runExists($value, $method, ...$parameters);
                 }
             }
         }
@@ -144,9 +144,9 @@ class Call
      *
      * @return mixed|null
      */
-    public function when(bool $when, object|callable|string $class, string $method, ...$parameters): mixed
+    public static function when(bool $when, object|callable|string $class, string $method, ...$parameters): mixed
     {
-        return $when ? $this->run($class, $method, ...$parameters) : null;
+        return $when ? static::run($class, $method, ...$parameters) : null;
     }
 
     /**
@@ -157,7 +157,7 @@ class Call
      *
      * @return mixed
      */
-    public function callback(mixed $callback, mixed ...$parameters): mixed
+    public static function callback(mixed $callback, mixed ...$parameters): mixed
     {
         if (is_callable($callback)) {
             return $callback(...$parameters);
@@ -174,7 +174,7 @@ class Call
      *
      * @return mixed
      */
-    public function value(mixed $callback, mixed $parameters = []): mixed
+    public static function value(mixed $callback, mixed $parameters = []): mixed
     {
         $parameters = Arr::wrap($parameters);
 
@@ -193,7 +193,7 @@ class Call
 
     protected function validate(mixed $class): void
     {
-        if (! $this->validated($class)) {
+        if (! static::validated($class)) {
             throw new InvalidArgumentException('Argument #1 must be either a class reference or an instance of a class, ' . gettype($class) . ' given.');
         }
     }

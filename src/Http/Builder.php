@@ -69,7 +69,7 @@ class Builder implements BuilderContract
      */
     public function __toString(): string
     {
-        return $this->toUrl();
+        return static::toUrl();
     }
 
     /**
@@ -77,7 +77,7 @@ class Builder implements BuilderContract
      *
      * @return \DragonCode\Support\Http\Builder
      */
-    public function same(): self
+    public static function same(): self
     {
         return $this;
     }
@@ -90,15 +90,15 @@ class Builder implements BuilderContract
      *
      * @return \DragonCode\Support\Http\Builder
      */
-    public function parse(mixed $url, int $component = self::PHP_URL_ALL): BuilderContract
+    public static function parse(mixed $url, int $component = self::PHP_URL_ALL): BuilderContract
     {
         if ($component === self::PHP_URL_ALL) {
             UrlHelper::validate($url);
         }
 
-        $instance = $this->resolveSame($component);
+        $instance = static::resolveSame($component);
 
-        $key = $this->componentNameByIndex($component);
+        $key = static::componentNameByIndex($component);
 
         return $component === self::PHP_URL_ALL || empty($key)
             ? $instance->parsed(parse_url($url))
@@ -112,17 +112,17 @@ class Builder implements BuilderContract
      *
      * @return \DragonCode\Support\Http\Builder
      */
-    public function parsed(array $parsed): BuilderContract
+    public static function parsed(array $parsed): BuilderContract
     {
-        $components = array_values($this->components);
+        $components = array_values(static::components);
 
         $filtered = Arr::only($parsed, $components);
 
-        $this->parsed = Arr::of($this->parsed)
+        static::parsed = Arr::of(static::parsed)
             ->merge($filtered)
             ->toArray();
 
-        $this->cast($this->parsed);
+        static::cast(static::parsed);
 
         return $this;
     }
@@ -132,9 +132,9 @@ class Builder implements BuilderContract
      *
      * @return string
      */
-    public function getDomain(): string
+    public static function getDomain(): string
     {
-        return $this->getHost();
+        return static::getHost();
     }
 
     /**
@@ -144,9 +144,9 @@ class Builder implements BuilderContract
      *
      * @return string
      */
-    public function getDomainLevel(int $level = 0): string
+    public static function getDomainLevel(int $level = 0): string
     {
-        return Str::of($this->getHost())
+        return Str::of(static::getHost())
             ->explode('.')
             ->reverse()
             ->get($level - 1, '');
@@ -157,10 +157,10 @@ class Builder implements BuilderContract
      *
      * @return string
      */
-    public function getBaseDomain(): string
+    public static function getBaseDomain(): string
     {
-        $first  = $this->getDomainLevel(1);
-        $second = $this->getDomainLevel(2);
+        $first  = static::getDomainLevel(1);
+        $second = static::getDomainLevel(2);
 
         if ($first && $second) {
             return $second . '.' . $first;
@@ -174,9 +174,9 @@ class Builder implements BuilderContract
      *
      * @return string
      */
-    public function getSubDomain(): string
+    public static function getSubDomain(): string
     {
-        return Str::of($this->getHost())
+        return Str::of(static::getHost())
             ->when(
                 fn ($host) => Str::count($host, '.') > 1,
                 fn (Stringable $string) => $string
@@ -191,11 +191,11 @@ class Builder implements BuilderContract
      *
      * @return string
      */
-    public function getBaseUrl(): string
+    public static function getBaseUrl(): string
     {
         return Str::of('://')
-            ->prepend($this->getScheme())
-            ->append($this->getHost())
+            ->prepend(static::getScheme())
+            ->append(static::getHost())
             ->trim('://')
             ->toString();
     }
@@ -205,9 +205,9 @@ class Builder implements BuilderContract
      *
      * @return string
      */
-    public function getScheme(): string
+    public static function getScheme(): string
     {
-        return (string) $this->get(PHP_URL_SCHEME);
+        return (string) static::get(PHP_URL_SCHEME);
     }
 
     /**
@@ -215,11 +215,11 @@ class Builder implements BuilderContract
      *
      * @return string
      */
-    public function getAuthority(): string
+    public static function getAuthority(): string
     {
-        $auth = $this->getUserInfo();
-        $host = $this->getHost();
-        $port = $this->getPort();
+        $auth = static::getUserInfo();
+        $host = static::getHost();
+        $port = static::getPort();
 
         return (string) Str::of("$auth@$host:$port")->trim('@:');
     }
@@ -229,10 +229,10 @@ class Builder implements BuilderContract
      *
      * @return string
      */
-    public function getUserInfo(): string
+    public static function getUserInfo(): string
     {
-        $user = $this->getUser();
-        $pass = $this->getPassword();
+        $user = static::getUser();
+        $pass = static::getPassword();
 
         return (string) Str::of("$user:$pass")->trim(':');
     }
@@ -242,9 +242,9 @@ class Builder implements BuilderContract
      *
      * @return string
      */
-    public function getUser(): string
+    public static function getUser(): string
     {
-        return (string) $this->get(PHP_URL_USER);
+        return (string) static::get(PHP_URL_USER);
     }
 
     /**
@@ -252,9 +252,9 @@ class Builder implements BuilderContract
      *
      * @return string
      */
-    public function getPassword(): string
+    public static function getPassword(): string
     {
-        return (string) $this->get(PHP_URL_PASS);
+        return (string) static::get(PHP_URL_PASS);
     }
 
     /**
@@ -262,9 +262,9 @@ class Builder implements BuilderContract
      *
      * @return string
      */
-    public function getHost(): string
+    public static function getHost(): string
     {
-        return (string) $this->get(PHP_URL_HOST);
+        return (string) static::get(PHP_URL_HOST);
     }
 
     /**
@@ -272,9 +272,9 @@ class Builder implements BuilderContract
      *
      * @return int|null
      */
-    public function getPort(): ?int
+    public static function getPort(): ?int
     {
-        return $this->get(PHP_URL_PORT);
+        return static::get(PHP_URL_PORT);
     }
 
     /**
@@ -282,9 +282,9 @@ class Builder implements BuilderContract
      *
      * @return string
      */
-    public function getPath(): string
+    public static function getPath(): string
     {
-        $value = $this->get(PHP_URL_PATH);
+        $value = static::get(PHP_URL_PATH);
 
         return Str::of($value)
             ->trim('/')
@@ -301,9 +301,9 @@ class Builder implements BuilderContract
      *
      * @return string
      */
-    public function getQuery(): string
+    public static function getQuery(): string
     {
-        if ($value = $this->get(PHP_URL_QUERY)) {
+        if ($value = static::get(PHP_URL_QUERY)) {
             return is_string($value) ? $value : http_build_query($value);
         }
 
@@ -315,9 +315,9 @@ class Builder implements BuilderContract
      *
      * @return array
      */
-    public function getQueryArray(): array
+    public static function getQueryArray(): array
     {
-        if ($value = $this->get(PHP_URL_QUERY)) {
+        if ($value = static::get(PHP_URL_QUERY)) {
             return $value;
         }
 
@@ -329,9 +329,9 @@ class Builder implements BuilderContract
      *
      * @return string
      */
-    public function getFragment(): string
+    public static function getFragment(): string
     {
-        return (string) $this->get(PHP_URL_FRAGMENT);
+        return (string) static::get(PHP_URL_FRAGMENT);
     }
 
     /**
@@ -339,9 +339,9 @@ class Builder implements BuilderContract
      *
      * @return \DragonCode\Support\Http\Builder
      */
-    public function removeFragment(): BuilderContract
+    public static function removeFragment(): BuilderContract
     {
-        return $this->set(PHP_URL_FRAGMENT, null);
+        return static::set(PHP_URL_FRAGMENT, null);
     }
 
     /**
@@ -351,9 +351,9 @@ class Builder implements BuilderContract
      *
      * @return \DragonCode\Support\Http\Builder
      */
-    public function withScheme($scheme): self
+    public static function withScheme($scheme): self
     {
-        return $this->set(PHP_URL_SCHEME, $scheme);
+        return static::set(PHP_URL_SCHEME, $scheme);
     }
 
     /**
@@ -364,7 +364,7 @@ class Builder implements BuilderContract
      *
      * @return \DragonCode\Support\Http\Builder
      */
-    public function withUserInfo($user, $password = null): self
+    public static function withUserInfo($user, $password = null): self
     {
         return $this
             ->set(PHP_URL_USER, $user)
@@ -378,9 +378,9 @@ class Builder implements BuilderContract
      *
      * @return \DragonCode\Support\Http\Builder
      */
-    public function withHost($host): self
+    public static function withHost($host): self
     {
-        return $this->set(PHP_URL_HOST, $host);
+        return static::set(PHP_URL_HOST, $host);
     }
 
     /**
@@ -390,9 +390,9 @@ class Builder implements BuilderContract
      *
      * @return \DragonCode\Support\Http\Builder
      */
-    public function withPort($port): self
+    public static function withPort($port): self
     {
-        return $this->set(PHP_URL_PORT, $port);
+        return static::set(PHP_URL_PORT, $port);
     }
 
     /**
@@ -402,9 +402,9 @@ class Builder implements BuilderContract
      *
      * @return \DragonCode\Support\Http\Builder
      */
-    public function withPath($path): self
+    public static function withPath($path): self
     {
-        return $this->set(PHP_URL_PATH, $path);
+        return static::set(PHP_URL_PATH, $path);
     }
 
     /**
@@ -414,9 +414,9 @@ class Builder implements BuilderContract
      *
      * @return \DragonCode\Support\Http\Builder
      */
-    public function withQuery($query): self
+    public static function withQuery($query): self
     {
-        return $this->set(PHP_URL_QUERY, $query);
+        return static::set(PHP_URL_QUERY, $query);
     }
 
     /**
@@ -427,9 +427,9 @@ class Builder implements BuilderContract
      *
      * @return \DragonCode\Support\Http\Builder
      */
-    public function putQuery(string $key, $value): BuilderContract
+    public static function putQuery(string $key, $value): BuilderContract
     {
-        $query = $this->get(PHP_URL_QUERY);
+        $query = static::get(PHP_URL_QUERY);
 
         if (empty($value)) {
             $value = is_array($value) ? []
@@ -438,7 +438,7 @@ class Builder implements BuilderContract
 
         $query = Arr::set($query, $key, $value);
 
-        return $this->set(PHP_URL_QUERY, $query);
+        return static::set(PHP_URL_QUERY, $query);
     }
 
     /**
@@ -448,13 +448,13 @@ class Builder implements BuilderContract
      *
      * @return \DragonCode\Support\Http\Builder
      */
-    public function removeQuery(string $key): BuilderContract
+    public static function removeQuery(string $key): BuilderContract
     {
-        $query = $this->get(PHP_URL_QUERY);
+        $query = static::get(PHP_URL_QUERY);
 
         unset($query[$key]);
 
-        return $this->set(PHP_URL_QUERY, $query);
+        return static::set(PHP_URL_QUERY, $query);
     }
 
     /**
@@ -464,9 +464,9 @@ class Builder implements BuilderContract
      *
      * @return \DragonCode\Support\Http\Builder
      */
-    public function withFragment($fragment): self
+    public static function withFragment($fragment): self
     {
-        return $this->set(PHP_URL_FRAGMENT, $fragment);
+        return static::set(PHP_URL_FRAGMENT, $fragment);
     }
 
     /**
@@ -476,25 +476,25 @@ class Builder implements BuilderContract
      *
      * @return \DragonCode\Support\Http\Builder
      */
-    public function fromPsr(UriInterface $uri): BuilderContract
+    public static function fromPsr(UriInterface $uri): BuilderContract
     {
-        $this->parsed = [];
+        static::parsed = [];
 
-        $this->withScheme($uri->getScheme());
-        $this->withHost($uri->getHost());
-        $this->withPort($uri->getPort());
-        $this->withPath($uri->getPath());
-        $this->withQuery($uri->getQuery());
-        $this->withFragment($uri->getFragment());
+        static::withScheme($uri->getScheme());
+        static::withHost($uri->getHost());
+        static::withPort($uri->getPort());
+        static::withPath($uri->getPath());
+        static::withQuery($uri->getQuery());
+        static::withFragment($uri->getFragment());
 
         $auth = explode(':', $uri->getUserInfo());
 
-        $this->withUserInfo(
+        static::withUserInfo(
             $auth[0] ?? null,
             $auth[1] ?? null
         );
 
-        $this->cast($this->parsed);
+        static::cast(static::parsed);
 
         return $this;
     }
@@ -504,9 +504,9 @@ class Builder implements BuilderContract
      *
      * @return \Psr\Http\Message\UriInterface
      */
-    public function toPsr(): UriInterface
+    public static function toPsr(): UriInterface
     {
-        return $this->same();
+        return static::same();
     }
 
     /**
@@ -514,17 +514,17 @@ class Builder implements BuilderContract
      *
      * @return null[]|string[]
      */
-    public function toArray(): array
+    public static function toArray(): array
     {
         return [
-            'scheme'   => $this->getScheme(),
-            'user'     => $this->getUser(),
-            'pass'     => $this->getPassword(),
-            'host'     => $this->getHost(),
-            'port'     => $this->getPort(),
-            'path'     => $this->getPath(),
-            'query'    => $this->getQuery(),
-            'fragment' => $this->getFragment(),
+            'scheme'   => static::getScheme(),
+            'user'     => static::getUser(),
+            'pass'     => static::getPassword(),
+            'host'     => static::getHost(),
+            'port'     => static::getPort(),
+            'path'     => static::getPath(),
+            'query'    => static::getQuery(),
+            'fragment' => static::getFragment(),
         ];
     }
 
@@ -533,9 +533,9 @@ class Builder implements BuilderContract
      *
      * @return string
      */
-    public function toUrl(): string
+    public static function toUrl(): string
     {
-        return Arr::of($this->prepare())
+        return Arr::of(static::prepare())
             ->map(static fn (mixed $value) => (string) $value)
             ->filter()
             ->implode('')
@@ -545,14 +545,14 @@ class Builder implements BuilderContract
 
     protected function componentNameByIndex(int $component): ?string
     {
-        $this->validateComponentIndex($component);
+        static::validateComponentIndex($component);
 
-        return Arr::get($this->components, $component);
+        return Arr::get(static::components, $component);
     }
 
     protected function validateComponentIndex(int $component): void
     {
-        $components = array_keys($this->components);
+        $components = array_keys(static::components);
 
         if ($component !== self::PHP_URL_ALL && ! in_array($component, $components, true)) {
             throw new UnknownUrlComponentIndexException($component);
@@ -561,32 +561,32 @@ class Builder implements BuilderContract
 
     protected function set(int $component, $value): self
     {
-        $this->validate($component, $value);
+        static::validate($component, $value);
 
-        $name = $this->componentNameByIndex($component);
+        $name = static::componentNameByIndex($component);
 
-        $this->parsed[$name] = $this->castValue($name, $value);
+        static::parsed[$name] = static::castValue($name, $value);
 
         return $this;
     }
 
     protected function get(int $index)
     {
-        $name = $this->componentNameByIndex($index);
+        $name = static::componentNameByIndex($index);
 
-        return Arr::get($this->parsed, $name);
+        return Arr::get(static::parsed, $name);
     }
 
     protected function getValidationType(int $component): array
     {
-        return Arr::get($this->validate, $component, []);
+        return Arr::get(static::validate, $component, []);
     }
 
     protected function validate(int $component, $value): void
     {
-        $type = $this->getValidationType($component);
+        $type = static::getValidationType($component);
 
-        $this->validateType($value, $type);
+        static::validateType($value, $type);
     }
 
     /**
@@ -599,20 +599,20 @@ class Builder implements BuilderContract
     protected function prepare(): array
     {
         return [
-            BuilderPrepare::make()->of($this->getScheme())->suffix(':'),
+            BuilderPrepare::make()->of(static::getScheme())->suffix(':'),
 
             '//',
 
-            BuilderPrepare::make()->of($this->getUser()),
-            BuilderPrepare::make()->of($this->getPassword())->prefix(':'),
+            BuilderPrepare::make()->of(static::getUser()),
+            BuilderPrepare::make()->of(static::getPassword())->prefix(':'),
 
-            $this->getUser() || $this->getPassword() ? '@' : '',
+            static::getUser() || static::getPassword() ? '@' : '',
 
-            BuilderPrepare::make()->of($this->getHost()),
-            BuilderPrepare::make()->of($this->getPort())->prefix(':'),
-            BuilderPrepare::make()->of($this->getPath()),
-            BuilderPrepare::make()->of($this->getQuery())->prefix('?'),
-            BuilderPrepare::make()->of($this->getFragment())->prefix('#'),
+            BuilderPrepare::make()->of(static::getHost()),
+            BuilderPrepare::make()->of(static::getPort())->prefix(':'),
+            BuilderPrepare::make()->of(static::getPath()),
+            BuilderPrepare::make()->of(static::getQuery())->prefix('?'),
+            BuilderPrepare::make()->of(static::getFragment())->prefix('#'),
         ];
     }
 

@@ -29,13 +29,13 @@ class Digit
      *
      * @return int
      */
-    public function factorial(int $n = 0): int
+    public static function factorial(int $n = 0): int
     {
         if ($n === 0) {
             return 1;
         }
 
-        return $n * $this->factorial($n - 1);
+        return $n * static::factorial($n - 1);
     }
 
     /**
@@ -48,13 +48,13 @@ class Digit
      *
      * @return string
      */
-    public function toShort(float $number, int $precision = 1, ?string $suffix = null): string
+    public static function toShort(float $number, int $precision = 1, ?string $suffix = null): string
     {
         $length = strlen((string) ((int) $number));
         $length = ceil($length / 3) * 3 + 1;
 
-        $suffix = $this->suffix($length, $suffix);
-        $value  = $this->rounded($number, $length, $precision);
+        $suffix = static::suffix($length, $suffix);
+        $value  = static::rounded($number, $length, $precision);
 
         return $value . $suffix;
     }
@@ -68,7 +68,7 @@ class Digit
      *
      * @return string
      */
-    public function toChars(int $number, string $chars = 'abcdefghijklmnopqrstuvwxyz'): string
+    public static function toChars(int $number, string $chars = 'abcdefghijklmnopqrstuvwxyz'): string
     {
         $length = StrHelper::length($chars);
 
@@ -94,7 +94,7 @@ class Digit
      *
      * @return float
      */
-    public function rounded(float|int $number, int $length = 4, int $precision = 1): float
+    public static function rounded(float|int $number, int $length = 4, int $precision = 1): float
     {
         $divided = (float) bcpow(10, $length - 4, 2);
 
@@ -108,7 +108,7 @@ class Digit
      *
      * @return string
      */
-    public function toString(float|int $value): string
+    public static function toString(float|int $value): string
     {
         return (string) $value;
     }

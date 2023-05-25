@@ -30,12 +30,12 @@ class ErrorTest extends TestCase
 {
     public function testError()
     {
-        $this->assertTrue(Is::error(new Exception()));
+        $this->assertTrue(Is::exception(new Exception()));
 
-        $this->assertFalse(Is::error(new Foo()));
-        $this->assertFalse(Is::error(new Bar()));
-        $this->assertFalse(Is::error(new Bam()));
+        $this->assertFalse(Is::exception(new Foo()));
+        $this->assertFalse(Is::exception(new Bar()));
+        $this->assertFalse(Is::exception(new Bam()));
 
-        $this->assertFalse(Is::error('foo'));
+        $this->assertFalse(Is::exception('foo'));
     }
 }

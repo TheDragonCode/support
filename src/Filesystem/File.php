@@ -21,12 +21,10 @@ use DirectoryIterator;
 use DragonCode\Support\Exceptions\FileNotFoundException;
 use DragonCode\Support\Exceptions\FileSyntaxErrorException;
 use DragonCode\Support\Exceptions\UnhandledFileExtensionException;
-use DragonCode\Support\Facades\Filesystem\Directory;
-use DragonCode\Support\Facades\Filesystem\Path;
-use DragonCode\Support\Facades\Helpers\Arr;
-use DragonCode\Support\Facades\Helpers\Str;
-use DragonCode\Support\Facades\Instances\Call;
-use DragonCode\Support\Facades\Instances\Instance;
+use DragonCode\Support\Helpers\Arr;
+use DragonCode\Support\Helpers\Str;
+use DragonCode\Support\Instances\Call;
+use DragonCode\Support\Instances\Instance;
 use SplFileInfo;
 use Throwable;
 
@@ -39,9 +37,11 @@ class File
      * @param callable|null $callback
      * @param bool $recursive
      *
+     * @throws \DragonCode\Support\Exceptions\DirectoryNotFoundException
+     *
      * @return array
      */
-    public function allPaths(string $path, ?callable $callback = null, bool $recursive = false): array
+    public static function allPaths(string $path, ?callable $callback = null, bool $recursive = true): array
     {
         $items = [];
 
@@ -53,13 +53,9 @@ class File
             }
 
             if ($recursive && $item->isDir() && ! $item->isDot()) {
-                $files = $this->allPaths($item->getRealPath(), $callback, $recursive);
-
-                $items = array_merge($items, $files);
+                $items += static::allPaths($item->getRealPath(), $callback, $recursive);
             }
         }
-
-        sort($items);
 
         return array_values($items);
     }
@@ -71,12 +67,14 @@ class File
      * @param callable|null $callback
      * @param bool $recursive
      *
+     * @throws \DragonCode\Support\Exceptions\DirectoryNotFoundException
+     *
      * @return array
      */
-    public function names(string $path, ?callable $callback = null, bool $recursive = false): array
+    public static function names(string $path, ?callable $callback = null, bool $recursive = true): array
     {
         return Arr::of(
-            $this->allPaths($path, $callback, $recursive)
+            static::allPaths($path, $callback, $recursive)
         )
             ->map(fn (string $value) => Str::of($value)->after(realpath($path))->trim('\\/')->toString())
             ->toArray();
@@ -89,9 +87,11 @@ class File
      * @param string $content
      * @param int $mode
      *
+     * @throws \DragonCode\Support\Exceptions\DirectoryNotFoundException
+     *
      * @return string returns the full path to the saved file
      */
-    public function store(string $path, string $content, int $mode = 0755): string
+    public static function store(string $path, string $content, int $mode = 0755): string
     {
         Directory::ensureDirectory(Path::dirname($path), $mode);
 
@@ -106,13 +106,14 @@ class File
      * @param string $path
      *
      * @throws \DragonCode\Support\Exceptions\FileNotFoundException
+     * @throws \DragonCode\Support\Exceptions\UnhandledFileExtensionException
      *
      * @return array
      */
-    public function load(string $path): array
+    public static function load(string $path): array
     {
         try {
-            if (! $this->exists($path)) {
+            if (! static::exists($path)) {
                 throw new FileNotFoundException($path);
             }
 
@@ -137,7 +138,7 @@ class File
      * @param string $target
      * @param int $mode
      */
-    public function copy(string $source, string $target, int $mode = 0755): void
+    public static function copy(string $source, string $target, int $mode = 0755): void
     {
         Directory::ensureDirectory(Path::dirname($target), $mode);
 
@@ -153,7 +154,7 @@ class File
      *
      * @throws \DragonCode\Support\Exceptions\FileNotFoundException
      */
-    public function move(string $source, string $target, int $mode = 0755): void
+    public static function move(string $source, string $target, int $mode = 0755): void
     {
         Directory::ensureDirectory(Path::dirname($target), $mode);
 
@@ -167,7 +168,7 @@ class File
      *
      * @return bool
      */
-    public function exists(string $path): bool
+    public static function exists(string $path): bool
     {
         return file_exists($path) && is_file($path);
     }
@@ -181,14 +182,14 @@ class File
      *
      * @return void
      */
-    public function delete(array|string $paths): void
+    public static function delete(array|string $paths): void
     {
         foreach ((array) $paths as $path) {
-            if (! $this->exists($path)) {
+            if (! static::exists($path)) {
                 throw new FileNotFoundException($path);
             }
 
-            unlink($path);
+            @unlink($path);
         }
     }
 
@@ -201,10 +202,10 @@ class File
      *
      * @return void
      */
-    public function ensureDelete(array|string $paths): void
+    public static function ensureDelete(array|string $paths): void
     {
         foreach ((array) $paths as $path) {
-            $this->exists($path) && $this->delete($path);
+            static::exists($path) && static::delete($path);
         }
     }
 
@@ -215,7 +216,7 @@ class File
      *
      * @return bool
      */
-    public function isFile(mixed $value): bool
+    public static function isFile(mixed $value): bool
     {
         if (Instance::of($value, [SplFileInfo::class, DirectoryIterator::class])) {
             return $value->isFile();
@@ -231,15 +232,15 @@ class File
      *
      * @throws \DragonCode\Support\Exceptions\FileNotFoundException
      */
-    public function validate(mixed $path): void
+    public static function validate(mixed $path): void
     {
-        if (! $this->isFile($path)) {
+        if (! static::isFile($path)) {
             throw new FileNotFoundException($path);
         }
     }
 
     /**
-     * Checks the existence of a file and return full path if exist.
+     * Checks the existence of a file and return full path if exists.
      *
      * @param DirectoryIterator|SplFileInfo|string $path
      *
@@ -247,9 +248,9 @@ class File
      *
      * @return string
      */
-    public function validated(mixed $path): string
+    public static function validated(mixed $path): string
     {
-        $this->validate($path);
+        static::validate($path);
 
         return realpath($path);
     }
