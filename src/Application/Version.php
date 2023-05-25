@@ -6,9 +6,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author Andrey Helldar <helldar@ai-rus.com>
+ * @author Andrey Helldar <helldar@dragon-code.pro>
  *
- * @copyright 2022 Andrey Helldar
+ * @copyright 2023 Andrey Helldar
  *
  * @license MIT
  *
@@ -26,11 +26,9 @@ class Version
     ) {
     }
 
-    public function of(string $version): self
+    public static function of(?string $version): self
     {
-        $this->version = $version;
-
-        return $this;
+        return new static($version);
     }
 
     public function lt(string $version): bool
@@ -65,6 +63,6 @@ class Version
 
     protected function is(string $version, string $comparator): bool
     {
-        return version_compare($version, $this->version, $comparator);
+        return version_compare($version, (string) $this->version, $comparator);
     }
 }

@@ -6,9 +6,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author Andrey Helldar <helldar@ai-rus.com>
+ * @author Andrey Helldar <helldar@dragon-code.pro>
  *
- * @copyright 2022 Andrey Helldar
+ * @copyright 2023 Andrey Helldar
  *
  * @license MIT
  *
@@ -17,8 +17,7 @@
 
 namespace DragonCode\Support\Callbacks;
 
-use DragonCode\Support\Facades\Helpers\Str;
-use JetBrains\PhpStorm\Pure;
+use DragonCode\Support\Helpers\Str;
 
 class Sorter
 {
@@ -27,7 +26,7 @@ class Sorter
      *
      * @return string[]
      */
-    public function specialChars(): array
+    public static function specialChars(): array
     {
         return [
             ' ',
@@ -72,22 +71,22 @@ class Sorter
      *
      * @return callable
      */
-    public function default(): callable
+    public static function default(): callable
     {
         return function ($current, $next) {
-            $current = $this->lower($current);
-            $next    = $this->lower($next);
+            $current = static::lower($current);
+            $next    = static::lower($next);
 
             if ($current === $next) {
                 return 0;
             }
 
             if (is_string($current) && is_numeric($next)) {
-                return $this->hasSpecialChar($current) ? -1 : 1;
+                return static::hasSpecialChar($current) ? -1 : 1;
             }
 
             if (is_numeric($current) && is_string($next)) {
-                return $this->hasSpecialChar($next) ? 1 : -1;
+                return static::hasSpecialChar($next) ? 1 : -1;
             }
 
             return $current < $next ? -1 : 1;
@@ -101,7 +100,7 @@ class Sorter
      *
      * @return mixed|string|null
      */
-    protected function lower($value): mixed
+    protected static function lower(mixed $value): mixed
     {
         return is_string($value) ? Str::lower($value) : $value;
     }
@@ -113,9 +112,8 @@ class Sorter
      *
      * @return bool
      */
-    #[Pure]
-    protected function hasSpecialChar($value): bool
+    protected static function hasSpecialChar(mixed $value): bool
     {
-        return in_array($value, $this->specialChars());
+        return in_array($value, static::specialChars());
     }
 }

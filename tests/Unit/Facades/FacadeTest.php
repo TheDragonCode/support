@@ -6,9 +6,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author Andrey Helldar <helldar@ai-rus.com>
+ * @author Andrey Helldar <helldar@dragon-code.pro>
  *
- * @copyright 2022 Andrey Helldar
+ * @copyright 2023 Andrey Helldar
  *
  * @license MIT
  *
@@ -17,8 +17,6 @@
 
 namespace Tests\Unit\Facades;
 
-use DragonCode\Support\Application\OS;
-use DragonCode\Support\Facades\Application\OS as OSFacade;
 use DragonCode\Support\Facades\Filesystem\Directory as DirectoryFacade;
 use DragonCode\Support\Facades\Filesystem\File as FileFacade;
 use DragonCode\Support\Facades\Helpers\Arr as ArrFacade;
@@ -75,7 +73,6 @@ class FacadeTest extends TestCase
         $this->assertInstanceOf(Url::class, UrlFacade::getFacadeRoot());
         $this->assertInstanceOf(Instance::class, InstanceFacade::getFacadeRoot());
         $this->assertInstanceOf(Is::class, IsFacade::getFacadeRoot());
-        $this->assertInstanceOf(OS::class, OSFacade::getFacadeRoot());
         $this->assertInstanceOf(Reflection::class, ReflectionFacade::getFacadeRoot());
         $this->assertInstanceOf(Str::class, StrFacade::getFacadeRoot());
         $this->assertInstanceOf(Stub::class, StubFacade::getFacadeRoot());
