@@ -6,9 +6,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author Andrey Helldar <helldar@ai-rus.com>
+ * @author Andrey Helldar <helldar@dragon-code.pro>
  *
- * @copyright 2022 Andrey Helldar
+ * @copyright 2023 Andrey Helldar
  *
  * @license MIT
  *
@@ -20,15 +20,10 @@ declare(strict_types=1);
 namespace DragonCode\Support\Facades\Application;
 
 use DragonCode\Support\Application\Version as Helper;
-use DragonCode\Support\Facades\Facade;
 
 /**
- * @method static Helper of(string $version)
+ * @deprecated Will be removed in version 8.0. Use DragonCode\Support\Application\Version instead.
  */
-class Version extends Facade
+class Version extends Helper
 {
-    protected static function getFacadeAccessor(): string
-    {
-        return Helper::class;
-    }
 }

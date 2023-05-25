@@ -6,9 +6,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author Andrey Helldar <helldar@ai-rus.com>
+ * @author Andrey Helldar <helldar@dragon-code.pro>
  *
- * @copyright 2022 Andrey Helldar
+ * @copyright 2023 Andrey Helldar
  *
  * @license MIT
  *
@@ -17,20 +17,11 @@
 
 namespace DragonCode\Support\Facades\Helpers;
 
-use DragonCode\Support\Facades\Facade;
 use DragonCode\Support\Helpers\Boolean as Helper;
 
 /**
- * @method static bool isFalse($value)
- * @method static bool isTrue($value)
- * @method static bool to($value)
- * @method static bool|null parse($value)
- * @method static string toString(bool $value)
+ * @deprecated Will be removed in version 8.0. Use DragonCode\Support\Helpers\Boolean instead.
  */
-class Boolean extends Facade
+class Boolean extends Helper
 {
-    protected static function getFacadeAccessor(): string
-    {
-        return Helper::class;
-    }
 }

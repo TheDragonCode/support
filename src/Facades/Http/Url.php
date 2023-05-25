@@ -6,9 +6,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author Andrey Helldar <helldar@ai-rus.com>
+ * @author Andrey Helldar <helldar@dragon-code.pro>
  *
- * @copyright 2022 Andrey Helldar
+ * @copyright 2023 Andrey Helldar
  *
  * @license MIT
  *
@@ -27,6 +27,8 @@ use DragonCode\Support\Http\Url as Helper;
  * @method static \DragonCode\Support\Http\Builder|\DragonCode\Contracts\Http\Builder|string validated(\DragonCode\Contracts\Http\Builder|string|null $url)
  * @method static string|null default(\DragonCode\Contracts\Http\Builder|string|null $url, \DragonCode\Contracts\Http\Builder|string|null $default)
  * @method static void validate(\DragonCode\Contracts\Http\Builder|string|null $url)
+ *
+ * @deprecated Will be removed in version 8.0
  */
 class Url extends Facade
 {

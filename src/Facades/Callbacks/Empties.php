@@ -6,9 +6,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author Andrey Helldar <helldar@ai-rus.com>
+ * @author Andrey Helldar <helldar@dragon-code.pro>
  *
- * @copyright 2022 Andrey Helldar
+ * @copyright 2023 Andrey Helldar
  *
  * @license MIT
  *
@@ -17,17 +17,11 @@
 
 namespace DragonCode\Support\Facades\Callbacks;
 
-use DragonCode\Support\Callbacks\Empties as Callback;
-use DragonCode\Support\Facades\Facade;
+use DragonCode\Support\Callbacks\Empties as Helper;
 
 /**
- * @method static callable notEmpty()
- * @method static callable notEmptyBoth()
+ * @deprecated Will be removed in version 8.0. Use DragonCode\Support\Callbacks\Empties instead.
  */
-class Empties extends Facade
+class Empties extends Helper
 {
-    protected static function getFacadeAccessor(): string
-    {
-        return Callback::class;
-    }
 }

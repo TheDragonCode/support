@@ -6,9 +6,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author Andrey Helldar <helldar@ai-rus.com>
+ * @author Andrey Helldar <helldar@dragon-code.pro>
  *
- * @copyright 2022 Andrey Helldar
+ * @copyright 2023 Andrey Helldar
  *
  * @license MIT
  *
@@ -17,19 +17,11 @@
 
 namespace DragonCode\Support\Facades\Filesystem;
 
-use DragonCode\Support\Facades\Facade;
 use DragonCode\Support\Filesystem\Path as Helper;
 
 /**
- * @method static string basename(string $path)
- * @method static string dirname(string $path)
- * @method static string extension(string $path)
- * @method static string filename(string $path)
+ * @deprecated Will be removed in version 8.0. Use DragonCode\Support\Filesystem\Path instead.
  */
-class Path extends Facade
+class Path extends Helper
 {
-    protected static function getFacadeAccessor(): string
-    {
-        return Helper::class;
-    }
 }

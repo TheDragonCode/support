@@ -6,9 +6,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author Andrey Helldar <helldar@ai-rus.com>
+ * @author Andrey Helldar <helldar@dragon-code.pro>
  *
- * @copyright 2022 Andrey Helldar
+ * @copyright 2023 Andrey Helldar
  *
  * @license MIT
  *
@@ -17,17 +17,11 @@
 
 namespace DragonCode\Support\Facades\Tools;
 
-use DragonCode\Support\Facades\Facade;
-use DragonCode\Support\Tools\Replace as Tool;
+use DragonCode\Support\Tools\Replace as Helper;
 
 /**
- * @method static string toFormat(string $value, string $format = null)
- * @method static string toFormatArray(array $values, string $format = null)
+ * @deprecated Will be removed in version 8.0. Use DragonCode\Support\Tools\Replace instead.
  */
-class Replace extends Facade
+class Replace extends Helper
 {
-    protected static function getFacadeAccessor(): string
-    {
-        return Tool::class;
-    }
 }

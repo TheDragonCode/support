@@ -6,9 +6,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author Andrey Helldar <helldar@ai-rus.com>
+ * @author Andrey Helldar <helldar@dragon-code.pro>
  *
- * @copyright 2022 Andrey Helldar
+ * @copyright 2023 Andrey Helldar
  *
  * @license MIT
  *
@@ -17,22 +17,11 @@
 
 namespace DragonCode\Support\Facades\Instances;
 
-use DragonCode\Support\Facades\Facade;
 use DragonCode\Support\Instances\Call as Helper;
 
 /**
- * @method static mixed callback(mixed $callback, mixed ...$parameters)
- * @method static mixed run(mixed $class, string $method, ...$parameters)
- * @method static mixed runExists(mixed $class, string $method, ...$parameters)
- * @method static mixed runMethods($class, $methods, ...$parameters)
- * @method static mixed runOf(array $map, $value, ...$parameters)
- * @method static mixed value(mixed $callback, mixed $parameters = [])
- * @method static mixed when(bool $when, mixed $class, string $method, ...$parameters)
+ * @deprecated Will be removed in version 8.0. Use DragonCode\Support\Instances\Call instead.
  */
-class Call extends Facade
+class Call extends Helper
 {
-    protected static function getFacadeAccessor(): string
-    {
-        return Helper::class;
-    }
 }

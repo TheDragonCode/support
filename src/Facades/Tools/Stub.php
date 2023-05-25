@@ -6,9 +6,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author Andrey Helldar <helldar@ai-rus.com>
+ * @author Andrey Helldar <helldar@dragon-code.pro>
  *
- * @copyright 2022 Andrey Helldar
+ * @copyright 2023 Andrey Helldar
  *
  * @license MIT
  *
@@ -17,17 +17,11 @@
 
 namespace DragonCode\Support\Facades\Tools;
 
-use DragonCode\Support\Facades\Facade;
-use DragonCode\Support\Tools\Stub as Tool;
+use DragonCode\Support\Tools\Stub as Helper;
 
 /**
- * @method static string replace(string $stub_file, array $replace)
- * @method static string get(string $filename)
+ * @deprecated Will be removed in version 8.0. Use DragonCode\Support\Tools\Stub instead.
  */
-class Stub extends Facade
+class Stub extends Helper
 {
-    protected static function getFacadeAccessor(): string
-    {
-        return Tool::class;
-    }
 }

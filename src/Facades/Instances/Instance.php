@@ -6,9 +6,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author Andrey Helldar <helldar@ai-rus.com>
+ * @author Andrey Helldar <helldar@dragon-code.pro>
  *
- * @copyright 2022 Andrey Helldar
+ * @copyright 2023 Andrey Helldar
  *
  * @license MIT
  *
@@ -17,19 +17,11 @@
 
 namespace DragonCode\Support\Facades\Instances;
 
-use DragonCode\Support\Facades\Facade;
 use DragonCode\Support\Instances\Instance as Helper;
 
 /**
- * @method static bool exists(object|string $haystack)
- * @method static bool of(object|string $haystack, string|string[] $needles)
- * @method static string|null basename(object|string $class)
- * @method static string|null classname(object|string $class = null)
+ * @deprecated Will be removed in version 8.0. Use DragonCode\Support\Instances\Instance instead.
  */
-class Instance extends Facade
+class Instance extends Helper
 {
-    protected static function getFacadeAccessor(): string
-    {
-        return Helper::class;
-    }
 }
