@@ -29,7 +29,7 @@ abstract class Facade
             return $instance->{$method}(...$args);
         }
 
-        throw new RuntimeException('A facade root has not been set.');
+        throw new RuntimeException('A facade root has not been set in ' . static::class);
     }
 
     public static function getFacadeRoot(): object
@@ -44,6 +44,6 @@ abstract class Facade
 
     protected static function getFacadeAccessor(): mixed
     {
-        throw new RuntimeException('Facade does not implement getFacadeAccessor method.');
+        throw new RuntimeException(sprintf('The %s facade does not implement getFacadeAccessor method.', static::class));
     }
 }
