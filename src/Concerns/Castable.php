@@ -23,17 +23,16 @@ use DragonCode\Support\Facades\Helpers\Str;
  */
 trait Castable
 {
-    protected function cast(array &$source)
+    protected function cast(array &$source): void
     {
         foreach ($source as $key => &$value) {
             $value = $this->castValue($key, $value);
         }
     }
 
-    protected function castValue(string $key, mixed $value)
+    protected function castValue(string $key, mixed $value): mixed
     {
-        $cast = $this->castKey($key);
-
+        $cast   = $this->castKey($key);
         $method = $this->castMethodName($cast);
 
         return $this->{$method}($value);
@@ -46,7 +45,7 @@ trait Castable
 
     protected function castMethodName(string $key): string
     {
-        return (string) Str::of($key)->start('castTo_')->camel();
+        return Str::of($key)->start('castTo_')->camel()->toString();
     }
 
     protected function castToArray(mixed $value): array
@@ -69,7 +68,7 @@ trait Castable
         return empty($value) && ! is_numeric($value) ? null : $value;
     }
 
-    protected function castToString(?string $value): string
+    protected function castToString(mixed $value): string
     {
         return (string) $value;
     }

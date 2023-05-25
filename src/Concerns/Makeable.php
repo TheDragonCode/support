@@ -16,12 +16,9 @@
 
 namespace DragonCode\Support\Concerns;
 
-use JetBrains\PhpStorm\Pure;
-
 trait Makeable
 {
-    #[Pure]
-    public static function make(...$parameters): static
+    public static function make(mixed ...$parameters): static
     {
         return new static(...$parameters);
     }
