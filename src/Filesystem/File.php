@@ -91,7 +91,7 @@ class File
      *
      * @return string returns the full path to the saved file
      */
-    public function store(string $path, string $content, int $mode = 0755): string
+    public function store(string $path, string $content, int $mode = 0o755): string
     {
         Directory::ensureDirectory(Path::dirname($path), $mode);
 
@@ -137,7 +137,7 @@ class File
      * @param string $target
      * @param int $mode
      */
-    public function copy(string $source, string $target, int $mode = 0755): void
+    public function copy(string $source, string $target, int $mode = 0o755): void
     {
         Directory::ensureDirectory(Path::dirname($target), $mode);
 
@@ -153,7 +153,7 @@ class File
      *
      * @throws \DragonCode\Support\Exceptions\FileNotFoundException
      */
-    public function move(string $source, string $target, int $mode = 0755): void
+    public function move(string $source, string $target, int $mode = 0o755): void
     {
         Directory::ensureDirectory(Path::dirname($target), $mode);
 

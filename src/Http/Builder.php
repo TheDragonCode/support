@@ -31,6 +31,7 @@ use Psr\Http\Message\UriInterface;
 class Builder implements BuilderContract
 {
     use Castable;
+
     use Validation;
 
     protected array $parsed = [];
