@@ -31,7 +31,6 @@ use Psr\Http\Message\UriInterface;
 class Builder implements BuilderContract
 {
     use Castable;
-
     use Validation;
 
     protected array $parsed = [];
@@ -65,8 +64,6 @@ class Builder implements BuilderContract
 
     /**
      * Return the string representation as a URI reference.
-     *
-     * @return string
      */
     public function __toString(): string
     {
@@ -86,8 +83,7 @@ class Builder implements BuilderContract
     /**
      * Parse a URL.
      *
-     * @param \Psr\Http\Message\UriInterface|string|null $url
-     * @param int $component
+     * @param  \Psr\Http\Message\UriInterface|string|null  $url
      *
      * @return \DragonCode\Support\Http\Builder
      */
@@ -109,8 +105,6 @@ class Builder implements BuilderContract
     /**
      * Populate an object with parsed data.
      *
-     * @param array $parsed
-     *
      * @return \DragonCode\Support\Http\Builder
      */
     public function parsed(array $parsed): BuilderContract
@@ -130,8 +124,6 @@ class Builder implements BuilderContract
 
     /**
      * Retrieve the domain name of the URI.
-     *
-     * @return string
      */
     public function getDomain(): string
     {
@@ -140,10 +132,6 @@ class Builder implements BuilderContract
 
     /**
      * Retrieve the domain level name of the URI.
-     *
-     * @param int $level
-     *
-     * @return string
      */
     public function getDomainLevel(int $level = 0): string
     {
@@ -155,8 +143,6 @@ class Builder implements BuilderContract
 
     /**
      * Retrieve the base domain name of the URI.
-     *
-     * @return string
      */
     public function getBaseDomain(): string
     {
@@ -172,8 +158,6 @@ class Builder implements BuilderContract
 
     /**
      * Retrieve the subdomain name of the URI.
-     *
-     * @return string
      */
     public function getSubDomain(): string
     {
@@ -189,8 +173,6 @@ class Builder implements BuilderContract
 
     /**
      * Retrieve the scheme and host of the URI.
-     *
-     * @return string
      */
     public function getBaseUrl(): string
     {
@@ -203,8 +185,6 @@ class Builder implements BuilderContract
 
     /**
      * Retrieve the scheme component of the URI.
-     *
-     * @return string
      */
     public function getScheme(): string
     {
@@ -213,8 +193,6 @@ class Builder implements BuilderContract
 
     /**
      * Retrieve the authority component of the URI.
-     *
-     * @return string
      */
     public function getAuthority(): string
     {
@@ -227,8 +205,6 @@ class Builder implements BuilderContract
 
     /**
      * Retrieve the user information component of the URI.
-     *
-     * @return string
      */
     public function getUserInfo(): string
     {
@@ -240,8 +216,6 @@ class Builder implements BuilderContract
 
     /**
      * Retrieve the user name component of the URI.
-     *
-     * @return string
      */
     public function getUser(): string
     {
@@ -250,8 +224,6 @@ class Builder implements BuilderContract
 
     /**
      * Retrieve the user password component of the URI.
-     *
-     * @return string
      */
     public function getPassword(): string
     {
@@ -260,8 +232,6 @@ class Builder implements BuilderContract
 
     /**
      * Retrieve the host component of the URI.
-     *
-     * @return string
      */
     public function getHost(): string
     {
@@ -270,8 +240,6 @@ class Builder implements BuilderContract
 
     /**
      * Retrieve the port component of the URI.
-     *
-     * @return int|null
      */
     public function getPort(): ?int
     {
@@ -280,8 +248,6 @@ class Builder implements BuilderContract
 
     /**
      * Retrieve the path component of the URI.
-     *
-     * @return string
      */
     public function getPath(): string
     {
@@ -299,8 +265,6 @@ class Builder implements BuilderContract
 
     /**
      * Retrieve the query string of the URI.
-     *
-     * @return string
      */
     public function getQuery(): string
     {
@@ -313,8 +277,6 @@ class Builder implements BuilderContract
 
     /**
      * Retrieve the query array of the URI.
-     *
-     * @return array
      */
     public function getQueryArray(): array
     {
@@ -327,8 +289,6 @@ class Builder implements BuilderContract
 
     /**
      * Retrieve the fragment component of the URI.
-     *
-     * @return string
      */
     public function getFragment(): string
     {
@@ -348,7 +308,7 @@ class Builder implements BuilderContract
     /**
      * Return an instance with the specified scheme.
      *
-     * @param string $scheme
+     * @param  string  $scheme
      *
      * @return \DragonCode\Support\Http\Builder
      */
@@ -360,8 +320,8 @@ class Builder implements BuilderContract
     /**
      * Return an instance with the specified user information.
      *
-     * @param string $user
-     * @param string|null $password
+     * @param  string  $user
+     * @param  string|null  $password
      *
      * @return \DragonCode\Support\Http\Builder
      */
@@ -375,7 +335,7 @@ class Builder implements BuilderContract
     /**
      * Return an instance with the specified host.
      *
-     * @param string $host
+     * @param  string  $host
      *
      * @return \DragonCode\Support\Http\Builder
      */
@@ -387,7 +347,7 @@ class Builder implements BuilderContract
     /**
      * Return an instance with the specified port.
      *
-     * @param int|null $port
+     * @param  int|null  $port
      *
      * @return \DragonCode\Support\Http\Builder
      */
@@ -399,7 +359,7 @@ class Builder implements BuilderContract
     /**
      * Return an instance with the specified path.
      *
-     * @param string $path
+     * @param  string  $path
      *
      * @return \DragonCode\Support\Http\Builder
      */
@@ -411,7 +371,7 @@ class Builder implements BuilderContract
     /**
      * Return an instance with the specified query string.
      *
-     * @param array|string $query
+     * @param  array|string  $query
      *
      * @return \DragonCode\Support\Http\Builder
      */
@@ -422,9 +382,6 @@ class Builder implements BuilderContract
 
     /**
      * Return an instance with the specified query object.
-     *
-     * @param string $key
-     * @param mixed $value
      *
      * @return \DragonCode\Support\Http\Builder
      */
@@ -445,8 +402,6 @@ class Builder implements BuilderContract
     /**
      * Return an instance with the specified query object.
      *
-     * @param string $key
-     *
      * @return \DragonCode\Support\Http\Builder
      */
     public function removeQuery(string $key): BuilderContract
@@ -461,7 +416,7 @@ class Builder implements BuilderContract
     /**
      * Return an instance with the specified URI fragment.
      *
-     * @param string $fragment
+     * @param  string  $fragment
      *
      * @return \DragonCode\Support\Http\Builder
      */
@@ -472,8 +427,6 @@ class Builder implements BuilderContract
 
     /**
      * Return an instance with the specified `UriInterface`.
-     *
-     * @param \Psr\Http\Message\UriInterface $uri
      *
      * @return \DragonCode\Support\Http\Builder
      */
@@ -502,8 +455,6 @@ class Builder implements BuilderContract
 
     /**
      * Return the string representation as a URI reference.
-     *
-     * @return \Psr\Http\Message\UriInterface
      */
     public function toPsr(): UriInterface
     {
@@ -513,7 +464,7 @@ class Builder implements BuilderContract
     /**
      * Returns parsed data.
      *
-     * @return null[]|string[]
+     * @return array<null>|array<string>
      */
     public function toArray(): array
     {
@@ -531,8 +482,6 @@ class Builder implements BuilderContract
 
     /**
      * Return the string representation as a URI reference.
-     *
-     * @return string
      */
     public function toUrl(): string
     {
@@ -594,8 +543,6 @@ class Builder implements BuilderContract
      * Based on code by Maksim (Ellrion) Platonov.
      *
      * @see https://gist.github.com/Ellrion/f51ba0d40ae1d62eeae44fd1adf7b704
-     *
-     * @return array
      */
     protected function prepare(): array
     {

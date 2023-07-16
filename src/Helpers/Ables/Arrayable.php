@@ -29,14 +29,14 @@ class Arrayable implements ArrayableContract
 {
     use Dumpable;
 
-    protected Arrayable|ArrayObject|array|null $value = [];
+    protected array|Arrayable|ArrayObject|null $value = [];
 
-    public function __construct(Arrayable|ArrayObject|array|null $value = [])
+    public function __construct(array|Arrayable|ArrayObject|null $value = [])
     {
         $this->of($value);
     }
 
-    public function of(Arrayable|ArrayObject|array|null $value = []): self
+    public function of(array|Arrayable|ArrayObject|null $value = []): self
     {
         $this->value = Instance::of($value, Arrayable::class) ? $value->toArray() : (array) $value;
 
@@ -45,10 +45,6 @@ class Arrayable implements ArrayableContract
 
     /**
      * Performing an action on a condition.
-     *
-     * @param mixed $condition
-     * @param callable $callback
-     * @param mixed|null $default
      *
      * @return $this
      */
@@ -66,8 +62,6 @@ class Arrayable implements ArrayableContract
     /**
      * Join array elements with a string.
      *
-     * @param string $separator
-     *
      * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     #[Pure]
@@ -78,8 +72,6 @@ class Arrayable implements ArrayableContract
 
     /**
      * Returns the final array.
-     *
-     * @return array
      */
     public function toArray(): array
     {
@@ -91,8 +83,6 @@ class Arrayable implements ArrayableContract
      * As the second parameter, a callback function is passed, which determines the actions for processing the value.
      * The output of the function must be a string with a name.
      *
-     * @param callable $callback
-     *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
     public function renameKeys(callable $callback): self
@@ -103,8 +93,6 @@ class Arrayable implements ArrayableContract
     /**
      * Renaming array keys with map.
      *
-     * @param array $map
-     *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
     public function renameKeysMap(array $map): self
@@ -114,8 +102,6 @@ class Arrayable implements ArrayableContract
 
     /**
      * Push one a unique element onto the end of array.
-     *
-     * @param mixed $values
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
@@ -134,8 +120,6 @@ class Arrayable implements ArrayableContract
      *   SORT_LOCALE_STRING - compare items as strings, based on the current locale
      *
      * @see https://php.net/manual/en/function.array-unique.php
-     *
-     * @param int $flags
      *
      * @return $this
      */
@@ -165,8 +149,6 @@ class Arrayable implements ArrayableContract
      *
      * @see https://gist.github.com/Ellrion/a3145621f936aa9416f4c04987533d8d#file-helper-php
      *
-     * @param array $sorter
-     *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
     public function sortByKeys(array $sorter): self
@@ -177,8 +159,6 @@ class Arrayable implements ArrayableContract
     /**
      * Recursively sorting an array by values.
      *
-     * @param callable|null $callback
-     *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
     public function sort(?callable $callback = null): self
@@ -188,8 +168,6 @@ class Arrayable implements ArrayableContract
 
     /**
      * Recursively sorting an array by keys.
-     *
-     * @param callable|null $callback
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
@@ -202,8 +180,6 @@ class Arrayable implements ArrayableContract
      * Merge one or more arrays recursively.
      * Don't forget that numeric keys NOT will be renumbered!
      *
-     * @param array ...$arrays
-     *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
     public function merge(array ...$arrays): self
@@ -213,8 +189,6 @@ class Arrayable implements ArrayableContract
 
     /**
      * Combining arrays without preserving keys.
-     *
-     * @param ...$arrays
      *
      * @return $this
      */
@@ -235,11 +209,6 @@ class Arrayable implements ArrayableContract
 
     /**
      * Get an item from an array.
-     *
-     * @param mixed $key
-     * @param mixed|null $default
-     *
-     * @return mixed
      */
     public function get(mixed $key, mixed $default = null): mixed
     {
@@ -248,11 +217,6 @@ class Arrayable implements ArrayableContract
 
     /**
      * If the element key exists, then return the name of the key, otherwise the default value.
-     *
-     * @param mixed $key
-     * @param mixed|null $default
-     *
-     * @return mixed
      */
     public function getKey(mixed $key, mixed $default = null): mixed
     {
@@ -261,8 +225,6 @@ class Arrayable implements ArrayableContract
 
     /**
      * Get all of the given array except for a specified array of keys.
-     *
-     * @param array|callable|string $keys
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
@@ -273,8 +235,6 @@ class Arrayable implements ArrayableContract
 
     /**
      * Get a subset of the items from the given array.
-     *
-     * @param array|callable|string $keys
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
@@ -290,9 +250,6 @@ class Arrayable implements ArrayableContract
      *
      * @see https://php.net/manual/en/function.array-filter.php
      *
-     * @param callable|null $callback
-     * @param int $mode
-     *
      * @return $this
      */
     public function filter(?callable $callback = null, int $mode = 0): self
@@ -302,8 +259,6 @@ class Arrayable implements ArrayableContract
 
     /**
      * Flatten a multi-dimensional array into a single level.
-     *
-     * @param bool $ignore_keys
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
@@ -320,9 +275,6 @@ class Arrayable implements ArrayableContract
     /**
      * Applies the callback to the elements of the given arrays.
      *
-     * @param callable $callback
-     * @param bool $recursive
-     *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
     public function map(callable $callback, bool $recursive = false): self
@@ -332,8 +284,6 @@ class Arrayable implements ArrayableContract
 
     /**
      * Creating a new instance of the given class by passing the value into the constructor.
-     *
-     * @param string $class
      *
      * @return $this
      */
@@ -383,8 +333,6 @@ class Arrayable implements ArrayableContract
      *
      * @see  https://php.net/manual/en/function.array-push.php
      *
-     * @param mixed ...$values
-     *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
     public function push(mixed ...$values): self
@@ -395,12 +343,11 @@ class Arrayable implements ArrayableContract
     /**
      * Assigns a value to an array key.
      *
-     * @param string|int|float $key
-     * @param mixed $value
+     * @param  mixed  $value
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
-    public function set(string|int|float $key, mixed $value = null): self
+    public function set(float|int|string $key, mixed $value = null): self
     {
         return new self(Arr::set($this->value, $key, $value));
     }
@@ -408,19 +355,17 @@ class Arrayable implements ArrayableContract
     /**
      * Removes an array key.
      *
-     * @param mixed $key
+     * @param  mixed  $key
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
-    public function remove(string|int|float $key): self
+    public function remove(float|int|string $key): self
     {
         return new self(Arr::remove($this->value, $key));
     }
 
     /**
      * Call the given Closure with the given value then return the value.
-     *
-     * @param callable $callback
      *
      * @return $this
      */
@@ -431,8 +376,6 @@ class Arrayable implements ArrayableContract
 
     /**
      * Return an array with elements in reverse order.
-     *
-     * @param bool $preserve
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
@@ -446,9 +389,7 @@ class Arrayable implements ArrayableContract
      *
      * @see https://php.net/manual/en/function.array-splice.php
      *
-     * @param int $offset
-     * @param int|null $length
-     * @param mixed $replacement
+     * @param  mixed  $replacement
      *
      * @return $this
      */
@@ -459,8 +400,6 @@ class Arrayable implements ArrayableContract
 
     /**
      * Get the size of the longest text element of the array.
-     *
-     * @return int
      */
     public function longestStringLength(): int
     {
@@ -469,10 +408,6 @@ class Arrayable implements ArrayableContract
 
     /**
      * Determine if the given key exists in the provided array.
-     *
-     * @param mixed $key
-     *
-     * @return bool
      */
     public function exists(mixed $key): bool
     {
@@ -481,10 +416,6 @@ class Arrayable implements ArrayableContract
 
     /**
      * Determine if the given key doesn't exist in the provided array.
-     *
-     * @param mixed $key
-     *
-     * @return bool
      */
     public function doesntExist(mixed $key): bool
     {
@@ -493,10 +424,6 @@ class Arrayable implements ArrayableContract
 
     /**
      * Determine if the given key exists in the provided array without dot divider.
-     *
-     * @param mixed $key
-     *
-     * @return bool
      */
     public function existsWithoutDot(mixed $key): bool
     {
@@ -505,10 +432,6 @@ class Arrayable implements ArrayableContract
 
     /**
      * Determine if the given key doesn't exist in the provided array without dot divider.
-     *
-     * @param mixed $key
-     *
-     * @return bool
      */
     public function doesntExistWithoutDot(mixed $key): bool
     {
@@ -517,8 +440,6 @@ class Arrayable implements ArrayableContract
 
     /**
      * Determines if the array or arrayable object is empty.
-     *
-     * @return bool
      */
     public function isEmpty(): bool
     {
@@ -527,8 +448,6 @@ class Arrayable implements ArrayableContract
 
     /**
      * Determines if the value is doesn't empty.
-     *
-     * @return bool
      */
     public function doesntEmpty(): bool
     {
@@ -537,11 +456,6 @@ class Arrayable implements ArrayableContract
 
     /**
      * Return the first element in an array passing a given truth test.
-     *
-     * @param callable|null $callback
-     * @param mixed|null $default
-     *
-     * @return mixed
      */
     public function first(?callable $callback = null, mixed $default = null): mixed
     {
@@ -550,11 +464,6 @@ class Arrayable implements ArrayableContract
 
     /**
      * Return the last element in an array passing a given truth test.
-     *
-     * @param callable|null $callback
-     * @param mixed|null $default
-     *
-     * @return mixed
      */
     public function last(?callable $callback = null, mixed $default = null): mixed
     {
@@ -563,8 +472,6 @@ class Arrayable implements ArrayableContract
 
     /**
      * Returns the number of array elements.
-     *
-     * @return int
      */
     public function count(): int
     {
@@ -573,10 +480,6 @@ class Arrayable implements ArrayableContract
 
     /**
      * Returns an object filled with the value of the array.
-     *
-     * @param string $instance
-     *
-     * @return mixed
      */
     public function toInstance(string $instance): mixed
     {

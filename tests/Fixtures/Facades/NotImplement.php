@@ -19,6 +19,4 @@ namespace Tests\Fixtures\Facades;
 
 use DragonCode\Support\Facades\Facade;
 
-class NotImplement extends Facade
-{
-}
+class NotImplement extends Facade {}

@@ -37,8 +37,6 @@ trait Dumpable
 
     /**
      * Outputs the contents of a variable, terminating the application.
-     *
-     * @return void
      */
     #[NoReturn]
     public function dd(): void

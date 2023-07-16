@@ -31,15 +31,9 @@ class Call
     /**
      * Gets the result of executing code in the specified class.
      *
-     * @param object|callable|string $class
-     * @param string $method
-     * @param mixed ...$parameters
-     *
      * @throws ReflectionException
-     *
-     * @return mixed
      */
-    public function run(object|callable|string $class, string $method, mixed ...$parameters): mixed
+    public function run(callable|object|string $class, string $method, mixed ...$parameters): mixed
     {
         $this->validate($class);
 
@@ -59,15 +53,9 @@ class Call
     /**
      * Gets the result of executing code in the specified class if method exist.
      *
-     * @param object|callable|string $class
-     * @param string $method
-     * @param mixed ...$parameters
-     *
      * @throws ReflectionException
-     *
-     * @return mixed
      */
-    public function runExists(object|callable|string $class, string $method, mixed ...$parameters): mixed
+    public function runExists(callable|object|string $class, string $method, mixed ...$parameters): mixed
     {
         $this->validate($class);
 
@@ -85,15 +73,9 @@ class Call
     /**
      * Calls the object's methods one by one and returns the first non-empty value.
      *
-     * @param object|callable|string $class
-     * @param array|string $methods
-     * @param mixed ...$parameters
-     *
      * @throws ReflectionException
-     *
-     * @return mixed
      */
-    public function runMethods(object|callable|string $class, array|string $methods, mixed ...$parameters): mixed
+    public function runMethods(callable|object|string $class, array|string $methods, mixed ...$parameters): mixed
     {
         if ($value = $this->callback($class, $methods, ...$parameters)) {
             return $value;
@@ -110,10 +92,6 @@ class Call
 
     /**
      * Calls a method of an object that matches a class.
-     *
-     * @param array $map
-     * @param mixed $value
-     * @param mixed ...$parameters
      *
      * @throws ReflectionException
      *
@@ -135,27 +113,19 @@ class Call
     /**
      * Gets the result of executing code in the specified class, if allowed.
      *
-     * @param bool $when
-     * @param callable|Closure|string $class
-     * @param string $method
-     * @param mixed ...$parameters
+     * @param  callable|Closure|string  $class
      *
      * @throws ReflectionException
      *
      * @return mixed|null
      */
-    public function when(bool $when, object|callable|string $class, string $method, ...$parameters): mixed
+    public function when(bool $when, callable|object|string $class, string $method, ...$parameters): mixed
     {
         return $when ? $this->run($class, $method, ...$parameters) : null;
     }
 
     /**
      * Getting the result of a callback.
-     *
-     * @param mixed $callback
-     * @param mixed ...$parameters
-     *
-     * @return mixed
      */
     public function callback(mixed $callback, mixed ...$parameters): mixed
     {
@@ -169,10 +139,7 @@ class Call
     /**
      * Execute a callback or return a value.
      *
-     * @param mixed $callback
-     * @param array $parameters
-     *
-     * @return mixed
+     * @param  array  $parameters
      */
     public function value(mixed $callback, mixed $parameters = []): mixed
     {
@@ -181,12 +148,12 @@ class Call
         return is_callable($callback) ? $callback(...$parameters) : $callback;
     }
 
-    protected function resolve(object|callable|string $class): object
+    protected function resolve(callable|object|string $class): object
     {
         return IsHelper::object($class) ? $class : new $class();
     }
 
-    protected function reflection(object|callable|string $class): ReflectionClass
+    protected function reflection(callable|object|string $class): ReflectionClass
     {
         return ReflectionHelper::resolve($class);
     }

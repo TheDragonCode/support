@@ -27,6 +27,5 @@ class Bat implements Contract
     public function __construct(
         public ?string $foo = null,
         public ?string $bar = null
-    ) {
-    }
+    ) {}
 }

@@ -98,11 +98,11 @@ class Url
     /**
      * Parsing URL into components.
      *
-     * @param BuilderContract|string|null $url
+     * @param  BuilderContract|string|null  $url
      *
      * @return \DragonCode\Support\Http\Builder
      */
-    public function parse(UriInterface|string|null $url): Builder
+    public function parse(string|UriInterface|null $url): Builder
     {
         return UrlBuilder::parse($url);
     }
@@ -110,9 +110,7 @@ class Url
     /**
      * Check if the string is a valid URL.
      *
-     * @param BuilderContract|string|null $url
-     *
-     * @return bool
+     * @param  BuilderContract|string|null  $url
      */
     public function is(mixed $url): bool
     {
@@ -129,7 +127,7 @@ class Url
     /**
      * Validate if the value is a valid URL or throw an error.
      *
-     * @param BuilderContract|string|null $url
+     * @param  BuilderContract|string|null  $url
      *
      * @throws \DragonCode\Support\Exceptions\NotValidUrlException
      */
@@ -143,7 +141,7 @@ class Url
     /**
      * Returns the URL after validation, or throws an error.
      *
-     * @param BuilderContract|string|null $url
+     * @param  BuilderContract|string|null  $url
      *
      * @throws \DragonCode\Support\Exceptions\NotValidUrlException
      *
@@ -159,13 +157,11 @@ class Url
     /**
      * Check if the specified URL exists.
      *
-     * @param BuilderContract|string|null $url
+     * @param  BuilderContract|string|null  $url
      *
      * @throws \DragonCode\Support\Exceptions\NotValidUrlException
-     *
-     * @return bool
      */
-    public function exists(UriInterface|string|null $url): bool
+    public function exists(string|UriInterface|null $url): bool
     {
         $this->validate($url);
 
@@ -188,14 +184,14 @@ class Url
     /**
      * Check the existence of the URL and return the default value if it is missing.
      *
-     * @param BuilderContract|string $url
-     * @param BuilderContract|string $default
+     * @param  BuilderContract|string  $url
+     * @param  BuilderContract|string  $default
      *
      * @throws \DragonCode\Support\Exceptions\NotValidUrlException
      *
      * @return string|null
      */
-    public function default(UriInterface|string $url, UriInterface|string $default): string
+    public function default(string|UriInterface $url, string|UriInterface $default): string
     {
         $value = $this->exists($url) ? $url : $default;
 

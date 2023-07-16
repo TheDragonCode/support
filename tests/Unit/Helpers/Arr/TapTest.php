@@ -43,7 +43,7 @@ class TapTest extends TestCase
 
         $tmp = [];
 
-        $result          = Arr::tap($source, static function ($value, $key) use (&$tmp) {
+        $result = Arr::tap($source, static function ($value, $key) use (&$tmp) {
             $tmp[$value] = $key;
         });
 

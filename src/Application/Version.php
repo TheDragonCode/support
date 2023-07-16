@@ -23,8 +23,7 @@ class Version
 {
     public function __construct(
         protected ?string $version = null
-    ) {
-    }
+    ) {}
 
     public function of(string $version): self
     {

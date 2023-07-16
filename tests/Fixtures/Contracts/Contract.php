@@ -17,6 +17,4 @@
 
 namespace Tests\Fixtures\Contracts;
 
-interface Contract
-{
-}
+interface Contract {}

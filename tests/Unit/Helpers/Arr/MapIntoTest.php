@@ -32,7 +32,7 @@ class MapIntoTest extends TestCase
             ['Foo2', 'Bar2'],
         ];
 
-        /** @var Map[] $mapped */
+        /** @var array<Map> $mapped */
         $mapped = Arr::mapInto($source, Map::class);
 
         $this->assertIsArray($mapped);

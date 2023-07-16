@@ -36,9 +36,9 @@ class OnlyTest extends TestCase
                 'w' => 'W',
                 'e' => 'E',
             ],
-            200      => 'Num 200',
-            400      => 'Num 400',
-            500      => [
+            200 => 'Num 200',
+            400 => 'Num 400',
+            500 => [
                 'r' => 'R',
                 't' => 'T',
                 'y' => 'Y',
@@ -83,9 +83,9 @@ class OnlyTest extends TestCase
                 'w' => 'W',
                 'e' => 'E',
             ],
-            200      => 'Num 200',
-            400      => 'Num 400',
-            500      => [
+            200 => 'Num 200',
+            400 => 'Num 400',
+            500 => [
                 'r' => 'R',
                 't' => 'T',
                 'y' => 'Y',
@@ -104,7 +104,7 @@ class OnlyTest extends TestCase
             Arr::only($arr, [
                 'foo',
                 'bar',
-                'qwerty'        => ['q', 'e'],
+                'qwerty' => ['q', 'e'],
                 'unknown_key',
                 'unknown_array' => ['foo', 'bar'],
             ])

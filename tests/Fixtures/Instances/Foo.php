@@ -25,9 +25,7 @@ class Foo implements Contract
     use Foable;
 
     public const FOO = 'Foo';
-
     public const BAR = 'Bar';
-
     public const BAZ = 'Baz';
 
     public static function callStatic(): string

@@ -28,74 +28,74 @@ class KsortTest extends TestCase
     public function testKsort()
     {
         $source = [
-            'add key'      => 'Add key',
-            'all key'      => 'All key',
+            'add key' => 'Add key',
+            'all key' => 'All key',
 
-            700            => 'Number 700',
+            700 => 'Number 700',
 
-            '*'            => 'asterisk',
+            '*' => 'asterisk',
 
-            'q'            => 1,
-            'r'            => 2,
-            's'            => 5,
-            'w'            => 123,
+            'q' => 1,
+            'r' => 2,
+            's' => 5,
+            'w' => 123,
 
-            '-'            => 'hyphen',
+            '-' => 'hyphen',
 
-            400            => 'Number 400',
+            400 => 'Number 400',
 
-            'all_key'      => 'All_Key',
-            'add_key'      => 'Add_Key',
+            'all_key' => 'All_Key',
+            'add_key' => 'Add_Key',
 
-            0              => 'Number 0',
-            '_'            => 'underscore',
+            0   => 'Number 0',
+            '_' => 'underscore',
 
-            'sub'          => [
-                'add key'      => 'Add key',
-                'all key'      => 'All key',
+            'sub' => [
+                'add key' => 'Add key',
+                'all key' => 'All key',
 
-                700            => 'Number 700',
+                700 => 'Number 700',
 
-                '*'            => 'asterisk',
+                '*' => 'asterisk',
 
-                'q'            => 1,
-                'r'            => 2,
-                's'            => 5,
-                'w'            => 123,
+                'q' => 1,
+                'r' => 2,
+                's' => 5,
+                'w' => 123,
 
-                '-'            => 'hyphen',
+                '-' => 'hyphen',
 
-                400            => 'Number 400',
+                400 => 'Number 400',
 
-                'all_key'      => 'All_Key',
-                'add_key'      => 'Add_Key',
+                'all_key' => 'All_Key',
+                'add_key' => 'Add_Key',
 
-                0              => 'Number 0',
-                '_'            => 'underscore',
+                0   => 'Number 0',
+                '_' => 'underscore',
 
                 'API key'      => 'API key',
                 'Are you sure' => 'Are you sure',
 
-                'allkey'       => 'AllKey',
-                'addkey'       => 'AddKey',
+                'allkey' => 'AllKey',
+                'addkey' => 'AddKey',
             ],
 
             'API key'      => 'API key',
             'Are you sure' => 'Are you sure',
 
-            'allkey'       => 'AllKey',
-            'addkey'       => 'AddKey',
+            'allkey' => 'AllKey',
+            'addkey' => 'AddKey',
         ];
 
         $target = [
-            '*'            => 'asterisk',
-            '-'            => 'hyphen',
+            '*' => 'asterisk',
+            '-' => 'hyphen',
 
-            '_'            => 'underscore',
+            '_' => 'underscore',
 
-            0              => 'Number 0',
-            400            => 'Number 400',
-            700            => 'Number 700',
+            0   => 'Number 0',
+            400 => 'Number 400',
+            700 => 'Number 700',
 
             'add key'      => 'Add key',
             'add_key'      => 'Add_Key',
@@ -106,19 +106,19 @@ class KsortTest extends TestCase
             'API key'      => 'API key',
             'Are you sure' => 'Are you sure',
 
-            'q'            => 1,
-            'r'            => 2,
-            's'            => 5,
+            'q' => 1,
+            'r' => 2,
+            's' => 5,
 
-            'sub'          => [
-                '*'            => 'asterisk',
-                '-'            => 'hyphen',
+            'sub' => [
+                '*' => 'asterisk',
+                '-' => 'hyphen',
 
-                '_'            => 'underscore',
+                '_' => 'underscore',
 
-                0              => 'Number 0',
-                400            => 'Number 400',
-                700            => 'Number 700',
+                0   => 'Number 0',
+                400 => 'Number 400',
+                700 => 'Number 700',
 
                 'add key'      => 'Add key',
                 'add_key'      => 'Add_Key',
@@ -129,13 +129,13 @@ class KsortTest extends TestCase
                 'API key'      => 'API key',
                 'Are you sure' => 'Are you sure',
 
-                'q'            => 1,
-                'r'            => 2,
-                's'            => 5,
-                'w'            => 123,
+                'q' => 1,
+                'r' => 2,
+                's' => 5,
+                'w' => 123,
             ],
 
-            'w'            => 123,
+            'w' => 123,
         ];
 
         $this->assertSame($target, Arr::ksort($source));
@@ -144,70 +144,70 @@ class KsortTest extends TestCase
     public function testKsortCallback()
     {
         $source = [
-            'add key'      => 'Add key',
-            'all key'      => 'All key',
+            'add key' => 'Add key',
+            'all key' => 'All key',
 
-            700            => 'Number 700',
+            700 => 'Number 700',
 
-            '*'            => 'asterisk',
+            '*' => 'asterisk',
 
-            'q'            => 1,
-            'r'            => 2,
-            's'            => 5,
-            'w'            => 123,
+            'q' => 1,
+            'r' => 2,
+            's' => 5,
+            'w' => 123,
 
-            '-'            => 'hyphen',
+            '-' => 'hyphen',
 
-            400            => 'Number 400',
+            400 => 'Number 400',
 
-            'all_key'      => 'All_Key',
-            'add_key'      => 'Add_Key',
+            'all_key' => 'All_Key',
+            'add_key' => 'Add_Key',
 
-            0              => 'Number 0',
-            '_'            => 'underscore',
+            0   => 'Number 0',
+            '_' => 'underscore',
 
-            'sub'          => [
-                'add key'      => 'Add key',
-                'all key'      => 'All key',
+            'sub' => [
+                'add key' => 'Add key',
+                'all key' => 'All key',
 
-                700            => 'Number 700',
+                700 => 'Number 700',
 
-                '*'            => 'asterisk',
+                '*' => 'asterisk',
 
-                'q'            => 1,
-                'r'            => 2,
-                's'            => 5,
-                'w'            => 123,
+                'q' => 1,
+                'r' => 2,
+                's' => 5,
+                'w' => 123,
 
-                '-'            => 'hyphen',
+                '-' => 'hyphen',
 
-                400            => 'Number 400',
+                400 => 'Number 400',
 
-                'all_key'      => 'All_Key',
-                'add_key'      => 'Add_Key',
+                'all_key' => 'All_Key',
+                'add_key' => 'Add_Key',
 
-                0              => 'Number 0',
-                '_'            => 'underscore',
+                0   => 'Number 0',
+                '_' => 'underscore',
 
                 'API key'      => 'API key',
                 'Are you sure' => 'Are you sure',
 
-                'allkey'       => 'AllKey',
-                'addkey'       => 'AddKey',
+                'allkey' => 'AllKey',
+                'addkey' => 'AddKey',
             ],
 
             'API key'      => 'API key',
             'Are you sure' => 'Are you sure',
 
-            'allkey'       => 'AllKey',
-            'addkey'       => 'AddKey',
+            'allkey' => 'AllKey',
+            'addkey' => 'AddKey',
         ];
 
         $target = [
-            '*'            => 'asterisk',
-            '-'            => 'hyphen',
+            '*' => 'asterisk',
+            '-' => 'hyphen',
 
-            '_'            => 'underscore',
+            '_' => 'underscore',
 
             'add key'      => 'Add key',
             'add_key'      => 'Add_Key',
@@ -218,15 +218,15 @@ class KsortTest extends TestCase
             'API key'      => 'API key',
             'Are you sure' => 'Are you sure',
 
-            'q'            => 1,
-            'r'            => 2,
-            's'            => 5,
+            'q' => 1,
+            'r' => 2,
+            's' => 5,
 
-            'sub'          => [
-                '*'            => 'asterisk',
-                '-'            => 'hyphen',
+            'sub' => [
+                '*' => 'asterisk',
+                '-' => 'hyphen',
 
-                '_'            => 'underscore',
+                '_' => 'underscore',
 
                 'add key'      => 'Add key',
                 'add_key'      => 'Add_Key',
@@ -237,24 +237,24 @@ class KsortTest extends TestCase
                 'API key'      => 'API key',
                 'Are you sure' => 'Are you sure',
 
-                'q'            => 1,
-                'r'            => 2,
-                's'            => 5,
-                'w'            => 123,
+                'q' => 1,
+                'r' => 2,
+                's' => 5,
+                'w' => 123,
 
-                0              => 'Number 0',
-                400            => 'Number 400',
-                700            => 'Number 700',
+                0   => 'Number 0',
+                400 => 'Number 400',
+                700 => 'Number 700',
             ],
 
-            'w'            => 123,
+            'w' => 123,
 
-            0              => 'Number 0',
-            400            => 'Number 400',
-            700            => 'Number 700',
+            0   => 'Number 0',
+            400 => 'Number 400',
+            700 => 'Number 700',
         ];
 
-        $callback    = static function ($current, $next) {
+        $callback = static function ($current, $next) {
             $current = is_string($current) ? Str::lower($current) : $current;
             $next    = is_string($next) ? Str::lower($next) : $next;
 

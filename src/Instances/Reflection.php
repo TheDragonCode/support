@@ -26,11 +26,9 @@ class Reflection
     /**
      * Creates a ReflectionClass object.
      *
-     * @param object|ReflectionClass|string $class
+     * @param  object|ReflectionClass|string  $class
      *
      * @throws ReflectionException
-     *
-     * @return ReflectionClass
      */
     public function resolve(object|string $class): ReflectionClass
     {
@@ -40,11 +38,7 @@ class Reflection
     /**
      * Gets class constants.
      *
-     * @param object|string $class
-     *
      * @throws ReflectionException
-     *
-     * @return array
      */
     public function getConstants(object|string $class): array
     {

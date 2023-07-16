@@ -30,10 +30,6 @@ class Is
 {
     /**
      * Determines if the value is empty.
-     *
-     * @param mixed $value
-     *
-     * @return bool
      */
     public function isEmpty(mixed $value): bool
     {
@@ -46,10 +42,6 @@ class Is
 
     /**
      * Determines if the value is doesn't empty.
-     *
-     * @param mixed $value
-     *
-     * @return bool
      */
     public function doesntEmpty(mixed $value): bool
     {
@@ -58,10 +50,6 @@ class Is
 
     /**
      * Finds whether a variable is an object.
-     *
-     * @param mixed $value
-     *
-     * @return bool
      */
     public function object(mixed $value): bool
     {
@@ -70,10 +58,6 @@ class Is
 
     /**
      * Find whether the type of a variable is string.
-     *
-     * @param mixed $value
-     *
-     * @return bool
      */
     public function string(mixed $value): bool
     {
@@ -82,10 +66,6 @@ class Is
 
     /**
      * Determines if a value is boolean.
-     *
-     * @param mixed $value
-     *
-     * @return bool
      */
     public function boolean(mixed $value): bool
     {
@@ -96,10 +76,6 @@ class Is
 
     /**
      * Find whether the type of a variable is interface.
-     *
-     * @param mixed $value
-     *
-     * @return bool
      */
     public function contract(mixed $value): bool
     {
@@ -114,10 +90,6 @@ class Is
 
     /**
      * Find whether the type of a variable is exception.
-     *
-     * @param mixed $value
-     *
-     * @return bool
      */
     public function error(mixed $value): bool
     {
@@ -126,10 +98,6 @@ class Is
 
     /**
      * Find whether the type of a variable is ReflectionClass.
-     *
-     * @param mixed $value
-     *
-     * @return bool
      */
     public function reflectionClass(mixed $value): bool
     {

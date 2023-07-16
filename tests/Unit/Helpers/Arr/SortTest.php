@@ -28,61 +28,61 @@ class SortTest extends TestCase
     public function testSort()
     {
         $source = [
-            'add key'      => 'Add key',
-            'all key'      => 'All key',
+            'add key' => 'Add key',
+            'all key' => 'All key',
 
-            700            => 700,
+            700 => 700,
 
-            '*'            => '*',
+            '*' => '*',
 
-            'q'            => 1,
-            'r'            => 2,
-            's'            => 5,
-            'w'            => 123,
+            'q' => 1,
+            'r' => 2,
+            's' => 5,
+            'w' => 123,
 
-            400            => 400,
+            400 => 400,
 
-            'all_key'      => 'All_Key',
-            'add_key'      => 'Add_Key',
+            'all_key' => 'All_Key',
+            'add_key' => 'Add_Key',
 
-            0              => 0,
-            '_'            => '_',
-            '-'            => '-',
+            0   => 0,
+            '_' => '_',
+            '-' => '-',
 
-            'sub'          => [
-                'add key'      => 'Add key',
-                'all key'      => 'All key',
+            'sub' => [
+                'add key' => 'Add key',
+                'all key' => 'All key',
 
-                700            => 700,
+                700 => 700,
 
-                '*'            => '*',
+                '*' => '*',
 
-                'q'            => 1,
-                'r'            => 2,
-                's'            => 5,
-                'w'            => 123,
+                'q' => 1,
+                'r' => 2,
+                's' => 5,
+                'w' => 123,
 
-                400            => 400,
+                400 => 400,
 
-                'all_key'      => 'All_Key',
-                'add_key'      => 'Add_Key',
+                'all_key' => 'All_Key',
+                'add_key' => 'Add_Key',
 
-                0              => 0,
-                '_'            => '_',
-                '-'            => '-',
+                0   => 0,
+                '_' => '_',
+                '-' => '-',
 
                 'API key'      => 'API key',
                 'Are you sure' => 'Are you sure',
 
-                'allkey'       => 'AllKey',
-                'addkey'       => 'AddKey',
+                'allkey' => 'AllKey',
+                'addkey' => 'AddKey',
             ],
 
             'API key'      => 'API key',
             'Are you sure' => 'Are you sure',
 
-            'allkey'       => 'AllKey',
-            'addkey'       => 'AddKey',
+            'allkey' => 'AllKey',
+            'addkey' => 'AddKey',
         ];
 
         $target = [
@@ -137,63 +137,63 @@ class SortTest extends TestCase
     public function testSortCallback()
     {
         $source = [
-            'add key'      => 'Add key',
-            'all key'      => 'All key',
+            'add key' => 'Add key',
+            'all key' => 'All key',
 
-            700            => 700,
+            700 => 700,
 
-            '*'            => '*',
+            '*' => '*',
 
-            'q'            => 1,
-            'r'            => 2,
-            's'            => 5,
-            'w'            => 123,
+            'q' => 1,
+            'r' => 2,
+            's' => 5,
+            'w' => 123,
 
-            '-'            => '-',
+            '-' => '-',
 
-            400            => 400,
+            400 => 400,
 
-            'all_key'      => 'All_Key',
-            'add_key'      => 'Add_Key',
+            'all_key' => 'All_Key',
+            'add_key' => 'Add_Key',
 
-            0              => 0,
-            '_'            => '_',
+            0   => 0,
+            '_' => '_',
 
-            'sub'          => [
-                'add key'      => 'Add key',
-                'all key'      => 'All key',
+            'sub' => [
+                'add key' => 'Add key',
+                'all key' => 'All key',
 
-                700            => 700,
+                700 => 700,
 
-                '*'            => '*',
+                '*' => '*',
 
-                'q'            => 1,
-                'r'            => 2,
-                's'            => 5,
-                'w'            => 123,
+                'q' => 1,
+                'r' => 2,
+                's' => 5,
+                'w' => 123,
 
-                '-'            => '-',
+                '-' => '-',
 
-                400            => 400,
+                400 => 400,
 
-                'all_key'      => 'All_Key',
-                'add_key'      => 'Add_Key',
+                'all_key' => 'All_Key',
+                'add_key' => 'Add_Key',
 
-                0              => 0,
-                '_'            => '_',
+                0   => 0,
+                '_' => '_',
 
                 'API key'      => 'API key',
                 'Are you sure' => 'Are you sure',
 
-                'allkey'       => 'AllKey',
-                'addkey'       => 'AddKey',
+                'allkey' => 'AllKey',
+                'addkey' => 'AddKey',
             ],
 
             'API key'      => 'API key',
             'Are you sure' => 'Are you sure',
 
-            'allkey'       => 'AllKey',
-            'addkey'       => 'AddKey',
+            'allkey' => 'AllKey',
+            'addkey' => 'AddKey',
         ];
 
         $target = [
@@ -242,7 +242,7 @@ class SortTest extends TestCase
             ],
         ];
 
-        $callback    = static function ($current, $next) {
+        $callback = static function ($current, $next) {
             $current = is_string($current) ? Str::lower($current) : $current;
             $next    = is_string($next) ? Str::lower($next) : $next;
 

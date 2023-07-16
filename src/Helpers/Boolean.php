@@ -23,10 +23,6 @@ class Boolean
 {
     /**
      * Determines if the value is `true`, otherwise it will return `false`.
-     *
-     * @param mixed $value
-     *
-     * @return bool
      */
     public function isTrue(mixed $value): bool
     {
@@ -35,10 +31,6 @@ class Boolean
 
     /**
      * Determines if the value is `false`, otherwise it will return `true`.
-     *
-     * @param mixed $value
-     *
-     * @return bool
      */
     public function isFalse(mixed $value): bool
     {
@@ -47,10 +39,6 @@ class Boolean
 
     /**
      * Converts a value to a boolean type.
-     *
-     * @param mixed $value
-     *
-     * @return bool
      */
     #[Pure]
     public function to(mixed $value): bool
@@ -60,10 +48,6 @@ class Boolean
 
     /**
      * Getting a filtered value in a boolean view.
-     *
-     * @param mixed $value
-     *
-     * @return bool|null
      */
     public function parse(mixed $value): ?bool
     {
@@ -76,10 +60,6 @@ class Boolean
 
     /**
      * Converts a boolean value to a string.
-     *
-     * @param bool $value
-     *
-     * @return string
      */
     public function toString(bool $value): string
     {

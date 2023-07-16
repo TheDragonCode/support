@@ -23,6 +23,5 @@ class Map
 {
     public function __construct(
         public array $values
-    ) {
-    }
+    ) {}
 }

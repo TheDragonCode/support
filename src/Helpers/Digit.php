@@ -24,10 +24,6 @@ class Digit
 {
     /**
      * Calculating the factorial of a number.
-     *
-     * @param int $n
-     *
-     * @return int
      */
     public function factorial(int $n = 0): int
     {
@@ -41,12 +37,6 @@ class Digit
     /**
      * Converts a number into a short version.
      * eg: 1000 >> 1K.
-     *
-     * @param float $number
-     * @param int $precision
-     * @param string|null $suffix
-     *
-     * @return string
      */
     public function toShort(float $number, int $precision = 1, ?string $suffix = null): string
     {
@@ -62,11 +52,6 @@ class Digit
     /**
      * Create short unique identifier from number.
      * Actually using in short URL.
-     *
-     * @param int $number
-     * @param string $chars
-     *
-     * @return string
      */
     public function toChars(int $number, string $chars = 'abcdefghijklmnopqrstuvwxyz'): string
     {
@@ -87,12 +72,6 @@ class Digit
 
     /**
      * Format a number with grouped with divider.
-     *
-     * @param float|int $number
-     * @param int $length
-     * @param int $precision
-     *
-     * @return float
      */
     public function rounded(float|int $number, int $length = 4, int $precision = 1): float
     {
@@ -103,10 +82,6 @@ class Digit
 
     /**
      * Converts a numeric value to a string.
-     *
-     * @param float|int $value
-     *
-     * @return string
      */
     public function toString(float|int $value): string
     {

@@ -23,18 +23,12 @@ use DragonCode\Support\Facades\Helpers\Str;
 class Stub
 {
     public const PHP_ARRAY = 'php_array.stub';
-
-    public const JSON = 'json.stub';
+    public const JSON      = 'json.stub';
 
     /**
      * Replace the contents of the template file.
      *
-     * @param string $stub_file
-     * @param array $replace
-     *
      * @throws \DragonCode\Support\Exceptions\UnknownStubFileException
-     *
-     * @return string
      */
     public function replace(string $stub_file, array $replace): string
     {
@@ -46,11 +40,7 @@ class Stub
     /**
      * Receive the contents of the template file.
      *
-     * @param string $filename
-     *
      * @throws \DragonCode\Support\Exceptions\UnknownStubFileException
-     *
-     * @return string
      */
     public function get(string $filename): string
     {
@@ -63,10 +53,6 @@ class Stub
 
     /**
      * Receive the path to the template file.
-     *
-     * @param string $filename
-     *
-     * @return string|null
      */
     protected function path(string $filename): ?string
     {
@@ -80,10 +66,6 @@ class Stub
      *
      * If the file exists under the specified link, it will return it,
      * otherwise it will search in the default folder.
-     *
-     * @param string $path
-     *
-     * @return bool
      */
     protected function isCustom(string $path): bool
     {

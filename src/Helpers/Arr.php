@@ -35,19 +35,15 @@ class Arr
     /**
      * Get a new arrayable object from the given array.
      *
-     * @param ArrayObject|array|null $value
-     *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
-    public function of(ArrayObject|array|null $value = []): Ables\Arrayable
+    public function of(array|ArrayObject|null $value = []): Ables\Arrayable
     {
         return new Ables\Arrayable($value);
     }
 
     /**
      * Get a new arrayable object from the given array from the php or json array file.
-     *
-     * @param string $path
      *
      * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
@@ -63,12 +59,9 @@ class Arr
      * As the second parameter, a callback function is passed, which determines the actions for processing the value.
      * The output of the function must be a string with a name.
      *
-     * @param ArrayObject|array|null $array $array
-     * @param callable $callback
-     *
-     * @return array
+     * @param  ArrayObject|array|null  $array $array
      */
-    public function renameKeys(ArrayObject|array|null $array, callable $callback): array
+    public function renameKeys(array|ArrayObject|null $array, callable $callback): array
     {
         $result = [];
 
@@ -84,12 +77,9 @@ class Arr
     /**
      * Renaming array keys with map.
      *
-     * @param ArrayObject|array|null $array $array
-     * @param array $map
-     *
-     * @return array
+     * @param  ArrayObject|array|null  $array $array
      */
-    public function renameKeysMap(ArrayObject|array|null $array, array $map): array
+    public function renameKeysMap(array|ArrayObject|null $array, array $map): array
     {
         return $this->renameKeys($array, static fn ($key) => $map[$key] ?? $key);
     }
@@ -97,11 +87,9 @@ class Arr
     /**
      * Get the size of the longest text element of the array.
      *
-     * @param ArrayObject|array|null $array $array
-     *
-     * @return int
+     * @param  ArrayObject|array|null  $array $array
      */
-    public function longestStringLength(ArrayObject|array|null $array): int
+    public function longestStringLength(array|ArrayObject|null $array): int
     {
         return ! empty($array) ? max(array_map('mb_strlen', $array)) : 0;
     }
@@ -109,12 +97,9 @@ class Arr
     /**
      * Push one a unique element onto the end of array.
      *
-     * @param ArrayObject|array $array $array
-     * @param mixed $values
-     *
-     * @return array
+     * @param  ArrayObject|array  $array $array
      */
-    public function addUnique(ArrayObject|array $array, mixed $values): array
+    public function addUnique(array|ArrayObject $array, mixed $values): array
     {
         if ($this->isArrayable($values)) {
             foreach ($values as $value) {
@@ -139,12 +124,9 @@ class Arr
      *
      * @see https://php.net/manual/en/function.array-unique.php
      *
-     * @param ArrayObject|array $array $array
-     * @param int $flags
-     *
-     * @return array
+     * @param  ArrayObject|array  $array $array
      */
-    public function unique(ArrayObject|array $array, int $flags = SORT_STRING): array
+    public function unique(array|ArrayObject $array, int $flags = SORT_STRING): array
     {
         return array_unique($array, $flags);
     }
@@ -170,12 +152,9 @@ class Arr
      *
      * @see https://gist.github.com/Ellrion/a3145621f936aa9416f4c04987533d8d#file-helper-php
      *
-     * @param ArrayObject|array $array $array
-     * @param array $sorter
-     *
-     * @return array
+     * @param  ArrayObject|array  $array $array
      */
-    public function sortByKeys(ArrayObject|array $array, array $sorter): array
+    public function sortByKeys(array|ArrayObject $array, array $sorter): array
     {
         $sorter = array_intersect($sorter, array_keys($array));
 
@@ -185,12 +164,9 @@ class Arr
     /**
      * Recursively sorting an array by values.
      *
-     * @param ArrayObject|array $array $array
-     * @param callable|null $callback
-     *
-     * @return array
+     * @param  ArrayObject|array  $array $array
      */
-    public function sort(ArrayObject|array $array, ?callable $callback = null): array
+    public function sort(array|ArrayObject $array, ?callable $callback = null): array
     {
         $callback = $callback ?: Sorter::default();
 
@@ -208,12 +184,9 @@ class Arr
     /**
      * Recursively sorting an array by keys.
      *
-     * @param ArrayObject|array $array $array
-     * @param callable|null $callback
-     *
-     * @return array
+     * @param  ArrayObject|array  $array $array
      */
-    public function ksort(ArrayObject|array $array, ?callable $callback = null): array
+    public function ksort(array|ArrayObject $array, ?callable $callback = null): array
     {
         $callback = $callback ?: Sorter::default();
 
@@ -232,11 +205,9 @@ class Arr
      * Merge one or more arrays recursively.
      * Don't forget that numeric keys NOT will be renumbered!
      *
-     * @param array[] ...$arrays
-     *
-     * @return array
+     * @param  array<array>  ...$arrays
      */
-    public function merge(ArrayObject|array ...$arrays): array
+    public function merge(array|ArrayObject ...$arrays): array
     {
         $result = [];
 
@@ -262,11 +233,9 @@ class Arr
     /**
      * Combining arrays without preserving keys.
      *
-     * @param array ...$arrays
-     *
-     * @return array
+     * @param  array  ...$arrays
      */
-    public function combine(ArrayObject|array ...$arrays): array
+    public function combine(array|ArrayObject ...$arrays): array
     {
         $result = [];
 
@@ -298,9 +267,7 @@ class Arr
     /**
      * If the given value is not an array and not null, wrap it in one.
      *
-     * @param mixed $value
-     *
-     * @return array
+     * @param  mixed  $value
      */
     public function wrap(mixed $value = null): array
     {
@@ -313,10 +280,6 @@ class Arr
 
     /**
      * Get the instance as an array.
-     *
-     * @param mixed $value
-     *
-     * @return array
      */
     public function resolve(mixed $value): array
     {
@@ -340,10 +303,7 @@ class Arr
     /**
      * Determine if the given key exists in the provided array.
      *
-     * @param ArrayAccess|\DragonCode\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Arrayable|array $array |\ArrayAccess $array
-     * @param mixed $key
-     *
-     * @return bool
+     * @param  ArrayAccess|\DragonCode\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Arrayable|array  $array |\ArrayAccess $array
      */
     public function exists(mixed $array, mixed $key): bool
     {
@@ -370,10 +330,7 @@ class Arr
     /**
      * Determine if the given key doesn't exist in the provided array.
      *
-     * @param ArrayAccess|\DragonCode\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Arrayable|array $array
-     * @param mixed $key
-     *
-     * @return bool
+     * @param  ArrayAccess|\DragonCode\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Arrayable|array  $array
      */
     public function doesntExist(mixed $array, mixed $key): bool
     {
@@ -383,10 +340,7 @@ class Arr
     /**
      * Determine if the given key exists in the provided array without dot divider.
      *
-     * @param ArrayAccess|\DragonCode\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Arrayable|array $array |\ArrayAccess $array
-     * @param mixed $key
-     *
-     * @return bool
+     * @param  ArrayAccess|\DragonCode\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Arrayable|array  $array |\ArrayAccess $array
      */
     public function existsWithoutDot(mixed $array, mixed $key): bool
     {
@@ -400,10 +354,7 @@ class Arr
     /**
      * Determine if the given key doesn't exist in the provided array without dot divider.
      *
-     * @param ArrayAccess|\DragonCode\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Arrayable|array $array |\ArrayAccess $array
-     * @param mixed $key
-     *
-     * @return bool
+     * @param  ArrayAccess|\DragonCode\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Arrayable|array  $array |\ArrayAccess $array
      */
     public function doesntExistWithoutDot(mixed $array, mixed $key): bool
     {
@@ -415,9 +366,7 @@ class Arr
      *
      * @see https://github.com/illuminate/collections/blob/master/Arr.php
      *
-     * @param ArrayAccess|\DragonCode\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Arrayable|array $array |ArrayAccess $array
-     * @param mixed $key
-     * @param mixed|null $default
+     * @param  ArrayAccess|\DragonCode\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Arrayable|array  $array |ArrayAccess $array
      *
      * @return mixed|null
      */
@@ -454,9 +403,8 @@ class Arr
     /**
      * If the element key exists, then return the name of the key, otherwise the default value.
      *
-     * @param array|ArrayAccess $array
-     * @param mixed $key
-     * @param mixed $default
+     * @param  array|ArrayAccess  $array
+     * @param  mixed  $default
      *
      * @return mixed|null
      */
@@ -468,10 +416,8 @@ class Arr
     /**
      * Get all of the given array except for a specified array of keys.
      *
-     * @param array|ArrayAccess $array
-     * @param array|callable|string $keys
-     *
-     * @return array
+     * @param  array|ArrayAccess  $array
+     * @param  array|callable|string  $keys
      */
     public function except(mixed $array, mixed $keys): array
     {
@@ -485,10 +431,8 @@ class Arr
     /**
      * Get a subset of the items from the given array.
      *
-     * @param array|ArrayAccess $array
-     * @param array|callable|string $keys
-     *
-     * @return array
+     * @param  array|ArrayAccess  $array
+     * @param  array|callable|string  $keys
      */
     public function only(mixed $array, mixed $keys): array
     {
@@ -520,11 +464,7 @@ class Arr
      *
      * @see https://php.net/manual/en/function.array-filter.php
      *
-     * @param array|ArrayAccess $array
-     * @param callable|null $callback
-     * @param int $mode
-     *
-     * @return array
+     * @param  array|ArrayAccess  $array
      */
     public function filter(mixed $array, ?callable $callback = null, int $mode = 0): array
     {
@@ -541,10 +481,6 @@ class Arr
      * Return all the keys or a subset of the keys of an array.
      *
      * @see https://php.net/manual/en/function.array-keys.php
-     *
-     * @param mixed $array
-     *
-     * @return array
      */
     public function keys(mixed $array): array
     {
@@ -555,10 +491,6 @@ class Arr
      * Return all the values of an array.
      *
      * @see  https://php.net/manual/en/function.array-values.php
-     *
-     * @param mixed $array
-     *
-     * @return array
      */
     public function values(mixed $array): array
     {
@@ -569,10 +501,6 @@ class Arr
      * Exchanges all keys with their associated values in an array.
      *
      * @see  https://php.net/manual/en/function.array-flip.php
-     *
-     * @param mixed $array
-     *
-     * @return array
      */
     public function flip(mixed $array): array
     {
@@ -582,10 +510,7 @@ class Arr
     /**
      * Flatten a multi-dimensional array into a single level.
      *
-     * @param array $array
-     * @param bool $ignore_keys
-     *
-     * @return array
+     * @param  array  $array
      */
     public function flatten(mixed $array, bool $ignore_keys = true): array
     {
@@ -634,13 +559,9 @@ class Arr
     /**
      * Applies the callback to the elements of the given arrays.
      *
-     * @param array|ArrayAccess $array
-     * @param callable $callback
-     * @param bool $recursive
-     *
-     * @return array
+     * @param  array|ArrayAccess  $array
      */
-    public function map(ArrayObject|array $array, callable $callback, bool $recursive = false): array
+    public function map(array|ArrayObject $array, callable $callback, bool $recursive = false): array
     {
         foreach ($array as $key => &$value) {
             if ($recursive && is_array($value)) {
@@ -657,12 +578,9 @@ class Arr
     /**
      * Creating a new instance of the given class by passing the value into the constructor.
      *
-     * @param array $array
-     * @param string $class
-     *
-     * @return array
+     * @param  array  $array
      */
-    public function mapInto(ArrayObject|array $array, string $class): array
+    public function mapInto(array|ArrayObject $array, string $class): array
     {
         foreach ($array as &$value) {
             $value = new $class($value);
@@ -676,10 +594,7 @@ class Arr
      *
      * @see  https://php.net/manual/en/function.array-push.php
      *
-     * @param array|ArrayAccess $array
-     * @param mixed ...$values
-     *
-     * @return array
+     * @param  array|ArrayAccess  $array
      */
     public function push(mixed $array, mixed ...$values): array
     {
@@ -693,11 +608,8 @@ class Arr
     /**
      * Assigns a value to an array key.
      *
-     * @param array|ArrayAccess $array
-     * @param mixed $key
-     * @param mixed $value
-     *
-     * @return array
+     * @param  array|ArrayAccess  $array
+     * @param  mixed  $value
      */
     public function set(mixed $array, mixed $key, mixed $value = null): array
     {
@@ -714,12 +626,10 @@ class Arr
     /**
      * Removes an array key.
      *
-     * @param array|ArrayAccess $array
-     * @param mixed $key
-     *
-     * @return array
+     * @param  array|ArrayAccess  $array
+     * @param  mixed  $key
      */
-    public function remove(mixed $array, string|int|float $key): array
+    public function remove(mixed $array, float|int|string $key): array
     {
         unset($array[$key]);
 
@@ -729,10 +639,7 @@ class Arr
     /**
      * Call the given Closure with the given value then return the value.
      *
-     * @param array|ArrayAccess $array
-     * @param callable $callback
-     *
-     * @return array
+     * @param  array|ArrayAccess  $array
      */
     public function tap(mixed $array, callable $callback): array
     {
@@ -746,9 +653,7 @@ class Arr
     /**
      * Check if the item is an array.
      *
-     * @param mixed $value
-     *
-     * @return bool
+     * @param  mixed  $value
      */
     public function isArrayable(mixed $value = null): bool
     {
@@ -782,10 +687,6 @@ class Arr
 
     /**
      * Determines if the array or arrayable object is empty.
-     *
-     * @param mixed $value
-     *
-     * @return bool
      */
     public function isEmpty(mixed $value): bool
     {
@@ -797,10 +698,6 @@ class Arr
 
     /**
      * Determines if the value is doesn't empty.
-     *
-     * @param mixed $value
-     *
-     * @return bool
      */
     public function doesntEmpty(mixed $value): bool
     {
@@ -810,12 +707,9 @@ class Arr
     /**
      * Return an array with elements in reverse order.
      *
-     * @param array $array
-     * @param bool $preserve_keys
-     *
-     * @return array
+     * @param  array  $array
      */
-    public function reverse(ArrayObject|array $array, bool $preserve_keys = false): array
+    public function reverse(array|ArrayObject $array, bool $preserve_keys = false): array
     {
         return array_reverse($array, $preserve_keys);
     }
@@ -823,13 +717,9 @@ class Arr
     /**
      * Return the first element in an array passing a given truth test.
      *
-     * @param array $array
-     * @param callable|null $callback
-     * @param mixed|null $default
-     *
-     * @return mixed
+     * @param  array  $array
      */
-    public function first(ArrayObject|array $array, ?callable $callback = null, mixed $default = null): mixed
+    public function first(array|ArrayObject $array, ?callable $callback = null, mixed $default = null): mixed
     {
         if (is_null($callback)) {
             return empty($array) ? Call::value($default) : reset($array);
@@ -847,13 +737,9 @@ class Arr
     /**
      * Return the last element in an array passing a given truth test.
      *
-     * @param array $array
-     * @param callable|null $callback
-     * @param mixed|null $default
-     *
-     * @return mixed
+     * @param  array  $array
      */
-    public function last(ArrayObject|array $array, ?callable $callback = null, mixed $default = null): mixed
+    public function last(array|ArrayObject $array, ?callable $callback = null, mixed $default = null): mixed
     {
         if (is_null($callback)) {
             return empty($array) ? Call::value($default) : end($array);
@@ -867,14 +753,10 @@ class Arr
      *
      * @see https://php.net/manual/en/function.array-splice.php
      *
-     * @param array $array
-     * @param int $offset
-     * @param int|null $length
-     * @param mixed $replacement
-     *
-     * @return array
+     * @param  array  $array
+     * @param  mixed  $replacement
      */
-    public function splice(ArrayObject|array $array, int $offset, ?int $length = null, mixed $replacement = null): array
+    public function splice(array|ArrayObject $array, int $offset, ?int $length = null, mixed $replacement = null): array
     {
         array_splice($array, $offset, $length, $replacement);
 
@@ -883,12 +765,8 @@ class Arr
 
     /**
      * Returns the number of array elements.
-     *
-     * @param ArrayObject|array $array
-     *
-     * @return int
      */
-    public function count(ArrayObject|array $array): int
+    public function count(array|ArrayObject $array): int
     {
         return InstanceHelper::of($array, ArrayObject::class) ? $array->count() : count($array);
     }
