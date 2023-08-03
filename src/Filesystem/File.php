@@ -6,9 +6,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author Andrey Helldar <helldar@ai-rus.com>
+ * @author Andrey Helldar <helldar@dragon-code.pro>
  *
- * @copyright 2022 Andrey Helldar
+ * @copyright 2023 Andrey Helldar
  *
  * @license MIT
  *
@@ -75,7 +75,7 @@ class File
      *
      * @return string returns the full path to the saved file
      */
-    public function store(string $path, string $content, int $mode = 0o755): string
+    public function store(string $path, string $content, int $mode = 00755): string
     {
         Directory::ensureDirectory(Path::dirname($path), $mode);
 
@@ -113,7 +113,7 @@ class File
     /**
      * Copies file.
      */
-    public function copy(string $source, string $target, int $mode = 0o755): void
+    public function copy(string $source, string $target, int $mode = 00755): void
     {
         Directory::ensureDirectory(Path::dirname($target), $mode);
 
@@ -125,7 +125,7 @@ class File
      *
      * @throws \DragonCode\Support\Exceptions\FileNotFoundException
      */
-    public function move(string $source, string $target, int $mode = 0o755): void
+    public function move(string $source, string $target, int $mode = 00755): void
     {
         Directory::ensureDirectory(Path::dirname($target), $mode);
 
