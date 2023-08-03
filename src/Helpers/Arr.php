@@ -6,9 +6,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author Andrey Helldar <helldar@ai-rus.com>
+ * @author Andrey Helldar <helldar@dragon-code.pro>
  *
- * @copyright 2022 Andrey Helldar
+ * @copyright 2023 Andrey Helldar
  *
  * @license MIT
  *
@@ -59,7 +59,7 @@ class Arr
      * As the second parameter, a callback function is passed, which determines the actions for processing the value.
      * The output of the function must be a string with a name.
      *
-     * @param  ArrayObject|array|null  $array $array
+     * @param  ArrayObject|array|null  $array  $array
      */
     public function renameKeys(array|ArrayObject|null $array, callable $callback): array
     {
@@ -77,7 +77,7 @@ class Arr
     /**
      * Renaming array keys with map.
      *
-     * @param  ArrayObject|array|null  $array $array
+     * @param  ArrayObject|array|null  $array  $array
      */
     public function renameKeysMap(array|ArrayObject|null $array, array $map): array
     {
@@ -87,7 +87,7 @@ class Arr
     /**
      * Get the size of the longest text element of the array.
      *
-     * @param  ArrayObject|array|null  $array $array
+     * @param  ArrayObject|array|null  $array  $array
      */
     public function longestStringLength(array|ArrayObject|null $array): int
     {
@@ -97,7 +97,7 @@ class Arr
     /**
      * Push one a unique element onto the end of array.
      *
-     * @param  ArrayObject|array  $array $array
+     * @param  ArrayObject|array  $array  $array
      */
     public function addUnique(array|ArrayObject $array, mixed $values): array
     {
@@ -124,7 +124,7 @@ class Arr
      *
      * @see https://php.net/manual/en/function.array-unique.php
      *
-     * @param  ArrayObject|array  $array $array
+     * @param  ArrayObject|array  $array  $array
      */
     public function unique(array|ArrayObject $array, int $flags = SORT_STRING): array
     {
@@ -152,7 +152,7 @@ class Arr
      *
      * @see https://gist.github.com/Ellrion/a3145621f936aa9416f4c04987533d8d#file-helper-php
      *
-     * @param  ArrayObject|array  $array $array
+     * @param  ArrayObject|array  $array  $array
      */
     public function sortByKeys(array|ArrayObject $array, array $sorter): array
     {
@@ -164,7 +164,7 @@ class Arr
     /**
      * Recursively sorting an array by values.
      *
-     * @param  ArrayObject|array  $array $array
+     * @param  ArrayObject|array  $array  $array
      */
     public function sort(array|ArrayObject $array, ?callable $callback = null): array
     {
@@ -184,7 +184,7 @@ class Arr
     /**
      * Recursively sorting an array by keys.
      *
-     * @param  ArrayObject|array  $array $array
+     * @param  ArrayObject|array  $array  $array
      */
     public function ksort(array|ArrayObject $array, ?callable $callback = null): array
     {
@@ -303,7 +303,8 @@ class Arr
     /**
      * Determine if the given key exists in the provided array.
      *
-     * @param  ArrayAccess|\DragonCode\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Arrayable|array  $array |\ArrayAccess $array
+     * @param  ArrayAccess|\DragonCode\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Arrayable|array  $array  |\ArrayAccess
+     *     $array
      */
     public function exists(mixed $array, mixed $key): bool
     {
@@ -340,7 +341,8 @@ class Arr
     /**
      * Determine if the given key exists in the provided array without dot divider.
      *
-     * @param  ArrayAccess|\DragonCode\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Arrayable|array  $array |\ArrayAccess $array
+     * @param  ArrayAccess|\DragonCode\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Arrayable|array  $array  |\ArrayAccess
+     *     $array
      */
     public function existsWithoutDot(mixed $array, mixed $key): bool
     {
@@ -354,7 +356,8 @@ class Arr
     /**
      * Determine if the given key doesn't exist in the provided array without dot divider.
      *
-     * @param  ArrayAccess|\DragonCode\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Arrayable|array  $array |\ArrayAccess $array
+     * @param  ArrayAccess|\DragonCode\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Arrayable|array  $array  |\ArrayAccess
+     *     $array
      */
     public function doesntExistWithoutDot(mixed $array, mixed $key): bool
     {
@@ -366,7 +369,8 @@ class Arr
      *
      * @see https://github.com/illuminate/collections/blob/master/Arr.php
      *
-     * @param  ArrayAccess|\DragonCode\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Arrayable|array  $array |ArrayAccess $array
+     * @param  ArrayAccess|\DragonCode\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Arrayable|array  $array  |ArrayAccess
+     *     $array
      *
      * @return mixed|null
      */
@@ -540,7 +544,7 @@ class Arr
         $result = [];
 
         foreach ($array as $key => $value) {
-            $new_key = ! empty($prefix) ? $prefix . $delimiter . $key : $key;
+            $new_key = ! empty($prefix) || is_numeric($prefix) ? $prefix . $delimiter . $key : $key;
 
             if (is_array($value)) {
                 $values = $this->flattenKeys($value, $delimiter, $new_key);

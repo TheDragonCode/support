@@ -6,9 +6,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author Andrey Helldar <helldar@ai-rus.com>
+ * @author Andrey Helldar <helldar@dragon-code.pro>
  *
- * @copyright 2022 Andrey Helldar
+ * @copyright 2023 Andrey Helldar
  *
  * @license MIT
  *
@@ -91,7 +91,7 @@ class Directory
     /**
      * Create a directory at the specified path.
      */
-    public function make(string $path, int $mode = 0o755): bool
+    public function make(string $path, int $mode = 0755): bool
     {
         return ! $this->doesntExist($path) || mkdir($path, $mode, true);
     }
@@ -170,7 +170,7 @@ class Directory
      *
      * @throws \DragonCode\Support\Exceptions\DirectoryNotFoundException
      */
-    public function ensureDirectory(string $path, int $mode = 0o755, bool $can_delete = false): void
+    public function ensureDirectory(string $path, int $mode = 0755, bool $can_delete = false): void
     {
         if ($can_delete && $this->exists($path)) {
             $this->delete($path);

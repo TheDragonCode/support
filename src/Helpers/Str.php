@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author Andrey Helldar <helldar@ai-rus.com>
+ * @author Andrey Helldar <helldar@dragon-code.pro>
  *
  * @copyright 2023 Andrey Helldar
  *
@@ -33,19 +33,13 @@ class Str
         Htmlable::class                  => 'toHtml',
     ];
 
-    /**
-     * The cache of snake-cased words.
-     */
+    /** The cache of snake-cased words. */
     protected static array $snakeCache = [];
 
-    /**
-     * The cache of camel-cased words.
-     */
+    /** The cache of camel-cased words. */
     protected static array $camelCache = [];
 
-    /**
-     * The cache of studly-cased words.
-     */
+    /** The cache of studly-cased words. */
     protected static array $studlyCache = [];
 
     /**
