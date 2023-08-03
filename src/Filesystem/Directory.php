@@ -170,7 +170,7 @@ class Directory
      *
      * @throws \DragonCode\Support\Exceptions\DirectoryNotFoundException
      */
-    public function ensureDirectory(string $path, int $mode = 0o0755, bool $can_delete = false): void
+    public function ensureDirectory(string $path, int $mode = 0755, bool $can_delete = false): void
     {
         if ($can_delete && $this->exists($path)) {
             $this->delete($path);
