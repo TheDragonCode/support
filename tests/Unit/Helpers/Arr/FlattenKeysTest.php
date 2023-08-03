@@ -6,9 +6,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author Andrey Helldar <helldar@ai-rus.com>
+ * @author Andrey Helldar <helldar@dragon-code.pro>
  *
- * @copyright 2022 Andrey Helldar
+ * @copyright 2023 Andrey Helldar
  *
  * @license MIT
  *
@@ -50,6 +50,35 @@ class FlattenKeysTest extends TestCase
             'b.a' => 'A',
             'b.s' => 'S',
             'b.d' => 'D',
+        ], Arr::flattenKeys($array));
+
+        $array = [
+            ['foo' => 'Foo'],
+            ['bar' => 'Bar'],
+            [['Baz', 'Qwerty']],
+        ];
+        $this->assertEquals([
+            '2.0.0' => 'Baz',
+            '2.0.1' => 'Qwerty',
+            '0.foo' => 'Foo',
+            '1.bar' => 'Bar',
+        ], Arr::flattenKeys($array));
+
+        $array = [
+            ['foo' => 'Foo'],
+            ['bar' => 'Bar'],
+            [
+                [
+                    'baz' => 'Baz',
+                    'Qwerty',
+                ],
+            ],
+        ];
+        $this->assertEquals([
+            '0.foo'   => 'Foo',
+            '1.bar'   => 'Bar',
+            '2.0.baz' => 'Baz',
+            '2.0.0'   => 'Qwerty',
         ], Arr::flattenKeys($array));
     }
 
