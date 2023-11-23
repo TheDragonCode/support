@@ -34,8 +34,6 @@ class Arr
 {
     /**
      * Get a new arrayable object from the given array.
-     *
-     * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
     public function of(array|ArrayObject|null $value = []): Ables\Arrayable
     {
@@ -44,8 +42,6 @@ class Arr
 
     /**
      * Get a new arrayable object from the given array from the php or json array file.
-     *
-     * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
     public function ofFile(string $path): Ables\Arrayable
     {
@@ -266,8 +262,6 @@ class Arr
 
     /**
      * If the given value is not an array and not null, wrap it in one.
-     *
-     * @param  mixed  $value
      */
     public function wrap(mixed $value = null): array
     {
@@ -408,7 +402,6 @@ class Arr
      * If the element key exists, then return the name of the key, otherwise the default value.
      *
      * @param  array|ArrayAccess  $array
-     * @param  mixed  $default
      *
      * @return mixed|null
      */
@@ -613,7 +606,6 @@ class Arr
      * Assigns a value to an array key.
      *
      * @param  array|ArrayAccess  $array
-     * @param  mixed  $value
      */
     public function set(mixed $array, mixed $key, mixed $value = null): array
     {
@@ -656,8 +648,6 @@ class Arr
 
     /**
      * Check if the item is an array.
-     *
-     * @param  mixed  $value
      */
     public function isArrayable(mixed $value = null): bool
     {
@@ -758,7 +748,6 @@ class Arr
      * @see https://php.net/manual/en/function.array-splice.php
      *
      * @param  array  $array
-     * @param  mixed  $replacement
      */
     public function splice(array|ArrayObject $array, int $offset, ?int $length = null, mixed $replacement = null): array
     {

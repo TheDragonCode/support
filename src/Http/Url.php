@@ -99,8 +99,6 @@ class Url
      * Parsing URL into components.
      *
      * @param  BuilderContract|string|null  $url
-     *
-     * @return \DragonCode\Support\Http\Builder
      */
     public function parse(string|UriInterface|null $url): Builder
     {

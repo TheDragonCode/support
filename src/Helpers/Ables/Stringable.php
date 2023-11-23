@@ -51,10 +51,6 @@ class Stringable implements Contract
 
     /**
      * Performing an action on a condition.
-     *
-     * @param  mixed  $default
-     *
-     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function when(mixed $condition, mixed $callback, mixed $default = null): self
     {
@@ -69,8 +65,6 @@ class Stringable implements Contract
 
     /**
      * Split a string by a string.
-     *
-     * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
     #[Pure]
     public function explode(string $separator, ?string $map_into = null): Arrayable
@@ -82,8 +76,6 @@ class Stringable implements Contract
 
     /**
      * Escape HTML special characters in a string.
-     *
-     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function e(bool $double = true): self
     {
@@ -92,8 +84,6 @@ class Stringable implements Contract
 
     /**
      * Convert special HTML entities back to characters.
-     *
-     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function de(): self
     {
@@ -102,8 +92,6 @@ class Stringable implements Contract
 
     /**
      * Replacing multiple spaces with a single space.
-     *
-     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function squish(): self
     {
@@ -112,8 +100,6 @@ class Stringable implements Contract
 
     /**
      * Begin a string with a single instance of a given value.
-     *
-     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function start(string $prefix): self
     {
@@ -122,8 +108,6 @@ class Stringable implements Contract
 
     /**
      * End a string with a single instance of a given value.
-     *
-     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function end(string $suffix): self
     {
@@ -132,8 +116,6 @@ class Stringable implements Contract
 
     /**
      * Adds a substring to the end of a string.
-     *
-     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function append(mixed $suffix): self
     {
@@ -142,8 +124,6 @@ class Stringable implements Contract
 
     /**
      * Adds a substring to the start of a string.
-     *
-     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function prepend(mixed $prefix): self
     {
@@ -152,8 +132,6 @@ class Stringable implements Contract
 
     /**
      * Cap a string with a single instance of a given value.
-     *
-     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function finish(string $cap = '/'): self
     {
@@ -162,8 +140,6 @@ class Stringable implements Contract
 
     /**
      * Convert the given string to lower-case.
-     *
-     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function lower(): self
     {
@@ -172,8 +148,6 @@ class Stringable implements Contract
 
     /**
      * Convert the given string to upper-case.
-     *
-     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function upper(): self
     {
@@ -182,8 +156,6 @@ class Stringable implements Contract
 
     /**
      * Convert a value to studly caps case.
-     *
-     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function studly(): self
     {
@@ -192,8 +164,6 @@ class Stringable implements Contract
 
     /**
      * Convert a value to camel case.
-     *
-     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function camel(): self
     {
@@ -202,8 +172,6 @@ class Stringable implements Contract
 
     /**
      * Convert a string to snake case.
-     *
-     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function snake(?string $delimiter = '_'): self
     {
@@ -212,8 +180,6 @@ class Stringable implements Contract
 
     /**
      * Generate a URL friendly "slug" from a given string.
-     *
-     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function slug(string $separator = '-', ?string $language = 'en'): self
     {
@@ -222,8 +188,6 @@ class Stringable implements Contract
 
     /**
      * Convert the given string to title case.
-     *
-     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function title(): self
     {
@@ -232,8 +196,6 @@ class Stringable implements Contract
 
     /**
      * Returns the portion of string specified by the start and length parameters.
-     *
-     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function substr(int $start, ?int $length = null): self
     {
@@ -242,8 +204,6 @@ class Stringable implements Contract
 
     /**
      * Replace all occurrences of the search string with the replacement string by format.
-     *
-     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function replaceFormat(array $values, ?string $key_format = null): self
     {
@@ -255,8 +215,6 @@ class Stringable implements Contract
      *
      * @param  array|string|array<string>|int|float  $search
      * @param  array|string|array<string>|int|float  $replace
-     *
-     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function replace(mixed $search, mixed $replace): self
     {
@@ -265,8 +223,6 @@ class Stringable implements Contract
 
     /**
      * Get the portion of a string before the first occurrence of a given value.
-     *
-     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function before(string $search): self
     {
@@ -275,8 +231,6 @@ class Stringable implements Contract
 
     /**
      * Return the remainder of a string after the first occurrence of a given value.
-     *
-     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function after(string $search): self
     {
@@ -285,8 +239,6 @@ class Stringable implements Contract
 
     /**
      * Generate a more truly "random" alpha-numeric string.
-     *
-     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function random(int $length = 16): self
     {
@@ -295,8 +247,6 @@ class Stringable implements Contract
 
     /**
      * Get the string matching the given pattern.
-     *
-     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function match(string $pattern): self
     {
@@ -305,8 +255,6 @@ class Stringable implements Contract
 
     /**
      * Get the all string matching the given pattern.
-     *
-     * @return \DragonCode\Support\Helpers\Ables\Arrayable
      */
     public function matchAll(string $pattern): Arrayable
     {
@@ -323,8 +271,6 @@ class Stringable implements Contract
 
     /**
      * Replace a given value in the string.
-     *
-     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function pregReplace(string $pattern, string $replacement): self
     {
@@ -333,8 +279,6 @@ class Stringable implements Contract
 
     /**
      * Transliterate a UTF-8 value to ASCII.
-     *
-     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function ascii(?string $language = 'en'): self
     {
@@ -343,8 +287,6 @@ class Stringable implements Contract
 
     /**
      * Using a call-back function to process a value.
-     *
-     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function map(callable $callback): self
     {
@@ -353,8 +295,6 @@ class Stringable implements Contract
 
     /**
      * Get the portion of a string between two given values.
-     *
-     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     #[Pure]
     public function between(mixed $from, mixed $to, bool $trim = true): self
@@ -364,8 +304,6 @@ class Stringable implements Contract
 
     /**
      * Strip whitespace (or other characters) from the beginning and end of a string.
-     *
-     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function trim(string $characters = " \t\n\r\0\x0B"): self
     {
@@ -374,8 +312,6 @@ class Stringable implements Contract
 
     /**
      * Strip whitespace (or other characters) from the beginning of a string.
-     *
-     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function ltrim(string $characters = " \t\n\r\0\x0B"): self
     {
@@ -384,8 +320,6 @@ class Stringable implements Contract
 
     /**
      * Strip whitespace (or other characters) from the end of a string.
-     *
-     * @return \DragonCode\Support\Helpers\Ables\Stringable
      */
     public function rtrim(string $characters = " \t\n\r\0\x0B"): self
     {

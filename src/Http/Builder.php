@@ -72,8 +72,6 @@ class Builder implements BuilderContract
 
     /**
      * Gets the current instance of the object.
-     *
-     * @return \DragonCode\Support\Http\Builder
      */
     public function same(): self
     {
@@ -309,8 +307,6 @@ class Builder implements BuilderContract
      * Return an instance with the specified scheme.
      *
      * @param  string  $scheme
-     *
-     * @return \DragonCode\Support\Http\Builder
      */
     public function withScheme($scheme): self
     {
@@ -322,8 +318,6 @@ class Builder implements BuilderContract
      *
      * @param  string  $user
      * @param  string|null  $password
-     *
-     * @return \DragonCode\Support\Http\Builder
      */
     public function withUserInfo($user, $password = null): self
     {
@@ -336,8 +330,6 @@ class Builder implements BuilderContract
      * Return an instance with the specified host.
      *
      * @param  string  $host
-     *
-     * @return \DragonCode\Support\Http\Builder
      */
     public function withHost($host): self
     {
@@ -348,8 +340,6 @@ class Builder implements BuilderContract
      * Return an instance with the specified port.
      *
      * @param  int|null  $port
-     *
-     * @return \DragonCode\Support\Http\Builder
      */
     public function withPort($port): self
     {
@@ -360,8 +350,6 @@ class Builder implements BuilderContract
      * Return an instance with the specified path.
      *
      * @param  string  $path
-     *
-     * @return \DragonCode\Support\Http\Builder
      */
     public function withPath($path): self
     {
@@ -372,8 +360,6 @@ class Builder implements BuilderContract
      * Return an instance with the specified query string.
      *
      * @param  array|string  $query
-     *
-     * @return \DragonCode\Support\Http\Builder
      */
     public function withQuery($query): self
     {
@@ -417,8 +403,6 @@ class Builder implements BuilderContract
      * Return an instance with the specified URI fragment.
      *
      * @param  string  $fragment
-     *
-     * @return \DragonCode\Support\Http\Builder
      */
     public function withFragment($fragment): self
     {
