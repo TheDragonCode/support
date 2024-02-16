@@ -87,7 +87,7 @@ class File
     /**
      * Load content from the file.
      *
-     * @throws \DragonCode\Support\Exceptions\FileNotFoundException
+     * @throws FileNotFoundException
      */
     public function load(string $path): array
     {
@@ -123,7 +123,7 @@ class File
     /**
      * Moving a file to a new path.
      *
-     * @throws \DragonCode\Support\Exceptions\FileNotFoundException
+     * @throws FileNotFoundException
      */
     public function move(string $source, string $target, int $mode = 0o755): void
     {
@@ -145,7 +145,7 @@ class File
      *
      * @param  string|array<string>  $paths
      *
-     * @throws \DragonCode\Support\Exceptions\FileNotFoundException
+     * @throws FileNotFoundException
      */
     public function delete(array|string $paths): void
     {
@@ -161,7 +161,7 @@ class File
     /**
      * Ensure the file has been deleted.
      *
-     * @throws \DragonCode\Support\Exceptions\FileNotFoundException
+     * @throws FileNotFoundException
      */
     public function ensureDelete(array|string $paths): void
     {
@@ -189,7 +189,7 @@ class File
      *
      * @param  DirectoryIterator|SplFileInfo|string  $path
      *
-     * @throws \DragonCode\Support\Exceptions\FileNotFoundException
+     * @throws FileNotFoundException
      */
     public function validate(mixed $path): void
     {
@@ -203,7 +203,7 @@ class File
      *
      * @param  DirectoryIterator|SplFileInfo|string  $path
      *
-     * @throws \DragonCode\Support\Exceptions\FileNotFoundException
+     * @throws FileNotFoundException
      */
     public function validated(mixed $path): string
     {

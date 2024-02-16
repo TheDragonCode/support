@@ -35,15 +35,15 @@ class Arr
     /**
      * Get a new arrayable object from the given array.
      */
-    public function of(array|ArrayObject|null $value = []): Ables\Arrayable
+    public function of(array|ArrayObject|null $value = []): ArrayableHelper
     {
-        return new Ables\Arrayable($value);
+        return new ArrayableHelper($value);
     }
 
     /**
      * Get a new arrayable object from the given array from the php or json array file.
      */
-    public function ofFile(string $path): Ables\Arrayable
+    public function ofFile(string $path): ArrayableHelper
     {
         $content = File::load($path);
 

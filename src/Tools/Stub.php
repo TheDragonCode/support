@@ -28,7 +28,7 @@ class Stub
     /**
      * Replace the contents of the template file.
      *
-     * @throws \DragonCode\Support\Exceptions\UnknownStubFileException
+     * @throws UnknownStubFileException
      */
     public function replace(string $stub_file, array $replace): string
     {
@@ -40,7 +40,7 @@ class Stub
     /**
      * Receive the contents of the template file.
      *
-     * @throws \DragonCode\Support\Exceptions\UnknownStubFileException
+     * @throws UnknownStubFileException
      */
     public function get(string $filename): string
     {

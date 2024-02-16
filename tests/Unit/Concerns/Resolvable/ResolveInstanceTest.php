@@ -25,7 +25,7 @@ class ResolveInstanceTest extends Base
     {
         $this->clean();
 
-        /** @var \Tests\Fixtures\Instances\Bat $resolved */
+        /** @var Bat $resolved */
         $resolved = self::resolveInstance(Bat::class);
 
         $this->assertInstanceOf(Bat::class, $resolved);
@@ -33,7 +33,7 @@ class ResolveInstanceTest extends Base
         $this->assertNull($resolved->foo);
         $this->assertNull($resolved->bar);
 
-        /** @var \Tests\Fixtures\Instances\Bat $resolved */
+        /** @var Bat $resolved */
         $resolved = self::resolveInstance(Bat::class);
 
         $this->assertInstanceOf(Bat::class, $resolved);
@@ -46,7 +46,7 @@ class ResolveInstanceTest extends Base
     {
         $this->clean();
 
-        /** @var \Tests\Fixtures\Instances\Bat $resolved */
+        /** @var Bat $resolved */
         $resolved = self::resolveInstance(Bat::class, 'Foo', 'Bar');
 
         $this->assertInstanceOf(Bat::class, $resolved);
@@ -54,7 +54,7 @@ class ResolveInstanceTest extends Base
         $this->assertSame('Foo', $resolved->foo);
         $this->assertSame('Bar', $resolved->bar);
 
-        /** @var \Tests\Fixtures\Instances\Bat $resolved */
+        /** @var Bat $resolved */
         $resolved = self::resolveInstance(Bat::class, 'Qwe', 'Rty');
 
         $this->assertInstanceOf(Bat::class, $resolved);
@@ -67,7 +67,7 @@ class ResolveInstanceTest extends Base
     {
         $this->clean();
 
-        /** @var \Tests\Fixtures\Instances\Bat $resolved */
+        /** @var Bat $resolved */
         $resolved = self::resolveInstance(new Bat());
 
         $this->assertInstanceOf(Bat::class, $resolved);
@@ -75,7 +75,7 @@ class ResolveInstanceTest extends Base
         $this->assertNull($resolved->foo);
         $this->assertNull($resolved->bar);
 
-        /** @var \Tests\Fixtures\Instances\Bat $resolved */
+        /** @var Bat $resolved */
         $resolved = self::resolveInstance(new Bat());
 
         $this->assertInstanceOf(Bat::class, $resolved);
@@ -88,7 +88,7 @@ class ResolveInstanceTest extends Base
     {
         $this->clean();
 
-        /** @var \Tests\Fixtures\Instances\Bat $resolved */
+        /** @var Bat $resolved */
         $resolved = self::resolveInstance(new Bat(), 'Foo', 'Bar');
 
         $this->assertInstanceOf(Bat::class, $resolved);
@@ -96,7 +96,7 @@ class ResolveInstanceTest extends Base
         $this->assertNull($resolved->foo);
         $this->assertNull($resolved->bar);
 
-        /** @var \Tests\Fixtures\Instances\Bat $resolved */
+        /** @var Bat $resolved */
         $resolved = self::resolveInstance(new Bat(), 'Qwe', 'Rty');
 
         $this->assertInstanceOf(Bat::class, $resolved);

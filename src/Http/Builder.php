@@ -83,7 +83,7 @@ class Builder implements BuilderContract
      *
      * @param  \Psr\Http\Message\UriInterface|string|null  $url
      *
-     * @return \DragonCode\Support\Http\Builder
+     * @return Builder
      */
     public function parse(mixed $url, int $component = self::PHP_URL_ALL): BuilderContract
     {
@@ -103,7 +103,7 @@ class Builder implements BuilderContract
     /**
      * Populate an object with parsed data.
      *
-     * @return \DragonCode\Support\Http\Builder
+     * @return Builder
      */
     public function parsed(array $parsed): BuilderContract
     {
@@ -296,7 +296,7 @@ class Builder implements BuilderContract
     /**
      * Remove the fragment component from the URI.
      *
-     * @return \DragonCode\Support\Http\Builder
+     * @return Builder
      */
     public function removeFragment(): BuilderContract
     {
@@ -369,7 +369,7 @@ class Builder implements BuilderContract
     /**
      * Return an instance with the specified query object.
      *
-     * @return \DragonCode\Support\Http\Builder
+     * @return Builder
      */
     public function putQuery(string $key, $value): BuilderContract
     {
@@ -388,7 +388,7 @@ class Builder implements BuilderContract
     /**
      * Return an instance with the specified query object.
      *
-     * @return \DragonCode\Support\Http\Builder
+     * @return Builder
      */
     public function removeQuery(string $key): BuilderContract
     {
@@ -412,7 +412,7 @@ class Builder implements BuilderContract
     /**
      * Return an instance with the specified `UriInterface`.
      *
-     * @return \DragonCode\Support\Http\Builder
+     * @return Builder
      */
     public function fromPsr(UriInterface $uri): BuilderContract
     {
