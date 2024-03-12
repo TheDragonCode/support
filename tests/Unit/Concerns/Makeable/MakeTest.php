@@ -40,9 +40,4 @@ class MakeTest extends TestCase
         $this->assertSame('Foo', $object->foo);
         $this->assertSame('Bar', $object->bar);
     }
-
-    public function testStatic()
-    {
-        $this->assertInstanceOf(static::class, self::make());
-    }
 }

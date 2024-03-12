@@ -40,7 +40,6 @@ class Boolean
     /**
      * Converts a value to a boolean type.
      */
-    #[Pure]
     public function to(mixed $value): bool
     {
         return (bool) $this->parse($value);

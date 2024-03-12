@@ -62,7 +62,6 @@ class Arrayable implements ArrayableContract
     /**
      * Join array elements with a string.
      */
-    #[Pure]
     public function implode(string $separator): Stringable
     {
         return new Stringable(implode($separator, $this->value));

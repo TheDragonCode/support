@@ -21,7 +21,6 @@ use JetBrains\PhpStorm\Pure;
 
 class UnknownStubFileException extends Exception
 {
-    #[Pure]
     public function __construct(?string $filename)
     {
         parent::__construct('Unknown stub file: "' . $filename . '"', 400);

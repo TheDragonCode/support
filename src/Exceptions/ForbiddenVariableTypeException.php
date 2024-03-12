@@ -21,7 +21,6 @@ use LogicException;
 
 class ForbiddenVariableTypeException extends LogicException
 {
-    #[Pure]
     public function __construct(string $haystack, array|string $needles)
     {
         $needles = $this->needles($needles);

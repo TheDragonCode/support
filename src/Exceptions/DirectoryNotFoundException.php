@@ -21,7 +21,6 @@ use JetBrains\PhpStorm\Pure;
 
 class DirectoryNotFoundException extends Exception
 {
-    #[Pure]
     public function __construct(?string $path)
     {
         parent::__construct('Directory "' . $path . '" does not exist.');

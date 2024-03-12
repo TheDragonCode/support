@@ -24,7 +24,6 @@ use JetBrains\PhpStorm\Pure;
 
 class InvalidDestinationPathException extends Exception
 {
-    #[Pure]
     public function __construct(?string $path)
     {
         parent::__construct('The start and end paths must not be the same: ' . $path);

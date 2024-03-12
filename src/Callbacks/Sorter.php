@@ -105,7 +105,6 @@ class Sorter
     /**
      * Determine if a value is a special character.
      */
-    #[Pure]
     protected function hasSpecialChar($value): bool
     {
         return in_array($value, $this->specialChars());

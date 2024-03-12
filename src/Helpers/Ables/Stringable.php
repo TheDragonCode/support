@@ -66,7 +66,6 @@ class Stringable implements Contract
     /**
      * Split a string by a string.
      */
-    #[Pure]
     public function explode(string $separator, ?string $map_into = null): Arrayable
     {
         $array = Arr::of(explode($separator, $this->toString()));
@@ -296,7 +295,6 @@ class Stringable implements Contract
     /**
      * Get the portion of a string between two given values.
      */
-    #[Pure]
     public function between(mixed $from, mixed $to, bool $trim = true): self
     {
         return new self(Str::between($this->toString(), $from, $to, $trim));

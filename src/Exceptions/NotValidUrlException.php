@@ -21,7 +21,6 @@ use JetBrains\PhpStorm\Pure;
 
 class NotValidUrlException extends Exception
 {
-    #[Pure]
     public function __construct(?string $url)
     {
         $value = $this->value($url);

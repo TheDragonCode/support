@@ -21,7 +21,6 @@ use JetBrains\PhpStorm\Pure;
 
 class FileNotFoundException extends Exception
 {
-    #[Pure]
     public function __construct(?string $path)
     {
         parent::__construct('File "' . $path . '" does not exist.');

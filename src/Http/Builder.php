@@ -548,7 +548,6 @@ class Builder implements BuilderContract
         ];
     }
 
-    #[Pure]
     protected function resolveSame(int $component = self::PHP_URL_ALL): self
     {
         return $component === self::PHP_URL_ALL ? new self() : $this;
