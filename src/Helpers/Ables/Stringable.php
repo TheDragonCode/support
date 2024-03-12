@@ -22,7 +22,6 @@ use DragonCode\Support\Concerns\Dumpable;
 use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\Support\Facades\Helpers\Str;
 use DragonCode\Support\Facades\Instances\Call;
-use JetBrains\PhpStorm\Pure;
 
 class Stringable implements Contract
 {

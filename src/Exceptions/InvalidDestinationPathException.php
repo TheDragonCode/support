@@ -20,7 +20,6 @@ declare(strict_types=1);
 namespace DragonCode\Support\Exceptions;
 
 use Exception;
-use JetBrains\PhpStorm\Pure;
 
 class InvalidDestinationPathException extends Exception
 {

@@ -18,7 +18,6 @@
 namespace DragonCode\Support\Callbacks;
 
 use DragonCode\Support\Facades\Helpers\Str;
-use JetBrains\PhpStorm\Pure;
 
 class Sorter
 {

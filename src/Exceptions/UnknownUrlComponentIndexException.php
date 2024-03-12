@@ -16,7 +16,6 @@
 
 namespace DragonCode\Support\Exceptions;
 
-use JetBrains\PhpStorm\Pure;
 use LogicException;
 
 class UnknownUrlComponentIndexException extends LogicException

@@ -17,7 +17,6 @@
 namespace DragonCode\Support\Exceptions;
 
 use Exception;
-use JetBrains\PhpStorm\Pure;
 
 class FileNotFoundException extends Exception
 {

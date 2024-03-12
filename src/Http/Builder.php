@@ -25,7 +25,6 @@ use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\Support\Facades\Helpers\Str;
 use DragonCode\Support\Facades\Http\Url as UrlHelper;
 use DragonCode\Support\Helpers\Ables\Stringable;
-use JetBrains\PhpStorm\Pure;
 use Psr\Http\Message\UriInterface;
 
 class Builder implements BuilderContract

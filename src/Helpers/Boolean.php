@@ -17,8 +17,6 @@
 
 namespace DragonCode\Support\Helpers;
 
-use JetBrains\PhpStorm\Pure;
-
 class Boolean
 {
     /**
