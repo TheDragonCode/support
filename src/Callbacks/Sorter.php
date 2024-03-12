@@ -8,7 +8,7 @@
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
  *
- * @copyright 2023 Andrey Helldar
+ * @copyright 2024 Andrey Helldar
  *
  * @license MIT
  *
@@ -18,7 +18,6 @@
 namespace DragonCode\Support\Callbacks;
 
 use DragonCode\Support\Facades\Helpers\Str;
-use JetBrains\PhpStorm\Pure;
 
 class Sorter
 {
@@ -105,7 +104,6 @@ class Sorter
     /**
      * Determine if a value is a special character.
      */
-    #[Pure]
     protected function hasSpecialChar($value): bool
     {
         return in_array($value, $this->specialChars());

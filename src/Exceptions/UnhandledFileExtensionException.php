@@ -8,7 +8,7 @@
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
  *
- * @copyright 2023 Andrey Helldar
+ * @copyright 2024 Andrey Helldar
  *
  * @license MIT
  *
@@ -18,11 +18,9 @@
 namespace DragonCode\Support\Exceptions;
 
 use Exception;
-use JetBrains\PhpStorm\Pure;
 
 class UnhandledFileExtensionException extends Exception
 {
-    #[Pure]
     public function __construct(?string $path)
     {
         parent::__construct('Unhandled file extension: ' . $path);

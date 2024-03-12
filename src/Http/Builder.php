@@ -8,7 +8,7 @@
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
  *
- * @copyright 2023 Andrey Helldar
+ * @copyright 2024 Andrey Helldar
  *
  * @license MIT
  *
@@ -25,7 +25,6 @@ use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\Support\Facades\Helpers\Str;
 use DragonCode\Support\Facades\Http\Url as UrlHelper;
 use DragonCode\Support\Helpers\Ables\Stringable;
-use JetBrains\PhpStorm\Pure;
 use Psr\Http\Message\UriInterface;
 
 class Builder implements BuilderContract
@@ -548,7 +547,6 @@ class Builder implements BuilderContract
         ];
     }
 
-    #[Pure]
     protected function resolveSame(int $component = self::PHP_URL_ALL): self
     {
         return $component === self::PHP_URL_ALL ? new self() : $this;

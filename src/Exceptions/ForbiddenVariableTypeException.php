@@ -7,7 +7,7 @@
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
  *
- * @copyright 2023 Andrey Helldar
+ * @copyright 2024 Andrey Helldar
  *
  * @license MIT
  *
@@ -16,12 +16,10 @@
 
 namespace DragonCode\Support\Exceptions;
 
-use JetBrains\PhpStorm\Pure;
 use LogicException;
 
 class ForbiddenVariableTypeException extends LogicException
 {
-    #[Pure]
     public function __construct(string $haystack, array|string $needles)
     {
         $needles = $this->needles($needles);

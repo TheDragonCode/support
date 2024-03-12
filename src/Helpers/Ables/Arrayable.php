@@ -8,7 +8,7 @@
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
  *
- * @copyright 2023 Andrey Helldar
+ * @copyright 2024 Andrey Helldar
  *
  * @license MIT
  *
@@ -23,7 +23,6 @@ use DragonCode\Support\Concerns\Dumpable;
 use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\Support\Facades\Instances\Call;
 use DragonCode\Support\Facades\Instances\Instance;
-use JetBrains\PhpStorm\Pure;
 
 class Arrayable implements ArrayableContract
 {
@@ -62,7 +61,6 @@ class Arrayable implements ArrayableContract
     /**
      * Join array elements with a string.
      */
-    #[Pure]
     public function implode(string $separator): Stringable
     {
         return new Stringable(implode($separator, $this->value));
