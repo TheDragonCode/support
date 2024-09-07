@@ -27,6 +27,7 @@ use Tests\Fixtures\Instances\Bar;
 use Tests\Fixtures\Instances\Foo;
 use Tests\TestCase;
 
+/** @deprecated */
 class DoesntEmptyTest extends TestCase
 {
     public function testDoesntEmpty()

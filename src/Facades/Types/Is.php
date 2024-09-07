@@ -26,6 +26,7 @@ use DragonCode\Support\Types\Is as Helper;
  * @method static bool doesntEmpty($value)
  * @method static bool error($value)
  * @method static bool isEmpty($value)
+ * @method static bool isNotEmpty($value)
  * @method static bool object($value)
  * @method static bool reflectionClass($value)
  * @method static bool string($value)

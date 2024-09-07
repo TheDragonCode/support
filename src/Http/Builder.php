@@ -80,7 +80,7 @@ class Builder implements BuilderContract
     /**
      * Parse a URL.
      *
-     * @param  \Psr\Http\Message\UriInterface|string|null  $url
+     * @param  UriInterface|string|null  $url
      *
      * @return Builder
      */

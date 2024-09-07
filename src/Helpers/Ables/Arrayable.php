@@ -403,11 +403,22 @@ class Arrayable implements ArrayableContract
     }
 
     /**
-     * Determines if the value is doesn't empty.
+     * Determines if the value doesn't empty.
+     *
+     * @deprecated
+     * @see self::isNotEmpty()
      */
     public function doesntEmpty(): bool
     {
         return Arr::doesntEmpty($this->value);
+    }
+
+    /**
+     * Determines if the value isn't empty.
+     */
+    public function isNotEmpty(): bool
+    {
+        return Arr::isNotEmpty($this->value);
     }
 
     /**
