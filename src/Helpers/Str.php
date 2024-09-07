@@ -520,9 +520,20 @@ class Str
     }
 
     /**
+     * @deprecated
+     * @see self::isNotEmpty()
+     *
      * Determines if the value is doesn't empty.
      */
     public function doesntEmpty(mixed $value): bool
+    {
+        return $this->isNotEmpty($value);
+    }
+
+    /**
+     * Determines if the value isn't empty.
+     */
+    public function isNotEmpty(mixed $value): bool
     {
         return ! $this->isEmpty($value);
     }
