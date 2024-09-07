@@ -384,10 +384,21 @@ class Stringable implements Contract
     }
 
     /**
-     * Determines if the value is doesn't empty.
+     * Determines if the value doesn't empty.
+     *
+     * @deprecated
+     * @see self::isNotEmpty()
      */
     public function doesntEmpty(): bool
     {
         return Str::doesntEmpty($this->value);
+    }
+
+    /**
+     * Determines if the value isn't empty.
+     */
+    public function isNotEmpty(): bool
+    {
+        return Str::isNotEmpty($this->value);
     }
 }

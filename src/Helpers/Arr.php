@@ -297,7 +297,7 @@ class Arr
     /**
      * Determine if the given key exists in the provided array.
      *
-     * @param  ArrayAccess|\DragonCode\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Arrayable|array  $array  |\ArrayAccess
+     * @param  ArrayAccess|Arrayable|ArrayableIlluminate|array  $array  |\ArrayAccess
      *     $array
      */
     public function exists(mixed $array, mixed $key): bool
@@ -325,7 +325,7 @@ class Arr
     /**
      * Determine if the given key doesn't exist in the provided array.
      *
-     * @param  ArrayAccess|\DragonCode\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Arrayable|array  $array
+     * @param  ArrayAccess|Arrayable|ArrayableIlluminate|array  $array
      */
     public function doesntExist(mixed $array, mixed $key): bool
     {
@@ -335,7 +335,7 @@ class Arr
     /**
      * Determine if the given key exists in the provided array without dot divider.
      *
-     * @param  ArrayAccess|\DragonCode\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Arrayable|array  $array  |\ArrayAccess
+     * @param  ArrayAccess|Arrayable|ArrayableIlluminate|array  $array  |\ArrayAccess
      *     $array
      */
     public function existsWithoutDot(mixed $array, mixed $key): bool
@@ -350,7 +350,7 @@ class Arr
     /**
      * Determine if the given key doesn't exist in the provided array without dot divider.
      *
-     * @param  ArrayAccess|\DragonCode\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Arrayable|array  $array  |\ArrayAccess
+     * @param  ArrayAccess|Arrayable|ArrayableIlluminate|array  $array  |\ArrayAccess
      *     $array
      */
     public function doesntExistWithoutDot(mixed $array, mixed $key): bool
@@ -363,7 +363,7 @@ class Arr
      *
      * @see https://github.com/illuminate/collections/blob/master/Arr.php
      *
-     * @param  ArrayAccess|\DragonCode\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Arrayable|array  $array  |ArrayAccess
+     * @param  ArrayAccess|Arrayable|ArrayableIlluminate|array  $array  |ArrayAccess
      *     $array
      *
      * @return mixed|null
@@ -691,9 +691,20 @@ class Arr
     }
 
     /**
-     * Determines if the value is doesn't empty.
+     * Determines if the value doesn't empty.
+     *
+     * @deprecated
+     * @see self::isNotEmpty()
      */
     public function doesntEmpty(mixed $value): bool
+    {
+        return ! $this->isEmpty($value);
+    }
+
+    /**
+     * Determines if the value isn't empty.
+     */
+    public function isNotEmpty(mixed $value): bool
     {
         return ! $this->isEmpty($value);
     }

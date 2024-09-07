@@ -143,7 +143,7 @@ class Url
      *
      * @throws NotValidUrlException
      *
-     * @return BuilderContract|\DragonCode\Support\Http\Builder|string
+     * @return BuilderContract|Builder|string
      */
     public function validated(mixed $url): mixed
     {
