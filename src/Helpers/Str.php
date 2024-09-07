@@ -521,19 +521,19 @@ class Str
 
     /**
      * @deprecated
-     * @see self::isntEmpty()
+     * @see self::isNotEmpty()
      *
      * Determines if the value is doesn't empty.
      */
     public function doesntEmpty(mixed $value): bool
     {
-        return $this->isntEmpty($value);
+        return $this->isNotEmpty($value);
     }
 
     /**
      * Determines if the value isn't empty.
      */
-    public function isntEmpty(mixed $value): bool
+    public function isNotEmpty(mixed $value): bool
     {
         return ! $this->isEmpty($value);
     }
