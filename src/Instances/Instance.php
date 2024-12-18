@@ -88,7 +88,18 @@ class Instance
             return true;
         }
 
-        return IsHelper::string($haystack) && (class_exists($haystack) || interface_exists($haystack) || trait_exists($haystack) || enum_exists($haystack));
+        if (! IsHelper::string($haystack)) {
+            return false;
+        }
+
+        if (in_array($haystack, ['/', '\\'])) {
+            return false;
+        }
+
+        return class_exists($haystack)
+            || interface_exists($haystack)
+            || trait_exists($haystack)
+            || enum_exists($haystack);
     }
 
     /**
