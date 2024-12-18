@@ -655,6 +655,10 @@ class Arr
             return true;
         }
 
+        if (is_string($value) && in_array(trim($value), ['/', '\\'])) {
+            return false;
+        }
+
         if (
             is_string($value)
             && method_exists($value, 'toArray')
