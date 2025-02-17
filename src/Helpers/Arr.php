@@ -8,7 +8,7 @@
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
  *
- * @copyright 2024 Andrey Helldar
+ * @copyright 2025 Andrey Helldar
  *
  * @license MIT
  *
@@ -154,7 +154,7 @@ class Arr
     {
         $sorter = array_intersect($sorter, array_keys($array));
 
-        return array_merge(array_flip($sorter), $array);
+        return $this->merge(array_flip($sorter), $array);
     }
 
     /**
@@ -542,7 +542,7 @@ class Arr
             if (is_array($value)) {
                 $values = $this->flattenKeys($value, $delimiter, $new_key);
 
-                $result = array_merge($result, $values);
+                $result = $this->merge($result, $values);
 
                 continue;
             }
