@@ -8,7 +8,7 @@
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
  *
- * @copyright 2024 Andrey Helldar
+ * @copyright 2025 Andrey Helldar
  *
  * @license MIT
  *
@@ -151,6 +151,25 @@ class FlattenKeysTest extends TestCase
             'between.foo.baq' => 'Baq',
 
             'custom.attribute-name.rule-name' => 'custom-message',
+        ];
+
+        $this->assertEquals($expected, Arr::flattenKeys($array));
+    }
+
+    public function testMixedKeyTypes()
+    {
+        $array = [
+            404   => 'Foo',
+            '500' => 'Bar',
+            'baz' => 'Baz',
+            'qwe' => ['rty' => 'Qwerty'],
+        ];
+
+        $expected = [
+            '404'     => 'Foo',
+            '500'     => 'Bar',
+            'baz'     => 'Baz',
+            'qwe.rty' => 'Qwerty',
         ];
 
         $this->assertEquals($expected, Arr::flattenKeys($array));
