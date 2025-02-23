@@ -29,5 +29,8 @@ jobs:
             -   name: Install dependencies
                 run: composer update --prefer-dist --no-progress --no-interaction
 
+            -   name: Update PHPUnit Configuration
+                run: vendor/bin/phpunit --migrate-configuration
+
             -   name: Execute tests
                 run: sudo vendor/bin/phpunit
