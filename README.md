@@ -1,6 +1,6 @@
 # Support
 
-![the dragon code support](https://preview.dragon-code.pro/the-dragon-code/support.svg?brand=php&mode=dark)
+![the dragon code support](https://banners.beyondco.de/Support%20Library.png?theme=light&packageManager=composer+require&packageName=dragon-code%2Fsupport&pattern=topography&style=style_2&description=by+The+Dragon+Code&md=1&showWatermark=1&fontSize=100px&images=https%3A%2F%2Fwww.php.net%2Fimages%2Flogos%2Fnew-php-logo.svg)
 
 [![Stable Version][badge_stable]][link_packagist]
 [![Unstable Version][badge_unstable]][link_packagist]
