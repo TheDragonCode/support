@@ -1,8 +1,8 @@
 # Support
 
 <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://banners.beyondco.de/Support.png?theme=dark&pattern=topography&style=style_2&fontSize=100px&images=https%3A%2F%2Fsymfony.com%2Flogos%2Fsymfony_black_03.svg&packageManager=composer+require&packageName=dragon-code%2Fsupport&description=Support+package+is+a+collection+of+helpers+and+tools+for+any+project.&md=1&showWatermark=1">
-    <img src="https://banners.beyondco.de/Support.png?theme=light&pattern=topography&style=style_2&fontSize=100px&images=https%3A%2F%2Fsymfony.com%2Flogos%2Fsymfony_black_03.svg&packageManager=composer+require&packageName=dragon-code%2Fsupport&description=Support+package+is+a+collection+of+helpers+and+tools+for+any+project.&md=1&showWatermark=1" alt="Support">
+    <source media="(prefers-color-scheme: dark)" srcset="https://banners.beyondco.de/Support.png?pattern=topography&style=style_2&fontSize=100px&md=1&showWatermark=1&theme=dark&packageManager=composer+require&packageName=dragon-code%2Fsupport&description=Support+package+is+a+collection+of+helpers+and+tools+for+any+project.&images=https%3A%2F%2Fsymfony.com%2Flogos%2Fsymfony_black_03.svg">
+    <img src="https://banners.beyondco.de/Support.png?pattern=topography&style=style_2&fontSize=100px&md=1&showWatermark=1&theme=light&packageManager=composer+require&packageName=dragon-code%2Fsupport&description=Support+package+is+a+collection+of+helpers+and+tools+for+any+project.&images=https%3A%2F%2Fsymfony.com%2Flogos%2Fsymfony_black_03.svg" alt="Support">
 </picture>
 
 [![Stable Version][badge_stable]][link_packagist]
